@@ -1,0 +1,226 @@
+Got the binding port: {http://neighbourhood.statistics.gov.uk/nde/discoveryservice}NeSSDiscoveryBindingPort
+
+
+>> GetHierarchies()
+  Hierarchy:    26: 2011 Statistical Geography Hierarchy
+  Hierarchy:    2: 2001 Statistical Geography Hierarchy
+  Hierarchy:    3: 1998 Administrative Hierarchy
+  Hierarchy:    4: 2003 Administrative Hierarchy
+  Hierarchy:    7: 2003 Electoral Hierarchy
+  Hierarchy:    8: 2003 Health Hierarchy
+  Hierarchy:    9: 2003 Parish Hierarchy
+  Hierarchy:    10: 2003 Education Hierarchy
+  Hierarchy:    11: 2004 Administrative Hierarchy
+  Hierarchy:    12: New Deal for Communities (Best fit)
+  Hierarchy:    14: Provisional Parliamentary Constituencies 2007
+  Hierarchy:    15: 2006 Health Hierarchy
+  Hierarchy:    17: 2006 Administrative Hierarchy
+  Hierarchy:    16: 2005 Administrative Hierarchy
+  Hierarchy:    18: 2007 Administrative Hierarchy
+  Hierarchy:    23: 2010 Westminster Parliamentary Constituencies
+  Hierarchy:    22: 2008 Administrative Hierarchy
+  Hierarchy:    25: 2010 Administrative Hierarchy
+  Hierarchy:    24: 2009 Administrative Hierarchy
+  Hierarchy:    27: 2011 Administrative Hierarchy
+  Hierarchy:    29: 2011 Parish Hierarchy
+  Hierarchy:    28: 2011 Westminster Parliamentary Constituencies
+
+public static final int HIERARCHY_2004_ADMINISTRATIVE = 11;
+
+>> GetLevelTypes()
+  LevelType:    164: COM
+  LevelType:    10: CTRY
+  LevelType:    12: CTY
+  LevelType:    180: EA
+  LevelType:    9: EW
+  LevelType:    96: FCTY
+  LevelType:    251: FLA
+  LevelType:    21: GAZ
+  LevelType:    259: GAZ2
+  LevelType:    8: GB
+  LevelType:    11: GOR
+  LevelType:    19: HA
+  LevelType:    13: LA
+  LevelType:    141: LSOA
+  LevelType:    140: MSOA
+  LevelType:    201: NDC
+  LevelType:    17: NP
+  LevelType:    15: OA
+  LevelType:    16: P
+  LevelType:    25: PA
+  LevelType:    22: PCD
+  LevelType:    257: PCD2
+  LevelType:    20: PCO
+  LevelType:    24: PD
+  LevelType:    23: PS
+  LevelType:    97: RO
+  LevelType:    81: SHA
+  LevelType:    143: SN
+  LevelType:    144: SPR
+  LevelType:    28: U
+  LevelType:    7: UK
+  LevelType:    29: USD
+  LevelType:    153: USOA
+  LevelType:    14: WARD
+  LevelType:    27: WPC
+
+
+>> GetHierarchies()
+  >>GetLevelTypesByHierarchy(26)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    13: LA
+    LevelType:    140: MSOA
+    LevelType:    141: LSOA
+    LevelType:    15: OA
+  >>GetLevelTypesByHierarchy(2)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    251: FLA
+    LevelType:    140: MSOA
+    LevelType:    141: LSOA
+    LevelType:    15: OA
+  >>GetLevelTypesByHierarchy(3)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(4)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+    LevelType:    15: OA
+  >>GetLevelTypesByHierarchy(7)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    144: SPR
+    LevelType:    27: WPC
+  >>GetLevelTypesByHierarchy(8)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    81: SHA
+    LevelType:    20: PCO
+  >>GetLevelTypesByHierarchy(9)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    13: LA
+    LevelType:    16: P
+  >>GetLevelTypesByHierarchy(10)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    180: EA
+  >>GetLevelTypesByHierarchy(11)
+    LevelType:    7: UK
+    LevelType:    8: GB
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(12)
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    201: NDC
+  >>GetLevelTypesByHierarchy(14)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    27: WPC
+  >>GetLevelTypesByHierarchy(15)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    81: SHA
+    LevelType:    20: PCO
+  >>GetLevelTypesByHierarchy(17)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(16)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(18)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(23)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    27: WPC
+  >>GetLevelTypesByHierarchy(22)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(25)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(24)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(27)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    12: CTY
+    LevelType:    13: LA
+    LevelType:    14: WARD
+  >>GetLevelTypesByHierarchy(29)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    13: LA
+    LevelType:    16: P
+  >>GetLevelTypesByHierarchy(28)
+    LevelType:    9: EW
+    LevelType:    10: CTRY
+    LevelType:    11: GOR
+    LevelType:    27: WPC
