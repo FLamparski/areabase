@@ -1,8 +1,8 @@
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Dictionary;
+import java.util.Enumeration;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -36,10 +36,15 @@ public class GetCompatibleSubjectsTestCase {
 			e.printStackTrace();
 			fail("Error fetching compatible subjects");
 		}
-		Subject testSubject = compatibleSubjects.keys().nextElement();
-		int testSubjectCount = compatibleSubjects.get(testSubject).intValue();
-		assertEquals(58, testSubject.getId());
-		assertEquals(190, testSubjectCount);
+		Enumeration<Subject> subjects_keys = compatibleSubjects.keys();
+		boolean found_crime_safety = false;
+		while (subjects_keys.hasMoreElements()) {
+			Subject subject = subjects_keys.nextElement();
+			if (subject.getId() == 3)
+				found_crime_safety = true;
+		}
+		if (!(found_crime_safety))
+			fail("Did not find required subject Crime and Safety");
 	}
 
 }

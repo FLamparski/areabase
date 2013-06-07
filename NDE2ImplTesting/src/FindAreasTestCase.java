@@ -40,7 +40,13 @@ public class FindAreasTestCase {
 		}
 		Area smallest = areas.get(0);
 		assertEquals("E00016308", smallest.getName());
-		assertEquals(smallest.getParent().getName(), "Lewisham 019E");
+		try {
+			assertEquals(smallest.getParent().getName(), "Lewisham");
+		} catch (XPathExpressionException | ParserConfigurationException
+				| SAXException | IOException | NDE2Exception e) {
+			e.printStackTrace();
+			fail("Exception was thrown.");
+		}
 	}
 
 }

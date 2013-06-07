@@ -192,8 +192,7 @@ public class FindAreasMethodCall extends BaseMethodCall {
 					.getTextContent());
 
 			Area area = new Area(areaName, areaId, levelTypeId, hierarchyId);
-			if (i > 0) // If i > 0, current area is the parent of previous area.
-				results.get(i - 1).setParent(area);
+
 			results.add(area);
 		}
 

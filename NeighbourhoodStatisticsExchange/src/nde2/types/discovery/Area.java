@@ -10,6 +10,7 @@ import javax.xml.xpath.XPathExpressionException;
 import nde2.errors.NDE2Exception;
 import nde2.methodcalls.discovery.GetAreaChildrenMethodCall;
 import nde2.methodcalls.discovery.GetAreaDetailMethodCall;
+import nde2.methodcalls.discovery.GetAreaParentMethodCall;
 import nde2.methodcalls.discovery.GetCompatibleSubjectsMethodCall;
 import nde2.types.NDE2Result;
 
@@ -235,12 +236,30 @@ public class Area extends NDE2Result {
 		return hierarchyId;
 	}
 
-	public Area getParent() {
-		return parent;
-	}
-
 	public void setParent(Area parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * <i>Note:</i> If the Area was obtained in a way different from postcoding
+	 * it, it may not have a parent initialised. This means it'll have to fetch
+	 * it. Some parents are skipped. Ask NDE2.
+	 * 
+	 * @return This {@link Area}'s parent
+	 * @throws NDE2Exception
+	 * @throws IOException
+	 * @throws SAXException
+	 * @throws ParserConfigurationException
+	 * @throws XPathExpressionException
+	 */
+	public Area getParent() throws XPathExpressionException,
+			ParserConfigurationException, SAXException, IOException,
+			NDE2Exception {
+		if (parent == null) {
+			parent = new GetAreaParentMethodCall().addArea(this)
+					.getAreaParent();
+		}
+		return parent;
 	}
 
 	/**
