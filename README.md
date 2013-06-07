@@ -40,4 +40,6 @@ Copyright (C) 2013 Filip Wieland
 
 This repository also contains a source copy of [Action Bar Sherlock](http://actionbarsherlock.com/), licensed under Apache 2.0 license.
 
-This project uses the [RoboGuice](https://github.com/roboguice/roboguice) library licensed under Apache 2.0 license.
+The Areabase uses the [RoboGuice](https://github.com/roboguice/roboguice) library licensed under Apache 2.0 license.
+
+The NeSSTest program uses SWT. _Note:_ you may need to supply your own version of SWT as it is a native library. This one will work on 64-bit Linux environments with GTK+ 2 installed.
