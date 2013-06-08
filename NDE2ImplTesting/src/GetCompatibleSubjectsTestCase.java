@@ -1,8 +1,9 @@
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -27,7 +28,7 @@ public class GetCompatibleSubjectsTestCase {
 
 	@Test
 	public void testGetCompatibleSubjects() {
-		Dictionary<Subject, Integer> compatibleSubjects = null;
+		Map<Subject, Integer> compatibleSubjects = null;
 		try {
 			compatibleSubjects = new GetCompatibleSubjectsMethodCall().addArea(
 					area).getCompatibleSubjects();
@@ -36,12 +37,13 @@ public class GetCompatibleSubjectsTestCase {
 			e.printStackTrace();
 			fail("Error fetching compatible subjects");
 		}
-		Enumeration<Subject> subjects_keys = compatibleSubjects.keys();
+		Set<Entry<Subject, Integer>> subjects_with_counts = compatibleSubjects
+				.entrySet();
 		boolean found_crime_safety = false;
-		while (subjects_keys.hasMoreElements()) {
-			Subject subject = subjects_keys.nextElement();
-			if (subject.getId() == 3)
+		for (Entry<Subject, Integer> subject_with_count : subjects_with_counts) {
+			if (subject_with_count.getKey().getId() == 3) {
 				found_crime_safety = true;
+			}
 		}
 		if (!(found_crime_safety))
 			fail("Did not find required subject Crime and Safety");

@@ -1,6 +1,7 @@
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -21,17 +22,16 @@ public class subjectstest {
 		for (int rep = 1; rep <= 5; rep++) {
 			System.out.println("Repetition " + rep);
 			try {
-				Dictionary<Subject, Integer> availSubjects = area
+				Map<Subject, Integer> availSubjects = area
 						.getCompatibleDatasets();
 				System.out.println(String.format(
 						"Found %d available subjects.", availSubjects.size()));
-				Enumeration<Subject> availSubjectEnumeration = availSubjects
-						.keys();
-				while (availSubjectEnumeration.hasMoreElements()) {
-					Subject sbj = availSubjectEnumeration.nextElement();
-					System.out.println(String.format(
-							"Subject #%d: %s (%d datasets)", sbj.getId(),
-							sbj.getName(), availSubjects.get(sbj)));
+				Set<Entry<Subject, Integer>> availSubjectsList = availSubjects
+						.entrySet();
+				for (Entry<Subject, Integer> availSubject : availSubjectsList) {
+					System.out.println(String.format("%d of Subject #%d: %s",
+							availSubject.getValue(), availSubject.getKey()
+									.getId(), availSubject.getKey().getName()));
 				}
 			} catch (XPathExpressionException | ParserConfigurationException
 					| SAXException | IOException | NDE2Exception e) {

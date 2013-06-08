@@ -21,6 +21,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.ProgressBar;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -250,7 +251,13 @@ public class NeSSTest {
 			@Override
 			public void onError(Exception cause, String msg) {
 				mOperationPBar.setSelection(0);
-				// TODO: Create a dialogue box for errors.
+				MessageBox dlg = new MessageBox(mNdeTestAppShell,
+						SWT.ICON_ERROR | SWT.OK);
+				dlg.setText("Could not find areas. This is an error.");
+				String dlg_msg = (cause != null) ? cause.getMessage() : "";
+				dlg_msg += (msg != null) ? ("\n" + msg) : "";
+				dlg.setMessage(dlg_msg);
+				dlg.open();
 			}
 
 			@Override
