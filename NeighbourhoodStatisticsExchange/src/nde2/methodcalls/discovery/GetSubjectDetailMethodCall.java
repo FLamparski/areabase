@@ -11,7 +11,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
-import nde2.methodcalls.WebMethod;
 import nde2.types.discovery.DetailedSubject;
 import nde2.types.discovery.Subject;
 
@@ -44,7 +43,18 @@ public class GetSubjectDetailMethodCall extends BaseMethodCall {
 		return this;
 	}
 
-	@WebMethod(endpoint = ENDPOINT, method = METHOD_NAME)
+	/**
+	 * 
+	 * @return A detailed representation of the supplied {@link Subject}
+	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions fail to evaluate.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws NDE2Exception
+	 * @see {@link BaseMethodCall} for more information about the exceptions
+	 *      thrown.
+	 */
 	public DetailedSubject getSubjectDetail() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception {

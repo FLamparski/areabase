@@ -15,7 +15,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
-import nde2.methodcalls.WebMethod;
 import nde2.types.discovery.Area;
 import nde2.types.discovery.DataSetFamiliy;
 import nde2.types.discovery.DateRange;
@@ -72,13 +71,14 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 	 * 
 	 * @return
 	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions fail to evaluate.
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
 	 * @throws ParseException
+	 * @see {@link BaseMethodCall} for more information on exceptions thrown.
 	 */
-	@WebMethod(endpoint = ENDPOINT, method = METHOD_NAME)
 	public List<DataSetFamiliy> getDatasets() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception, ParseException {

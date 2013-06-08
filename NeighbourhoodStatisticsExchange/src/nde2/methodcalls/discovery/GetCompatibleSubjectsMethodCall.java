@@ -46,10 +46,13 @@ public class GetCompatibleSubjectsMethodCall extends BaseMethodCall {
 	 * 
 	 * @return A list of compatible subjects for the area specified.
 	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions fail to evaluate.
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
+	 * @see {@link BaseMethodCall} for more information about the exceptions
+	 *      thrown.
 	 */
 	public Map<Subject, Integer> getCompatibleSubjects()
 			throws XPathExpressionException, ParserConfigurationException,
