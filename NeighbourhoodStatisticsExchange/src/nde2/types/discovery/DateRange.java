@@ -17,7 +17,7 @@ public class DateRange extends NDE2Result {
 	private static final long serialVersionUID = 1L;
 
 	// 2008-09-01T00:00:00.000+01:00
-	private static final String DATETIME_PATTERN = "yyyy-MM-ddThh:mm:ss.SSSzzz";
+	private static final String DATETIME_PATTERN = "yyyy-MM-dd'T'hh:mm:ss.SSSZ";
 
 	private Date startDate;
 	private Date endDate;
@@ -35,9 +35,20 @@ public class DateRange extends NDE2Result {
 
 	public DateRange(String startDateString, String endDateString)
 			throws ParseException {
+		String _startDateString = startDateString.substring(0,
+				startDateString.length() - 5);
+		_startDateString += startDateString.substring(
+				startDateString.length() - 5, startDateString.length())
+				.replace(":", "");
+
+		String _endDateString = endDateString.substring(0,
+				endDateString.length() - 5);
+		_endDateString += endDateString.substring(endDateString.length() - 5,
+				endDateString.length()).replace(":", "");
+
 		startDate = new SimpleDateFormat(DATETIME_PATTERN)
-				.parse(startDateString);
-		endDate = new SimpleDateFormat(DATETIME_PATTERN).parse(endDateString);
+				.parse(_startDateString);
+		endDate = new SimpleDateFormat(DATETIME_PATTERN).parse(_endDateString);
 	}
 
 	/**

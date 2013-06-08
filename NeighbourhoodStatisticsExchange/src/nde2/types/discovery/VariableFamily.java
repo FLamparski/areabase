@@ -21,6 +21,7 @@ public class VariableFamily extends NDE2Result {
 		this.dateRanges = dateRanges;
 		statisticalUnit = sunit;
 		measurementUnit = munit;
+		this.name = name;
 	}
 
 	/**
