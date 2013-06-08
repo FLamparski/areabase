@@ -1,8 +1,8 @@
 package nde2.methodcalls.discovery;
 
 import java.io.IOException;
-import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -52,7 +52,7 @@ public class GetSubjectDetailMethodCall extends BaseMethodCall {
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
 		 */
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		params.put("SubjectId", Long.toString(basicSubject.getId()));
 
 		/*

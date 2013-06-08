@@ -2,9 +2,9 @@ package nde2.methodcalls.discovery;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -13,7 +13,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
-import nde2.methodcalls.WebMethod;
 import nde2.types.discovery.Area;
 
 import org.w3c.dom.Document;
@@ -129,8 +128,10 @@ public class FindAreasMethodCall extends BaseMethodCall {
 	 * @throws ParserConfigurationException
 	 * @throws NDE2Exception
 	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions fail to evaluate.
+	 * @see {@link BaseMethodCall} for more information about the exceptions
+	 *      thrown.
 	 */
-	@WebMethod(endpoint = ENDPOINT, method = METHOD_NAME)
 	public List<Area> findAreas() throws NDE2Exception,
 			ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException {
@@ -138,7 +139,7 @@ public class FindAreasMethodCall extends BaseMethodCall {
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
 		 */
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		if (postcode != null)
 			params.put("Postcode", postcode);
 		if (areaNamePart != null)

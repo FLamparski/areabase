@@ -3,6 +3,7 @@ package nde2.types.discovery;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -16,6 +17,15 @@ import nde2.types.NDE2Result;
 
 import org.xml.sax.SAXException;
 
+/**
+ * This class of objects represents geographic of administrative areas returned
+ * by the NDE2 Discovery web service.
+ * 
+ * @see {@link DetailedArea} -- a version of the area that has slightly more
+ *      data; you want this for the Ordnance Survey envelope.
+ * @author filip
+ * 
+ */
 public class Area extends NDE2Result {
 	/**
 	 * 
@@ -200,7 +210,7 @@ public class Area extends NDE2Result {
 	private int hierarchyId;
 	private Area parent;
 	private List<Area> children;
-	private Dictionary<Subject, Integer> compatibleDatasets;
+	private Map<Subject, Integer> compatibleDatasets;
 
 	public Area(String name, long areaId, int levelTypeId, int hierarchyId) {
 		this.name = name;
@@ -220,22 +230,47 @@ public class Area extends NDE2Result {
 		this.children = copy.children;
 	}
 
+	/**
+	 * 
+	 * @return The area's proper name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @return The area's internal ID
+	 */
 	public long getAreaId() {
 		return areaId;
 	}
 
+	/**
+	 * Comparable to Area.LEVELTYPE_ constants.
+	 * 
+	 * @return This area's administrative level type.
+	 */
 	public int getLevelTypeId() {
 		return levelTypeId;
 	}
 
+	/**
+	 * Comparable to Area.HIERARCHY_ constants.
+	 * 
+	 * @return This area's administrative hierarchy ID
+	 */
 	public int getHierarchyId() {
 		return hierarchyId;
 	}
 
+	/**
+	 * Set this area's parent (containing area). Note that this should not be
+	 * used for user code unless absolutely needed.
+	 * 
+	 * @param parent
+	 *            This area's parent/containing area.
+	 */
 	public void setParent(Area parent) {
 		this.parent = parent;
 	}
@@ -244,6 +279,9 @@ public class Area extends NDE2Result {
 	 * <i>Note:</i> If the Area was obtained in a way different from postcoding
 	 * it, it may not have a parent initialised. This means it'll have to fetch
 	 * it. Some parents are skipped. Ask NDE2.
+	 * <p>
+	 * If the parent has been set by setParent(), then that object is returned
+	 * instead.
 	 * 
 	 * @return This {@link Area}'s parent
 	 * @throws NDE2Exception
@@ -304,6 +342,16 @@ public class Area extends NDE2Result {
 	 * <i>Note:</i> Areas are not initialised with compatible datasets. First
 	 * call to this method may take a while. Use asynchronously.
 	 * 
+	 * <p>
+	 * Due to how {@link Dictionary Dictionaries} work, you'll need to extrace
+	 * the keys into a separate variable, or else the enumeration will get stuck
+	 * on a loop. Do it like so:
+	 * <p>
+	 * {@code Enumeration<Subject> = area.getCompatibleDatasets().keys();}
+	 * <p>
+	 * Or save the return value into a variable and <i>then</i> do that; saves
+	 * the NDE2 calls.
+	 * 
 	 * @return A list of compatible {@link Subject}s, together with their count
 	 *         as a {@link Dictionary}, where the Subject is the key, and the
 	 *         count is the value.
@@ -313,7 +361,7 @@ public class Area extends NDE2Result {
 	 * @throws IOException
 	 * @throws NDE2Exception
 	 */
-	public Dictionary<Subject, Integer> getCompatibleDatasets()
+	public Map<Subject, Integer> getCompatibleDatasets()
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException, NDE2Exception {
 		if (compatibleDatasets == null)

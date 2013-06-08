@@ -2,9 +2,9 @@ package nde2.methodcalls.discovery;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -13,7 +13,6 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
-import nde2.methodcalls.WebMethod;
 import nde2.types.discovery.Area;
 
 import org.w3c.dom.Document;
@@ -63,12 +62,14 @@ public class GetAreaChildrenMethodCall extends BaseMethodCall {
 	 * @return A list of children {@link Area}s for the parent {@link Area}
 	 *         supplied.
 	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions used fail to evaluate.
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
+	 * @see {@link BaseMethodCall} for more information about the exceptions
+	 *      thrown.
 	 */
-	@WebMethod(endpoint = ENDPOINT, method = METHOD_NAME)
 	public List<Area> getAreaChildren() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception {
@@ -76,7 +77,7 @@ public class GetAreaChildrenMethodCall extends BaseMethodCall {
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
 		 */
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		params.put("AreaId", Long.toString(parentArea.getAreaId()));
 
 		/*

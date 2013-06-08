@@ -3,9 +3,9 @@ package nde2.methodcalls.discovery;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -86,7 +86,7 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
 		 */
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		if (limitingAreaId != 0)
 			params.put("AreaId", Long.toString(limitingAreaId));
 		params.put("SubjectId", Integer.toString(subjectId));

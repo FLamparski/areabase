@@ -2,6 +2,12 @@ package nde2.types.discovery;
 
 import nde2.types.NDE2Result;
 
+/**
+ * Represents a dataset family, as returned by NDE2 web service.
+ * 
+ * @author filip
+ * 
+ */
 public class DataSetFamiliy extends NDE2Result {
 
 	private static final long serialVersionUID = 1L;
@@ -22,21 +28,21 @@ public class DataSetFamiliy extends NDE2Result {
 	}
 
 	/**
-	 * @return the dateRanges
+	 * @return Date ranges covered by this dataset family.
 	 */
 	public DateRange[] getDateRanges() {
 		return dateRanges;
 	}
 
 	/**
-	 * @return the familyId
+	 * @return NDE's internal ID of this family
 	 */
 	public int getFamilyId() {
 		return familyId;
 	}
 
 	/**
-	 * @return the name
+	 * @return Proper name of this family.
 	 */
 	public String getName() {
 		return name;

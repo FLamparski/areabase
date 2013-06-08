@@ -2,8 +2,8 @@ package nde2.methodcalls.discovery;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -18,6 +18,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * <i>Encapsulates the GetAreaComparators() method call and returns the closest
+ * comparator. Creation follows the Builder pattern, sort of.</i>
+ * 
+ * <p>
+ * This operation gives you the higher level areas which contain your chosen
+ * area, which are considered useful for comparison purposes. For example, the
+ * comparator areas of an Output Area might be the local authority, the region
+ * (if within England) and the country.
+ * 
+ * @author filip
+ * 
+ */
 public class GetAreaParentMethodCall extends BaseMethodCall {
 	private Area area;
 	private final String METHOD_NAME = "GetAreaComparators";
@@ -31,6 +44,20 @@ public class GetAreaParentMethodCall extends BaseMethodCall {
 		return this;
 	}
 
+	/**
+	 * 
+	 * @return A parent (comparator) area of the supplied {@link Area}. Note
+	 *         that due to how NDE works, it may not be the actual
+	 *         administrative parent.
+	 * @throws XPathExpressionException
+	 *             Thrown when the XPath expressions fail to evaluate.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws NDE2Exception
+	 * @see {@link BaseMethodCall} for more information about the exceptions
+	 *      thrown.
+	 */
 	public Area getAreaParent() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception {
@@ -38,7 +65,7 @@ public class GetAreaParentMethodCall extends BaseMethodCall {
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
 		 */
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		params.put("AreaId", Long.toString(area.getAreaId()));
 
 		/*

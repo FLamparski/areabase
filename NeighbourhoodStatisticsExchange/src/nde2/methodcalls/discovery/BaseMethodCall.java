@@ -1,7 +1,7 @@
 package nde2.methodcalls.discovery;
 
 import java.io.IOException;
-import java.util.Dictionary;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -51,8 +51,7 @@ public abstract class BaseMethodCall extends nde2.methodcalls.BaseMethodCall {
 	 *             Thrown if the server returned an &lt;Error> instead of
 	 *             expected result
 	 */
-	protected Document doCall_base(String method,
-			Dictionary<String, String> params)
+	protected Document doCall_base(String method, Map<String, String> params)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException, NDE2Exception {
 		Document response = super.doCall_base(ENDPOINT, method, params);

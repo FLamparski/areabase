@@ -1,8 +1,8 @@
 package nde2.methodcalls.discovery;
 
 import java.io.IOException;
-import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
@@ -42,10 +42,19 @@ public class GetCompatibleSubjectsMethodCall extends BaseMethodCall {
 		return this;
 	}
 
-	public Dictionary<Subject, Integer> getCompatibleSubjects()
+	/**
+	 * 
+	 * @return A list of compatible subjects for the area specified.
+	 * @throws XPathExpressionException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 * @throws NDE2Exception
+	 */
+	public Map<Subject, Integer> getCompatibleSubjects()
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException, NDE2Exception {
-		Dictionary<String, String> params = new Hashtable<String, String>();
+		Map<String, String> params = new Hashtable<String, String>();
 		params.put("AreaId", Long.toString(area.getAreaId()));
 
 		Document nessResponse = doCall_base(METHOD_NAME, params);

@@ -5,8 +5,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Dictionary;
-import java.util.Enumeration;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,16 +53,16 @@ public abstract class BaseMethodCall {
 	 *             response. May indicate connection problems.
 	 */
 	protected Document doCall_base(String endpoint, String method,
-			Dictionary<String, String> params)
-			throws ParserConfigurationException, SAXException, IOException {
+			Map<String, String> params) throws ParserConfigurationException,
+			SAXException, IOException {
 		/* Build a URL which for the method call */
 		StringBuilder methodCallStrBuilder = new StringBuilder(endpoint);
 		methodCallStrBuilder.append(method).append("?");
-		Enumeration<String> paramNames = params.keys();
-		while (paramNames.hasMoreElements()) {
-			String paramName = paramNames.nextElement();
-			methodCallStrBuilder.append(paramName + "="
-					+ URLEncoder.encode(params.get(paramName), "UTF-8"));
+		Set<Entry<String, String>> paramEntries = params.entrySet();
+		for (Entry<String, String> param : paramEntries) {
+
+			methodCallStrBuilder.append(param.getKey() + "="
+					+ URLEncoder.encode(param.getValue(), "UTF-8"));
 		}
 
 		URL callUrl = new URL(methodCallStrBuilder.toString());

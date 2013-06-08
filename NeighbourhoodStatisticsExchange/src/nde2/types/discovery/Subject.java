@@ -11,6 +11,13 @@ import nde2.types.NDE2Result;
 
 import org.xml.sax.SAXException;
 
+/**
+ * Represents a subject in the NDE database.
+ * 
+ * @author filip
+ * @see {@link DetailedSubject}
+ * 
+ */
 public class Subject extends NDE2Result {
 
 	/**
@@ -31,10 +38,18 @@ public class Subject extends NDE2Result {
 		this.id = copy.id;
 	}
 
+	/**
+	 * 
+	 * @return The subject's proper name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * 
+	 * @return The subject's ID, used for NDE querying.
+	 */
 	public int getId() {
 		return id;
 	}

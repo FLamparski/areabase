@@ -1,5 +1,11 @@
 package nde2.types.discovery;
 
+/**
+ * A more detailed representation of a subject. Has *two* descriptions!
+ * 
+ * @author filip
+ * @see {@link Subject}
+ */
 public class DetailedSubject extends Subject {
 
 	/**
@@ -22,10 +28,18 @@ public class DetailedSubject extends Subject {
 		this.moreDescription = desc_ext;
 	}
 
+	/**
+	 * 
+	 * @return A brief description of the subject
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * 
+	 * @return An extended description of the subject
+	 */
 	public String getMoreDescription() {
 		return moreDescription;
 	}
