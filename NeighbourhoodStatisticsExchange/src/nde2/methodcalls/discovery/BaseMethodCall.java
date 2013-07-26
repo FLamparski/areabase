@@ -4,15 +4,11 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
@@ -54,20 +50,6 @@ public abstract class BaseMethodCall extends nde2.methodcalls.BaseMethodCall {
 	protected Document doCall_base(String method, Map<String, String> params)
 			throws ParserConfigurationException, SAXException, IOException,
 			XPathExpressionException, NDE2Exception {
-		Document response = super.doCall_base(ENDPOINT, method, params);
-
-		XPath xpath = XPathFactory.newInstance().newXPath();
-
-		Node errorNode = (Node) xpath.evaluate("/Error", response,
-				XPathConstants.NODE);
-		if (errorNode != null) {
-			String errMsg = ((Node) xpath.evaluate("/Error/message", response,
-					XPathConstants.NODE)).getTextContent();
-			String errDetail = ((Node) xpath.evaluate("/Error/detail",
-					response, XPathConstants.NODE)).getTextContent();
-			throw new NDE2Exception(errMsg, errDetail, 0);
-		}
-
-		return response;
+		return super.doCall_base(ENDPOINT, method, params);
 	}
 }

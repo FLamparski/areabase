@@ -12,8 +12,15 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
+import nde2.errors.NDE2Exception;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
@@ -51,10 +58,14 @@ public abstract class BaseMethodCall {
 	 * @throws IOException
 	 *             When any {@link IOException}s occur when pulling the
 	 *             response. May indicate connection problems.
+	 * @throws XPathExpressionException
+	 *             When the XPath is messed up
+	 * @throws NDE2Exception
+	 *             When the server signals an error in the query
 	 */
 	protected Document doCall_base(String endpoint, String method,
 			Map<String, String> params) throws ParserConfigurationException,
-			SAXException, IOException {
+			SAXException, IOException, XPathExpressionException, NDE2Exception {
 		/* Build a URL which for the method call */
 		StringBuilder methodCallStrBuilder = new StringBuilder(endpoint);
 		methodCallStrBuilder.append(method).append("?");
@@ -76,6 +87,19 @@ public abstract class BaseMethodCall {
 		DocumentBuilder docBld = docBldFac.newDocumentBuilder();
 		Document doc = docBld.parse(is);
 		callConnection.disconnect();
+
+		XPath xpath = XPathFactory.newInstance().newXPath();
+
+		Node errorNode = (Node) xpath.evaluate("/Error", doc,
+				XPathConstants.NODE);
+		if (errorNode != null) {
+			String errMsg = ((Node) xpath.evaluate("/Error/message", doc,
+					XPathConstants.NODE)).getTextContent();
+			String errDetail = ((Node) xpath.evaluate("/Error/detail", doc,
+					XPathConstants.NODE)).getTextContent();
+			throw new NDE2Exception(errMsg, errDetail, 0);
+		}
+
 		return doc;
 	}
 

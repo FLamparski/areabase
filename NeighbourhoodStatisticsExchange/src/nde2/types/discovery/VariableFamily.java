@@ -24,6 +24,14 @@ public class VariableFamily extends NDE2Result {
 		this.name = name;
 	}
 
+	protected VariableFamily(VariableFamily copy) {
+		this.dateRanges = copy.dateRanges;
+		this.measurementUnit = copy.measurementUnit;
+		this.name = copy.name;
+		this.statisticalUnit = copy.statisticalUnit;
+		this.variableFamilyId = copy.variableFamilyId;
+	}
+
 	/**
 	 * @return the variableFamilyId
 	 */
