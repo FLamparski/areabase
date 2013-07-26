@@ -35,6 +35,8 @@ public class Topic extends NDE2Result {
 	 * @param description
 	 * @param title
 	 * @param coinageUnit
+	 *            the unit in which this value is presented. Count, Percentage,
+	 *            etc.
 	 */
 	public Topic(int topicId, int topicCode, int identifier, String creator,
 			String description, String title, String coinageUnit) {
@@ -55,7 +57,7 @@ public class Topic extends NDE2Result {
 	 * 
 	 * @return ID of the topic as spat out by the server.
 	 */
-	int getTopicId() {
+	public int getTopicId() {
 		return topicId;
 	}
 
@@ -96,7 +98,8 @@ public class Topic extends NDE2Result {
 	}
 
 	/**
-	 * @return the coinageUnit
+	 * @return the the unit in which this value is presented. Count, Percentage,
+	 *         etc.
 	 */
 	public String getCoinageUnit() {
 		return coinageUnit;

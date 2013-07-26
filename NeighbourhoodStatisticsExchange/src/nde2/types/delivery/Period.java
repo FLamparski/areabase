@@ -15,6 +15,7 @@ public class Period extends NDE2Result {
 
 	private Date startDate;
 	private Date endDate;
+	private int periodCode;
 
 	/**
 	 * 
@@ -25,11 +26,13 @@ public class Period extends NDE2Result {
 	 * @throws ParseException
 	 *             If one or both of the date strings don't match the pattern
 	 */
-	public Period(String startDateStr, String endDateStr) throws ParseException {
+	public Period(String startDateStr, String endDateStr, int periodCode)
+			throws ParseException {
 		super(VALID_FOR_DAYS);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		startDate = dateFormat.parse(startDateStr);
 		endDate = dateFormat.parse(endDateStr);
+		this.periodCode = periodCode;
 	}
 
 	/**
@@ -44,6 +47,16 @@ public class Period extends NDE2Result {
 	 */
 	public Date getEndDate() {
 		return endDate;
+	}
+
+	/**
+	 * <b>Do not use</b>: This is only useful when ordering topics during the
+	 * creation of a {@link Dataset}.
+	 * 
+	 * @return ID of this particular time period as spat out by the server.
+	 */
+	public int getPeriodCode() {
+		return periodCode;
 	}
 
 	/*

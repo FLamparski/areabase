@@ -54,7 +54,8 @@ public class Boundary extends NDE2Result {
 	}
 
 	/**
-	 * @return the identifier
+	 * @return the identifier, aka the AreaId of the area that this boundary
+	 *         envelopes.
 	 */
 	public int getIdentifier() {
 		return identifier;
@@ -76,10 +77,10 @@ public class Boundary extends NDE2Result {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((boundaryCode == null) ? 0 : boundaryCode.hashCode());
+		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result
 				+ ((envelope == null) ? 0 : envelope.hashCode());
+		result = prime * result + identifier;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
 		return result;
 	}
@@ -98,15 +99,17 @@ public class Boundary extends NDE2Result {
 		if (!(obj instanceof Boundary))
 			return false;
 		Boundary other = (Boundary) obj;
-		if (boundaryCode == null) {
-			if (other.boundaryCode != null)
+		if (creator == null) {
+			if (other.creator != null)
 				return false;
-		} else if (!boundaryCode.equals(other.boundaryCode))
+		} else if (!creator.equals(other.creator))
 			return false;
 		if (envelope == null) {
 			if (other.envelope != null)
 				return false;
 		} else if (!envelope.equals(other.envelope))
+			return false;
+		if (identifier != other.identifier)
 			return false;
 		if (title == null) {
 			if (other.title != null)
