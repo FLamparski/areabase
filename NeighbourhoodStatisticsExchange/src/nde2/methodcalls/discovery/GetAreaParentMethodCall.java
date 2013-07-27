@@ -83,22 +83,18 @@ public class GetAreaParentMethodCall extends BaseMethodCall {
 		 */
 		ArrayList<Area> results = new ArrayList<Area>();
 
-		NodeList areaNames = (NodeList) xpath
-				.evaluate(
-						"//*[local-name() = 'AreaFallsWithin']/*[local-name() = 'Area']/*[local-name() = 'Name']",
-						nessResponse, XPathConstants.NODESET);
-		NodeList areaIds = (NodeList) xpath
-				.evaluate(
-						"//*[local-name() = 'AreaFallsWithin']/*[local-name() = 'Area']/*[local-name() = 'AreaId']",
-						nessResponse, XPathConstants.NODESET);
-		NodeList areaLevelTypeIds = (NodeList) xpath
-				.evaluate(
-						"//*[local-name() = 'AreaFallsWithin']/*[local-name() = 'Area']/*[local-name() = 'LevelTypeId']",
-						nessResponse, XPathConstants.NODESET);
-		NodeList areaHierarchyIds = (NodeList) xpath
-				.evaluate(
-						"//*[local-name() = 'AreaFallsWithin']/*[local-name() = 'Area']/*[local-name() = 'HierarchyId']",
-						nessResponse, XPathConstants.NODESET);
+		NodeList areaNames = (NodeList) xpath.evaluate(
+				"//*[local-name() = 'Area']/*[local-name() = 'Name']",
+				nessResponse, XPathConstants.NODESET);
+		NodeList areaIds = (NodeList) xpath.evaluate(
+				"//*[local-name() = 'Area']/*[local-name() = 'AreaId']",
+				nessResponse, XPathConstants.NODESET);
+		NodeList areaLevelTypeIds = (NodeList) xpath.evaluate(
+				"//*[local-name() = 'Area']/*[local-name() = 'LevelTypeId']",
+				nessResponse, XPathConstants.NODESET);
+		NodeList areaHierarchyIds = (NodeList) xpath.evaluate(
+				"//*[local-name() = 'Area']/*[local-name() = 'HierarchyId']",
+				nessResponse, XPathConstants.NODESET);
 
 		for (int i = 0; i < areaNames.getLength(); i++) {
 

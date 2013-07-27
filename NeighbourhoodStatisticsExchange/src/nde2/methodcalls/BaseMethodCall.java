@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -72,11 +71,21 @@ public abstract class BaseMethodCall {
 		Set<Entry<String, String>> paramEntries = params.entrySet();
 		for (Entry<String, String> param : paramEntries) {
 
-			methodCallStrBuilder.append(param.getKey() + "="
-					+ URLEncoder.encode(param.getValue(), "UTF-8"));
+			methodCallStrBuilder
+					.append(param.getKey() + "=" + param.getValue())
+					.append("&");
 		}
 
-		URL callUrl = new URL(methodCallStrBuilder.toString());
+		/*
+		 * Gets rid of the trailing & from the URLs
+		 */
+		String callUrlStr = methodCallStrBuilder.toString();
+		callUrlStr = callUrlStr.substring(0, callUrlStr.length() - 1);
+
+		// Uncomment for testing:
+		// System.out.printf("Calling: %s\n", callUrlStr);
+
+		URL callUrl = new URL(callUrlStr);
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl
 				.openConnection();
 		InputStream is = callConnection.getInputStream();
@@ -86,6 +95,22 @@ public abstract class BaseMethodCall {
 		docBldFac.setNamespaceAware(true);
 		DocumentBuilder docBld = docBldFac.newDocumentBuilder();
 		Document doc = docBld.parse(is);
+
+		// Uncomment for testing:
+		// {
+		// DOMImplementationLS loadSave = (DOMImplementationLS) doc
+		// .getImplementation();
+		// LSSerializer lsSerializer = loadSave.createLSSerializer();
+		// File destination = new File(System.getProperty("user.dir"),
+		// "response.xml");
+		// if (!(destination.exists())) {
+		// destination.createNewFile();
+		// }
+		// BufferedWriter destWriter = new BufferedWriter(new FileWriter(
+		// destination.getAbsoluteFile()));
+		// destWriter.write(lsSerializer.writeToString(doc));
+		// destWriter.close();
+		// }
 		callConnection.disconnect();
 
 		XPath xpath = XPathFactory.newInstance().newXPath();
@@ -93,10 +118,10 @@ public abstract class BaseMethodCall {
 		Node errorNode = (Node) xpath.evaluate("/Error", doc,
 				XPathConstants.NODE);
 		if (errorNode != null) {
-			String errMsg = ((Node) xpath.evaluate("/Error/message", doc,
-					XPathConstants.NODE)).getTextContent();
-			String errDetail = ((Node) xpath.evaluate("/Error/detail", doc,
-					XPathConstants.NODE)).getTextContent();
+			String errMsg = (String) xpath.evaluate("/Error/message/text()",
+					doc, XPathConstants.STRING);
+			String errDetail = (String) xpath.evaluate("/Error/detail/text()",
+					doc, XPathConstants.STRING);
 			throw new NDE2Exception(errMsg, errDetail, 0);
 		}
 

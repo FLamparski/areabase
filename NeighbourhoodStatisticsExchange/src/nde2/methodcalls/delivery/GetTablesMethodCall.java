@@ -208,10 +208,11 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Process dataset metadata -- its code, creator, title, etc.
 		 */
-		int dsCode = (Integer) xpath
-				.evaluate(
-						"*[local-name() = 'DatasetDetails']/*[local-name() = 'DatasetCode']/number()",
-						datasetElement, XPathConstants.NUMBER);
+		int dsCode = Integer
+				.parseInt((String) xpath
+						.evaluate(
+								"*[local-name() = 'DatasetDetails']/*[local-name() = 'DatasetCode']/text()",
+								datasetElement, XPathConstants.STRING));
 		String dsCreator = (String) xpath
 				.evaluate(
 						"*[local-name() = 'DatasetDetails']/*[local-name() = 'DatasetMetadata']/*[local-name() = 'Creator']/text()",
@@ -325,18 +326,18 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Get all the fields for this value/DataSetItem
 		 */
-		int topicId = (Integer) xpath.evaluate(
-				"*[local-name() = 'TopicId']/number()", datasetItemElement,
-				XPathConstants.NUMBER);
-		int boundaryId = (Integer) xpath.evaluate(
-				"*[local-name() = 'BoundaryId']/number()", datasetItemElement,
-				XPathConstants.NUMBER);
-		int periodId = (Integer) xpath.evaluate(
-				"*[local-name() = 'TopicId']/number()", datasetItemElement,
-				XPathConstants.NUMBER);
-		int value = (Integer) xpath.evaluate(
-				"*[local-name() = 'Value']/number()", datasetItemElement,
-				XPathConstants.NUMBER);
+		int topicId = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'TopicId']/text()", datasetItemElement,
+				XPathConstants.STRING));
+		int boundaryId = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'BoundaryId']/text()", datasetItemElement,
+				XPathConstants.STRING));
+		int periodId = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'PeriodId']/text()", datasetItemElement,
+				XPathConstants.STRING));
+		int value = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'Value']/text()", datasetItemElement,
+				XPathConstants.STRING));
 		/*
 		 * Now, fix field references so that they are zero-based
 		 */
@@ -377,9 +378,9 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Get all the fields for this Period
 		 */
-		int periodId = (Integer) xpath.evaluate(
-				"*[local-name() = 'PeriodId']/number()", periodElement,
-				XPathConstants.NUMBER);
+		int periodId = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'PeriodId']/text()", periodElement,
+				XPathConstants.STRING));
 		String periodStartDateStr = (String) xpath.evaluate(
 				"*[local-name() = 'Start']/text()", periodElement,
 				XPathConstants.STRING);
@@ -425,13 +426,14 @@ public class GetTablesMethodCall extends BaseMethodCall {
 				.evaluate(
 						"*[local-name() = 'BoundaryMetadata']/*[local-name() = 'Title']/text()",
 						boundaryElement, XPathConstants.STRING);
-		int bidentifier = (Integer) xpath
-				.evaluate(
-						"*[local-name() = 'BoundaryMetadata']/*[local-name() = 'Identifier']/number()",
-						boundaryElement, XPathConstants.NUMBER);
-		int bid = (Integer) xpath.evaluate(
-				"*[local-name() = 'BoundaryId']/number()", boundaryElement,
-				XPathConstants.NUMBER);
+		int bidentifier = Integer
+				.parseInt((String) xpath
+						.evaluate(
+								"*[local-name() = 'BoundaryMetadata']/*[local-name() = 'Identifier']/text()",
+								boundaryElement, XPathConstants.STRING));
+		int bid = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'BoundaryId']/text()", boundaryElement,
+				XPathConstants.STRING));
 
 		/*
 		 * Return a Boundary
@@ -473,16 +475,17 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Get all the fields for this Topic
 		 */
-		int topicId = (Integer) xpath.evaluate(
-				"*[local-name() = 'TopicId']/number()", topicElement,
-				XPathConstants.NUMBER);
-		int topicCode = (Integer) xpath.evaluate(
-				"*[local-name() = 'TopicCode']/number()", topicElement,
-				XPathConstants.NUMBER);
-		int topicIdentifier = (Integer) xpath
-				.evaluate(
-						"*[local-name() = 'TopicMetadata']/*[local-name() = 'Identifier']/number()",
-						topicElement, XPathConstants.NUMBER);
+		int topicId = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'TopicId']/text()", topicElement,
+				XPathConstants.STRING));
+		int topicCode = Integer.parseInt((String) xpath.evaluate(
+				"*[local-name() = 'TopicCode']/text()", topicElement,
+				XPathConstants.STRING));
+		int topicIdentifier = Integer
+				.parseInt((String) xpath
+						.evaluate(
+								"*[local-name() = 'TopicMetadata']/*[local-name() = 'Identifier']/text()",
+								topicElement, XPathConstants.STRING));
 		String topicCreator = (String) xpath
 				.evaluate(
 						"*[local-name() = 'TopicMetadata']/*[local-name() = 'Creator']/text()",
