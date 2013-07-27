@@ -17,27 +17,12 @@ import org.xml.sax.SAXException;
 public class FindAreasTestCase {
 
 	@Test
-	public void testFindAreas() {
+	public void testFindAreas() throws XPathExpressionException, NDE2Exception,
+			ParserConfigurationException, SAXException, IOException {
 		List<Area> areas = null;
-		try {
-			areas = new FindAreasMethodCall().addPostcode("SE6 4UX")
-					.findAreas();
-		} catch (XPathExpressionException e) {
-			e.printStackTrace();
-			fail("XPath exception");
-		} catch (NDE2Exception e) {
-			e.printStackTrace();
-			fail("Web service error");
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-			fail("XML parser configuration error");
-		} catch (SAXException e) {
-			e.printStackTrace();
-			fail("XML parser error");
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("Communication error");
-		}
+
+		areas = new FindAreasMethodCall().addPostcode("SE6 4UX").findAreas();
+
 		Area smallest = areas.get(0);
 		assertEquals("E00016308", smallest.getName());
 		try {

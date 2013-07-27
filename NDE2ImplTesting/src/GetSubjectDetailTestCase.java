@@ -1,5 +1,3 @@
-import static org.junit.Assert.fail;
-
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -23,15 +21,13 @@ public class GetSubjectDetailTestCase {
 	}
 
 	@Test
-	public void test() {
+	public void test() throws XPathExpressionException,
+			ParserConfigurationException, SAXException, IOException,
+			NDE2Exception {
 		DetailedSubject retSubj = null;
-		try {
-			retSubj = mockSubject.getDetailed();
-		} catch (XPathExpressionException | ParserConfigurationException
-				| SAXException | IOException | NDE2Exception e) {
-			fail("Exception has been thrown");
-			e.printStackTrace();
-		}
+
+		retSubj = mockSubject.getDetailed();
+
 		System.out.println(String.format("Subject #%d: %s -- %s -- %s",
 				retSubj.getId(), retSubj.getName(), retSubj.getDescription(),
 				retSubj.getMoreDescription()));
