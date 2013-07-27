@@ -55,7 +55,8 @@ public class Topic extends NDE2Result {
 	 * {@link Topic#getTopicCode()} instead. This is only useful when ordering
 	 * topics during the creation of a {@link Dataset}.
 	 * 
-	 * @return ID of the topic as spat out by the server.
+	 * @return ID of the topic as spat out by the server, but normalised and
+	 *         with a zero-based index.
 	 */
 	public int getTopicId() {
 		return topicId;
@@ -121,7 +122,7 @@ public class Topic extends NDE2Result {
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + identifier;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + topicId;
+		result = prime * result + topicCode;
 		return result;
 	}
 
@@ -161,7 +162,7 @@ public class Topic extends NDE2Result {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (topicId != other.topicId)
+		if (topicCode != other.topicCode)
 			return false;
 		return true;
 	}

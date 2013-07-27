@@ -13,6 +13,7 @@ public class Boundary extends NDE2Result {
 	private String envelope;
 	private String creator;
 	private int identifier;
+	private int id;
 	private String title;
 
 	/**
@@ -23,12 +24,13 @@ public class Boundary extends NDE2Result {
 	 * @param title
 	 */
 	public Boundary(String boundaryCode, String envelope, String creator,
-			int identifier, String title) {
+			int identifier, int id, String title) {
 		super(VALID_FOR_DAYS);
 		this.boundaryCode = boundaryCode;
 		this.envelope = envelope;
 		this.creator = creator;
 		this.identifier = identifier;
+		this.id = id;
 		this.title = title;
 	}
 
@@ -59,6 +61,13 @@ public class Boundary extends NDE2Result {
 	 */
 	public int getIdentifier() {
 		return identifier;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**

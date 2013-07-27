@@ -15,7 +15,7 @@ public class Period extends NDE2Result {
 
 	private Date startDate;
 	private Date endDate;
-	private int periodCode;
+	private int periodId;
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public class Period extends NDE2Result {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		startDate = dateFormat.parse(startDateStr);
 		endDate = dateFormat.parse(endDateStr);
-		this.periodCode = periodCode;
+		this.periodId = periodCode;
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class Period extends NDE2Result {
 	 * 
 	 * @return ID of this particular time period as spat out by the server.
 	 */
-	public int getPeriodCode() {
-		return periodCode;
+	public int getPeriodId() {
+		return periodId;
 	}
 
 	/*
