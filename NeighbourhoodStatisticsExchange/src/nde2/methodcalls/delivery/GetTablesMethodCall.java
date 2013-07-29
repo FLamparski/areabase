@@ -56,10 +56,10 @@ import org.xml.sax.SAXException;
 public class GetTablesMethodCall extends BaseMethodCall {
 	private final static String METHOD_NAME = "getTables";
 	private List<Area> areas;
-	private List<DataSetFamiliy> dsFamilies;
-	private List<VariableFamily> variableFamilies;
-	private DateRange timePeriod;
-	private ArrayList<Dataset> datasets;
+	protected List<DataSetFamiliy> dsFamilies;
+	protected List<VariableFamily> variableFamilies;
+	protected DateRange timePeriod;
+	protected ArrayList<Dataset> datasets;
 
 	public GetTablesMethodCall addAreas(List<Area> areas) {
 		this.areas = areas;
@@ -161,10 +161,16 @@ public class GetTablesMethodCall extends BaseMethodCall {
 			params.put("TimePeriod", timePeriodBuilder.toString());
 		}
 
+		return doCall(METHOD_NAME, params);
+	}
+
+	protected List<Dataset> doCall(String methodName, Map<String, String> params)
+			throws ParserConfigurationException, SAXException, IOException,
+			XPathExpressionException, NDE2Exception, ParseException {
 		/*
 		 * Send off the request. We are live!
 		 */
-		Document response = doCall_base(METHOD_NAME, params);
+		Document response = doCall_base(methodName, params);
 		XPath xpath = XPathFactory.newInstance().newXPath();
 
 		/*
@@ -326,18 +332,26 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Get all the fields for this value/DataSetItem
 		 */
-		int topicId = Integer.parseInt((String) xpath.evaluate(
+		int topicId;
+		int boundaryId;
+		int periodId;
+		int value;
+		topicId = Integer.parseInt((String) xpath.evaluate(
 				"*[local-name() = 'TopicId']/text()", datasetItemElement,
 				XPathConstants.STRING));
-		int boundaryId = Integer.parseInt((String) xpath.evaluate(
+		boundaryId = Integer.parseInt((String) xpath.evaluate(
 				"*[local-name() = 'BoundaryId']/text()", datasetItemElement,
 				XPathConstants.STRING));
-		int periodId = Integer.parseInt((String) xpath.evaluate(
+		periodId = Integer.parseInt((String) xpath.evaluate(
 				"*[local-name() = 'PeriodId']/text()", datasetItemElement,
 				XPathConstants.STRING));
-		int value = Integer.parseInt((String) xpath.evaluate(
-				"*[local-name() = 'Value']/text()", datasetItemElement,
-				XPathConstants.STRING));
+		try {
+			value = Integer.parseInt((String) xpath.evaluate(
+					"*[local-name() = 'Value']/text()", datasetItemElement,
+					XPathConstants.STRING));
+		} catch (NumberFormatException e) {
+			value = Integer.MIN_VALUE;
+		}
 		/*
 		 * Now, fix field references so that they are zero-based
 		 */

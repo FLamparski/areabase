@@ -1,5 +1,6 @@
 package nde2.types.delivery;
 
+import nde2.errors.ValueNotAvailable;
 import nde2.types.NDE2Result;
 
 /**
@@ -57,9 +58,13 @@ public class DataSetItem extends NDE2Result {
 
 	/**
 	 * @return the value
+	 * @throws ValueNotAvailable
 	 */
-	public int getValue() {
-		return value;
+	public int getValue() throws ValueNotAvailable {
+		if (value > Integer.MIN_VALUE)
+			return value;
+		else
+			throw new ValueNotAvailable();
 	}
 
 }
