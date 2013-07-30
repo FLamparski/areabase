@@ -1,3 +1,4 @@
+package areabase.tests.basic;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -6,6 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.methodcalls.discovery.GetAreaDetailMethodCall;
 import nde2.types.discovery.Area;
@@ -20,7 +22,7 @@ public class GetAreaDetailTestCase {
 	Area baseArea;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception, ValueNotAvailable {
 		baseArea = new FindAreasMethodCall().addPostcode("SE6 4UX").findAreas()
 				.get(0);
 	}

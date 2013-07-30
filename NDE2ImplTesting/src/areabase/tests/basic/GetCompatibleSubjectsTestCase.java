@@ -1,3 +1,4 @@
+package areabase.tests.basic;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;

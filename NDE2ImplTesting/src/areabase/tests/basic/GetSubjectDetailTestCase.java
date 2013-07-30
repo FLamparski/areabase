@@ -1,9 +1,12 @@
+package areabase.tests.basic;
+
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.methodcalls.discovery.GetSubjectDetailMethodCall;
 import nde2.types.discovery.DetailedSubject;
 import nde2.types.discovery.Subject;
 
@@ -31,6 +34,15 @@ public class GetSubjectDetailTestCase {
 		System.out.println(String.format("Subject #%d: %s -- %s -- %s",
 				retSubj.getId(), retSubj.getName(), retSubj.getDescription(),
 				retSubj.getMoreDescription()));
+	}
+
+	@SuppressWarnings("unused")
+	@Test(expected = NDE2Exception.class)
+	public void testInvalid() throws XPathExpressionException,
+			ParserConfigurationException, SAXException, IOException,
+			NDE2Exception {
+		DetailedSubject retSubj = new GetSubjectDetailMethodCall().addSubject(
+				new Subject("Invalid", -1)).getSubjectDetail();
 	}
 
 }

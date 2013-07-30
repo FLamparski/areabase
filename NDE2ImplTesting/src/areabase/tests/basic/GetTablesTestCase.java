@@ -1,9 +1,12 @@
+package areabase.tests.basic;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -60,10 +63,11 @@ public class GetTablesTestCase {
 			System.out.printf("  >> %d topics\n", dataset.getItems().size());
 			System.out.println("\t-------- Topics: --------");
 			System.out.println("\tID\tCode\tName");
-			for (Topic topic : dataset.getTopics()) {
-				System.out.printf("\t%d\t%d\t%s\n", topic.getTopicId(),
-						topic.getTopicCode(), topic.getTitle());
-				System.out.printf("\t  >> %d items\n", dataset.getItems(topic)
+			Collection<Topic> topics = dataset.getTopics().values();
+			for (Topic topic : topics) {
+				System.out.printf("\t%s\t%s\n", topic.getTopicCode(),
+						topic.getTitle());
+				System.out.printf("\t >> %d items\n", dataset.getItems(topic)
 						.size());
 			}
 		}

@@ -1,9 +1,12 @@
+package areabase.tests.basic;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -11,8 +14,8 @@ import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
 import nde2.methodcalls.delivery.GetChildAreaTablesMethodCall;
-import nde2.types.delivery.Boundary;
 import nde2.types.delivery.Dataset;
+import nde2.types.delivery.Topic;
 import nde2.types.discovery.Area;
 import nde2.types.discovery.DataSetFamiliy;
 
@@ -56,11 +59,12 @@ public class GetChildAreaTablesMethodCallTestCase {
 			System.out.printf("  >> %d items\n", dataset.getItems().size());
 			System.out.println("\t-------- Boundaries --------");
 			System.out.println("\tID\tCode\tName");
-			for (Boundary boundary : dataset.getBoundaries()) {
-				System.out.printf("\t%d\t%s\t%s\n", boundary.getId(),
-						boundary.getBoundaryCode(), boundary.getTitle());
-				System.out.printf("\t  >> %d items\n",
-						dataset.getItems(boundary).size());
+			Collection<Topic> topics = dataset.getTopics().values();
+			for (Topic topic : topics) {
+				System.out.printf("\t%s\t%s\n", topic.getTopicCode(),
+						topic.getTitle());
+				System.out.printf("\t >> %d items\n", dataset.getItems(topic)
+						.size());
 			}
 		}
 	}

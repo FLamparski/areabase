@@ -1,3 +1,4 @@
+package areabase.tests.basic;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -8,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.types.discovery.Area;
 
@@ -18,7 +20,8 @@ public class FindAreasTestCase {
 
 	@Test
 	public void testFindAreas() throws XPathExpressionException, NDE2Exception,
-			ParserConfigurationException, SAXException, IOException {
+			ParserConfigurationException, SAXException, IOException,
+			ValueNotAvailable {
 		List<Area> areas = null;
 
 		areas = new FindAreasMethodCall().addPostcode("SE6 4UX").findAreas();

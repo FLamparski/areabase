@@ -1,3 +1,5 @@
+package areabase.tests.basic;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
@@ -8,6 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.methodcalls.discovery.GetAreaChildrenMethodCall;
 import nde2.types.discovery.Area;
@@ -21,7 +24,7 @@ public class GetAreaChildrenTestCase {
 	Area baseArea;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception, ValueNotAvailable {
 		baseArea = new FindAreasMethodCall().addAreaNamePart("Lewisham")
 				.findAreas().get(0);
 	}
@@ -29,7 +32,7 @@ public class GetAreaChildrenTestCase {
 	@Test
 	public void test() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
+			NDE2Exception, ValueNotAvailable {
 		List<Area> children = null;
 		try {
 			children = new GetAreaChildrenMethodCall().addArea(baseArea)
