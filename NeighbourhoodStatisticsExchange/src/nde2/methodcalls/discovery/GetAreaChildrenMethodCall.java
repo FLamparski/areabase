@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.types.discovery.Area;
 
 import org.w3c.dom.Document;
@@ -67,12 +68,13 @@ public class GetAreaChildrenMethodCall extends BaseMethodCall {
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
+	 * @throws ValueNotAvailable
 	 * @see {@link BaseMethodCall} for more information about the exceptions
 	 *      thrown.
 	 */
 	public List<Area> getAreaChildren() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
+			NDE2Exception, ValueNotAvailable {
 		/*
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
@@ -123,7 +125,10 @@ public class GetAreaChildrenMethodCall extends BaseMethodCall {
 			area.setParent(parentArea);
 			children.add(area);
 		}
-		return children;
+		if (!(children.isEmpty()))
+			return children;
+		else
+			throw new ValueNotAvailable("This area has no children.");
 	}
 
 }

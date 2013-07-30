@@ -83,7 +83,7 @@ public abstract class BaseMethodCall {
 		callUrlStr = callUrlStr.substring(0, callUrlStr.length() - 1);
 
 		// Uncomment for testing:
-		// System.out.printf("Calling: %s\n", callUrlStr);
+		System.out.printf("Calling: %s\n", callUrlStr);
 
 		URL callUrl = new URL(callUrlStr);
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl

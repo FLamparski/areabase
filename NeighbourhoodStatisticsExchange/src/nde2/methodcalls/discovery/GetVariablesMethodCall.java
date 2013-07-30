@@ -16,6 +16,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.types.MeasurementUnit;
 import nde2.types.StatisticalUnit;
 import nde2.types.discovery.DataSetFamiliy;
@@ -54,7 +55,7 @@ public class GetVariablesMethodCall extends BaseMethodCall {
 
 	public List<VariableFamily> getVariables() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ParseException {
+			NDE2Exception, ParseException, ValueNotAvailable {
 		/*
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
@@ -144,7 +145,11 @@ public class GetVariablesMethodCall extends BaseMethodCall {
 					dateRanges, fam_sunit, fam_munit);
 			variableFamilies.add(varFam);
 		}
-		return variableFamilies;
+		if (!(variableFamilies.isEmpty()))
+			return variableFamilies;
+		else
+			throw new ValueNotAvailable(
+					"No variables available for this query.");
 	}
 
 	private String formatDateRangeForCall() {

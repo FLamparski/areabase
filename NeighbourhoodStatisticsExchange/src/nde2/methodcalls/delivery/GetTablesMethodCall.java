@@ -237,39 +237,27 @@ public class GetTablesMethodCall extends BaseMethodCall {
 						datasetElement, XPathConstants.STRING);
 
 		/*
-		 * Process dataset topics. For some reason, topic IDs are used
-		 * consistently within datasets, so one dataset item won't have a topic
-		 * that's from an entirely different dataset, BUT: the topic IDs are
-		 * also assigned globally, so if one dataset has topic IDs 1-30, the
-		 * next dataset will have topic IDs 31+. Also, topic IDs have a 1-based
-		 * index because apparently the thing was coded in fucking Pascal.
+		 * Process dataset topics
 		 */
-
-		int topicIdBase = 0;
-		if (datasets.size() > 0) {
-			Dataset lastDataset = datasets.get(datasets.size() - 1);
-			topicIdBase = lastDataset.getTopics().size();
-		}
-
 		NodeList topicElements = (NodeList) xpath.evaluate(
 				"*[local-name() = 'Topics']/*[local-name() = 'Topic']",
 				datasetElement, XPathConstants.NODESET);
-		ArrayList<Topic> dsTopics = new ArrayList<Topic>();
+		HashMap<Integer, Topic> dsTopics = new HashMap<Integer, Topic>();
 		for (int i = 0; i < topicElements.getLength(); i++) {
-			dsTopics.add(processTopic(topicElements.item(i), xpath, topicIdBase));
+			Topic topic = processTopic(topicElements.item(i), xpath);
+			dsTopics.put(topic.getTopicId(), topic);
 		}
 
 		/*
-		 * Process boundaries (many per dataset). This is inconsistent with
-		 * topics, as boundary IDs DO reset in new datasets. So if topics were
-		 * [Topic 1-13],[Topic 14-24], then boundaries are... [1,2][1,2].
+		 * Process boundaries (many per dataset).
 		 */
 		NodeList boundaryElements = (NodeList) xpath.evaluate(
 				"*[local-name() = 'Boundaries']/*[local-name() = 'Boundary']",
 				datasetElement, XPathConstants.NODESET);
-		ArrayList<Boundary> dsBoundaries = new ArrayList<Boundary>();
+		HashMap<Integer, Boundary> dsBoundaries = new HashMap<Integer, Boundary>();
 		for (int i = 0; i < boundaryElements.getLength(); i++) {
-			dsBoundaries.add(processBoundary(boundaryElements.item(i), xpath));
+			Boundary boundary = processBoundary(boundaryElements.item(i), xpath);
+			dsBoundaries.put(boundary.getId(), boundary);
 		}
 
 		/*
@@ -279,9 +267,10 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		NodeList periodElements = (NodeList) xpath.evaluate(
 				"*[local-name() = 'Periods']/*[local-name() = 'Period']",
 				datasetElement, XPathConstants.NODESET);
-		ArrayList<Period> dsPeriods = new ArrayList<Period>();
+		HashMap<Integer, Period> dsPeriods = new HashMap<Integer, Period>();
 		for (int i = 0; i < periodElements.getLength(); i++) {
-			dsPeriods.add(processPeriod(periodElements.item(i), xpath));
+			Period period = processPeriod(periodElements.item(i), xpath);
+			dsPeriods.put(period.getPeriodId(), period);
 		}
 
 		/*
@@ -295,7 +284,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		ArrayList<DataSetItem> dsValues = new ArrayList<DataSetItem>();
 		for (int i = 0; i < valueElements.getLength(); i++) {
 			dsValues.add(processDatasetItem(valueElements.item(i), xpath,
-					topicIdBase, dsTopics, dsBoundaries, dsPeriods));
+					dsTopics, dsBoundaries, dsPeriods));
 		}
 
 		/*
@@ -326,8 +315,8 @@ public class GetTablesMethodCall extends BaseMethodCall {
 	 * @throws XPathExpressionException
 	 */
 	protected DataSetItem processDatasetItem(Node datasetItemElement,
-			XPath xpath, int topicIdBase, ArrayList<Topic> dsTopics,
-			ArrayList<Boundary> dsBoundaries, ArrayList<Period> dsPeriods)
+			XPath xpath, Map<Integer, Topic> dsTopics,
+			Map<Integer, Boundary> dsBoundaries, Map<Integer, Period> dsPeriods)
 			throws XPathExpressionException {
 		/*
 		 * Get all the fields for this value/DataSetItem
@@ -352,12 +341,6 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		} catch (NumberFormatException e) {
 			value = Integer.MIN_VALUE;
 		}
-		/*
-		 * Now, fix field references so that they are zero-based
-		 */
-		topicId = topicId - topicIdBase - 1;
-		boundaryId -= 1;
-		periodId -= 1;
 
 		/*
 		 * Get the actual objects that these values are referencing
@@ -404,7 +387,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Return a Period
 		 */
-		return new Period(periodStartDateStr, periodEndDateStr, periodId - 1);
+		return new Period(periodStartDateStr, periodEndDateStr, periodId);
 	}
 
 	/**
@@ -452,7 +435,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		/*
 		 * Return a Boundary
 		 */
-		return new Boundary(bcode, benvelope, bcreator, bidentifier, bid - 1,
+		return new Boundary(bcode, benvelope, bcreator, bidentifier, bid,
 				btitle);
 	}
 
@@ -467,24 +450,11 @@ public class GetTablesMethodCall extends BaseMethodCall {
 	 * @param xpath
 	 *            The XPath to use when processing this element.
 	 *            GetTablesMethodCall promotes reusable XPaths.
-	 * @param topicIdBase
-	 *            The length of the Topics list of the previous dataset, or 0 if
-	 *            this is the first dataset being processed. <blockquote>Process
-	 *            dataset topics. For some reason, topic IDs are used
-	 *            consistently within datasets, so one dataset item won't have a
-	 *            topic that's from an entirely different dataset, BUT: the
-	 *            topic IDs are also assigned globally, so if one dataset has
-	 *            topic IDs 1-30, the next dataset will have topic IDs 31+.
-	 *            Also, topic IDs have a 1-based index because apparently the
-	 *            thing was coded in ruddy Pascal. <br/>
-	 *            <cite>--Comment on Topics, inside
-	 *            {@link GetTablesMethodCall#processDataset(Node, XPath)}
-	 *            </cite></blockquote>
 	 * @return A {@link Topic} that represents the NDE2 Topic, adjusted for use
 	 *         in this API.
 	 * @throws XPathExpressionException
 	 */
-	protected Topic processTopic(Node topicElement, XPath xpath, int topicIdBase)
+	protected Topic processTopic(Node topicElement, XPath xpath)
 			throws XPathExpressionException {
 		/*
 		 * Get all the fields for this Topic
@@ -516,17 +486,6 @@ public class GetTablesMethodCall extends BaseMethodCall {
 				.evaluate(
 						"*[local-name() = 'TopicMetadata']/*[local-name() = 'Coinage.Unit']/text()",
 						topicElement, XPathConstants.STRING);
-		/*
-		 * Now, we need to do some maths on the topicId to make it a zero-based
-		 * index and so that each separate dataset has topics whose IDs start
-		 * from 0. If this is the first dataset being processed, topicIdBase
-		 * will be 0, which will mean that the first topic will have topic = 1;
-		 * thus topicId = 1 - 0 - 1 => 0, and so on. For the next dataset
-		 * processed, topicIdBase will be the length of previous dataset's topic
-		 * list. So if that length is 33, then: topicId = 34; topicId = 34 - 33
-		 * - 1 => 0.
-		 */
-		topicId = topicId - topicIdBase - 1;
 
 		/*
 		 * And finally, we return a single topic.

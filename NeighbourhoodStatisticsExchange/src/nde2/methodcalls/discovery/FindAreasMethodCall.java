@@ -13,6 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.types.discovery.Area;
 
 import org.w3c.dom.Document;
@@ -129,12 +130,15 @@ public class FindAreasMethodCall extends BaseMethodCall {
 	 * @throws NDE2Exception
 	 * @throws XPathExpressionException
 	 *             Thrown when the XPath expressions fail to evaluate.
+	 * @throws ValueNotAvailable
+	 *             Thrown when there are no areas to return -- will happen in
+	 *             Scotland and Northern Ireland.
 	 * @see {@link BaseMethodCall} for more information about the exceptions
 	 *      thrown.
 	 */
 	public List<Area> findAreas() throws NDE2Exception,
 			ParserConfigurationException, SAXException, IOException,
-			XPathExpressionException {
+			XPathExpressionException, ValueNotAvailable {
 		/*
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
@@ -196,6 +200,10 @@ public class FindAreasMethodCall extends BaseMethodCall {
 
 			results.add(area);
 		}
+
+		if (results.isEmpty())
+			throw new ValueNotAvailable(
+					"No areas could be found for this query.");
 
 		return results;
 	}

@@ -15,6 +15,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.types.discovery.Area;
 import nde2.types.discovery.DataSetFamiliy;
 import nde2.types.discovery.DateRange;
@@ -77,11 +78,12 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 	 * @throws IOException
 	 * @throws NDE2Exception
 	 * @throws ParseException
+	 * @throws ValueNotAvailable
 	 * @see {@link BaseMethodCall} for more information on exceptions thrown.
 	 */
 	public List<DataSetFamiliy> getDatasets() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ParseException {
+			NDE2Exception, ParseException, ValueNotAvailable {
 		/*
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
@@ -146,6 +148,10 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 			dataSetFamilies.add(new DataSetFamiliy(dateRanges, dsid, dsname));
 		}
 
-		return dataSetFamilies;
+		if (!(dataSetFamilies.isEmpty()))
+			return dataSetFamilies;
+		else
+			throw new ValueNotAvailable(
+					"No dataset families available for this subject");
 	}
 }

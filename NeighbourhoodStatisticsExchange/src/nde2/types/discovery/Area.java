@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.GetAreaChildrenMethodCall;
 import nde2.methodcalls.discovery.GetAreaDetailMethodCall;
 import nde2.methodcalls.discovery.GetAreaParentMethodCall;
@@ -289,10 +290,11 @@ public class Area extends NDE2Result {
 	 * @throws SAXException
 	 * @throws ParserConfigurationException
 	 * @throws XPathExpressionException
+	 * @throws ValueNotAvailable
 	 */
 	public Area getParent() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
+			NDE2Exception, ValueNotAvailable {
 		if (parent == null) {
 			parent = new GetAreaParentMethodCall().addArea(this)
 					.getAreaParent();
@@ -310,10 +312,11 @@ public class Area extends NDE2Result {
 	 * @throws SAXException
 	 * @throws ParserConfigurationException
 	 * @throws XPathExpressionException
+	 * @throws ValueNotAvailable
 	 */
 	public List<Area> getChildren() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
+			NDE2Exception, ValueNotAvailable {
 		if (children == null)
 			children = new GetAreaChildrenMethodCall().addArea(this)
 					.getAreaChildren();

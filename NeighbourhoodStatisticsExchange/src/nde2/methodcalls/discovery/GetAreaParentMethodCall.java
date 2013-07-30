@@ -12,6 +12,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.types.discovery.Area;
 
 import org.w3c.dom.Document;
@@ -55,12 +56,13 @@ public class GetAreaParentMethodCall extends BaseMethodCall {
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
+	 * @throws ValueNotAvailable
 	 * @see {@link BaseMethodCall} for more information about the exceptions
 	 *      thrown.
 	 */
 	public Area getAreaParent() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
+			NDE2Exception, ValueNotAvailable {
 		/*
 		 * First, create a Dictionary containing parameters to call the remote
 		 * method with.
@@ -110,6 +112,11 @@ public class GetAreaParentMethodCall extends BaseMethodCall {
 			results.add(area);
 		}
 
-		return results.get(0);
+		if (!(results.isEmpty())) {
+			return results.get(0);
+		} else {
+			throw new ValueNotAvailable(
+					"There are no valid comparators for this area in the ONS database.");
+		}
 	}
 }

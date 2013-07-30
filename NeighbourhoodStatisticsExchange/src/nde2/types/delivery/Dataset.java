@@ -2,6 +2,7 @@ package nde2.types.delivery;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nde2.types.NDE2Result;
 import nde2.types.discovery.DataSetFamiliy;
@@ -24,9 +25,9 @@ public class Dataset extends NDE2Result {
 	private String description;
 	private String subjectCategory;
 	private String title;
-	private List<Topic> topics;
-	private List<Period> periods;
-	private List<Boundary> boundaries;
+	private Map<Integer, Topic> topics;
+	private Map<Integer, Period> periods;
+	private Map<Integer, Boundary> boundaries;
 	private List<DataSetItem> items;
 
 	/**
@@ -51,8 +52,8 @@ public class Dataset extends NDE2Result {
 	 *            A list of values in the data set.
 	 */
 	public Dataset(int datasetCode, String creator, String description,
-			String subjectCategory, String title, List<Topic> topics,
-			List<Period> periods, List<Boundary> boundaries,
+			String subjectCategory, String title, Map<Integer, Topic> topics,
+			Map<Integer, Period> periods, Map<Integer, Boundary> boundaries,
 			List<DataSetItem> items) {
 		super(VALID_FOR_DAYS); // Keep datasets valid for a week. It
 								// may be a heavy download,
@@ -109,21 +110,21 @@ public class Dataset extends NDE2Result {
 	/**
 	 * @return the list of topics covered by the data set.
 	 */
-	public List<Topic> getTopics() {
+	public Map<Integer, Topic> getTopics() {
 		return topics;
 	}
 
 	/**
 	 * @return the list of periods covered by the data set.
 	 */
-	public List<Period> getPeriods() {
+	public Map<Integer, Period> getPeriods() {
 		return periods;
 	}
 
 	/**
 	 * @return the list of geographical boundaries covered by the data set.
 	 */
-	public List<Boundary> getBoundaries() {
+	public Map<Integer, Boundary> getBoundaries() {
 		return boundaries;
 	}
 
