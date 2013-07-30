@@ -1,12 +1,15 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.types.discovery.Area;
+import nde2.types.discovery.DataSetFamiliy;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -35,12 +38,12 @@ public class NeSSTest {
 		AREA_ID, POSTCODE, NAME_PART
 	}
 
-	private interface NDEThreadOperationCallbacks {
+	public interface NDEFindAreasThreadOperationCallbacks {
 		public boolean onUpdate(int newProgress, String newStatus);
 
 		public void onFinish(List<Area> result);
 
-		public void onError(Exception cause, String msg);
+		public void onError(Throwable cause, String msg);
 	}
 
 	private FindAreasBy m_findAreasByWhat;
@@ -187,12 +190,26 @@ public class NeSSTest {
 							n, a.getAreaId(), a.getName()));
 				}
 
-				Area selectedArea = (Area) selection[0].getData("AREA");
+				final Area selectedArea = (Area) selection[0].getData("AREA");
 				CTabItem selectedAreaTabItem = new CTabItem(mAreasTabFolder,
 						SWT.NONE);
 				selectedAreaTabItem.setText(selectedArea.getName());
-				selectedAreaTabItem.setData("AREA", selectedArea);
 				selectedAreaTabItem.setShowClose(true);
+
+				DatasetView mDatasetView = new DatasetView(mAreasTabFolder,
+						SWT.NONE);
+				mDatasetView.setData("AREA", selectedArea);
+				mDatasetView
+						.setOnFetchListener(new DatasetView.OnFetchListener() {
+
+							@Override
+							public List<DataSetFamiliy> onFetch() {
+								return fetchDatasetFamilies(selectedArea);
+							}
+
+						});
+
+				selectedAreaTabItem.setControl(mDatasetView);
 			}
 		});
 
@@ -216,13 +233,42 @@ public class NeSSTest {
 		mNdeTestAppShell.open();
 	}
 
+	private List<DataSetFamiliy> fetchDatasetFamilies(Area selectedArea) {
+		mStatusLabel.setText("Querying the service...");
+		mOperationPBar.setSelection(1);
+
+		final long areaId = selectedArea.getAreaId();
+		final List<DataSetFamiliy> opResult = new ArrayList<DataSetFamiliy>();
+
+		final DatasetView.NDEGetDatasetFamiliesThreadOperationCallbacks updateCallbacks = new DatasetView.NDEGetDatasetFamiliesThreadOperationCallbacks() {
+
+			@Override
+			public boolean onUpdate(int newProgress, String newStatus) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public void onFinish(List<DataSetFamiliy> result) {
+				opResult.addAll(result);
+			}
+
+			@Override
+			public void onError(Exception cause, String msg) {
+				// TODO Auto-generated method stub
+
+			}
+		};
+		return opResult;
+	}
+
 	protected void findAreasAndFillTree() {
 		mStatusLabel.setText("Querying the service...");
 		mOperationPBar.setSelection(1);
 
 		final String qString = mAreaQueryTextField.getText();
 		final FindAreasBy fBw = m_findAreasByWhat;
-		final NDEThreadOperationCallbacks updateCallbacks = new NDEThreadOperationCallbacks() {
+		final NDEFindAreasThreadOperationCallbacks updateCallbacks = new NDEFindAreasThreadOperationCallbacks() {
 
 			@Override
 			public void onFinish(List<Area> result) {
@@ -249,7 +295,7 @@ public class NeSSTest {
 			}
 
 			@Override
-			public void onError(Exception cause, String msg) {
+			public void onError(Throwable cause, String msg) {
 				mOperationPBar.setSelection(0);
 				MessageBox dlg = new MessageBox(mNdeTestAppShell,
 						SWT.ICON_ERROR | SWT.OK);
@@ -299,6 +345,11 @@ public class NeSSTest {
 					updateCallbacks.onError(e,
 							"An exception was thrown when querying NDE.");
 					return;
+				} catch (ValueNotAvailable e) {
+					e.printStackTrace();
+					updateCallbacks
+							.onError(e,
+									"No values returned. Don't search for Scotland or NI stuff?");
 				}
 				updateCallbacks.onUpdate(80, "Processing areas...");
 				updateCallbacks.onFinish(retList);
