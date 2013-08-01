@@ -88,6 +88,9 @@ public abstract class BaseMethodCall {
 		URL callUrl = new URL(callUrlStr);
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl
 				.openConnection();
+		// The ten-second rule:
+		// If there's no data in 10s, assume the worst.
+		callConnection.setReadTimeout(10000);
 		InputStream is = callConnection.getInputStream();
 
 		/* Prepare a Document from that URL. The system will pull it nicely. */

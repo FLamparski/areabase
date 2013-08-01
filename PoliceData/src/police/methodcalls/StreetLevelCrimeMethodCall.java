@@ -13,30 +13,88 @@ import police.types.Crime;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * Represents a call to the Police API which returns a list of crimes within a
+ * mile of a given point or within an area specified.
+ * 
+ * <p>
+ * You cannot specify a point and an area at the same time.
+ * 
+ * @author filip
+ * @see <a href="http://data.police.uk/docs/method/crime-street/">The Police API
+ *      documentation of this method</a>
+ */
 public class StreetLevelCrimeMethodCall extends BaseMethodCall {
-	private Date date = null;
-	private Double latitude = null;
-	private Double longitude = null;
-	private Double[][] poly = null;
+	protected Date date = null;
+	protected Double latitude = null;
+	protected Double longitude = null;
+	protected Double[][] poly = null;
 
 	private final static String METHOD = "crimes-street";
 
+	/**
+	 * Only show crimes from the given month
+	 * 
+	 * @param date
+	 *            A month to show crimes from
+	 * @return this object for further modification
+	 */
 	public StreetLevelCrimeMethodCall addDate(Date date) {
 		this.date = date;
 		return this;
 	}
 
+	/**
+	 * Specify a point used to look up crimes. The remote method will return
+	 * crimes that happened within a mile of this location.
+	 * <p>
+	 * Awesomely, you can just put GPS coords here :)
+	 * 
+	 * @param lat
+	 *            The latitude
+	 * @param lon
+	 *            The longitude
+	 * @return this object for further modification
+	 */
 	public StreetLevelCrimeMethodCall addPoint(double lat, double lon) {
 		this.latitude = lat;
 		this.longitude = lon;
 		return this;
 	}
 
+	/**
+	 * Specify an area in which to look for crimes. Area cannot be larger than
+	 * 20 sq km.
+	 * 
+	 * @param poly
+	 *            An array of GPS coordinate pairs [[lat,lon],...] that describe
+	 *            the polygon. No need to close this poly as the server will
+	 *            just draw a straight line for you from the last point to the
+	 *            first one.
+	 * @return this object for further modification
+	 */
 	public StreetLevelCrimeMethodCall addAreaPolygon(Double[][] poly) {
 		this.poly = poly;
 		return this;
 	}
 
+	/**
+	 * Call the API and retrieve a {@link Collection} of {@link Crime Crimes}
+	 * that was returned.
+	 * 
+	 * @param category
+	 *            The category to filter the crimes by, can be obtained via
+	 *            CrimeCategoriesMethodCall.
+	 * @return A {@link Collection} of {@link Crime}.
+	 * @throws IOException
+	 *             When a connection could not be created -- see
+	 *             {@link BaseMethodCall#doCall(String, java.util.Map)}
+	 * @throws APIException
+	 *             When the API returned a non-200 code. Typically, there would
+	 *             be too many crimes to return (over 10000), or the area
+	 *             specified using addPoly() is too large (over 20 sq km).
+	 * @see BaseMethodCall
+	 */
 	public Collection<Crime> getStreetLevelCrime(String category)
 			throws IOException, APIException {
 		HashMap<String, String> parameters = new HashMap<String, String>();

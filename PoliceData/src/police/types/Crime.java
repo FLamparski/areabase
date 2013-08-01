@@ -1,7 +1,7 @@
 package police.types;
 
 import java.util.ArrayList;
-import java.util.Map.Entry;
+import java.util.Collection;
 
 public class Crime {
 	private String category;
@@ -151,7 +151,7 @@ public class Crime {
 	 *         object, and the value is a list of remarks about the object's
 	 *         retrieval. It will be empty if everything is OK.
 	 */
-	public Entry<String, ArrayList<String>> toStringWithExtraInfo() {
+	public KeyValuePair<String, Collection<String>> toStringWithExtraInfo() {
 		final ArrayList<String> remarks = new ArrayList<String>();
 		String locStr = null;
 		try {
@@ -204,26 +204,7 @@ public class Crime {
 				+ ", id=" + Long.toString(id) + ", location=" + locStr
 				+ ", context=" + context + ", outcome_status=" + outcomeStr
 				+ "]";
-		return new Entry<String, ArrayList<String>>() {
-
-			@Override
-			public ArrayList<String> setValue(ArrayList<String> arg0) {
-				// TODO Auto-generated method stub
-				return null;
-			}
-
-			@Override
-			public ArrayList<String> getValue() {
-				// TODO Auto-generated method stub
-				return remarks;
-			}
-
-			@Override
-			public String getKey() {
-				// TODO Auto-generated method stub
-				return toString;
-			}
-		};
+		return new KeyValuePair<String, Collection<String>>(toString, remarks);
 	}
 
 	/*
