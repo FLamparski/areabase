@@ -7,5 +7,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/PoliceData/lib/gson-2.2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/ApacheCommonsIO"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
