@@ -1,8 +1,8 @@
 package police.testing;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Map.Entry;
@@ -12,7 +12,9 @@ import org.junit.Test;
 
 import police.errors.APIException;
 import police.methodcalls.StreetLevelCrimeMethodCall;
+import police.methodcalls.StreetLevelOutcomesMethodCall;
 import police.types.Crime;
+import police.types.Outcome;
 
 public class StreetLevelCrime {
 
@@ -28,13 +30,14 @@ public class StreetLevelCrime {
 	}
 
 	@Test
-	public void test() throws IOException, APIException {
+	public void streetLevelCrimeWithPointAndDate() throws IOException,
+			APIException {
 		Collection<Crime> crimesInCatford = new StreetLevelCrimeMethodCall()
 				.addPoint(lat, lon).addDate(date).getStreetLevelCrime();
 		int n_crimesProcessed = 0;
 		int n_crimesWithErrors = 0;
 		for (Crime aCrime : crimesInCatford) {
-			Entry<String, ArrayList<String>> crimeWithRemarks = aCrime
+			Entry<String, Collection<String>> crimeWithRemarks = aCrime
 					.toStringWithExtraInfo();
 			if (crimeWithRemarks.getValue().isEmpty()) {
 				n_crimesProcessed++;
@@ -50,6 +53,19 @@ public class StreetLevelCrime {
 		System.out.printf(
 				"\nDone. Processed %d crimes total, %d of which had errors.\n",
 				n_crimesProcessed, n_crimesWithErrors);
+	}
+
+	@Test
+	public void streetLevelOutcomesWithPointAndDate()
+			throws SocketTimeoutException, IOException, APIException {
+		Collection<Outcome> outcomesInCatford = ((StreetLevelOutcomesMethodCall) new StreetLevelOutcomesMethodCall()
+				.addPoint(lat, lon).addDate(date)).getOutcomesAtLocation();
+		for (Outcome outcome : outcomesInCatford) {
+			Entry<String, Collection<String>> outcomeWithRemarks = outcome
+					.toStringWithExtraInfo();
+			System.out.println(outcomeWithRemarks.getKey());
+			System.err.println(outcomeWithRemarks.getValue());
+		}
 	}
 
 }
