@@ -12,9 +12,34 @@ import org.apache.commons.io.IOUtils;
 
 import police.errors.APIException;
 
+/**
+ * Base class from which all MethodCalls inherit. Contains
+ * {@link BaseMethodCall#doCall(String, Map)}, which encodes the request into an
+ * URL and fetches the JSON response from the Police API.
+ * 
+ * @author filip
+ * 
+ */
 public abstract class BaseMethodCall {
 	protected final static String ENDPOINT = "http://data.police.uk/api/";
+	protected final static int TIMEOUT = 10000;
 
+	/**
+	 * Gets the response from the API
+	 * 
+	 * @param method
+	 *            The method to call (URL after /api/)
+	 * @param params
+	 *            A map containing the GET parameters (query for the API)
+	 * @return A String, which containst the JSON response.
+	 * @throws SocketTimeoutException
+	 *             Thrown if the time spent waiting for the response exceeds
+	 *             TIMEOUT (10s).
+	 * @throws IOException
+	 *             Thrown if the connection fails
+	 * @throws APIException
+	 *             Thrown if the server returns a non-200 HTTP code.
+	 */
 	protected String doCall(String method, Map<String, String> params)
 			throws SocketTimeoutException, IOException, APIException {
 		StringBuilder paramsBuilder = new StringBuilder(ENDPOINT)
@@ -42,8 +67,8 @@ public abstract class BaseMethodCall {
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl
 				.openConnection();
 		// The ten-second rule:
-		// If there's no data in 10s, assume the worst.
-		callConnection.setReadTimeout(10000);
+		// If there's no data in 10s (or TIMEOUT), assume the worst.
+		callConnection.setReadTimeout(TIMEOUT);
 		// Set the request method to GET.
 		callConnection.setRequestMethod("GET");
 		int code = callConnection.getResponseCode();
