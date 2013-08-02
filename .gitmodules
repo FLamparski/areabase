@@ -3,4 +3,4 @@
 	url = https://github.com/FLamparski/cardsui-for-android.git
 [submodule "cardsui-for-android"]
 	path = cardsui-for-android
-	url = https://github.com/FLamparski/cardsui-for-android.git
+	url = ./cardsui-for-android/
