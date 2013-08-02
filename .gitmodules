@@ -1,0 +1,6 @@
+[submodule "https://github.com/FLamparski/cardsui-for-android.git"]
+	path = https://github.com/FLamparski/cardsui-for-android.git
+	url = https://github.com/FLamparski/cardsui-for-android.git
+[submodule "cardsui-for-android"]
+	path = cardsui-for-android
+	url = https://github.com/FLamparski/cardsui-for-android.git

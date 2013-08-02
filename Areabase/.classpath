@@ -19,5 +19,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/actionbarsherlock"/>
 	<classpathentry kind="lib" path="/PoliceData/dist/police-api-alpha0.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CardsUILib"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
