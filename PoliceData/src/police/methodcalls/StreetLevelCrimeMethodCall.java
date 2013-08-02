@@ -155,10 +155,9 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 	protected Collection<Crime> processCrimes(String raw_json) {
 		Collection<Crime> crimes;
 
-		Gson gparser = new Gson();
 		Type collectionT = new TypeToken<Collection<Crime>>() {
 		}.getType();
-		crimes = gparser.fromJson(raw_json, collectionT);
+		crimes = new Gson().fromJson(raw_json, collectionT);
 
 		return crimes;
 	}

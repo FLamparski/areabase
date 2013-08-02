@@ -9,7 +9,7 @@ import police.types.Crime;
 
 import com.google.gson.Gson;
 
-public class CrimeOutcomesMethodCall extends BaseMethodCall {
+public class CaseHistoryMethodCall extends BaseMethodCall {
 	private final static String METHOD = "outcomes-for-crime";
 
 	private String persistent_id;

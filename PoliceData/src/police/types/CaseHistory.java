@@ -8,6 +8,7 @@ public class CaseHistory {
 	private Collection<Outcome> outcomes;
 	private Crime crime;
 
+	@SuppressWarnings("unused")
 	private CaseHistory() {
 	}
 
@@ -83,6 +84,20 @@ public class CaseHistory {
 	 */
 	@Override
 	public String toString() {
+		String outcomes;
+		try {
+			outcomes = this.outcomes.toString();
+		} catch (Exception e) {
+			outcomes = "(null)";
+		}
+
+		String crime;
+		try {
+			crime = this.crime.toString();
+		} catch (Exception e) {
+			crime = "(null)";
+		}
+
 		return "CaseHistory [outcomes=" + outcomes + ", crime=" + crime + "]";
 	}
 
