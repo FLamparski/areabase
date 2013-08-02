@@ -1,24 +1,58 @@
 package lamparski.areabase;
 
-import java.util.Locale;
-
+import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.dummy.mockup_classes.DummyData;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 
 public class AreaActivity extends SherlockFragmentActivity {
 
-	AreaInfoPagerAdapter mAreaInfoPagerAdapter;
-	ViewPager mPager;
+	protected AreaInfoPagerAdapter mAreaInfoPagerAdapter;
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
+	private ListView mDrawerList;
+	private CharSequence mTitle;
 
 	public static final String[] TAB_NAMES = { "Summary", "Demographics",
 			"Indices", "Work", "Crime", "Environment", "Hierarchy", "Misc" };
+
+	private class DrawerItemClickListener implements
+			ListView.OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView parent, View view, int position,
+				long id) {
+			setParentContentView(position);
+		}
+
+		private void setParentContentView(int which) {
+			Fragment demoFragment = new DemoObjectFragment();
+			Bundle args = new Bundle();
+			args.putInt(DemoObjectFragment.ARGUMENT, which);
+			demoFragment.setArguments(args);
+
+			FragmentManager fragmentManager = getSupportFragmentManager();
+			fragmentManager
+					.beginTransaction()
+					.replace(R.id.handset_area_activity_frameLayout,
+							demoFragment).addToBackStack("AreaActivity")
+					.commit();
+
+			mDrawerList.setItemChecked(which, true);
+
+		}
+	}
 
 	@Override
 	@DummyData(why = "Testing ActionBarSherlock, etc.", replace_with = "Meaningful code for Areabase.")
@@ -26,60 +60,36 @@ public class AreaActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.handset_area_activity);
 
-		mAreaInfoPagerAdapter = new AreaInfoPagerAdapter(
-				getSupportFragmentManager());
-		mPager = (ViewPager) findViewById(R.id.pager);
-		mPager.setAdapter(mAreaInfoPagerAdapter);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout);
+		mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView);
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, TAB_NAMES));
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, R.string.drawer_open,
+				R.string.drawer_close) {
+			@Override
+			public void onDrawerClosed(View drawerView) {
+				getSupportActionBar().setTitle(mTitle);
+			}
+
+			@Override
+			public void onDrawerOpened(View drawerView) {
+				getSupportActionBar().setTitle("Areabase");
+			}
+		};
 
 		final ActionBar mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		mActionBar.setTitle("Custom title");
-		ActionBar.TabListener mTabListener = new ActionBar.TabListener() {
+		mDrawerLayout.closeDrawer(mDrawerList);
+	}
 
-			@Override
-			public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onTabSelected(Tab tab, FragmentTransaction ft) {
-				mPager.setCurrentItem(tab.getPosition(), true);
-			}
-
-			@Override
-			public void onTabReselected(Tab tab, FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-
-			}
-		};
-
-		for (String tab_name : TAB_NAMES) {
-			mActionBar.addTab(mActionBar.newTab()
-					.setText(tab_name.toUpperCase(Locale.UK))
-					.setTabListener(mTabListener));
-		}
-
-		mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int position) {
-				mActionBar.setSelectedNavigationItem(position);
-			}
-
-			@Override
-			public void onPageScrolled(int position, float positionOffset,
-					int positionOffsetPixels) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int state) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+	@Override
+	public void setTitle(CharSequence title) {
+		mTitle = title;
+		getSupportActionBar().setTitle(title);
 	}
 
 	@Override

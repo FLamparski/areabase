@@ -15,5 +15,7 @@
     <string name="error_illegal_url_formatstring">This should not happen. If you think this is not a problem, here is the url: %1$s</string>
     <string name="error_illegal_url_response_dontgo">Stay in Areabase</string>
     <string name="error_illegal_url_response_open">Open in browser (caution)</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
 
 </resources>

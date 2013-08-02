@@ -16,7 +16,6 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/Areabase/libs/roboguice-2.0-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/actionbarsherlock"/>
 	<classpathentry kind="lib" path="/PoliceData/dist/police-api-alpha0.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/CardsUILib"/>
