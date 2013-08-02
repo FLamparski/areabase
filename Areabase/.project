@@ -3,6 +3,9 @@
 	<name>Areabase</name>
 	<comment></comment>
 	<projects>
+		<project>actionbarsherlock</project>
+		<project>CardsUILib</project>
+		<project>NeighbourhoodStatisticsExchange</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

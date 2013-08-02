@@ -2,10 +2,12 @@ package lamparski.areabase;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.dummy.mockup_classes.DummyData;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 public class AreaActivity extends SherlockFragmentActivity {
 
@@ -50,7 +53,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 					.commit();
 
 			mDrawerList.setItemChecked(which, true);
-
+			mDrawerLayout.closeDrawer(mDrawerList);
 		}
 	}
 
@@ -60,8 +63,15 @@ public class AreaActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.handset_area_activity);
 
+		ActionBar mActionBar = getSupportActionBar();
+		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		mActionBar.setTitle("Custom title");
+		mActionBar.setHomeButtonEnabled(true);
+
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout);
 		mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView);
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
+				GravityCompat.START);
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, TAB_NAMES));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -80,10 +90,16 @@ public class AreaActivity extends SherlockFragmentActivity {
 			}
 		};
 
-		final ActionBar mActionBar = getSupportActionBar();
-		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-		mActionBar.setTitle("Custom title");
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mDrawerLayout.closeDrawer(mDrawerList);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
 	}
 
 	@Override
@@ -99,4 +115,21 @@ public class AreaActivity extends SherlockFragmentActivity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
+				mDrawerLayout.closeDrawer(mDrawerList);
+			} else if (!(mDrawerLayout.isDrawerOpen(mDrawerList))) {
+				mDrawerLayout.openDrawer(mDrawerList);
+			}
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
 }

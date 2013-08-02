@@ -31,6 +31,7 @@ public class DemoObjectFragment extends Fragment {
 		Bundle args = getArguments();
 		((TextView) myView.findViewById(R.id.objectIdTextView))
 				.setText(AreaActivity.TAB_NAMES[args.getInt(ARGUMENT)]);
+		getActivity().setTitle(AreaActivity.TAB_NAMES[args.getInt(ARGUMENT)]);
 		return myView;
 	}
 

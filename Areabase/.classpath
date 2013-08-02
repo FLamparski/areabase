@@ -18,6 +18,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/PoliceData/dist/police-api-alpha0.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/CardsUILib"/>
+	<classpathentry exported="true" kind="lib" path="/actionbarsherlock/bin/actionbarsherlock.jar"/>
+	<classpathentry kind="lib" path="/CardsUILib/bin/cardsuilib.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
