@@ -1,0 +1,13 @@
+<?eclipse.ant.import?>
+<project basedir="." default="build" name="PoliceData">
+	<target name="jar" depends="build">
+		<taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask"
+			classpath="tools/jarjar-1.4.jar" />
+		<jarjar jarfile="dist/police-api-alpha0.1.jar">
+			<fileset dir="bin" />
+			<zipfileset src="lib/gson-2.2.4.jar" />
+			<rule pattern="com.google.gson.**" result="htcisdumb.realgson.@1" />
+		</jarjar>
+
+	</target>
+</project>
