@@ -1,7 +1,6 @@
 package nde2.types.discovery;
 
 import java.io.IOException;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.Map;
 
@@ -342,29 +341,21 @@ public class Area extends NDE2Result {
 	}
 
 	/**
-	 * <i>Note:</i> Areas are not initialised with compatible datasets. First
+	 * <i>Note:</i> Areas are not initialised with compatible subjects. First
 	 * call to this method may take a while. Use asynchronously.
 	 * 
-	 * <p>
-	 * Due to how {@link Dictionary Dictionaries} work, you'll need to extrace
-	 * the keys into a separate variable, or else the enumeration will get stuck
-	 * on a loop. Do it like so:
-	 * <p>
-	 * {@code Enumeration<Subject> = area.getCompatibleDatasets().keys();}
-	 * <p>
-	 * Or save the return value into a variable and <i>then</i> do that; saves
-	 * the NDE2 calls.
+	 * 
 	 * 
 	 * @return A list of compatible {@link Subject}s, together with their count
-	 *         as a {@link Dictionary}, where the Subject is the key, and the
-	 *         count is the value.
+	 *         as a {@link Map}, where the Subject is the key, and the count is
+	 *         the value.
 	 * @throws XPathExpressionException
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
 	 * @throws NDE2Exception
 	 */
-	public Map<Subject, Integer> getCompatibleDatasets()
+	public Map<Subject, Integer> getCompatibleSubjects()
 			throws XPathExpressionException, ParserConfigurationException,
 			SAXException, IOException, NDE2Exception {
 		if (compatibleDatasets == null)
