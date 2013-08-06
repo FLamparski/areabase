@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <lamparski.areabase.map_support.OrdnanceSurveyMapView
-        android:id="@+id/fragment_summary_OSMapView_DEFAULT"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/fragment_summary_OSMapView_DEFAULT_LAND"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="40" />
 
     <com.fima.cardsui.views.CardUI
-        android:id="@+id/fragment_summary_CardsUI_DEFAULT"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:id="@+id/fragment_summary_CardsUI_DEFAULT_LAND"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="60" >
     </com.fima.cardsui.views.CardUI>
 

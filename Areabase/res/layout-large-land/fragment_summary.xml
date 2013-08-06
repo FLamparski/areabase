@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="right"
+    android:orientation="horizontal" >
+
+    <lamparski.areabase.map_support.OrdnanceSurveyMapView
+        android:id="@+id/fragment_summary_OSMapView_TABLET_LANDSCAPE"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <com.fima.cardsui.views.CardUI
+        android:id="@+id/fragment_summary_CardsUI_TABLET_LANDSCAPE"
+        android:layout_width="480dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:drawable/screen_background_light_transparent" >
+    </com.fima.cardsui.views.CardUI>
+
+</RelativeLayout>

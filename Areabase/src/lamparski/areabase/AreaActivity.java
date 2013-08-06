@@ -27,6 +27,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 	private ListView mDrawerList;
 	private CharSequence mTitle;
 
+	private boolean is_tablet = false;
+	private boolean is_landscape = false;
+
 	public static final String[] TAB_NAMES = { "Summary", "Demographics",
 			"Indices", "Work", "Crime", "Environment", "Hierarchy", "Misc" };
 
@@ -61,15 +64,23 @@ public class AreaActivity extends SherlockFragmentActivity {
 	@DummyData(why = "Testing ActionBarSherlock, etc.", replace_with = "Meaningful code for Areabase.")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.handset_area_activity);
+		setContentView(R.layout.area_activity);
 
 		ActionBar mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		mActionBar.setTitle("Custom title");
 		mActionBar.setHomeButtonEnabled(true);
+		try {
+			mDrawerLayout = (DrawerLayout) findViewById(R.id.tablet_area_activity_drawerLayout);
+			mDrawerList = (ListView) findViewById(R.id.tablet_area_activity_navDrawer_listView);
+			is_tablet = true;
 
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout);
-		mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView);
+		} catch (Exception e) {
+			mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout);
+			mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView);
+			is_tablet = false;
+		}
+
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
 		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
@@ -131,5 +142,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	protected void setContentFragment(AreabaseViews which) {
+
 	}
 }
