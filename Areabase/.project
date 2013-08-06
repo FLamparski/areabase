@@ -6,6 +6,7 @@
 		<project>actionbarsherlock</project>
 		<project>CardsUILib</project>
 		<project>NeighbourhoodStatisticsExchange</project>
+		<project>PoliceData</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

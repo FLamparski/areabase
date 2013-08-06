@@ -1,6 +1,5 @@
 package lamparski.areabase.dummy.mockup_classes;
 
-import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +16,8 @@ import android.widget.TextView;
  */
 @DummyData(why = "Exists to provide test fragments for navigation testing", replace_with = "Do not use in live app.")
 public class DemoObjectFragment extends Fragment {
-	public static final String ARGUMENT = "object";
+	public static final String ARGUMENT = "fragment-content";
+	public static final String ARGUMENT2 = "fragment-title";
 
 	public DemoObjectFragment() {
 		super();
@@ -29,9 +29,9 @@ public class DemoObjectFragment extends Fragment {
 		View myView = inflater.inflate(R.layout.fragment_collection_object,
 				container, false);
 		Bundle args = getArguments();
-		((TextView) myView.findViewById(R.id.objectIdTextView))
-				.setText(AreaActivity.TAB_NAMES[args.getInt(ARGUMENT)]);
-		getActivity().setTitle(AreaActivity.TAB_NAMES[args.getInt(ARGUMENT)]);
+		((TextView) myView.findViewById(R.id.objectIdTextView)).setText(args
+				.getString(ARGUMENT));
+		getActivity().setTitle(args.getString(ARGUMENT2));
 		return myView;
 	}
 

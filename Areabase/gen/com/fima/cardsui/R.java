@@ -437,11 +437,11 @@ public final class R {
 		public static final int abs__textfield_searchview_right_holo_dark = 0x7f02006d;
 		public static final int abs__textfield_searchview_right_holo_light = 0x7f02006e;
 		public static final int abs__toast_frame = 0x7f02006f;
-		public static final int card = 0x7f020072;
-		public static final int card_background = 0x7f020073;
-		public static final int card_background_shadow = 0x7f020074;
-		public static final int card_shadow = 0x7f020075;
-		public static final int top_shadow = 0x7f02007b;
+		public static final int card = 0x7f020073;
+		public static final int card_background = 0x7f020074;
+		public static final int card_background_shadow = 0x7f020075;
+		public static final int card_shadow = 0x7f020076;
+		public static final int top_shadow = 0x7f020082;
 	}
 	public static final class id {
 		public static final int ScrollView1 = 0x7f04003a;
@@ -538,8 +538,8 @@ public final class R {
 		public static final int item_card_empty_last = 0x7f03001e;
 		public static final int item_play_card_empty_first = 0x7f03001f;
 		public static final int item_stack = 0x7f030020;
-		public static final int sherlock_spinner_dropdown_item = 0x7f030021;
-		public static final int sherlock_spinner_item = 0x7f030022;
+		public static final int sherlock_spinner_dropdown_item = 0x7f030023;
+		public static final int sherlock_spinner_item = 0x7f030024;
 	}
 	public static final class string {
 		public static final int abs__action_bar_home_description = 0x7f090000;

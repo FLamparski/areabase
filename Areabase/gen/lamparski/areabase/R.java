@@ -1090,18 +1090,25 @@ containing a value of this type.
         public static final int abs__textfield_searchview_right_holo_dark=0x7f02006d;
         public static final int abs__textfield_searchview_right_holo_light=0x7f02006e;
         public static final int abs__toast_frame=0x7f02006f;
-        public static final int action_search=0x7f020070;
-        public static final int action_settings=0x7f020071;
-        public static final int card=0x7f020072;
-        public static final int card_background=0x7f020073;
-        public static final int card_background_shadow=0x7f020074;
-        public static final int card_shadow=0x7f020075;
-        public static final int drawer_shadow=0x7f020076;
-        public static final int ic_drawer=0x7f020077;
-        public static final int ic_launcher=0x7f020078;
-        public static final int location_place=0x7f020079;
-        public static final int navigation_refresh=0x7f02007a;
-        public static final int top_shadow=0x7f02007b;
+        public static final int action_help=0x7f020070;
+        public static final int action_search=0x7f020071;
+        public static final int action_settings=0x7f020072;
+        public static final int card=0x7f020073;
+        public static final int card_background=0x7f020074;
+        public static final int card_background_shadow=0x7f020075;
+        public static final int card_shadow=0x7f020076;
+        public static final int drawer_shadow=0x7f020077;
+        public static final int ic_drawer=0x7f020078;
+        public static final int ic_launcher=0x7f020079;
+        public static final int location_place=0x7f02007a;
+        public static final int navicon_compare=0x7f02007b;
+        public static final int navicon_crime=0x7f02007c;
+        public static final int navicon_economy=0x7f02007d;
+        public static final int navicon_environment=0x7f02007e;
+        public static final int navicon_hierarchy=0x7f02007f;
+        public static final int navicon_summary=0x7f020080;
+        public static final int navigation_refresh=0x7f020081;
+        public static final int top_shadow=0x7f020082;
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f04003d;
@@ -1145,10 +1152,10 @@ containing a value of this type.
         public static final int abs__textButton=0x7f040013;
         public static final int abs__title=0x7f04001b;
         public static final int abs__up=0x7f04000b;
-        public static final int action_locate=0x7f04004c;
-        public static final int action_refresh=0x7f04004e;
-        public static final int action_search=0x7f04004d;
-        public static final int action_settings=0x7f04004b;
+        public static final int action_locate=0x7f04004f;
+        public static final int action_refresh=0x7f040051;
+        public static final int action_search=0x7f040050;
+        public static final int action_settings=0x7f04004e;
         public static final int cardContent=0x7f040048;
         public static final int disableHome=0x7f040009;
         public static final int edit_query=0x7f040026;
@@ -1161,12 +1168,15 @@ containing a value of this type.
         public static final int fragment_summary_OSMapView_DEFAULT_LAND=0x7f040041;
         public static final int fragment_summary_OSMapView_TABLET=0x7f040043;
         public static final int fragment_summary_OSMapView_TABLET_LANDSCAPE=0x7f040045;
-        public static final int handset_area_activity_drawerLayout=0x7f040032;
-        public static final int handset_area_activity_frameLayout=0x7f040033;
-        public static final int handset_area_activity_navDrawer_listView=0x7f040034;
+        public static final int handset_area_activity_drawerLayout_DEFAULT=0x7f040032;
+        public static final int handset_area_activity_frameLayout_DEFAULT=0x7f040033;
+        public static final int handset_area_activity_navDrawer_listView_DEFAULT=0x7f040034;
         public static final int homeAsUp=0x7f040006;
         public static final int listMode=0x7f040002;
         public static final int listView=0x7f040038;
+        public static final int navbar_list_header_txt_header=0x7f04004b;
+        public static final int navbar_list_item_navicon=0x7f04004c;
+        public static final int navbar_list_item_txt_item=0x7f04004d;
         public static final int normal=0x7f040001;
         public static final int objectIdTextView=0x7f04003e;
         public static final int placeholder=0x7f040047;
@@ -1221,8 +1231,10 @@ containing a value of this type.
         public static final int item_card_empty_last=0x7f03001e;
         public static final int item_play_card_empty_first=0x7f03001f;
         public static final int item_stack=0x7f030020;
-        public static final int sherlock_spinner_dropdown_item=0x7f030021;
-        public static final int sherlock_spinner_item=0x7f030022;
+        public static final int navbar_list_header=0x7f030021;
+        public static final int navbar_list_item=0x7f030022;
+        public static final int sherlock_spinner_dropdown_item=0x7f030023;
+        public static final int sherlock_spinner_item=0x7f030024;
     }
     public static final class menu {
         public static final int areabase_opts_menu=0x7f0b0000;
@@ -1267,22 +1279,38 @@ containing a value of this type.
         /**  Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] 
          */
         public static final int abs__shareactionprovider_share_with_application=0x7f090007;
+        public static final int action_help=0x7f090012;
         public static final int action_locate=0x7f09000f;
         public static final int action_refresh=0x7f090011;
         public static final int action_search=0x7f090010;
+        /**  actions 
+         */
         public static final int action_settings=0x7f09000e;
+        /**  app 
+         */
         public static final int app_name=0x7f09000d;
-        public static final int card_subtitle_view_crime=0x7f090014;
-        public static final int card_subtitle_view_demographics=0x7f090012;
-        public static final int card_subtitle_view_environment=0x7f090015;
-        public static final int card_subtitle_view_indices=0x7f090013;
-        public static final int drawer_close=0x7f09001c;
-        public static final int drawer_open=0x7f09001b;
-        public static final int error_illegal_url_formatstring=0x7f090018;
-        public static final int error_illegal_url_response_dontgo=0x7f090019;
-        public static final int error_illegal_url_response_open=0x7f09001a;
-        public static final int error_illegal_url_title=0x7f090017;
-        public static final int toast_mapview_not_loading=0x7f090016;
+        public static final int caption_ONS=0x7f090020;
+        public static final int caption_Police=0x7f090021;
+        public static final int caption_area_compare=0x7f090024;
+        public static final int caption_area_hierarchy=0x7f090023;
+        public static final int caption_crime=0x7f09001c;
+        public static final int caption_economy=0x7f09001d;
+        public static final int caption_environment=0x7f09001e;
+        public static final int caption_summary=0x7f09001b;
+        public static final int drawer_close=0x7f090019;
+        public static final int drawer_open=0x7f090018;
+        public static final int error_illegal_url_formatstring=0x7f090015;
+        public static final int error_illegal_url_response_dontgo=0x7f090016;
+        public static final int error_illegal_url_response_open=0x7f090017;
+        public static final int error_illegal_url_title=0x7f090014;
+        /**  navigation 
+         */
+        public static final int navdrawer_secheader_basic_info=0x7f09001a;
+        public static final int navdrawer_secheader_misc=0x7f090022;
+        public static final int navdrawer_secheader_more_data=0x7f09001f;
+        /**  messages 
+         */
+        public static final int toast_mapview_not_loading=0x7f090013;
     }
     public static final class style {
         /** 
