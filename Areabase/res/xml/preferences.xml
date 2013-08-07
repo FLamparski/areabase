@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="pref_category_location"
+        android:title="@string/pref_category_location_heading" >
+        <CheckBoxPreference
+            android:key="pref_location_autolocate"
+            android:summaryOff="@string/pref_category_location_autoLocate_infoText_disabled"
+            android:summaryOn="@string/pref_category_location_autoLocate_infoText_enabled"
+            android:title="@string/pref_category_location_autoLocate_primaryText" />
+        <CheckBoxPreference
+            android:key="pref_location_backgroundlocate"
+            android:summaryOff="@string/pref_category_location_backgroundRefix_infoText_disabled"
+            android:summaryOn="@string/pref_category_location_backgroundRefix_infoText_enabled"
+            android:title="@string/pref_category_location_backgroundRefix_primaryText" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_category_testing"
+        android:title="@string/pref_category_testing_heading" >
+        <CheckBoxPreference
+            android:key="pref_testing_phonehome"
+            android:summaryOff="@string/pref_category_testing_phoneHome_infoText_disabled"
+            android:summaryOn="@string/pref_category_testing_phoneHome_infoText_enabled"
+            android:title="@string/pref_category_testing_phoneHome_primaryText" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

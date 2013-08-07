@@ -5,22 +5,38 @@ import java.util.List;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.dummy.mockup_classes.DummyData;
+import lamparski.areabase.fragments.IAreabaseFragment;
+import lamparski.areabase.services.AreabaseLocatorService;
+import lamparski.areabase.services.AreabaseLocatorService.AreabaseLocatorBinder;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 public class AreaActivity extends SherlockFragmentActivity {
 
@@ -30,10 +46,13 @@ public class AreaActivity extends SherlockFragmentActivity {
 	private ActionBarDrawerToggle mDrawerToggle;
 	private ListView mDrawerList;
 	private CharSequence mTitle;
-	private double[] mGeoPoint = null;
+	private Location mGeoPoint = null;
+	private IAreabaseFragment mContentFragment = null;
+	private AreabaseLocatorService mLocatorService;
 
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
+	private boolean is_locator_bound;
 
 	public static final int SUMMARY = 0;
 	public static final int CRIME = 1;
@@ -68,6 +87,8 @@ public class AreaActivity extends SherlockFragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.area_activity);
+
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
 		ActionBar mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -114,13 +135,115 @@ public class AreaActivity extends SherlockFragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 
 		if (savedInstanceState != null) {
-			mGeoPoint = savedInstanceState.getDoubleArray(SIS_LOADED_COORDS);
+			mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
 			changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
 		} else {
 			mGeoPoint = null;
 			changeFragment(SUMMARY);
 		}
 	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		Intent intent = new Intent(this, AreabaseLocatorService.class);
+		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+		if (getSharedPreferences("AreabasePrefs", 0).getBoolean(
+				"pref_location_autolocate", true)) {
+			mLocatorService.startLocationListening();
+			sOnUpdateLocation.execute(5); // Fast fix -- 5 tries, no target
+											// accuracy.
+		}
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (is_locator_bound) {
+			if (mLocatorService.isListening())
+				mLocatorService.stopLocationListening();
+			unbindService(mConnection);
+			is_locator_bound = false;
+		}
+	}
+
+	private AsyncTask<Integer, Integer, Location> sOnUpdateLocation = new AsyncTask<Integer, Integer, Location>() {
+
+		@Override
+		protected void onPreExecute() {
+			setSupportProgressBarIndeterminateVisibility(true);
+		};
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
+		@Override
+		protected Location doInBackground(Integer... params) {
+			Location bestLocation = null;
+			int tries = params[0];
+			int targetAccuracy = Integer.MAX_VALUE;
+			if (params.length > 1)
+				targetAccuracy = params[1];
+			int currentTry = 0;
+			int currentAccuracy = targetAccuracy + 1000;
+			while (currentTry < tries && currentAccuracy > targetAccuracy) {
+				// This loop quits when it's exceeded the number of allotted
+				// tries, or if it has found an accurate fix.
+				if (is_locator_bound) {
+					currentTry++;
+					if (bestLocation == null)
+						bestLocation = mLocatorService.getLocation();
+
+					if (mLocatorService.hasBetterLocation())
+						bestLocation = mLocatorService.getLocation();
+
+					currentAccuracy = (int) bestLocation.getAccuracy();
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						continue;
+					}
+				}
+			}
+			return bestLocation;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
+		protected void onPostExecute(Location result) {
+			mGeoPoint = result;
+			if (!(getSharedPreferences("AreabasePrefs", 0).getBoolean(
+					"pref_location_backgroundlocate", true))) {
+				mLocatorService.stopLocationListening();
+			}
+			setSupportProgressBarIndeterminateVisibility(false);
+			mContentFragment.updateGeo(result);
+			mContentFragment.refreshContent();
+		}
+
+	};
+
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			is_locator_bound = false;
+		}
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			AreabaseLocatorBinder lBinder = (AreabaseLocatorBinder) service;
+			mLocatorService = lBinder.getService();
+			is_locator_bound = true;
+		}
+	};
 
 	private NavDrawerListAdapter setUpNavDrawer() {
 		mNavDrawerAdapter = new NavDrawerListAdapter(this);
@@ -186,19 +309,103 @@ public class AreaActivity extends SherlockFragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getSupportMenuInflater().inflate(R.menu.areabase_opts_menu, menu);
+
+		/*
+		 * Search action: Handle expanding the search box and starting the
+		 * search procedure.
+		 */
+		final EditText mSearchBox = (EditText) menu
+				.findItem(R.id.action_search).getActionView();
+		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+		searchMenuItem
+				.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+
+					@Override
+					public boolean onMenuItemActionCollapse(MenuItem item) {
+						// Clear the search box
+						mSearchBox.clearFocus();
+						mSearchBox.setText("");
+						return true;
+					}
+
+					@Override
+					public boolean onMenuItemActionExpand(MenuItem item) {
+						// Place cursor in the search box
+						mSearchBox.requestFocus();
+						// Make sure the keyboard is displayed.
+						InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+						imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+						return true;
+					}
+				});
+		mSearchBox
+				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+					@Override
+					public boolean onEditorAction(TextView v, int actionId,
+							KeyEvent event) {
+						if (actionId == EditorInfo.IME_NULL
+								|| actionId == EditorInfo.IME_ACTION_SEARCH) {
+							/*
+							 * Only execute this if the user has pressed the
+							 * 'Search' Enter-like key on the soft keyboard, or
+							 * the hardware Enter key.
+							 */
+							searchAreasByText(v.getText().toString());
+							return true;
+						} else {
+							/*
+							 * If the key was anything else, we don't want to do
+							 * anything, so just return false.
+							 */
+							return false;
+						}
+					}
+				});
+
+		/*
+		 * Other actions are much simpler, so they'll be handled in
+		 * onOptionsItemSelected.
+		 */
+
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == android.R.id.home) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
 			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
 				mDrawerLayout.closeDrawer(mDrawerList);
 			} else if (!(mDrawerLayout.isDrawerOpen(mDrawerList))) {
 				mDrawerLayout.openDrawer(mDrawerList);
 			}
+			break;
+		case R.id.action_locate:
+			updateLocation();
+			break;
+		case R.id.action_refresh:
+			doRefreshFragment();
+			break;
+		case R.id.action_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			startActivity(intent);
+			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	private void searchAreasByText(String searchQuery) {
+		mContentFragment.searchByText(searchQuery);
+	}
+
+	private void doRefreshFragment() {
+		mContentFragment.refreshContent();
+	}
+
+	private void updateLocation() {
+		// Max. 30 tries(secs), target accuracy = 50m.
+		sOnUpdateLocation.execute(30, 50);
 	}
 
 	@Override
@@ -207,7 +414,17 @@ public class AreaActivity extends SherlockFragmentActivity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	public double[] getGeoPoint() {
+	/**
+	 * Checks if the locator service has new location, then saves it and returns
+	 * it.
+	 * 
+	 * @return User's location.
+	 */
+	public Location getLocation() {
+		if (is_locator_bound) {
+			if (mLocatorService.hasBetterLocation())
+				mGeoPoint = mLocatorService.getLocation();
+		}
 		return mGeoPoint;
 	}
 
@@ -219,7 +436,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 		case SUMMARY:
 			replacementFragment = new SummaryFragment();
 			if (mGeoPoint != null) {
-				args.putDoubleArray(CURRENT_COORDS, mGeoPoint);
+				args.putParcelable(CURRENT_COORDS, mGeoPoint);
 			}
 			performFragmentTransaction(replacementFragment);
 			break;
@@ -289,6 +506,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 		fragmentManager.beginTransaction()
 				.replace(R.id.handset_area_activity_frameLayout_DEFAULT, frag)
 				.addToBackStack("AreaActivity").commit();
+		if (frag instanceof IAreabaseFragment) {
+			mContentFragment = (IAreabaseFragment) frag;
+		}
 	}
 
 }
