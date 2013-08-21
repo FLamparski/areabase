@@ -19,7 +19,8 @@
 	<classpathentry kind="lib" path="/PoliceData/dist/police-api-alpha0.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
 	<classpathentry exported="true" kind="lib" path="/actionbarsherlock/bin/actionbarsherlock.jar"/>
-	<classpathentry kind="lib" path="/CardsUILib/bin/cardsuilib.jar"/>
+	<classpathentry exported="true" kind="lib" path="/CardsUILib/bin/cardsuilib.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry kind="con" path="com.google.gdt.eclipse.managedapis.MANAGED_API_CONTAINER/androidpublisher-v1.1r5lv1.15.0-rc"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

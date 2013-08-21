@@ -6,17 +6,11 @@ import java.util.List;
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.dummy.mockup_classes.DummyData;
 import lamparski.areabase.fragments.IAreabaseFragment;
-import lamparski.areabase.services.AreabaseLocatorService;
-import lamparski.areabase.services.AreabaseLocatorService.AreabaseLocatorBinder;
-import android.content.ComponentName;
-import android.content.Context;
+import lamparski.areabase.fragments.SummaryFragment;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,11 +42,13 @@ public class AreaActivity extends SherlockFragmentActivity {
 	private CharSequence mTitle;
 	private Location mGeoPoint = null;
 	private IAreabaseFragment mContentFragment = null;
-	private AreabaseLocatorService mLocatorService;
+	private int mFragmentHostId;
+	// private AreabaseLocatorService mLocatorService;
 
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
-	private boolean is_locator_bound;
+	@SuppressWarnings("unused")
+	private boolean is_locator_bound = false;
 
 	public static final int SUMMARY = 0;
 	public static final int CRIME = 1;
@@ -86,9 +82,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 	@DummyData(why = "Testing ActionBarSherlock, etc.", replace_with = "Meaningful code for Areabase.")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.area_activity);
-
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+
+		setContentView(R.layout.area_activity);
 
 		ActionBar mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -99,12 +95,14 @@ public class AreaActivity extends SherlockFragmentActivity {
 		if (mDrawerLayout != null) {
 			mDrawerList = (ListView) findViewById(R.id.tablet_area_activity_navDrawer_listView);
 			is_tablet = true;
+			mFragmentHostId = R.id.tablet_area_activity_frameLayout;
 			Log.i(getClass().getName(),
 					"Loading tablet version of AreaActivity");
 		} else {
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout_DEFAULT);
 			mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView_DEFAULT);
 			is_tablet = false;
+			mFragmentHostId = R.id.handset_area_activity_frameLayout_DEFAULT;
 			Log.i(getClass().getName(),
 					"Loading handset version of AreaActivity");
 		}
@@ -138,112 +136,115 @@ public class AreaActivity extends SherlockFragmentActivity {
 			mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
 			changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
 		} else {
-			mGeoPoint = null;
+			mGeoPoint = new Location("mock");
+			mGeoPoint.setLongitude(-0.0887);
+			mGeoPoint.setLatitude(51.5135);
 			changeFragment(SUMMARY);
 		}
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
+	// @Override
+	// protected void onStart() {
+	// super.onStart();
+	//
+	// Intent intent = new Intent(this, AreabaseLocatorService.class);
+	// bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+	// if (getSharedPreferences("AreabasePrefs", 0).getBoolean(
+	// "pref_location_autolocate", true)) {
+	// mLocatorService.startLocationListening();
+	// sOnUpdateLocation.execute(5); // Fast fix -- 5 tries, no target
+	// // accuracy.
+	// }
+	// }
 
-		Intent intent = new Intent(this, AreabaseLocatorService.class);
-		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-		if (getSharedPreferences("AreabasePrefs", 0).getBoolean(
-				"pref_location_autolocate", true)) {
-			mLocatorService.startLocationListening();
-			sOnUpdateLocation.execute(5); // Fast fix -- 5 tries, no target
-											// accuracy.
-		}
-	}
+	// @Override
+	// protected void onStop() {
+	// super.onStop();
+	// if (is_locator_bound) {
+	// if (mLocatorService.isListening())
+	// mLocatorService.stopLocationListening();
+	// unbindService(mConnection);
+	// is_locator_bound = false;
+	// }
+	// }
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-		if (is_locator_bound) {
-			if (mLocatorService.isListening())
-				mLocatorService.stopLocationListening();
-			unbindService(mConnection);
-			is_locator_bound = false;
-		}
-	}
-
-	private AsyncTask<Integer, Integer, Location> sOnUpdateLocation = new AsyncTask<Integer, Integer, Location>() {
-
-		@Override
-		protected void onPreExecute() {
-			setSupportProgressBarIndeterminateVisibility(true);
-		};
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.os.AsyncTask#doInBackground(Params[])
-		 */
-		@Override
-		protected Location doInBackground(Integer... params) {
-			Location bestLocation = null;
-			int tries = params[0];
-			int targetAccuracy = Integer.MAX_VALUE;
-			if (params.length > 1)
-				targetAccuracy = params[1];
-			int currentTry = 0;
-			int currentAccuracy = targetAccuracy + 1000;
-			while (currentTry < tries && currentAccuracy > targetAccuracy) {
-				// This loop quits when it's exceeded the number of allotted
-				// tries, or if it has found an accurate fix.
-				if (is_locator_bound) {
-					currentTry++;
-					if (bestLocation == null)
-						bestLocation = mLocatorService.getLocation();
-
-					if (mLocatorService.hasBetterLocation())
-						bestLocation = mLocatorService.getLocation();
-
-					currentAccuracy = (int) bestLocation.getAccuracy();
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						continue;
-					}
-				}
-			}
-			return bestLocation;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-		 */
-		@Override
-		protected void onPostExecute(Location result) {
-			mGeoPoint = result;
-			if (!(getSharedPreferences("AreabasePrefs", 0).getBoolean(
-					"pref_location_backgroundlocate", true))) {
-				mLocatorService.stopLocationListening();
-			}
-			setSupportProgressBarIndeterminateVisibility(false);
-			mContentFragment.updateGeo(result);
-			mContentFragment.refreshContent();
-		}
-
-	};
-
-	private ServiceConnection mConnection = new ServiceConnection() {
-
-		@Override
-		public void onServiceDisconnected(ComponentName name) {
-			is_locator_bound = false;
-		}
-
-		@Override
-		public void onServiceConnected(ComponentName name, IBinder service) {
-			AreabaseLocatorBinder lBinder = (AreabaseLocatorBinder) service;
-			mLocatorService = lBinder.getService();
-			is_locator_bound = true;
-		}
-	};
+	// private AsyncTask<Integer, Integer, Location> sOnUpdateLocation = new
+	// AsyncTask<Integer, Integer, Location>() {
+	//
+	// @Override
+	// protected void onPreExecute() {
+	// setSupportProgressBarIndeterminateVisibility(true);
+	// };
+	//
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see android.os.AsyncTask#doInBackground(Params[])
+	// */
+	// @Override
+	// protected Location doInBackground(Integer... params) {
+	// Location bestLocation = null;
+	// int tries = params[0];
+	// int targetAccuracy = Integer.MAX_VALUE;
+	// if (params.length > 1)
+	// targetAccuracy = params[1];
+	// int currentTry = 0;
+	// int currentAccuracy = targetAccuracy + 1000;
+	// while (currentTry < tries && currentAccuracy > targetAccuracy) {
+	// // This loop quits when it's exceeded the number of allotted
+	// // tries, or if it has found an accurate fix.
+	// if (is_locator_bound) {
+	// currentTry++;
+	// if (bestLocation == null)
+	// bestLocation = mLocatorService.getLocation();
+	//
+	// if (mLocatorService.hasBetterLocation())
+	// bestLocation = mLocatorService.getLocation();
+	//
+	// currentAccuracy = (int) bestLocation.getAccuracy();
+	// try {
+	// Thread.sleep(1000);
+	// } catch (InterruptedException e) {
+	// continue;
+	// }
+	// }
+	// }
+	// return bestLocation;
+	// }
+	//
+	// /*
+	// * (non-Javadoc)
+	// *
+	// * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+	// */
+	// @Override
+	// protected void onPostExecute(Location result) {
+	// mGeoPoint = result;
+	// if (!(getSharedPreferences("AreabasePrefs", 0).getBoolean(
+	// "pref_location_backgroundlocate", true))) {
+	// mLocatorService.stopLocationListening();
+	// }
+	// setSupportProgressBarIndeterminateVisibility(false);
+	// mContentFragment.updateGeo(result);
+	// mContentFragment.refreshContent();
+	// }
+	//
+	// };
+	//
+	// private ServiceConnection mConnection = new ServiceConnection() {
+	//
+	// @Override
+	// public void onServiceDisconnected(ComponentName name) {
+	// is_locator_bound = false;
+	// }
+	//
+	// @Override
+	// public void onServiceConnected(ComponentName name, IBinder service) {
+	// AreabaseLocatorBinder lBinder = (AreabaseLocatorBinder) service;
+	// mLocatorService = lBinder.getService();
+	// is_locator_bound = true;
+	// }
+	// };
 
 	private NavDrawerListAdapter setUpNavDrawer() {
 		mNavDrawerAdapter = new NavDrawerListAdapter(this);
@@ -405,7 +406,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 
 	private void updateLocation() {
 		// Max. 30 tries(secs), target accuracy = 50m.
-		sOnUpdateLocation.execute(30, 50);
+		// sOnUpdateLocation.execute(30, 50);
 	}
 
 	@Override
@@ -421,11 +422,25 @@ public class AreaActivity extends SherlockFragmentActivity {
 	 * @return User's location.
 	 */
 	public Location getLocation() {
-		if (is_locator_bound) {
-			if (mLocatorService.hasBetterLocation())
-				mGeoPoint = mLocatorService.getLocation();
-		}
-		return mGeoPoint;
+		// if (is_locator_bound) {
+		// if (mLocatorService.hasBetterLocation())
+		// mGeoPoint = mLocatorService.getLocation();
+		// }
+
+		// return mGeoPoint;
+
+		Location fakeLocation = new Location("MDMA");
+		fakeLocation.setLongitude(-0.0879756);
+		fakeLocation.setLatitude(51.5132473);
+		return fakeLocation;
+	}
+
+	public boolean isTablet() {
+		return is_tablet;
+	}
+
+	public boolean isLandscape() {
+		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
 
 	private void changeFragment(int fragId) {
@@ -438,6 +453,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 			if (mGeoPoint != null) {
 				args.putParcelable(CURRENT_COORDS, mGeoPoint);
 			}
+			replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
 			break;
 		case CRIME:
@@ -503,9 +519,8 @@ public class AreaActivity extends SherlockFragmentActivity {
 
 	private void performFragmentTransaction(Fragment frag) {
 		FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.handset_area_activity_frameLayout_DEFAULT, frag)
-				.addToBackStack("AreaActivity").commit();
+		fragmentManager.beginTransaction().replace(mFragmentHostId, frag)
+				.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
 		}

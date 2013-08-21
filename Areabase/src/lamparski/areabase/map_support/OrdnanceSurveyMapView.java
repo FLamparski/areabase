@@ -1,16 +1,12 @@
 package lamparski.areabase.map_support;
 
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import lamparski.areabase.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.webkit.WebView;
@@ -52,7 +48,7 @@ public class OrdnanceSurveyMapView extends WebView {
 	private void initOSView() {
 		my_client = new OSMapWebViewClient();
 		my_client
-				.setOnIllegalURLListener(new OSMapWebViewClient.OnIllegalURLListener() {
+				.setOnIllegalURLListener(new OSMapWebViewClient.OnNonApplicationURLListener() {
 					private Context context = getContext();
 
 					/*
@@ -104,50 +100,73 @@ public class OrdnanceSurveyMapView extends WebView {
 										});
 						alert_bldr.show();
 					}
+
+					@Override
+					public void onOpenExternalSafeUrl(String url) {
+						Uri uri = Uri.parse(url);
+						Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+						context.startActivity(intent);
+					}
 				});
 		setWebViewClient(my_client);
 		// Required, as Ordnance Survey is built on top of OpenLayers.
 		getSettings().setJavaScriptEnabled(true);
-		loadUrl("file:///android_assets/os_openspace.slippymap.html");
+		loadUrl("file:///android_asset/os_openspace/slippymap.html");
 		addJavascriptInterface(new OSNativeInterface(getContext()),
 				"AreabaseNative");
 	}
 
-	private void reloadMap(Map<String, String> qParams) {
-		/*
-		 * Build a URL which for the method call O HAI code from
-		 * nde2.methodcalls.BaseMethodCall
-		 */
-		StringBuilder methodCallStrBuilder = new StringBuilder(
-				"file:///android_assets/os_openspace.slippymap.html");
-		methodCallStrBuilder.append("?");
-		Set<Entry<String, String>> paramEntries = qParams.entrySet();
-		for (Entry<String, String> param : paramEntries) {
-			methodCallStrBuilder
-					.append(param.getKey() + "=" + param.getValue())
-					.append("&");
-		}
-		String callUrlStr = methodCallStrBuilder.toString();
-		// Cut the trailing & if present.
-		if (callUrlStr.endsWith("&"))
-			callUrlStr = callUrlStr.substring(0, callUrlStr.length() - 1);
-
-		loadUrl(callUrlStr);
-	}
-
 	public void highlightArea(String areaId, String adminUnit,
 			HoloCSSColourValues lineColour, HoloCSSColourValues fillColour) {
-		Hashtable<String, String> q = new Hashtable<String, String>();
-		q.put("AREA_ID", areaId);
-		q.put("ADM_UNIT", adminUnit);
-		q.put("COLOURS",
-				String.format("%s:%s", lineColour.getCssValue(),
-						fillColour.getCssValue()));
-		reloadMap(q);
+		loadUrl(String.format(
+				"javascript:wrapper__highlightArea(%s, %s, %s, %s)", areaId,
+				adminUnit, lineColour.getCssValue(), fillColour.getCssValue()));
 	}
 
 	public void highlightArea(String areaId, String adminUnit) {
 		highlightArea(areaId, adminUnit, HoloCSSColourValues.AQUAMARINE,
 				HoloCSSColourValues.CYAN);
+	}
+
+	/**
+	 * Centre the map on a specific point given by its easting and northing, at
+	 * the same zoom level.
+	 * 
+	 * @param easting
+	 * @param northing
+	 */
+	public void setCentre_byEastingNorthing(Double easting, Double northing) {
+		loadUrl(String
+				.format("javascript:wrapper__setCentre_keepZoom_eastingNorthing(%f, %f)",
+						easting, northing));
+	}
+
+	/**
+	 * Centre the map on a specific point given by its longitude and latitude,
+	 * at the same zoom level.
+	 * 
+	 * @param lon
+	 *            Longitude to centre on
+	 * @param lat
+	 *            Latitude to centre on
+	 */
+	public void setCentre(Double lon, Double lat) {
+		loadUrl(String.format(
+				"javascript:wrapper__setCentre_keepZoom_WGS84lonlat(%f, %f)",
+				lon, lat));
+	}
+
+	/**
+	 * Centre the map on a specific {@link Location} at the same zoom level.
+	 * 
+	 * @param location
+	 *            Location to centre on.
+	 */
+	public void setCentre(Location location) {
+		setCentre(location.getLongitude(), location.getLatitude());
+	}
+
+	public void setZoom(int zoomLevel) {
+		loadUrl(String.format("javascript:wrapper__setZoom(%d)", zoomLevel));
 	}
 }

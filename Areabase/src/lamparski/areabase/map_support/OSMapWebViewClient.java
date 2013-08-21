@@ -17,17 +17,19 @@ import android.webkit.WebViewClient;
  * 
  */
 public class OSMapWebViewClient extends WebViewClient {
-	public interface OnIllegalURLListener {
+	public interface OnNonApplicationURLListener {
 		public void onIllegalUrl(String url);
+
+		public void onOpenExternalSafeUrl(String url);
 	}
 
-	private OnIllegalURLListener mCallback;
+	private OnNonApplicationURLListener mCallback;
 
 	public OSMapWebViewClient() {
 		super();
 	}
 
-	public void setOnIllegalURLListener(OnIllegalURLListener listener) {
+	public void setOnIllegalURLListener(OnNonApplicationURLListener listener) {
 		mCallback = listener;
 	}
 
@@ -35,7 +37,11 @@ public class OSMapWebViewClient extends WebViewClient {
 		if (!(url.startsWith("http://openspace.ordnancesurvey.co.uk/") | url
 				.startsWith("file:///"))) {
 			if (mCallback != null) {
-				mCallback.onIllegalUrl(url);
+				if (url.equals("http://www.ordnancesurvey.co.uk/oswebsite/web-services/developer-agreement.html")) {
+					mCallback.onOpenExternalSafeUrl(url);
+				} else {
+					mCallback.onIllegalUrl(url);
+				}
 			}
 			return true;
 		} else {

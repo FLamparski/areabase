@@ -23,13 +23,11 @@ OS OnDemand WMTS - <script type="text/javascript" src="http://ondemandapi.ordnan
 <script type="text/javascript">
 // Define the osMap variable
 
-var osMap;
+var osMap
+var highlightLayer = null;
 
 // This function creates the map and is called by the div in the HTML
-
-function init()
-
-  {
+function init(){
     
 // Create new map
     var mapOptions = {
@@ -53,7 +51,56 @@ function init()
 
     osMap.setCenter(new OpenSpace.MapPoint(400000, 400000), 0);
             
-  }
+}
+
+/**
+ * Function called by OrdnanceSurveyMapView
+ * Set centre of the map on a specific longitude/latitude.
+ */
+function wrapper__setCentre_keepZoom_WGS84lonlat(longitude, latitude){
+	console.log("Setting new centre at longitude %f, latitude %f", longitude, latitude);
+	var newCentre = new OpenLayers.LonLat(longitude, latitude);
+	console.log("New centre now has a OpenLayers.LonLat!", newCentre);
+	var enNc = newCentre.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:27700"));
+	console.log("New centre: coordinates transformed to Ordnance Survey's!", enNc);
+	osMap.setCenter(enNc, osMap.getZoom());
+}
+
+/**
+ * Function called by OrdnanceSurveyMapView
+ * Set centre of the map on a specific easting/northing
+ */
+function wrapper__setCentre_keepZoom_eastingNorthing(easting, northing){
+	var newCentre = new OpenSpace.MapPoint(easting, northing);
+	osMap.setCenter(newCentre, osMap.getZoom());
+}
+
+function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
+	if(highlightLayer != null){
+		osMap.removeLayer(highlightLayer);
+	}
+	var symbolizer = OpenLayers.Util.applyDefaults({}, OpenLayers.Feature.Vector.style["default"]);
+    
+	var styleMap = new OpenLayers.StyleMap(symbolizer);
+	
+	var lookup = new Object();
+	lookup[adminUnit] = {fillColor: fillColour, strokeColor: lineColour, strokeWidth: 3};
+      
+	styleMap.addUniqueValueRules("default", "AREA_CODE", lookup);
+	
+	highlightLayer = new OpenSpace.Layers.Boundary("Boundaries", {
+		strategies: [new OpenSpace.Strategy.BBOX()],
+		area_code: [adminUnit],
+		admin_unit_ids: [areaId],
+		styleMap: styleMap
+	});
+	
+	osMap.addLayer(highlightLayer);
+}
+
+function wrapper__setZoom(zoomLevel){
+	osMap.setCenter(osMap.getCenter(), zoomLevel);
+}
 </script>
 
 </head>  
