@@ -20,15 +20,18 @@ public class BasicCard extends Card {
 		// setBackgroundResource(R.drawable.card);
 	}
 
+	public BasicCard() {
+	}
+
 	@Override
 	public View getCardContent(Context context) {
 		View contentView = ((LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.basic_card, null);
+				R.layout.card_ex, null);
 
-		((TextView) contentView.findViewById(R.id.basic_card_title))
+		((TextView) contentView.findViewById(R.id.card_basic_title))
 				.setText(title);
-		((TextView) contentView.findViewById(R.id.basic_card_textContent))
+		((TextView) contentView.findViewById(R.id.card_basic_text))
 				.setText(desc);
 
 		return contentView;

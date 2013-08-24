@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
-import lamparski.areabase.dummy.mockup_classes.DummyData;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.SummaryFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -79,16 +79,16 @@ public class AreaActivity extends SherlockFragmentActivity {
 	}
 
 	@Override
-	@DummyData(why = "Testing ActionBarSherlock, etc.", replace_with = "Meaningful code for Areabase.")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.d("AreaActivity", "onCreate() called");
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
 		setContentView(R.layout.area_activity);
 
 		ActionBar mActionBar = getSupportActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		mActionBar.setTitle("Custom title");
+		mActionBar.setTitle("Areabase");
 		mActionBar.setHomeButtonEnabled(true);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.tablet_area_activity_drawerLayout);
@@ -133,6 +133,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 
 		if (savedInstanceState != null) {
+			Log.d("AreaActivity", "  > savedInstanceState != null");
 			mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
 			changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
 		} else {
@@ -140,6 +141,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 			mGeoPoint.setLongitude(-0.0887);
 			mGeoPoint.setLatitude(51.5135);
 			changeFragment(SUMMARY);
+			doRefreshFragment();
 		}
 	}
 
@@ -317,7 +319,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 		 */
 		final EditText mSearchBox = (EditText) menu
 				.findItem(R.id.action_search).getActionView();
-		MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+		final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
 		searchMenuItem
 				.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 
@@ -326,6 +328,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 						// Clear the search box
 						mSearchBox.clearFocus();
 						mSearchBox.setText("");
+						InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+						imm.toggleSoftInput(
+								InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 						return true;
 					}
 
@@ -347,12 +352,19 @@ public class AreaActivity extends SherlockFragmentActivity {
 							KeyEvent event) {
 						if (actionId == EditorInfo.IME_NULL
 								|| actionId == EditorInfo.IME_ACTION_SEARCH) {
+							if (event != null) {
+								if (event.getAction() != KeyEvent.ACTION_DOWN) {
+									return false; // Prevents code below from
+													// running twice.
+								}
+							}
 							/*
 							 * Only execute this if the user has pressed the
 							 * 'Search' Enter-like key on the soft keyboard, or
 							 * the hardware Enter key.
 							 */
 							searchAreasByText(v.getText().toString());
+							searchMenuItem.collapseActionView();
 							return true;
 						} else {
 							/*
@@ -401,7 +413,12 @@ public class AreaActivity extends SherlockFragmentActivity {
 	}
 
 	private void doRefreshFragment() {
-		mContentFragment.refreshContent();
+		new Handler().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				getContentFragment().refreshContent();
+			}
+		}, 500);
 	}
 
 	private void updateLocation() {
@@ -413,6 +430,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
+		doRefreshFragment();
 	}
 
 	/**
@@ -441,6 +459,10 @@ public class AreaActivity extends SherlockFragmentActivity {
 
 	public boolean isLandscape() {
 		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+	}
+
+	private IAreabaseFragment getContentFragment() {
+		return mContentFragment;
 	}
 
 	private void changeFragment(int fragId) {

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme for API 14+. This theme completely replaces
@@ -8,5 +8,9 @@
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!-- API 14 theme customizations can go here. -->
     </style>
+
+    <style name="ButtonBarButton" parent="@android:style/Widget.Holo.Light.Button.Borderless.Small"></style>
+
+    <style name="ButtonBar" parent="@android:style/Holo.Light.ButtonBar"></style>
 
 </resources>

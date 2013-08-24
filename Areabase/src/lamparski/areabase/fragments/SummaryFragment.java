@@ -1,12 +1,11 @@
 package lamparski.areabase.fragments;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
-import lamparski.areabase.cards.ClickthroughCardUI;
+import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.fima.cardsui.objects.Card;
+import com.fima.cardsui.objects.CardFactory;
+import com.fima.cardsui.objects.CardModel;
 import com.fima.cardsui.views.CardUI;
 
 public class SummaryFragment extends SherlockFragment implements
@@ -27,45 +29,58 @@ public class SummaryFragment extends SherlockFragment implements
 	 * This saves cards that are supposed to be preserved across orientation
 	 * changes, etc.
 	 */
-
-	private ArrayList<HashMap<String, Object>> cardCache;
+	private ArrayList<CardModel> cardModels;
 	private Location mLocation;
 	private boolean is_tablet, is_landscape;
 
 	public SummaryFragment() {
 		super();
-		cardCache = new ArrayList<HashMap<String, Object>>();
+		cardModels = new ArrayList<CardModel>();
 	}
 
-	@Override
 	@SuppressWarnings("unchecked")
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		Log.d("SummaryFragment", "onActivityCreated() enter");
+
+		getActivity().setTitle("Test Area");
 
 		if (savedInstanceState != null) {
-			if (savedInstanceState.getSerializable("SummaryFragment-cardCache") != null) {
-				// Oh how I wish for some more dynamic typing
-				cardCache = (ArrayList<HashMap<String, Object>>) savedInstanceState
-						.getSerializable("SummaryFragment-cardCache");
-			}
-		}
-
-		if (!(cardCache.isEmpty())) {
-			for (HashMap<String, Object> cardModel : cardCache) {
-				// This is why I love Python
-				if (cardModel.get("TYPE").equals(BasicCard.class)) {
-					mCardUI.addCard(new BasicCard((String) cardModel
-							.get("TITLE"), (String) cardModel
-							.get("DESCRIPTION")));
+			mOpenSpaceView.setCentre((Location) savedInstanceState
+					.getParcelable(AreaActivity.CURRENT_COORDS));
+			mOpenSpaceView.setZoom(10);
+			Object depickledCards = savedInstanceState
+					.getSerializable("card-models");
+			if (depickledCards != null) {
+				if (depickledCards instanceof ArrayList<?>) {
+					cardModels = (ArrayList<CardModel>) depickledCards;
 				}
+			} else {
+				populateCards();
 			}
+		} else {
+			populateCards();
 		}
+	}
 
-		refreshContent();
+	private void populateCards() {
+		CardModel mdl1 = new CardModel(
+				"Bank is located in the City of London, and serves a nice puropse as a mock.",
+				"This is Bank", BasicCard.class);
+		CardModel mdl2 = new CardModel(
+				"Reflection FTW!",
+				"This card was created using a MVC-based architecture and a lot of reflection.",
+				HoloCSSColourValues.GREEN.getCssValue(),
+				HoloCSSColourValues.GREEN.getCssValue(), false, false,
+				BasicCard.class);
+		cardModels.add(mdl1);
+		cardModels.add(mdl2);
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		Log.d("SummaryFragment", "onCreateView() enter");
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
 
@@ -84,8 +99,6 @@ public class SummaryFragment extends SherlockFragment implements
 				mCardUI = (CardUI) theView
 						.findViewById(R.id.fragment_summary_CardsUI_TABLET);
 			}
-			// In this mode, mCardUI is clickthrough.
-			((ClickthroughCardUI) mCardUI).setViewBelow(mOpenSpaceView);
 		} else {
 			if (is_landscape) {
 				mOpenSpaceView = (OrdnanceSurveyMapView) theView
@@ -101,7 +114,6 @@ public class SummaryFragment extends SherlockFragment implements
 		}
 
 		mCardUI.setSwipeable(true);
-		mCardUI.setEnabled(false);
 
 		if (getArguments() != null) {
 			mLocation = (Location) getArguments().getParcelable(
@@ -130,24 +142,28 @@ public class SummaryFragment extends SherlockFragment implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		// HACK: instead of doing it this way, modify CardsUI to support
-		// MVC.
-		outState.putSerializable("SummaryFragment-cardCache", cardCache);
 
 		outState.putParcelable(AreaActivity.CURRENT_COORDS, mLocation);
+		outState.putSerializable("card-models", cardModels);
 	}
 
 	@Override
 	public void refreshContent() {
 		mCardUI.clearCards();
-		cardCache.clear();
-		mCardUI.addCard(new BasicCard("Not fully implemented",
-				"This is just a mock."));
-		HashMap<String, Object> goddamnit = new HashMap<String, Object>();
-		goddamnit.put("TITLE", "Not fully implemented");
-		goddamnit.put("DESCRIPTION", "This is just a mock.");
-		goddamnit.put("TYPE", BasicCard.class);
-		cardCache.add(goddamnit);
+
+		for (CardModel mdl : cardModels) {
+			try {
+				mCardUI.addCard((Card) CardFactory.createCard(mdl));
+			} catch (java.lang.InstantiationException e) {
+				Log.e("SummaryFragment", "Cannot instantiate a Card.", e);
+			} catch (IllegalAccessException e) {
+				Log.e("SummaryFragment", "Cannot instantiate a Card.", e);
+			}
+		}
+
+		mCardUI.invalidate();
+		mCardUI.refresh();
+		mCardUI.forceLayout();
 
 		mOpenSpaceView.setCentre(mLocation);
 		mOpenSpaceView.setZoom(10);

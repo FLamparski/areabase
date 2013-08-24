@@ -14,15 +14,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true" />
 
-    <lamparski.areabase.cards.ClickthroughCardUI
+    <com.fima.cardsui.views.CardUI
         android:id="@+id/fragment_summary_CardsUI_TABLET_LANDSCAPE"
         android:layout_width="480dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/myTransparentDrawable"
-        android:focusable="false"
-        android:focusableInTouchMode="false" >
-    </lamparski.areabase.cards.ClickthroughCardUI>
+        android:background="@drawable/myTransparentDrawable" >
+    </com.fima.cardsui.views.CardUI>
 
 </RelativeLayout>

@@ -122,10 +122,10 @@ public final class R {
 		public static final int abs__bright_foreground_disabled_holo_light = 0x7f070005;
 		public static final int abs__bright_foreground_holo_dark = 0x7f070002;
 		public static final int abs__bright_foreground_holo_light = 0x7f070003;
-		public static final int abs__primary_text_disable_only_holo_dark = 0x7f07000e;
-		public static final int abs__primary_text_disable_only_holo_light = 0x7f07000f;
-		public static final int abs__primary_text_holo_dark = 0x7f070010;
-		public static final int abs__primary_text_holo_light = 0x7f070011;
+		public static final int abs__primary_text_disable_only_holo_dark = 0x7f07000f;
+		public static final int abs__primary_text_disable_only_holo_light = 0x7f070010;
+		public static final int abs__primary_text_holo_dark = 0x7f070011;
+		public static final int abs__primary_text_holo_light = 0x7f070012;
 		public static final int card_border = 0x7f07000d;
 		public static final int card_grid_text = 0x7f07000b;
 		public static final int card_light_text = 0x7f07000a;
@@ -441,10 +441,10 @@ public final class R {
 		public static final int card_background = 0x7f020074;
 		public static final int card_background_shadow = 0x7f020075;
 		public static final int card_shadow = 0x7f020076;
-		public static final int top_shadow = 0x7f020083;
+		public static final int top_shadow = 0x7f020086;
 	}
 	public static final class id {
-		public static final int ScrollView1 = 0x7f05003d;
+		public static final int ScrollView1 = 0x7f050047;
 		public static final int abs__action_bar = 0x7f050020;
 		public static final int abs__action_bar_container = 0x7f05001f;
 		public static final int abs__action_bar_subtitle = 0x7f050011;
@@ -484,23 +484,23 @@ public final class R {
 		public static final int abs__textButton = 0x7f050013;
 		public static final int abs__title = 0x7f05001b;
 		public static final int abs__up = 0x7f05000b;
-		public static final int cardContent = 0x7f05004b;
+		public static final int cardContent = 0x7f050055;
 		public static final int disableHome = 0x7f050009;
 		public static final int edit_query = 0x7f050026;
-		public static final int footer = 0x7f05003f;
+		public static final int footer = 0x7f050049;
 		public static final int homeAsUp = 0x7f050006;
 		public static final int listMode = 0x7f050002;
-		public static final int listView = 0x7f05003b;
+		public static final int listView = 0x7f050045;
 		public static final int normal = 0x7f050001;
-		public static final int placeholder = 0x7f05004a;
+		public static final int placeholder = 0x7f050054;
 		public static final int showCustom = 0x7f050008;
 		public static final int showHome = 0x7f050005;
 		public static final int showTitle = 0x7f050007;
-		public static final int stackContainer = 0x7f05004d;
-		public static final int stackTitle = 0x7f05004c;
-		public static final int sticky = 0x7f05003c;
+		public static final int stackContainer = 0x7f050057;
+		public static final int stackTitle = 0x7f050056;
+		public static final int sticky = 0x7f050046;
 		public static final int tabMode = 0x7f050003;
-		public static final int tableLayout = 0x7f05003e;
+		public static final int tableLayout = 0x7f050048;
 		public static final int useLogo = 0x7f050004;
 		public static final int wrap_content = 0x7f050000;
 	}
@@ -529,17 +529,17 @@ public final class R {
 		public static final int abs__search_dropdown_item_icons_2line = 0x7f030012;
 		public static final int abs__search_view = 0x7f030013;
 		public static final int abs__simple_dropdown_hint = 0x7f030014;
-		public static final int cards_view = 0x7f030018;
-		public static final int cards_view_multicolumn = 0x7f030019;
-		public static final int footer_fragment = 0x7f03001a;
-		public static final int header = 0x7f03001d;
-		public static final int item_card = 0x7f03001e;
-		public static final int item_card_empty_first = 0x7f03001f;
-		public static final int item_card_empty_last = 0x7f030020;
-		public static final int item_play_card_empty_first = 0x7f030021;
-		public static final int item_stack = 0x7f030022;
-		public static final int sherlock_spinner_dropdown_item = 0x7f030025;
-		public static final int sherlock_spinner_item = 0x7f030026;
+		public static final int cards_view = 0x7f03001b;
+		public static final int cards_view_multicolumn = 0x7f03001c;
+		public static final int footer_fragment = 0x7f03001d;
+		public static final int header = 0x7f030020;
+		public static final int item_card = 0x7f030021;
+		public static final int item_card_empty_first = 0x7f030022;
+		public static final int item_card_empty_last = 0x7f030023;
+		public static final int item_play_card_empty_first = 0x7f030024;
+		public static final int item_stack = 0x7f030025;
+		public static final int sherlock_spinner_dropdown_item = 0x7f030028;
+		public static final int sherlock_spinner_item = 0x7f030029;
 	}
 	public static final class string {
 		public static final int abs__action_bar_home_description = 0x7f0a0000;

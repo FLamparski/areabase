@@ -25,6 +25,7 @@ import android.webkit.WebView;
 @SuppressLint("SetJavaScriptEnabled")
 public class OrdnanceSurveyMapView extends WebView {
 	private OSMapWebViewClient my_client;
+	private OSNativeInterface mNativeInterface;
 
 	public OrdnanceSurveyMapView(Context context) {
 		super(context);
@@ -109,11 +110,18 @@ public class OrdnanceSurveyMapView extends WebView {
 					}
 				});
 		setWebViewClient(my_client);
+
 		// Required, as Ordnance Survey is built on top of OpenLayers.
 		getSettings().setJavaScriptEnabled(true);
 		loadUrl("file:///android_asset/os_openspace/slippymap.html");
-		addJavascriptInterface(new OSNativeInterface(getContext()),
-				"AreabaseNative");
+
+		mNativeInterface = new OSNativeInterface(getContext());
+		addJavascriptInterface(mNativeInterface, "AreabaseNative");
+	}
+
+	public void setOnMapLoadedListener(
+			OSNativeInterface.OnMapLoadedListener listener) {
+		mNativeInterface._setOnMapLoadedListener(listener);
 	}
 
 	public void highlightArea(String areaId, String adminUnit,

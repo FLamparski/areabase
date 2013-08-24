@@ -1,5 +1,6 @@
 package lamparski.areabase.map_support;
 
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -36,10 +37,20 @@ public class OSMapWebViewClient extends WebViewClient {
 	public boolean shouldOverrideUrlLoading(WebView view, String url) {
 		if (!(url.startsWith("http://openspace.ordnancesurvey.co.uk/") | url
 				.startsWith("file:///"))) {
+			Log.i("OSMapView client", "Caught non-application url: " + url);
 			if (mCallback != null) {
-				if (url.equals("http://www.ordnancesurvey.co.uk/oswebsite/web-services/developer-agreement.html")) {
+				if (url.startsWith("http://www.ordnancesurvey.co.uk/")) {
+					/*
+					 * http://www.ordnancesurvey.co.uk/oswebsite/web-services/os-
+					 * openspace/developer-agreement.html is safe and should
+					 * just open a browser window
+					 */
+					Log.d("OSMapView client",
+							" > Safe URL, firing onOpenExternalSafeUrl.");
 					mCallback.onOpenExternalSafeUrl(url);
 				} else {
+					Log.d("OSMapView client",
+							" > Unsafe URL, firing onIllegalUrl");
 					mCallback.onIllegalUrl(url);
 				}
 			}
