@@ -8,12 +8,6 @@
 package lamparski.areabase;
 
 public final class R {
-    public static final class array {
-        public static final int pref_example_list_titles=0x7f0c0000;
-        public static final int pref_example_list_values=0x7f0c0001;
-        public static final int pref_sync_frequency_titles=0x7f0c0002;
-        public static final int pref_sync_frequency_values=0x7f0c0003;
-    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1270,7 +1264,7 @@ containing a value of this type.
         public static final int sherlock_spinner_item=0x7f030029;
     }
     public static final class menu {
-        public static final int areabase_opts_menu=0x7f0d0000;
+        public static final int areabase_opts_menu=0x7f0c0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1323,63 +1317,45 @@ containing a value of this type.
         /**  app 
          */
         public static final int app_name=0x7f0a000d;
-        public static final int caption_ONS=0x7f0a0021;
-        public static final int caption_Police=0x7f0a0022;
-        public static final int caption_area_compare=0x7f0a0025;
-        public static final int caption_area_hierarchy=0x7f0a0024;
-        public static final int caption_crime=0x7f0a001d;
-        public static final int caption_economy=0x7f0a001e;
-        public static final int caption_environment=0x7f0a001f;
-        public static final int caption_summary=0x7f0a001c;
+        public static final int caption_ONS=0x7f0a0023;
+        public static final int caption_Police=0x7f0a0024;
+        public static final int caption_area_compare=0x7f0a0027;
+        public static final int caption_area_hierarchy=0x7f0a0026;
+        public static final int caption_crime=0x7f0a001f;
+        public static final int caption_economy=0x7f0a0020;
+        public static final int caption_environment=0x7f0a0021;
+        public static final int caption_summary=0x7f0a001e;
         public static final int drawer_close=0x7f0a001a;
         public static final int drawer_open=0x7f0a0019;
+        public static final int error_cannot_fetch_area_data=0x7f0a001b;
+        public static final int error_cannot_fetch_area_data_body=0x7f0a001c;
         public static final int error_illegal_url_formatstring=0x7f0a0016;
         public static final int error_illegal_url_response_dontgo=0x7f0a0017;
         public static final int error_illegal_url_response_open=0x7f0a0018;
         public static final int error_illegal_url_title=0x7f0a0015;
         /**  navigation 
          */
-        public static final int navdrawer_secheader_basic_info=0x7f0a001b;
-        public static final int navdrawer_secheader_misc=0x7f0a0023;
-        public static final int navdrawer_secheader_more_data=0x7f0a0020;
-        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0a0029;
-        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0a0028;
-        public static final int pref_category_location_autoLocate_primaryText=0x7f0a0027;
-        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0a002c;
-        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0a002b;
-        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0a002a;
-        /**  preferences 
- preferences -> location 
+        public static final int navdrawer_secheader_basic_info=0x7f0a001d;
+        public static final int navdrawer_secheader_misc=0x7f0a0025;
+        public static final int navdrawer_secheader_more_data=0x7f0a0022;
+        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0a002c;
+        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0a002b;
+        public static final int pref_category_location_autoLocate_primaryText=0x7f0a002a;
+        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0a002f;
+        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0a002e;
+        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0a002d;
+        /**  preferences -> location 
          */
-        public static final int pref_category_location_heading=0x7f0a0026;
+        public static final int pref_category_location_heading=0x7f0a0029;
         /**  preferences -> testing 
          */
-        public static final int pref_category_testing_heading=0x7f0a002d;
-        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0a0030;
-        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0a002f;
-        public static final int pref_category_testing_phoneHome_primaryText=0x7f0a002e;
-        public static final int pref_default_display_name=0x7f0a0036;
-        public static final int pref_description_social_recommendations=0x7f0a0034;
-        /**  Example settings for Data & Sync 
+        public static final int pref_category_testing_heading=0x7f0a0030;
+        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0a0033;
+        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0a0032;
+        public static final int pref_category_testing_phoneHome_primaryText=0x7f0a0031;
+        /**  preferences 
          */
-        public static final int pref_header_data_sync=0x7f0a0038;
-        /**  Strings related to Settings 
- Example General settings 
-         */
-        public static final int pref_header_general=0x7f0a0032;
-        /**  Example settings for Notifications 
-         */
-        public static final int pref_header_notifications=0x7f0a003b;
-        public static final int pref_ringtone_silent=0x7f0a003e;
-        public static final int pref_title_add_friends_to_messages=0x7f0a0037;
-        public static final int pref_title_display_name=0x7f0a0035;
-        public static final int pref_title_new_message_notifications=0x7f0a003c;
-        public static final int pref_title_ringtone=0x7f0a003d;
-        public static final int pref_title_social_recommendations=0x7f0a0033;
-        public static final int pref_title_sync_frequency=0x7f0a0039;
-        public static final int pref_title_system_sync_settings=0x7f0a003a;
-        public static final int pref_title_vibrate=0x7f0a003f;
-        public static final int title_activity_settings=0x7f0a0031;
+        public static final int title_activity_settings=0x7f0a0028;
         /**  messages 
          */
         public static final int toast_mapview_not_loading=0x7f0a0014;

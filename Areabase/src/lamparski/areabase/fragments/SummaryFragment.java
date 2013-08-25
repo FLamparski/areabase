@@ -1,14 +1,28 @@
 package lamparski.areabase.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lamparski.areabase.AreaActivity;
+import lamparski.areabase.AreaDataService;
+import lamparski.areabase.AreaDataService.AreaDataBinder;
+import lamparski.areabase.AreaDataService.AreaFetchedCallbacks;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
+import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
+import nde2.types.discovery.Area;
+import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Debug;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,6 +47,25 @@ public class SummaryFragment extends SherlockFragment implements
 	private Location mLocation;
 	private boolean is_tablet, is_landscape;
 
+	private AreaDataService mService;
+	private boolean isServiceBound;
+	private ServiceConnection mServiceConnection = new ServiceConnection() {
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			Log.e("SummaryFragment",
+					"The AreaDataService disconnected unexpectedly.");
+			isServiceBound = false;
+		}
+
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			AreaDataBinder binder = (AreaDataBinder) service;
+			mService = binder.getService();
+			isServiceBound = true;
+		}
+	};
+
 	public SummaryFragment() {
 		super();
 		cardModels = new ArrayList<CardModel>();
@@ -53,34 +86,22 @@ public class SummaryFragment extends SherlockFragment implements
 			Object depickledCards = savedInstanceState
 					.getSerializable("card-models");
 			if (depickledCards != null) {
-				if (depickledCards instanceof ArrayList<?>) {
-					cardModels = (ArrayList<CardModel>) depickledCards;
-				}
+				cardModels = (ArrayList<CardModel>) depickledCards;
 			} else {
-				populateCards();
+				refreshContent();
 			}
 		} else {
-			populateCards();
+			refreshContent();
 		}
-	}
-
-	private void populateCards() {
-		CardModel mdl1 = new CardModel(
-				"Bank is located in the City of London, and serves a nice puropse as a mock.",
-				"This is Bank", BasicCard.class);
-		CardModel mdl2 = new CardModel(
-				"Reflection FTW!",
-				"This card was created using a MVC-based architecture and a lot of reflection.",
-				HoloCSSColourValues.GREEN.getCssValue(),
-				HoloCSSColourValues.GREEN.getCssValue(), false, false,
-				BasicCard.class);
-		cardModels.add(mdl1);
-		cardModels.add(mdl2);
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d("SummaryFragment", "onCreateView() enter");
+
+		// Delete for release
+		Debug.startMethodTracing("summaryfragment.trace");
+
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
 
@@ -136,6 +157,32 @@ public class SummaryFragment extends SherlockFragment implements
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see android.support.v4.app.Fragment#onStart()
+	 */
+	@Override
+	public void onStart() {
+		super.onStart();
+		Intent intent = new Intent(getActivity(), AreaDataService.class);
+		getActivity().bindService(intent, mServiceConnection,
+				Context.BIND_AUTO_CREATE);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.support.v4.app.Fragment#onStop()
+	 */
+	@Override
+	public void onStop() {
+		super.onStop();
+		Debug.stopMethodTracing();
+		if (isServiceBound)
+			getActivity().unbindService(mServiceConnection);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see
 	 * android.support.v4.app.Fragment#onSaveInstanceState(android.os.Bundle)
 	 */
@@ -147,10 +194,7 @@ public class SummaryFragment extends SherlockFragment implements
 		outState.putSerializable("card-models", cardModels);
 	}
 
-	@Override
-	public void refreshContent() {
-		mCardUI.clearCards();
-
+	private void populateCards() {
 		for (CardModel mdl : cardModels) {
 			try {
 				mCardUI.addCard((Card) CardFactory.createCard(mdl));
@@ -164,6 +208,65 @@ public class SummaryFragment extends SherlockFragment implements
 		mCardUI.invalidate();
 		mCardUI.refresh();
 		mCardUI.forceLayout();
+	}
+
+	@Override
+	public void refreshContent() {
+		mCardUI.clearCards();
+
+		getSherlockActivity()
+				.setSupportProgressBarIndeterminateVisibility(true);
+
+		if (isServiceBound) {
+			mService.getAreas(mLocation, new AreaFetchedCallbacks() {
+
+				@Override
+				public void onSuccess(List<Area> resultList) {
+					Area closest = resultList.get(0);
+					CardModel cm = new CardModel(PlayCard.class);
+					cm.setTitlePlay(String.format("This is %s (%d).",
+							closest.getName(), closest.getAreaId()));
+					cm.setTitleColor(HoloCSSColourValues.AQUAMARINE
+							.getCssValue());
+					cm.setColor(HoloCSSColourValues.AQUAMARINE.getCssValue());
+					cm.setDescription(String
+							.format("This area falls within %s. It exists in hierarchy %d at level %d.",
+									resultList.get(1).getName(),
+									closest.getHierarchyId(),
+									closest.getLevelTypeId()));
+					cardModels.clear();
+					cardModels.add(cm);
+
+					populateCards();
+					getSherlockActivity()
+							.setSupportProgressBarIndeterminateVisibility(false);
+				}
+
+				@Override
+				public void onError(Throwable tr) {
+					AlertDialog dlg = new AlertDialog.Builder(getActivity())
+							.setTitle(R.string.error_cannot_fetch_area_data)
+							.setMessage(
+									getResources()
+											.getString(
+													R.string.error_cannot_fetch_area_data_body,
+													tr.getMessage()))
+							.setNeutralButton(android.R.string.ok,
+									new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(
+												DialogInterface dialog,
+												int which) {
+											dialog.dismiss();
+										}
+									}).create();
+					Log.e("SummaryActivity",
+							"Error fetching areas, the user has been notified.",
+							tr);
+					dlg.show();
+				}
+			});
+		}
 
 		mOpenSpaceView.setCentre(mLocation);
 		mOpenSpaceView.setZoom(10);
@@ -178,6 +281,7 @@ public class SummaryFragment extends SherlockFragment implements
 						+ location.getLatitude()));
 		mOpenSpaceView.setCentre(location);
 		mOpenSpaceView.setZoom(10);
+		refreshContent();
 	}
 
 	@Override

@@ -20,6 +20,8 @@
     <string name="error_illegal_url_response_open">Open in browser (caution)</string>
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+    <string name="error_cannot_fetch_area_data">Sorry, data about this area could not be fetched.</string>
+    <string name="error_cannot_fetch_area_data_body">Please make sure you are connected to the Internet and try again later. The message associated with this error is: %1$s. Hope this helps.</string>
 
     <!-- navigation -->
     <string name="navdrawer_secheader_basic_info">This area</string>
@@ -35,6 +37,7 @@
     <string name="caption_area_compare">Compare areas</string>
 
     <!-- preferences -->
+    <string name="title_activity_settings">Preferences</string>
     <!-- preferences -> location -->
     <string name="pref_category_location_heading">Location</string>
     <string name="pref_category_location_autoLocate_primaryText">Automatically find location</string>
