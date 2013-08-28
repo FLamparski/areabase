@@ -133,9 +133,9 @@ public class AreaActivity extends SherlockFragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 
 		if (savedInstanceState != null) {
-			Log.d("AreaActivity", "  > savedInstanceState != null");
-			mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
-			changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
+			// Log.d("AreaActivity", "  > savedInstanceState != null");
+			// mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
+			// changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
 		} else {
 			mGeoPoint = new Location("mock");
 			mGeoPoint.setLongitude(-0.0887);

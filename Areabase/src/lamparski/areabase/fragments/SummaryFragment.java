@@ -2,17 +2,21 @@ package lamparski.areabase.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.AreaDataService;
 import lamparski.areabase.AreaDataService.AreaDataBinder;
 import lamparski.areabase.AreaDataService.AreaFetchedCallbacks;
+import lamparski.areabase.AreaDataService.TopicsFoundCallbacks;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import nde2.types.discovery.Area;
+import nde2.types.discovery.Subject;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,7 +25,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Debug;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +64,7 @@ public class SummaryFragment extends SherlockFragment implements
 
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
+			Log.i("SummaryFragment", "AreaDataService connected");
 			AreaDataBinder binder = (AreaDataBinder) service;
 			mService = binder.getService();
 			isServiceBound = true;
@@ -77,17 +82,48 @@ public class SummaryFragment extends SherlockFragment implements
 		super.onActivityCreated(savedInstanceState);
 		Log.d("SummaryFragment", "onActivityCreated() enter");
 
+		Intent intent = new Intent(getActivity(), AreaDataService.class);
+		getActivity().getApplicationContext().bindService(intent,
+				mServiceConnection, Context.BIND_AUTO_CREATE);
+
 		getActivity().setTitle("Test Area");
 
 		if (savedInstanceState != null) {
-			mOpenSpaceView.setCentre((Location) savedInstanceState
-					.getParcelable(AreaActivity.CURRENT_COORDS));
-			mOpenSpaceView.setZoom(10);
+			Log.d("SummaryFragment",
+					"savedInstanceState != null; reading state...");
+			mLocation = (Location) savedInstanceState
+					.getParcelable(AreaActivity.CURRENT_COORDS);
+
+			Log.d("SummaryFragment", "    read current-coords -> mLocation; "
+					+ mLocation.toString());
+
+			new Handler().postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					mOpenSpaceView.setCentre(mLocation);
+					mOpenSpaceView.setZoom(10);
+				}
+			}, 500);
+
 			Object depickledCards = savedInstanceState
 					.getSerializable("card-models");
+
 			if (depickledCards != null) {
+				Log.d("SummaryFragment",
+						"    read card-models -> depickledCards; "
+								+ depickledCards.toString());
+
 				cardModels = (ArrayList<CardModel>) depickledCards;
+
+				Log.d("SummaryFragment",
+						"    cast depickledCards -> cardModels; "
+								+ cardModels.toString());
+
+				populateCards();
 			} else {
+				Log.w("SummaryFragment",
+						"depickledCards turns out to be null, what.");
 				refreshContent();
 			}
 		} else {
@@ -98,9 +134,6 @@ public class SummaryFragment extends SherlockFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d("SummaryFragment", "onCreateView() enter");
-
-		// Delete for release
-		Debug.startMethodTracing("summaryfragment.trace");
 
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
@@ -162,9 +195,7 @@ public class SummaryFragment extends SherlockFragment implements
 	@Override
 	public void onStart() {
 		super.onStart();
-		Intent intent = new Intent(getActivity(), AreaDataService.class);
-		getActivity().bindService(intent, mServiceConnection,
-				Context.BIND_AUTO_CREATE);
+
 	}
 
 	/*
@@ -175,9 +206,9 @@ public class SummaryFragment extends SherlockFragment implements
 	@Override
 	public void onStop() {
 		super.onStop();
-		Debug.stopMethodTracing();
 		if (isServiceBound)
-			getActivity().unbindService(mServiceConnection);
+			getActivity().getApplicationContext().unbindService(
+					mServiceConnection);
 	}
 
 	/*
@@ -189,6 +220,7 @@ public class SummaryFragment extends SherlockFragment implements
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		Log.i("SummaryFragment", "Saving instance state");
 
 		outState.putParcelable(AreaActivity.CURRENT_COORDS, mLocation);
 		outState.putSerializable("card-models", cardModels);
@@ -234,38 +266,63 @@ public class SummaryFragment extends SherlockFragment implements
 									resultList.get(1).getName(),
 									closest.getHierarchyId(),
 									closest.getLevelTypeId()));
+					cm.setIsClickable(false);
+					cm.setHasOverflow(false);
 					cardModels.clear();
 					cardModels.add(cm);
 
-					populateCards();
-					getSherlockActivity()
-							.setSupportProgressBarIndeterminateVisibility(false);
+					mService.getCompatibleTopics(new TopicsFoundCallbacks() {
+
+						@Override
+						public void onSuccess(
+								List<Map<Subject, Integer>> results) {
+
+							Map<Subject, Integer> myResult = results.get(0);
+
+							CardModel cm = new CardModel(PlayCard.class);
+							cm.setTitlePlay(String.format(
+									"There are %d compatible subjects.",
+									myResult.size()));
+							String text = "They are: ";
+							for (Entry<Subject, Integer> s : myResult
+									.entrySet()) {
+								text += String.format("%s (%d items), ", s
+										.getKey().getName(), s.getValue());
+							}
+							cm.setDescription(text.substring(0,
+									text.length() - 2) + ".");
+
+							cm.setTitleColor(HoloCSSColourValues.AQUAMARINE
+									.getCssValue());
+							cm.setColor(HoloCSSColourValues.AQUAMARINE
+									.getCssValue());
+							cm.setIsClickable(false);
+							cm.setHasOverflow(false);
+							cardModels.add(cm);
+
+							populateCards();
+							getSherlockActivity()
+									.setSupportProgressBarIndeterminateVisibility(
+											false);
+						}
+
+						@Override
+						public void onError(Throwable tr) {
+							shitHappened(tr);
+						}
+					}, closest);
 				}
 
 				@Override
 				public void onError(Throwable tr) {
-					AlertDialog dlg = new AlertDialog.Builder(getActivity())
-							.setTitle(R.string.error_cannot_fetch_area_data)
-							.setMessage(
-									getResources()
-											.getString(
-													R.string.error_cannot_fetch_area_data_body,
-													tr.getMessage()))
-							.setNeutralButton(android.R.string.ok,
-									new DialogInterface.OnClickListener() {
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-											dialog.dismiss();
-										}
-									}).create();
-					Log.e("SummaryActivity",
-							"Error fetching areas, the user has been notified.",
-							tr);
-					dlg.show();
+					shitHappened(tr);
 				}
 			});
+		} else {
+			getSherlockActivity().setSupportProgressBarIndeterminateVisibility(
+					false);
+			Log.wtf("SummaryFragment",
+					"refreshContent(): AreaService is unbound :(");
 		}
 
 		mOpenSpaceView.setCentre(mLocation);
@@ -279,14 +336,34 @@ public class SummaryFragment extends SherlockFragment implements
 		mCardUI.addCardToLastStack(new BasicCard("Location updated",
 				"New location: " + location.getLongitude() + "; "
 						+ location.getLatitude()));
-		mOpenSpaceView.setCentre(location);
-		mOpenSpaceView.setZoom(10);
+		// mOpenSpaceView.setCentre(location);
+		// mOpenSpaceView.setZoom(10);
 		refreshContent();
 	}
 
 	@Override
 	public void searchByText(String query) {
 		Log.d("SummaryFragment", "search called with query: " + query);
+	}
+
+	private void shitHappened(Throwable tr) {
+		AlertDialog dlg = new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.error_cannot_fetch_area_data)
+				.setMessage(
+						getResources().getString(
+								R.string.error_cannot_fetch_area_data_body,
+								tr.getMessage()))
+				.setNeutralButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						}).create();
+		Log.e("SummaryActivity",
+				"Error fetching data, the user has been notified.", tr);
+		dlg.show();
 	}
 
 }

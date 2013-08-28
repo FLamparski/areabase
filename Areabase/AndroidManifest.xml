@@ -30,6 +30,9 @@
             android:name="lamparski.areabase.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
+
+        <service android:name="AreaDataService" >
+        </service>
     </application>
 
 </manifest>

@@ -39,8 +39,12 @@ public class PlayCard extends Card {
 
 		((TextView) playCardView.findViewById(R.id.card_play_title))
 				.setText(titlePlay);
+		((TextView) playCardView.findViewById(R.id.card_play_title))
+				.setTextColor(Color.parseColor(titleColor));
+
 		((TextView) playCardView.findViewById(R.id.card_play_text))
 				.setText(description);
+
 		playCardView.findViewById(R.id.card_play_stripe).setBackgroundColor(
 				Color.parseColor(color));
 

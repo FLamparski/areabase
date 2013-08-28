@@ -3,6 +3,7 @@ package lamparski.areabase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -11,6 +12,7 @@ import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.types.discovery.Area;
+import nde2.types.discovery.Subject;
 
 import org.xml.sax.SAXException;
 
@@ -21,7 +23,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Debug;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * For now, this will simply fetch the {@link Area} data for whatever
@@ -45,8 +49,16 @@ public class AreaDataService extends Service {
 		public void onSuccess(List<Area> resultList);
 	}
 
+	public interface TopicsFoundCallbacks {
+		public void onError(Throwable tr);
+
+		public void onSuccess(List<Map<Subject, Integer>> results);
+	}
+
 	@Override
 	public IBinder onBind(Intent intent) {
+		Log.d("AreaDataService",
+				"Binding! Received intent: " + intent.toString());
 		return mBinder;
 	}
 
@@ -68,20 +80,26 @@ public class AreaDataService extends Service {
 	 * @param whatLocation
 	 * @param iface
 	 */
-	public void getAreas(final Location whatLocation,
-			final AreaFetchedCallbacks iface) {
+	public void getAreas(Location whatLocation, final AreaFetchedCallbacks iface) {
+		Log.i("AreaDataService", "getAreas(): Launched a query for Location "
+				+ whatLocation.toString());
 		new AsyncTask<Location, Void, List<Area>>() {
 			@Override
 			protected List<Area> doInBackground(Location... params) {
+				Debug.startMethodTracing("getAreasOperation.trace");
+
+				Log.d("AreaDataService", "getAreas(): Started async query");
 				List<Area> theAreas = new ArrayList<Area>();
 				if (Geocoder.isPresent()) {
 					Geocoder g = new Geocoder(getApplicationContext());
 					try {
 						List<Address> addresses = g.getFromLocation(
-								whatLocation.getLatitude(),
-								whatLocation.getLongitude(), 1);
+								params[0].getLatitude(),
+								params[0].getLongitude(), 1);
 						theAreas = new FindAreasMethodCall().addPostcode(
 								addresses.get(0).getPostalCode()).findAreas();
+						Log.d("AreaDataService",
+								"getAreas(): Guys we have areas!!!");
 					} catch (IOException e) {
 						iface.onError(e);
 						return null;
@@ -102,10 +120,13 @@ public class AreaDataService extends Service {
 						return null;
 					}
 				} else {
+					Log.e("AreaDataService",
+							"OKAY WHAT. No Geocoder found. Abort.");
 					iface.onError(new Exception("Geocoder not present."));
 					return null;
 				}
 
+				Debug.stopMethodTracing();
 				return theAreas;
 			}
 
@@ -114,7 +135,51 @@ public class AreaDataService extends Service {
 				if (result != null)
 					iface.onSuccess(result);
 			}
-		};
+		}.execute(whatLocation);
+	}
+
+	public void getCompatibleTopics(final TopicsFoundCallbacks iface,
+			Area... areas) {
+		new AsyncTask<Area, Void, List<Map<Subject, Integer>>>() {
+
+			@Override
+			protected List<Map<Subject, Integer>> doInBackground(Area... params) {
+				List<Map<Subject, Integer>> theSubjectsForAreas = new ArrayList<Map<Subject, Integer>>();
+				try {
+					for (Area area : params) {
+						theSubjectsForAreas.add(area.getCompatibleSubjects());
+					}
+				} catch (SAXException e) {
+					iface.onError(e);
+					return null;
+				} catch (XPathExpressionException e) {
+					iface.onError(e);
+					return null;
+				} catch (ParserConfigurationException e) {
+					iface.onError(e);
+					return null;
+				} catch (IOException e) {
+					iface.onError(e);
+					return null;
+				} catch (NDE2Exception e) {
+					iface.onError(e);
+					return null;
+				}
+				return theSubjectsForAreas;
+			}
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+			 */
+			@Override
+			protected void onPostExecute(List<Map<Subject, Integer>> result) {
+				if (result != null)
+					iface.onSuccess(result);
+			}
+
+		}.execute(areas);
 	}
 
 }
