@@ -1,7 +1,7 @@
 package nde2.types.delivery;
 
 import nde2.types.NDE2Result;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 
 /**
  * A column in a {@link Dataset}. To get values that belong to this column from
@@ -71,7 +71,7 @@ public class Topic extends NDE2Result {
 
 	/**
 	 * @return the identifier -- which is also the id of the
-	 *         {@link DataSetFamiliy} this Topic is in.
+	 *         {@link DataSetFamily} this Topic is in.
 	 */
 	public int getIdentifier() {
 		return identifier;

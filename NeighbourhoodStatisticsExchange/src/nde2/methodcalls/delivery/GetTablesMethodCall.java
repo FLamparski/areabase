@@ -21,7 +21,7 @@ import nde2.types.delivery.Dataset;
 import nde2.types.delivery.Period;
 import nde2.types.delivery.Topic;
 import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 import nde2.types.discovery.DateRange;
 import nde2.types.discovery.VariableFamily;
 
@@ -56,7 +56,7 @@ import org.xml.sax.SAXException;
 public class GetTablesMethodCall extends BaseMethodCall {
 	private final static String METHOD_NAME = "getTables";
 	private List<Area> areas;
-	protected List<DataSetFamiliy> dsFamilies;
+	protected List<DataSetFamily> dsFamilies;
 	protected List<VariableFamily> variableFamilies;
 	protected DateRange timePeriod;
 	protected ArrayList<Dataset> datasets;
@@ -66,8 +66,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		return this;
 	}
 
-	public GetTablesMethodCall addDatasetFamilies(
-			List<DataSetFamiliy> dsFamilies) {
+	public GetTablesMethodCall addDatasetFamilies(List<DataSetFamily> dsFamilies) {
 		this.dsFamilies = dsFamilies;
 		return this;
 	}
@@ -101,9 +100,9 @@ public class GetTablesMethodCall extends BaseMethodCall {
 	 * @throws NDE2Exception
 	 *             Thrown if the server returns an error-type response
 	 * @throws NullPointerException
-	 *             Thrown if there are no {@link DataSetFamiliy DataSetFamilies}
+	 *             Thrown if there are no {@link DataSetFamily DataSetFamilies}
 	 *             or {@link VariableFamily VariableFamilies} specified. You
-	 *             should include at least one {@link DataSetFamiliy}.
+	 *             should include at least one {@link DataSetFamily}.
 	 * @throws ParseException
 	 */
 	public List<Dataset> getTables() throws XPathExpressionException,
@@ -129,7 +128,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		}
 		if (dsFamilies != null) {
 			StringBuilder dsFamilyListBuilder = new StringBuilder();
-			for (DataSetFamiliy dsfam : dsFamilies) {
+			for (DataSetFamily dsfam : dsFamilies) {
 				// Not bothering about trailing commas - the server just ignores
 				// them
 				dsFamilyListBuilder.append(
@@ -324,7 +323,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		int topicId;
 		int boundaryId;
 		int periodId;
-		int value;
+		float value;
 		topicId = Integer.parseInt((String) xpath.evaluate(
 				"*[local-name() = 'TopicId']/text()", datasetItemElement,
 				XPathConstants.STRING));
@@ -335,7 +334,7 @@ public class GetTablesMethodCall extends BaseMethodCall {
 				"*[local-name() = 'PeriodId']/text()", datasetItemElement,
 				XPathConstants.STRING));
 		try {
-			value = Integer.parseInt((String) xpath.evaluate(
+			value = Float.parseFloat((String) xpath.evaluate(
 					"*[local-name() = 'Value']/text()", datasetItemElement,
 					XPathConstants.STRING));
 		} catch (NumberFormatException e) {

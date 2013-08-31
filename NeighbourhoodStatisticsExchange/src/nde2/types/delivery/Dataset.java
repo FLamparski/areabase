@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import nde2.types.NDE2Result;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 
 /**
  * This class represents a dataset returned by the delivery service. It contains
@@ -33,7 +33,7 @@ public class Dataset extends NDE2Result {
 	/**
 	 * @param datasetCode
 	 *            Internal identifier of the dataset in question. This will be
-	 *            the same as a familyId of a {@link DataSetFamiliy}
+	 *            the same as a familyId of a {@link DataSetFamily}
 	 * @param creator
 	 *            Creator of the data set. Use to do attributions for data.
 	 * @param description
@@ -73,7 +73,7 @@ public class Dataset extends NDE2Result {
 
 	/**
 	 * @return the internal identifier of the dataset in question. This will be
-	 *         the same as a familyId of a {@link DataSetFamiliy}
+	 *         the same as a familyId of a {@link DataSetFamily}
 	 */
 	public int getDatasetCode() {
 		return datasetCode;

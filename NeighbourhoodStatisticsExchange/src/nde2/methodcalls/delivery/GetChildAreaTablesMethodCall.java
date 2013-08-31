@@ -13,7 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import nde2.errors.NDE2Exception;
 import nde2.types.delivery.Dataset;
 import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 import nde2.types.discovery.VariableFamily;
 
 import org.xml.sax.SAXException;
@@ -62,7 +62,7 @@ public class GetChildAreaTablesMethodCall extends GetTablesMethodCall {
 		}
 		if (dsFamilies != null) {
 			StringBuilder dsFamilyListBuilder = new StringBuilder();
-			for (DataSetFamiliy dsfam : dsFamilies) {
+			for (DataSetFamily dsfam : dsFamilies) {
 				// Not bothering about trailing commas - the server just ignores
 				// them
 				dsFamilyListBuilder.append(

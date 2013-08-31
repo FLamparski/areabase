@@ -17,7 +17,7 @@ import javax.xml.xpath.XPathFactory;
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 import nde2.types.discovery.DateRange;
 import nde2.types.discovery.Subject;
 
@@ -81,7 +81,7 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 	 * @throws ValueNotAvailable
 	 * @see {@link BaseMethodCall} for more information on exceptions thrown.
 	 */
-	public List<DataSetFamiliy> getDatasets() throws XPathExpressionException,
+	public List<DataSetFamily> getDatasets() throws XPathExpressionException,
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception, ParseException, ValueNotAvailable {
 		/*
@@ -120,7 +120,7 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 		NodeList dsfamilies = (NodeList) xpath.evaluate(
 				"//*[local-name() = 'DSFamily']", nessResponse,
 				XPathConstants.NODESET);
-		ArrayList<DataSetFamiliy> dataSetFamilies = new ArrayList<DataSetFamiliy>();
+		ArrayList<DataSetFamily> dataSetFamilies = new ArrayList<DataSetFamily>();
 		for (int i = 0; i < dsfamilies.getLength(); i++) {
 			Node dsfamily = dsfamilies.item(i);
 
@@ -145,7 +145,7 @@ public class GetDatasetsMethodCall extends BaseMethodCall {
 
 			DateRange[] dateRanges = dateRangesList.toArray(new DateRange[1]);
 
-			dataSetFamilies.add(new DataSetFamiliy(dateRanges, dsid, dsname));
+			dataSetFamilies.add(new DataSetFamily(dateRanges, dsid, dsname));
 		}
 
 		if (!(dataSetFamilies.isEmpty()))

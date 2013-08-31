@@ -8,7 +8,7 @@ import nde2.types.NDE2Result;
  * @author filip
  * 
  */
-public class DataSetFamiliy extends NDE2Result {
+public class DataSetFamily extends NDE2Result {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,7 +21,7 @@ public class DataSetFamiliy extends NDE2Result {
 	 * @param familyId
 	 * @param name
 	 */
-	public DataSetFamiliy(DateRange[] dateRanges, int familyId, String name) {
+	public DataSetFamily(DateRange[] dateRanges, int familyId, String name) {
 		this.dateRanges = dateRanges;
 		this.familyId = familyId;
 		this.name = name;

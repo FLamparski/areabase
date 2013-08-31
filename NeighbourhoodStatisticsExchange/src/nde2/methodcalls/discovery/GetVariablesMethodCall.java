@@ -19,7 +19,7 @@ import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.types.MeasurementUnit;
 import nde2.types.StatisticalUnit;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 import nde2.types.discovery.DateRange;
 import nde2.types.discovery.VariableFamily;
 
@@ -38,7 +38,7 @@ public class GetVariablesMethodCall extends BaseMethodCall {
 		dateRange = null;
 	}
 
-	public GetVariablesMethodCall addDatasetFamily(DataSetFamiliy dsFamily) {
+	public GetVariablesMethodCall addDatasetFamily(DataSetFamily dsFamily) {
 		this.dsFamilyId = dsFamily.getFamilyId();
 		return this;
 	}
