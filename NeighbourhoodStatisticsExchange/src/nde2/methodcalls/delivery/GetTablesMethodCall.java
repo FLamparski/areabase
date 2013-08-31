@@ -383,6 +383,11 @@ public class GetTablesMethodCall extends BaseMethodCall {
 		String periodEndDateStr = (String) xpath.evaluate(
 				"*[local-name() = 'End']/text()", periodElement,
 				XPathConstants.STRING);
+		if (periodStartDateStr == null) {
+			periodStartDateStr = periodEndDateStr = (String) xpath.evaluate(
+					"*[local-name() = 'Date']/text()", periodElement,
+					XPathConstants.STRING);
+		}
 		/*
 		 * Return a Period
 		 */

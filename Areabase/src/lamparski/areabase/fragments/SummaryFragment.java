@@ -1,22 +1,16 @@
 package lamparski.areabase.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import lamparski.areabase.AreaActivity;
-import lamparski.areabase.AreaDataService;
-import lamparski.areabase.AreaDataService.AreaDataBinder;
-import lamparski.areabase.AreaDataService.AreaFetchedCallbacks;
-import lamparski.areabase.AreaDataService.TopicsFoundCallbacks;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
+import lamparski.areabase.cards.EventfulArrayList;
+import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
-import nde2.types.discovery.Area;
-import nde2.types.discovery.Subject;
+import lamparski.areabase.services.AreaDataService;
+import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,7 +24,9 @@ import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.fima.cardsui.objects.Card;
@@ -47,7 +43,7 @@ public class SummaryFragment extends SherlockFragment implements
 	 * This saves cards that are supposed to be preserved across orientation
 	 * changes, etc.
 	 */
-	private ArrayList<CardModel> cardModels;
+	private EventfulArrayList<CardModel> cardModels;
 	private Location mLocation;
 	private boolean is_tablet, is_landscape;
 
@@ -60,6 +56,7 @@ public class SummaryFragment extends SherlockFragment implements
 			Log.e("SummaryFragment",
 					"The AreaDataService disconnected unexpectedly.");
 			isServiceBound = false;
+			serviceCockupNotify(name);
 		}
 
 		@Override
@@ -73,7 +70,21 @@ public class SummaryFragment extends SherlockFragment implements
 
 	public SummaryFragment() {
 		super();
-		cardModels = new ArrayList<CardModel>();
+		cardModels = new EventfulArrayList<CardModel>();
+		cardModels.setOnItemAddedListener(new OnItemAddedListener() {
+
+			@Override
+			public boolean onItemAdded(Object item) {
+				try {
+					mCardUI.addCard((Card) CardFactory
+							.createCard((CardModel) item));
+				} catch (Exception e) {
+					Log.w("SummaryFragment", "Cannot create card.", e);
+					return false;
+				}
+				return true;
+			}
+		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -114,7 +125,7 @@ public class SummaryFragment extends SherlockFragment implements
 						"    read card-models -> depickledCards; "
 								+ depickledCards.toString());
 
-				cardModels = (ArrayList<CardModel>) depickledCards;
+				cardModels = (EventfulArrayList<CardModel>) depickledCards;
 
 				Log.d("SummaryFragment",
 						"    cast depickledCards -> cardModels; "
@@ -229,7 +240,13 @@ public class SummaryFragment extends SherlockFragment implements
 	private void populateCards() {
 		for (CardModel mdl : cardModels) {
 			try {
-				mCardUI.addCard((Card) CardFactory.createCard(mdl));
+				Card crd = (Card) CardFactory.createCard(mdl);
+				if (mdl.getTitlePlay()
+						.equals(getResources().getString(
+								R.string.card_error_values_not_available_title))) {
+					crd.setOnClickListener(sExplainMissingData);
+				}
+				mCardUI.addCard(crd);
 			} catch (java.lang.InstantiationException e) {
 				Log.e("SummaryFragment", "Cannot instantiate a Card.", e);
 			} catch (IllegalAccessException e) {
@@ -250,72 +267,60 @@ public class SummaryFragment extends SherlockFragment implements
 				.setSupportProgressBarIndeterminateVisibility(true);
 
 		if (isServiceBound) {
-			mService.getAreas(mLocation, new AreaFetchedCallbacks() {
+			mService.getBasicAreaInfo(mLocation, new BasicAreaInfoIface() {
 
 				@Override
-				public void onSuccess(List<Area> resultList) {
-					Area closest = resultList.get(0);
-					CardModel cm = new CardModel(PlayCard.class);
-					cm.setTitlePlay(String.format("This is %s (%d).",
-							closest.getName(), closest.getAreaId()));
-					cm.setTitleColor(HoloCSSColourValues.AQUAMARINE
-							.getCssValue());
-					cm.setColor(HoloCSSColourValues.AQUAMARINE.getCssValue());
-					cm.setDescription(String
-							.format("This area falls within %s. It exists in hierarchy %d at level %d.",
-									resultList.get(1).getName(),
-									closest.getHierarchyId(),
-									closest.getLevelTypeId()));
-					cm.setIsClickable(false);
-					cm.setHasOverflow(false);
-					cardModels.clear();
-					cardModels.add(cm);
-
-					mService.getCompatibleTopics(new TopicsFoundCallbacks() {
-
-						@Override
-						public void onSuccess(
-								List<Map<Subject, Integer>> results) {
-
-							Map<Subject, Integer> myResult = results.get(0);
-
-							CardModel cm = new CardModel(PlayCard.class);
-							cm.setTitlePlay(String.format(
-									"There are %d compatible subjects.",
-									myResult.size()));
-							String text = "They are: ";
-							for (Entry<Subject, Integer> s : myResult
-									.entrySet()) {
-								text += String.format("%s (%d items), ", s
-										.getKey().getName(), s.getValue());
-							}
-							cm.setDescription(text.substring(0,
-									text.length() - 2) + ".");
-
-							cm.setTitleColor(HoloCSSColourValues.AQUAMARINE
-									.getCssValue());
-							cm.setColor(HoloCSSColourValues.AQUAMARINE
-									.getCssValue());
-							cm.setIsClickable(false);
-							cm.setHasOverflow(false);
-							cardModels.add(cm);
-
-							populateCards();
-							getSherlockActivity()
-									.setSupportProgressBarIndeterminateVisibility(
-											false);
-						}
-
-						@Override
-						public void onError(Throwable tr) {
-							shitHappened(tr);
-						}
-					}, closest);
+				public void onError(Throwable err) {
+					Log.e("SummaryActivity", "Error processing NDE data", err);
+					Toast.makeText(getActivity(),
+							R.string.summaryactivity_cardmaker_onserror,
+							Toast.LENGTH_SHORT).show();
 				}
 
 				@Override
-				public void onError(Throwable tr) {
-					shitHappened(tr);
+				public void cardReady(CardModel cm) {
+					cardModels.add(cm);
+				}
+
+				@Override
+				public void allDone() {
+					getSherlockActivity()
+							.setSupportProgressBarIndeterminateVisibility(false);
+				}
+
+				@Override
+				public void onValueNotAvailable() {
+					for (CardModel ecm : cardModels) {
+						if (ecm.getTitlePlay()
+								.equals(getResources()
+										.getString(
+												R.string.card_error_values_not_available_title))) {
+							return;
+						}
+					}
+					CardModel cm = new CardModel(
+							getResources()
+									.getString(
+											R.string.card_error_values_not_available_title),
+							getResources()
+									.getString(
+											R.string.card_error_values_not_available_body),
+							HoloCSSColourValues.ORANGE.getCssValue(),
+							HoloCSSColourValues.ORANGE.getCssValue(), false,
+							true, PlayCard.class);
+					cardModels.addSilent(cm);
+					Card crd;
+					try {
+						crd = (Card) CardFactory.createCard(cm);
+					} catch (java.lang.InstantiationException e) {
+						e.printStackTrace();
+						return;
+					} catch (IllegalAccessException e) {
+						e.printStackTrace();
+						return;
+					}
+					crd.setOnClickListener(sExplainMissingData);
+					mCardUI.addCard(crd);
 				}
 			});
 		} else {
@@ -346,24 +351,51 @@ public class SummaryFragment extends SherlockFragment implements
 		Log.d("SummaryFragment", "search called with query: " + query);
 	}
 
-	private void shitHappened(Throwable tr) {
-		AlertDialog dlg = new AlertDialog.Builder(getActivity())
-				.setTitle(R.string.error_cannot_fetch_area_data)
+	/**
+	 * Notifies the user about service cock-ups.
+	 * 
+	 * @param name
+	 *            The name of the incompetent service.
+	 */
+	private void serviceCockupNotify(ComponentName name) {
+		new AlertDialog.Builder(getActivity())
+				.setTitle(
+						R.string.summaryactivity_cardmaker_servicedisconnect_title)
 				.setMessage(
-						getResources().getString(
-								R.string.error_cannot_fetch_area_data_body,
-								tr.getMessage()))
+						getResources()
+								.getString(
+										R.string.summaryactivity_cardmaker_servicedisconnect_message,
+										name))
 				.setNeutralButton(android.R.string.ok,
 						new DialogInterface.OnClickListener() {
+
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
 								dialog.dismiss();
 							}
-						}).create();
-		Log.e("SummaryActivity",
-				"Error fetching data, the user has been notified.", tr);
-		dlg.show();
+						}).show();
 	}
+
+	private OnClickListener sExplainMissingData = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.card_error_values_not_available_title)
+					.setMessage(
+							getResources()
+									.getString(
+											R.string.summaryactivity_cardmaker_values_not_available))
+					.setNeutralButton(android.R.string.ok,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+								}
+							}).show();
+		}
+	};
 
 }

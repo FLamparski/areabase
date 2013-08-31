@@ -8,6 +8,11 @@
 package lamparski.areabase;
 
 public final class R {
+    public static final class array {
+        public static final int card_demographics_pop_density_descriptors=0x7f0d0002;
+        public static final int card_demographics_pop_size_trend_descriptors=0x7f0d0000;
+        public static final int card_demographics_sex_dominance_descriptors=0x7f0d0001;
+    }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1118,6 +1123,9 @@ containing a value of this type.
         public static final int selectable_background_cardbank=0x7f020085;
         public static final int top_shadow=0x7f020086;
     }
+    public static final class fraction {
+        public static final int pop_density=0x7f0c0000;
+    }
     public static final class id {
         public static final int RelativeLayout1=0x7f05004a;
         public static final int ScrollView1=0x7f050047;
@@ -1264,7 +1272,7 @@ containing a value of this type.
         public static final int sherlock_spinner_item=0x7f030029;
     }
     public static final class menu {
-        public static final int areabase_opts_menu=0x7f0c0000;
+        public static final int areabase_opts_menu=0x7f0e0000;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1317,14 +1325,21 @@ containing a value of this type.
         /**  app 
          */
         public static final int app_name=0x7f0a000d;
-        public static final int caption_ONS=0x7f0a0023;
-        public static final int caption_Police=0x7f0a0024;
-        public static final int caption_area_compare=0x7f0a0027;
-        public static final int caption_area_hierarchy=0x7f0a0026;
-        public static final int caption_crime=0x7f0a001f;
-        public static final int caption_economy=0x7f0a0020;
-        public static final int caption_environment=0x7f0a0021;
-        public static final int caption_summary=0x7f0a001e;
+        public static final int caption_ONS=0x7f0a0027;
+        public static final int caption_Police=0x7f0a0028;
+        public static final int caption_area_compare=0x7f0a002b;
+        public static final int caption_area_hierarchy=0x7f0a002a;
+        public static final int caption_crime=0x7f0a0023;
+        public static final int caption_economy=0x7f0a0024;
+        public static final int caption_environment=0x7f0a0025;
+        public static final int caption_summary=0x7f0a0022;
+        public static final int card_demographics_body_base=0x7f0a0039;
+        /**  cards 
+ cards -> demographics 
+         */
+        public static final int card_demographics_title_base=0x7f0a0038;
+        public static final int card_error_values_not_available_body=0x7f0a003b;
+        public static final int card_error_values_not_available_title=0x7f0a003a;
         public static final int drawer_close=0x7f0a001a;
         public static final int drawer_open=0x7f0a0019;
         public static final int error_cannot_fetch_area_data=0x7f0a001b;
@@ -1335,27 +1350,31 @@ containing a value of this type.
         public static final int error_illegal_url_title=0x7f0a0015;
         /**  navigation 
          */
-        public static final int navdrawer_secheader_basic_info=0x7f0a001d;
-        public static final int navdrawer_secheader_misc=0x7f0a0025;
-        public static final int navdrawer_secheader_more_data=0x7f0a0022;
-        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0a002c;
-        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0a002b;
-        public static final int pref_category_location_autoLocate_primaryText=0x7f0a002a;
-        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0a002f;
-        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0a002e;
-        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0a002d;
+        public static final int navdrawer_secheader_basic_info=0x7f0a0021;
+        public static final int navdrawer_secheader_misc=0x7f0a0029;
+        public static final int navdrawer_secheader_more_data=0x7f0a0026;
+        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0a0030;
+        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0a002f;
+        public static final int pref_category_location_autoLocate_primaryText=0x7f0a002e;
+        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0a0033;
+        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0a0032;
+        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0a0031;
         /**  preferences -> location 
          */
-        public static final int pref_category_location_heading=0x7f0a0029;
+        public static final int pref_category_location_heading=0x7f0a002d;
         /**  preferences -> testing 
          */
-        public static final int pref_category_testing_heading=0x7f0a0030;
-        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0a0033;
-        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0a0032;
-        public static final int pref_category_testing_phoneHome_primaryText=0x7f0a0031;
+        public static final int pref_category_testing_heading=0x7f0a0034;
+        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0a0037;
+        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0a0036;
+        public static final int pref_category_testing_phoneHome_primaryText=0x7f0a0035;
+        public static final int summaryactivity_cardmaker_onserror=0x7f0a001d;
+        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0a001f;
+        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0a001e;
+        public static final int summaryactivity_cardmaker_values_not_available=0x7f0a0020;
         /**  preferences 
          */
-        public static final int title_activity_settings=0x7f0a0028;
+        public static final int title_activity_settings=0x7f0a002c;
         /**  messages 
          */
         public static final int toast_mapview_not_loading=0x7f0a0014;
