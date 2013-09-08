@@ -75,9 +75,6 @@
 # view AndroidManifest.xml #generated:20
 -keep class lamparski.areabase.AreaActivity { <init>(...); }
 
-# view AndroidManifest.xml #generated:34
--keep class lamparski.areabase.AreaDataService { <init>(...); }
-
 # view AndroidManifest.xml #generated:29
 -keep class lamparski.areabase.SettingsActivity { <init>(...); }
 
@@ -86,4 +83,7 @@
 # view large/res/layout-large/fragment_summary.xml #generated:9
 # view res/layout/fragment_summary.xml #generated:8
 -keep class lamparski.areabase.map_support.OrdnanceSurveyMapView { <init>(...); }
+
+# view AndroidManifest.xml #generated:34
+-keep class lamparski.areabase.services.AreaDataService { <init>(...); }
 

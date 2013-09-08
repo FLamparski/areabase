@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  */
 public class GetDatasetsMethodCall extends BaseMethodCall {
 
-	private static final String METHOD_NAME = "GetSubjectDetail";
+	private static final String METHOD_NAME = "GetDatasets";
 
 	private long limitingAreaId = 0;
 	private int subjectId;

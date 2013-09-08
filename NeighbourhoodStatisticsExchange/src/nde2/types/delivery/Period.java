@@ -1,9 +1,9 @@
 package nde2.types.delivery;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import nde2.helpers.DateFormat;
 import nde2.types.NDE2Result;
 
 public class Period extends NDE2Result {
@@ -29,9 +29,8 @@ public class Period extends NDE2Result {
 	public Period(String startDateStr, String endDateStr, int periodCode)
 			throws ParseException {
 		super(VALID_FOR_DAYS);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		startDate = dateFormat.parse(startDateStr);
-		endDate = dateFormat.parse(endDateStr);
+		startDate = DateFormat.fromNDEDateOnly(startDateStr);
+		endDate = DateFormat.fromNDEDateOnly(endDateStr);
 		this.periodId = periodCode;
 	}
 

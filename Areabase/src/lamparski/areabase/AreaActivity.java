@@ -416,7 +416,11 @@ public class AreaActivity extends SherlockFragmentActivity {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				getContentFragment().refreshContent();
+				try {
+					getContentFragment().refreshContent();
+				} catch (NullPointerException e) {
+					doRefreshFragment();
+				}
 			}
 		}, 500);
 	}

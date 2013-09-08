@@ -17,7 +17,7 @@ import nde2.methodcalls.delivery.GetChildAreaTablesMethodCall;
 import nde2.types.delivery.Dataset;
 import nde2.types.delivery.Topic;
 import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,8 +25,8 @@ import org.xml.sax.SAXException;
 
 public class GetChildAreaTablesMethodCallTestCase {
 	private Area mArea;
-	private DataSetFamiliy mDsFamily;
-	private List<DataSetFamiliy> mDsFams;
+	private DataSetFamily mDsFamily;
+	private List<DataSetFamily> mDsFams;
 
 	@Before
 	public void setUp() throws Exception {
@@ -38,10 +38,10 @@ public class GetChildAreaTablesMethodCallTestCase {
 		/*
 		 * Set up a mock dataset family
 		 */
-		mDsFamily = mock(DataSetFamiliy.class);
+		mDsFamily = mock(DataSetFamily.class);
 		when(mDsFamily.getFamilyId()).thenReturn(2266);
 
-		mDsFams = new ArrayList<DataSetFamiliy>();
+		mDsFams = new ArrayList<DataSetFamily>();
 		mDsFams.add(mDsFamily);
 	}
 

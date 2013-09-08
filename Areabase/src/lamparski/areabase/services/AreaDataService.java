@@ -101,6 +101,9 @@ public class AreaDataService extends Service {
 										getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
+						Log.e("AreaDataService",
+								"Error processing card for Demographics: "
+										+ e.getClass().getSimpleName(), e);
 						commlink.onError(e);
 					}
 					// 2: Crime
@@ -126,7 +129,7 @@ public class AreaDataService extends Service {
 			protected void onPostExecute(Void result) {
 				commlink.allDone();
 			}
-		}.execute();
+		}.execute(location);
 	}
 
 }

@@ -270,16 +270,30 @@ public class SummaryFragment extends SherlockFragment implements
 			mService.getBasicAreaInfo(mLocation, new BasicAreaInfoIface() {
 
 				@Override
-				public void onError(Throwable err) {
-					Log.e("SummaryActivity", "Error processing NDE data", err);
-					Toast.makeText(getActivity(),
-							R.string.summaryactivity_cardmaker_onserror,
-							Toast.LENGTH_SHORT).show();
+				public void onError(final Throwable err) {
+					SummaryFragment.this.getActivity().runOnUiThread(
+							new Runnable() {
+
+								@Override
+								public void run() {
+									Log.e("SummaryActivity",
+											"Error processing NDE data", err);
+									Toast.makeText(
+											getActivity(),
+											R.string.summaryactivity_cardmaker_onserror,
+											Toast.LENGTH_SHORT).show();
+								}
+							});
 				}
 
 				@Override
-				public void cardReady(CardModel cm) {
-					cardModels.add(cm);
+				public void cardReady(final CardModel cm) {
+					SummaryFragment.this.getActivity().runOnUiThread(
+							new Runnable() {
+								public void run() {
+									cardModels.add(cm);
+								}
+							});
 				}
 
 				@Override
@@ -290,37 +304,44 @@ public class SummaryFragment extends SherlockFragment implements
 
 				@Override
 				public void onValueNotAvailable() {
-					for (CardModel ecm : cardModels) {
-						if (ecm.getTitlePlay()
-								.equals(getResources()
-										.getString(
-												R.string.card_error_values_not_available_title))) {
-							return;
-						}
-					}
-					CardModel cm = new CardModel(
-							getResources()
-									.getString(
-											R.string.card_error_values_not_available_title),
-							getResources()
-									.getString(
-											R.string.card_error_values_not_available_body),
-							HoloCSSColourValues.ORANGE.getCssValue(),
-							HoloCSSColourValues.ORANGE.getCssValue(), false,
-							true, PlayCard.class);
-					cardModels.addSilent(cm);
-					Card crd;
-					try {
-						crd = (Card) CardFactory.createCard(cm);
-					} catch (java.lang.InstantiationException e) {
-						e.printStackTrace();
-						return;
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-						return;
-					}
-					crd.setOnClickListener(sExplainMissingData);
-					mCardUI.addCard(crd);
+					SummaryFragment.this.getActivity().runOnUiThread(
+							new Runnable() {
+								public void run() {
+									for (CardModel ecm : cardModels) {
+										if (ecm.getTitlePlay()
+												.equals(getResources()
+														.getString(
+																R.string.card_error_values_not_available_title))) {
+											return;
+										}
+									}
+									CardModel cm = new CardModel(
+											getResources()
+													.getString(
+															R.string.card_error_values_not_available_title),
+											getResources()
+													.getString(
+															R.string.card_error_values_not_available_body),
+											HoloCSSColourValues.ORANGE
+													.getCssValue(),
+											HoloCSSColourValues.ORANGE
+													.getCssValue(), false,
+											true, PlayCard.class);
+									cardModels.addSilent(cm);
+									Card crd;
+									try {
+										crd = (Card) CardFactory.createCard(cm);
+									} catch (java.lang.InstantiationException e) {
+										e.printStackTrace();
+										return;
+									} catch (IllegalAccessException e) {
+										e.printStackTrace();
+										return;
+									}
+									crd.setOnClickListener(sExplainMissingData);
+									mCardUI.addCard(crd);
+								}
+							});
 				}
 			});
 		} else {

@@ -68,7 +68,7 @@
         <item>exploding</item>
     </string-array>
 
-    <string name="card_demographics_body_base">There is %1$s and average age is %2$s. The area is %3$s</string>
+    <string name="card_demographics_body_base">There is %1$s and average age is %2$f. The area is %3$s</string>
 
     <string-array name="card_demographics_sex_dominance_descriptors">
         <item>significantly more women</item>
