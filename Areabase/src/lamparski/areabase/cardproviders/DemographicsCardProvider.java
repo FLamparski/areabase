@@ -40,8 +40,8 @@ public class DemographicsCardProvider {
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
 			"Sex", "Age Structure" };
 
-	private final static float POP_STABLE_LOWER_THRESHOLD = -0.05f;
-	private final static float POP_STABLE_UPPER_THRESHOLD = 0.05f;
+	private final static float POP_STABLE_LOWER_THRESHOLD = -0.005f;
+	private final static float POP_STABLE_UPPER_THRESHOLD = 0.005f;
 	private final static float POP_RAPID_UPPER_THRESHOLD = 0.3f;
 	private final static float POP_RAPID_LOWER_THRESHOLD = -0.3f;
 
@@ -117,12 +117,13 @@ public class DemographicsCardProvider {
 		 * and messy.
 		 */
 		float avgAge = 0f;
-		final Pattern REGEX_AGE = Pattern.compile("aged (\\d+) years?");
+		final Pattern REGEX_AGE = Pattern.compile("Age( Under)? (\\d+)");
+		int year = 0;
 		for (Dataset ds : theDatasets) {
-			if (ds.getTitle().startsWith("Age by Single Year")) {
-				int year = 0;
 
-				int cyr = Integer.parseInt(ds.getTitle().substring(20, 25));
+			if (ds.getTitle().startsWith("Age by Single Year")) {
+				int cyr = Integer.parseInt(ds.getTitle().substring(20, 24));
+
 				if (year < cyr) {
 					float rollingAge = 0;
 					float rollingPopulation = 0;
@@ -130,7 +131,7 @@ public class DemographicsCardProvider {
 						Matcher titleMatcher = REGEX_AGE.matcher(t.getTitle());
 						if (titleMatcher.matches()) {
 							float curAge = Float.parseFloat(titleMatcher
-									.group(1));
+									.group(2));
 							float curPop = ds.getItems(t).get(0).getValue();
 							rollingAge += curAge * curPop;
 							rollingPopulation += curPop;
@@ -162,14 +163,17 @@ public class DemographicsCardProvider {
 	private static float calculateGenderRatio(List<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		float ratio = 0f;
+		int year = 0;
 		for (Dataset ds : theDatasets) {
 			if (ds.getTitle().startsWith("Sex")) {
-				int males = 0, females = 0, year = 0;
-				int cyr = Integer.parseInt(ds.getTitle().substring(5, 10));
+				int males = 0, females = 0;
+				int cyr = Integer.parseInt(ds.getTitle().substring(5, 9));
 				if (year < cyr) {
 
-					while (ds.getTopics().values().iterator().hasNext()) {
-						Topic t = ds.getTopics().values().iterator().next();
+					Iterator<Topic> iterator = ds.getTopics().values()
+							.iterator();
+					while (iterator.hasNext()) {
+						Topic t = iterator.next();
 						if (t.getTitle().startsWith("Males")) {
 							males = (int) ds.getItems(t).get(0).getValue();
 						} else if (t.getTitle().startsWith("Females")) {
@@ -205,12 +209,13 @@ public class DemographicsCardProvider {
 
 		for (Dataset ds : theDatasets) {
 			if (ds.getTitle().startsWith("Population Density")) {
-				int cyr = Integer.parseInt(ds.getTitle().substring(20, 25));
+				int cyr = Integer.parseInt(ds.getTitle().substring(20, 24));
 				if (year < cyr) {
 					Topic pdTopic = null;
-					while (ds.getTopics().values().iterator().hasNext()
-							&& pdTopic == null) {
-						Topic t = ds.getTopics().values().iterator().next();
+					Iterator<Topic> iterator = ds.getTopics().values()
+							.iterator();
+					while (iterator.hasNext() && pdTopic == null) {
+						Topic t = iterator.next();
 						if (t.getTitle().startsWith("Density")) {
 							pdTopic = t;
 						}
@@ -232,17 +237,19 @@ public class DemographicsCardProvider {
 		 */
 		Map<Integer, Integer> popPerYear = new HashMap<Integer, Integer>();
 		for (Dataset ds : theDatasets) {
+			System.out.println("Now considering dataset " + ds.getTitle());
 			if (ds.getTitle().startsWith("Sex")) {
-				int year = Integer.parseInt(ds.getTitle().substring(5, 10));
-				if (popPerYear.containsKey(year)) {
+				int year = Integer.parseInt(ds.getTitle().substring(5, 9));
+				if (!(popPerYear.containsKey(year))) {
 					Topic allPeople = null;
 					/*
 					 * exit condition: found relevant topic or no more topics
 					 * left
 					 */
-					while (ds.getTopics().values().iterator().hasNext()
-							&& allPeople == null) {
-						Topic t = ds.getTopics().values().iterator().next();
+					Iterator<Topic> iterator = ds.getTopics().values()
+							.iterator();
+					while (iterator.hasNext() && allPeople == null) {
+						Topic t = iterator.next();
 						if (t.getTitle().startsWith("All"))
 							allPeople = t;
 					}
@@ -274,9 +281,17 @@ public class DemographicsCardProvider {
 			}
 			int oldPop = popPerYear.get(previous_year);
 			int newPop = popPerYear.get(current_year);
-			float percentageChange = (newPop - oldPop) / oldPop;
+			float percentageChange = ((float) newPop - (float) oldPop)
+					/ (float) oldPop;
+			System.out
+					.println(String
+							.format("Percentage difference between %d (in %d) and %d (in %d) = %f",
+									oldPop, previous_year, newPop,
+									current_year, percentageChange));
 			if (avgPercentageChange == 0f) {
 				avgPercentageChange = percentageChange;
+				System.out.println("Set new avgPercentageChange = "
+						+ avgPercentageChange);
 			} else {
 				avgPercentageChange = (avgPercentageChange + percentageChange) / 2;
 			}
