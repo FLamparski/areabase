@@ -38,7 +38,7 @@ import com.fima.cardsui.objects.CardModel;
 
 public class DemographicsCardProvider {
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
-			"Sex", "Age Structure" };
+			"Sex", "Age by Single Year" };
 
 	private final static float POP_STABLE_LOWER_THRESHOLD = -0.005f;
 	private final static float POP_STABLE_UPPER_THRESHOLD = 0.005f;
@@ -63,26 +63,42 @@ public class DemographicsCardProvider {
 		 * Step 1: Demographics data is located under Census category. We need
 		 * to retrieve it and then get the necessary datasets.
 		 */
+		long sCS = System.currentTimeMillis();
 		Subject censusSubject = findCensusSubject(area);
+		long eCS = System.currentTimeMillis();
+		Log.i("DemographicsCardProvider", "findCensusSubject took "
+				+ (eCS - sCS) + " ms");
 
 		if (censusSubject == null)
 			throw new ValueNotAvailable(
 					"Cannot find Census subject for this area.");
 
+		long sRF = System.currentTimeMillis();
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
 				censusSubject);
+		long eRF = System.currentTimeMillis();
+		Log.i("DemographicsCardProvider", "findRequiredFamilies took "
+				+ (eRF - sRF) + " ms");
 
 		List<Area> areaList = new ArrayList<Area>();
 		areaList.add(area);
 
+		long sGT = System.currentTimeMillis();
 		List<Dataset> theDatasets = new GetTablesMethodCall()
 				.addDatasetFamilies(requiredFamilies).addAreas(areaList)
 				.getTables();
+		long eGT = System.currentTimeMillis();
+		Log.i("DemographicsCardProvider", "GetTablesMethodCall took "
+				+ (eGT - sGT) + " ms");
 
+		long sLoc = System.currentTimeMillis();
 		TrendDescription popSizeTrendDesc = calculatePopulationTrend(theDatasets);
 		int whichPopDensityDescriptor = popDensityDescriptor(getPopulationDensity(theDatasets));
 		int whichGenderRatioDescriptor = genderRatioDescriptor(calculateGenderRatio(theDatasets));
 		float avgAge = calculateAverageAge(theDatasets);
+		long eLoc = System.currentTimeMillis();
+		Log.i("DemographicsCardProvider", "Data processing took "
+				+ (eLoc - sLoc) + " ms");
 
 		String card_title = res
 				.getString(

@@ -90,14 +90,24 @@ public class AreaDataService extends Service {
 				Location loc = params[0];
 				Geocoder gcoder = new Geocoder(getApplicationContext());
 				try {
+					long tGeocoder_s = System.currentTimeMillis();
 					Address address = gcoder.getFromLocation(loc.getLatitude(),
 							loc.getLongitude(), 1).get(0);
+					long tGeocoder_e = System.currentTimeMillis();
+					Log.i("AreaDataService", "[Geocoder] Took "
+							+ (tGeocoder_e - tGeocoder_s)
+							+ " ms to resolve address");
+
+					long tAreas_s = System.currentTimeMillis();
 					List<Area> areas = new FindAreasMethodCall().addPostcode(
 							address.getPostalCode()).findAreas();
+					long tAreas_e = System.currentTimeMillis();
+					Log.i("AreaDataService", "[FindAreas] Took "
+							+ (tAreas_e - tAreas_s) + " ms to find NeSS Areas");
 					// 1: Demographics
 					try {
 						CardModel demoCm = DemographicsCardProvider
-								.demographicsCardForArea(areas.get(0),
+								.demographicsCardForArea(areas.get(2),
 										getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
