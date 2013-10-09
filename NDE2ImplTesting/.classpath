@@ -8,5 +8,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/SWT4Linux"/>
 	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="lib" path="mockito-all-1.9.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PoliceData"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

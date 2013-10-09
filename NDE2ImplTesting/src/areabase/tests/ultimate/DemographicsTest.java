@@ -21,7 +21,6 @@ import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.delivery.GetTablesMethodCall;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
-import nde2.methodcalls.discovery.GetDatasetsMethodCall;
 import nde2.types.delivery.DataSetItem;
 import nde2.types.delivery.Dataset;
 import nde2.types.delivery.Topic;
@@ -32,10 +31,11 @@ import nde2.types.discovery.Subject;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-public class DemographicsTest {
+public class DemographicsTest extends DataProviderTestBase {
 	public final static String POSTCODE = "EC2R 8AH";
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
-			"Sex", "Age Structure", "Age by Single Year" };
+			"Sex", "Age by Single Year" };
+	public static final String CENSUS_SUBJECT_NAME = "Census";
 
 	public final static float POP_STABLE_LOWER_THRESHOLD = -0.005f;
 	public final static float POP_STABLE_UPPER_THRESHOLD = 0.005f;
@@ -78,7 +78,7 @@ public class DemographicsTest {
 				- startFindAreasMethodCall;
 
 		long startFindCensusSubject = System.currentTimeMillis();
-		Subject censusSubject = findCensusSubject(bankArea);
+		Subject censusSubject = findSubject(bankArea, CENSUS_SUBJECT_NAME);
 		long endFindCensusSubject = System.currentTimeMillis();
 
 		long timeFindCensusSubject = endFindCensusSubject
@@ -87,7 +87,8 @@ public class DemographicsTest {
 		long startFindRequiredFamilies = System.currentTimeMillis();
 		List<DataSetFamily> requiredFamilies;
 		try {
-			requiredFamilies = findRequiredFamilies(bankArea, censusSubject);
+			requiredFamilies = findRequiredFamilies(bankArea, censusSubject,
+					DATASET_KEYWORDS);
 		} catch (ValueNotAvailable e) {
 			System.err.println("Required families not available.");
 			e.printStackTrace();
@@ -384,50 +385,6 @@ public class DemographicsTest {
 			}
 		}
 		return avgAge;
-	}
-
-	public static Subject findCensusSubject(Area area)
-			throws XPathExpressionException, ParserConfigurationException,
-			SAXException, IOException, NDE2Exception {
-		Subject censusSubject = null;
-		Map<Subject, Integer> areaSubjects = area.getCompatibleSubjects();
-		/*
-		 * Loop exit condition: valid subject id is found; or there are no more
-		 * subjects left.
-		 */
-		Iterator<Subject> subjectIter = areaSubjects.keySet().iterator();
-		while (subjectIter.hasNext() && censusSubject == null) {
-			Subject s = subjectIter.next();
-			if (s.getName().equals("Census")) {
-				censusSubject = s;
-				System.out.println("Found subject Census for Area "
-						+ area.getName() + "; contains " + areaSubjects.get(s)
-						+ " elements; id = " + s.getId());
-			} else {
-				System.out
-						.println("Subject " + s.getName() + " is not Census.");
-			}
-		}
-
-		return censusSubject;
-	}
-
-	public static List<DataSetFamily> findRequiredFamilies(Area area,
-			Subject censusSubject) throws XPathExpressionException,
-			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ParseException, ValueNotAvailable {
-		List<DataSetFamily> censusDatasetFamilies = new GetDatasetsMethodCall()
-				.addArea(area).addSubject(censusSubject).getDatasets();
-		List<DataSetFamily> requiredFamilies = new ArrayList<DataSetFamily>();
-
-		for (DataSetFamily family : censusDatasetFamilies) {
-			for (String kw : DATASET_KEYWORDS) {
-				if (family.getName().startsWith(kw))
-					requiredFamilies.add(family);
-			}
-		}
-
-		return requiredFamilies;
 	}
 
 }
