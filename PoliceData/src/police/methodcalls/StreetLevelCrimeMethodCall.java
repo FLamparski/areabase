@@ -132,6 +132,8 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 			 * from the server. This can be displayed to user, or used
 			 * internally to gracefully handle weird requests.
 			 */
+			System.err.println("API error: Code " + e.getHttpCode()
+					+ "; message: " + e.getMessage());
 			if (e.getHttpCode() == 400) {
 				throw new APIException("The area specified is too large", e);
 			} else if (e.getHttpCode() == 503) {
