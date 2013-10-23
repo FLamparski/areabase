@@ -29,13 +29,27 @@ import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
 public class CrimeDataTest extends DataProviderTestBase {
-	public final static String POSTCODE = "EC2R 8AH";
+	public final static String POSTCODE = "SE6 4UX";
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
 			"Sex", "Age by Single Year" };
 	public static final String CRIME_SUBJECT_NAME = "Crime and Safety";
 
-	private static final String CSVPATH = "/home/filip/Desktop/crime for City-of-London-001 types.csv";
+	private static final String CSVPATH = "./crime for Lewisham-001 types.csv";
 
+	/**
+	 * This method is intended to only be used with my college network.
+	 * It uses NTLM authentication, and with this being a standalone java program,
+	 * I'd otherwise have to manage it myself. What I'm doing instead is running a
+	 * proxy forwarder locally on port 3128, which handles the NTLM stuff.
+	 * 
+	 * To disable, comment out the annotation.
+	 */
+	@org.junit.BeforeClass
+	public static void setupProxyStuff (){
+		System.setProperty("http.proxyHost", "localhost");
+		System.setProperty("http.proxyPort", "3128");
+	}
+	
 	@Test
 	public void crimeCardForArea() throws Exception {
 		long startFindAreasMethodCall = System.currentTimeMillis();
@@ -54,7 +68,7 @@ public class CrimeDataTest extends DataProviderTestBase {
 		long timeFindAreasMethodCall = endFindAreasMethodCall
 				- startFindAreasMethodCall;
 
-		System.out.println("Bank / CoL.001: "
+		System.out.println(bankArea.getName() + " -- extcode: "
 				+ bankArea.getDetailed().getExtCode());
 
 		Subject crimeSubject = findSubject(bankArea, CRIME_SUBJECT_NAME);
@@ -116,7 +130,11 @@ public class CrimeDataTest extends DataProviderTestBase {
 		double[][] destination = new double[original.length / n][2];
 
 		for (int i = 0; i < original.length; i += n) {
-			destination[i / n] = original[i];
+			try {
+				destination[i / n] = original[i];
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue;
+			}
 		}
 
 		return destination;
@@ -150,7 +168,7 @@ public class CrimeDataTest extends DataProviderTestBase {
 		long timeFindAreasMethodCall = endFindAreasMethodCall
 				- startFindAreasMethodCall;
 
-		System.out.println("Bank / CoL.001: "
+		System.out.println(bankArea.getName() + " -- extcode: "
 				+ bankArea.getDetailed().getExtCode());
 
 		System.out.println("Finding polygon for area...");
