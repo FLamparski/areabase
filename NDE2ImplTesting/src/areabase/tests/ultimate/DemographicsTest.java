@@ -19,6 +19,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
+import nde2.helpers.CensusHelpers;
 import nde2.methodcalls.delivery.GetTablesMethodCall;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.types.delivery.DataSetItem;
@@ -31,7 +32,7 @@ import nde2.types.discovery.Subject;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-public class DemographicsTest extends DataProviderTestBase {
+public class DemographicsTest {
 	public final static String POSTCODE = "EC2R 8AH";
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
 			"Sex", "Age by Single Year" };
@@ -78,7 +79,8 @@ public class DemographicsTest extends DataProviderTestBase {
 				- startFindAreasMethodCall;
 
 		long startFindCensusSubject = System.currentTimeMillis();
-		Subject censusSubject = findSubject(bankArea, CENSUS_SUBJECT_NAME);
+		Subject censusSubject = CensusHelpers.findSubject(bankArea,
+				CENSUS_SUBJECT_NAME);
 		long endFindCensusSubject = System.currentTimeMillis();
 
 		long timeFindCensusSubject = endFindCensusSubject
@@ -87,8 +89,8 @@ public class DemographicsTest extends DataProviderTestBase {
 		long startFindRequiredFamilies = System.currentTimeMillis();
 		List<DataSetFamily> requiredFamilies;
 		try {
-			requiredFamilies = findRequiredFamilies(bankArea, censusSubject,
-					DATASET_KEYWORDS);
+			requiredFamilies = CensusHelpers.findRequiredFamilies(bankArea,
+					censusSubject, DATASET_KEYWORDS);
 		} catch (ValueNotAvailable e) {
 			System.err.println("Required families not available.");
 			e.printStackTrace();

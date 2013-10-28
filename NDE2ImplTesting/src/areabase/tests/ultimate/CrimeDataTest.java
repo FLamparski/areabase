@@ -14,6 +14,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import nde2.errors.ValueNotAvailable;
+import nde2.helpers.ArrayHelpers;
+import nde2.helpers.CensusHelpers;
 import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.methodcalls.discovery.GetDatasetsMethodCall;
 import nde2.types.discovery.Area;
@@ -28,7 +30,7 @@ import police.methodcalls.CrimeAvailabilityMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
-public class CrimeDataTest extends DataProviderTestBase {
+public class CrimeDataTest {
 	public final static String POSTCODE = "SE6 4UX";
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
 			"Sex", "Age by Single Year" };
@@ -37,22 +39,21 @@ public class CrimeDataTest extends DataProviderTestBase {
 	private static final String CSVPATH = "./crime for Lewisham-001 types.csv";
 
 	/**
-	 * This method is intended to only be used with my college network.
-	 * It uses NTLM authentication, and with this being a standalone java program,
-	 * I'd otherwise have to manage it myself. What I'm doing instead is running a
+	 * This method is intended to only be used with my college network. It uses
+	 * NTLM authentication, and with this being a standalone java program, I'd
+	 * otherwise have to manage it myself. What I'm doing instead is running a
 	 * proxy forwarder locally on port 3128, which handles the NTLM stuff.
 	 * 
 	 * To disable, comment out the annotation.
 	 */
-	@org.junit.BeforeClass
-	public static void setupProxyStuff (){
+	// @org.junit.BeforeClass
+	public static void setupProxyStuff() {
 		System.setProperty("http.proxyHost", "localhost");
 		System.setProperty("http.proxyPort", "3128");
 	}
-	
+
 	@Test
 	public void crimeCardForArea() throws Exception {
-		long startFindAreasMethodCall = System.currentTimeMillis();
 		Area bankArea;
 		try {
 			bankArea = new FindAreasMethodCall().addPostcode(POSTCODE)
@@ -63,15 +64,12 @@ public class CrimeDataTest extends DataProviderTestBase {
 			fail();
 			return;
 		}
-		long endFindAreasMethodCall = System.currentTimeMillis();
-
-		long timeFindAreasMethodCall = endFindAreasMethodCall
-				- startFindAreasMethodCall;
 
 		System.out.println(bankArea.getName() + " -- extcode: "
 				+ bankArea.getDetailed().getExtCode());
 
-		Subject crimeSubject = findSubject(bankArea, CRIME_SUBJECT_NAME);
+		Subject crimeSubject = CensusHelpers.findSubject(bankArea,
+				CRIME_SUBJECT_NAME);
 
 		List<DataSetFamily> crimeCensusDatasets = null;
 
@@ -86,7 +84,7 @@ public class CrimeDataTest extends DataProviderTestBase {
 		}
 
 		System.out.println("Finding polygon for area...");
-		double[][] coordinates = every_nth_pair(
+		double[][] coordinates = ArrayHelpers.every_nth_pair(
 				Mapper.getGeometryForArea(bankArea), 5);
 		System.out.println("Polygon found, " + coordinates.length
 				+ " vertices.");
@@ -102,8 +100,8 @@ public class CrimeDataTest extends DataProviderTestBase {
 	}
 
 	private void processUsingCensusData(Area bankArea,
-			List<DataSetFamily> crimeCensusDatasets) {
-
+			List<DataSetFamily> crimeCensusDatasets) throws Exception {
+		throw new Exception("Not yet implemented!");
 	}
 
 	private void processUsingPoliceData(Collection<Crime> crimesForPoly) {
@@ -126,33 +124,8 @@ public class CrimeDataTest extends DataProviderTestBase {
 		}
 	}
 
-	public double[][] every_nth_pair(double[][] original, int n) {
-		double[][] destination = new double[original.length / n][2];
-
-		for (int i = 0; i < original.length; i += n) {
-			try {
-				destination[i / n] = original[i];
-			} catch (ArrayIndexOutOfBoundsException e) {
-				continue;
-			}
-		}
-
-		return destination;
-	}
-
-	@Test
-	public void everyNthTest() throws Exception, ValueNotAvailable {
-		double[][] coordinates = Mapper
-				.getGeometryForArea(new FindAreasMethodCall()
-						.addPostcode(POSTCODE).findAreas().get(2));
-		double[][] less_coords = every_nth_pair(coordinates, 5);
-		System.out.println("Original array: " + coordinates.length
-				+ " pairs, new array: " + less_coords.length + " pairs.");
-	}
-
 	@Test
 	public void testTrendSpotting() throws Exception {
-		long startFindAreasMethodCall = System.currentTimeMillis();
 		Area bankArea;
 		try {
 			bankArea = new FindAreasMethodCall().addPostcode(POSTCODE)
@@ -163,16 +136,12 @@ public class CrimeDataTest extends DataProviderTestBase {
 			fail();
 			return;
 		}
-		long endFindAreasMethodCall = System.currentTimeMillis();
-
-		long timeFindAreasMethodCall = endFindAreasMethodCall
-				- startFindAreasMethodCall;
 
 		System.out.println(bankArea.getName() + " -- extcode: "
 				+ bankArea.getDetailed().getExtCode());
 
 		System.out.println("Finding polygon for area...");
-		double[][] coordinates = every_nth_pair(
+		double[][] coordinates = ArrayHelpers.every_nth_pair(
 				Mapper.getGeometryForArea(bankArea), 5);
 		System.out.println("Polygon found, " + coordinates.length
 				+ " vertices.");
