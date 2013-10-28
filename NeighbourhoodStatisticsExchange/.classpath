@@ -7,6 +7,7 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/NeighbourhoodStatisticsExchange/lib/gson-2.2.4-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/filip/programsandprojects/xpp3-1.1.4c/xpp3-1.1.4c.jar" sourcepath="/home/filip/programsandprojects/xpp3-1.1.4c/src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ApacheCommonsIO"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

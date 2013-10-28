@@ -15,12 +15,12 @@ import nde2.types.delivery.DataSetItem;
  * @author filip
  * 
  */
-public class ValueNotAvailable extends Throwable {
+public class ValueNotAvailable extends RuntimeException {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 3176477718744936579L;
+	private static final long serialVersionUID = 57513490567813L;
 
 	public ValueNotAvailable() {
 		super();

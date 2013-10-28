@@ -1,21 +1,15 @@
-package nde2.types.discovery;
+package nde2.pull.types;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
 import nde2.errors.NDE2Exception;
-import nde2.errors.ValueNotAvailable;
-import nde2.methodcalls.discovery.GetAreaChildrenMethodCall;
-import nde2.methodcalls.discovery.GetAreaDetailMethodCall;
-import nde2.methodcalls.discovery.GetAreaParentMethodCall;
-import nde2.methodcalls.discovery.GetCompatibleSubjectsMethodCall;
-import nde2.types.NDE2Result;
+import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
+import nde2.types.discovery.DetailedArea;
 
-import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * This class of objects represents geographic of administrative areas returned
@@ -26,11 +20,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
-@Deprecated
-public class Area extends NDE2Result {
-	/**
-	 * 
-	 */
+public class Area implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static final int HIERARCHY_2011_STATISTICAL_GEOGRAPHY = 26;
@@ -206,20 +196,20 @@ public class Area extends NDE2Result {
 	public static final int LEVELTYPE_NULL = -1;
 
 	private String name;
-	private long areaId;
+	private int areaId;
 	private int levelTypeId;
 	private int hierarchyId;
 	private Area parent;
 	private List<Area> children;
-	private Map<Subject, Integer> compatibleDatasets;
+	private Map<Subject, Integer> compatibleSubjects;
 
-	public Area(String name, long areaId, int levelTypeId, int hierarchyId) {
+	public Area(String name, int areaId, int levelTypeId, int hierarchyId) {
 		this.name = name;
 		this.areaId = areaId;
 		this.levelTypeId = levelTypeId;
 		this.hierarchyId = hierarchyId;
 		children = null;
-		compatibleDatasets = null;
+		compatibleSubjects = null;
 	}
 
 	protected Area(Area copy) {
@@ -229,6 +219,9 @@ public class Area extends NDE2Result {
 		this.hierarchyId = copy.hierarchyId;
 		this.parent = copy.parent;
 		this.children = copy.children;
+	}
+
+	public Area() {
 	}
 
 	/**
@@ -243,7 +236,7 @@ public class Area extends NDE2Result {
 	 * 
 	 * @return The area's internal ID
 	 */
-	public long getAreaId() {
+	public int getAreaId() {
 		return areaId;
 	}
 
@@ -277,7 +270,7 @@ public class Area extends NDE2Result {
 	 * @param areaId
 	 *            the areaId to set
 	 */
-	public void setAreaId(long areaId) {
+	public void setAreaId(int areaId) {
 		this.areaId = areaId;
 	}
 
@@ -298,8 +291,7 @@ public class Area extends NDE2Result {
 	}
 
 	/**
-	 * Set this area's parent (containing area). Note that this should not be
-	 * used for user code unless absolutely needed.
+	 * Set this area's parent (containing area).
 	 * 
 	 * @param parent
 	 *            This area's parent/containing area.
@@ -309,92 +301,68 @@ public class Area extends NDE2Result {
 	}
 
 	/**
-	 * <i>Note:</i> If the Area was obtained in a way different from postcoding
-	 * it, it may not have a parent initialised. This means it'll have to fetch
-	 * it. Some parents are skipped. Ask NDE2.
-	 * <p>
-	 * If the parent has been set by setParent(), then that object is returned
-	 * instead.
-	 * 
-	 * @return This {@link Area}'s parent
-	 * @throws NDE2Exception
+	 * @return {@link Subject Subjects} that are compatible with this area.
+	 * @throws XmlPullParserException
 	 * @throws IOException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws XPathExpressionException
-	 * @throws ValueNotAvailable
+	 * @throws NDE2Exception
 	 */
-	public Area getParent() throws XPathExpressionException,
-			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ValueNotAvailable {
-		if (parent == null) {
-			parent = new GetAreaParentMethodCall().addArea(this)
-					.getAreaParent();
-		}
-		return parent;
+	public Map<Subject, Integer> getCompatibleSubjects() throws IOException,
+			XmlPullParserException, NDE2Exception {
+		if (compatibleSubjects == null)
+			compatibleSubjects = new GetCompatibleSubjects(this).execute();
+		return compatibleSubjects;
 	}
 
 	/**
-	 * <i>Note:</i> Areas are not initialised with children. First call to this
-	 * method may take a while. Use asynchronously.
-	 * 
-	 * @return This {@link Area}'s children (one level)
-	 * @throws NDE2Exception
-	 * @throws IOException
-	 * @throws SAXException
-	 * @throws ParserConfigurationException
-	 * @throws XPathExpressionException
-	 * @throws ValueNotAvailable
+	 * @param compatibleSubjects
+	 *            {@link Subject Subjects} to set as compatible with this area.
 	 */
-	public List<Area> getChildren() throws XPathExpressionException,
-			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ValueNotAvailable {
-		if (children == null)
-			children = new GetAreaChildrenMethodCall().addArea(this)
-					.getAreaChildren();
-		return children;
+	public void setCompatibleSubjects(Map<Subject, Integer> compatibleSubjects) {
+		this.compatibleSubjects = compatibleSubjects;
 	}
 
-	/**
-	 * <i>Note:</i> This method may take a while. Use asynchronously.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @return A {@link DetailedArea} object which is essentially an
-	 *         {@link Area} with more information attached. Useful for Ordnance
-	 *         Survey eastings/northings, also includes metadata if available.
-	 * @throws XPathExpressionException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws NDE2Exception
+	 * @see java.lang.Object#hashCode()
 	 */
-	public DetailedArea getDetailed() throws XPathExpressionException,
-			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception {
-		return new GetAreaDetailMethodCall().addArea(this).getAreaDetail();
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (areaId ^ (areaId >>> 32));
+		result = prime * result + hierarchyId;
+		result = prime * result + levelTypeId;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
 	}
 
-	/**
-	 * <i>Note:</i> Areas are not initialised with compatible subjects. First
-	 * call to this method may take a while. Use asynchronously.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * 
-	 * 
-	 * @return A list of compatible {@link Subject}s, together with their count
-	 *         as a {@link Map}, where the Subject is the key, and the count is
-	 *         the value.
-	 * @throws XPathExpressionException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws NDE2Exception
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public Map<Subject, Integer> getCompatibleSubjects()
-			throws XPathExpressionException, ParserConfigurationException,
-			SAXException, IOException, NDE2Exception {
-		if (compatibleDatasets == null)
-			compatibleDatasets = new GetCompatibleSubjectsMethodCall().addArea(
-					this).getCompatibleSubjects();
-		return compatibleDatasets;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Area))
+			return false;
+		Area other = (Area) obj;
+		if (areaId != other.areaId)
+			return false;
+		if (hierarchyId != other.hierarchyId)
+			return false;
+		if (levelTypeId != other.levelTypeId)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }

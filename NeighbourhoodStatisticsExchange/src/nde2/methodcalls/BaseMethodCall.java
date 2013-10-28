@@ -95,7 +95,7 @@ public abstract class BaseMethodCall {
 
 		/* Prepare a Document from that URL. The system will pull it nicely. */
 		DocumentBuilderFactory docBldFac = DocumentBuilderFactory.newInstance();
-		docBldFac.setNamespaceAware(true);
+		docBldFac.setNamespaceAware(false);
 		DocumentBuilder docBld = docBldFac.newDocumentBuilder();
 		Document doc = docBld.parse(is);
 
