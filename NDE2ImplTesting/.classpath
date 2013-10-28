@@ -5,7 +5,6 @@
 	<classpathentry kind="src" path="nde2_proxy"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/SWT4Linux"/>
 	<classpathentry kind="lib" path="swing2swt.jar"/>
 	<classpathentry kind="lib" path="mockito-all-1.9.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PoliceData"/>
