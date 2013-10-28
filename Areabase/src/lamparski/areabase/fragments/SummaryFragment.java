@@ -12,6 +12,7 @@ import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -28,14 +29,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.objects.CardFactory;
 import com.fima.cardsui.objects.CardModel;
 import com.fima.cardsui.views.CardUI;
 
-public class SummaryFragment extends SherlockFragment implements
-		IAreabaseFragment {
+public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	private OrdnanceSurveyMapView mOpenSpaceView;
 	private CardUI mCardUI;
@@ -263,8 +262,7 @@ public class SummaryFragment extends SherlockFragment implements
 	public void refreshContent() {
 		mCardUI.clearCards();
 
-		getSherlockActivity()
-				.setSupportProgressBarIndeterminateVisibility(true);
+		getActivity().setProgressBarIndeterminateVisibility(true);
 
 		if (isServiceBound) {
 			mService.getBasicAreaInfo(mLocation, new BasicAreaInfoIface() {
@@ -298,8 +296,7 @@ public class SummaryFragment extends SherlockFragment implements
 
 				@Override
 				public void allDone() {
-					getSherlockActivity()
-							.setSupportProgressBarIndeterminateVisibility(false);
+					getActivity().setProgressBarIndeterminateVisibility(false);
 				}
 
 				@Override
@@ -345,8 +342,7 @@ public class SummaryFragment extends SherlockFragment implements
 				}
 			});
 		} else {
-			getSherlockActivity().setSupportProgressBarIndeterminateVisibility(
-					false);
+			getActivity().setProgressBarIndeterminateVisibility(false);
 			Log.wtf("SummaryFragment",
 					"refreshContent(): AreaService is unbound :(");
 		}

@@ -1,17 +1,15 @@
 package lamparski.areabase.cards;
 
 import lamparski.areabase.R;
-import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.fima.cardsui.objects.Card;
+import com.fima.cardsui.objects.RecyclableCard;
 
-public class PlayCard extends Card {
+public class PlayCard extends RecyclableCard {
 
 	/**
 	 * @param titlePlay
@@ -25,18 +23,13 @@ public class PlayCard extends Card {
 			String titleColor, Boolean hasOverflow, Boolean isClickable) {
 		super(titlePlay, description, color, titleColor, hasOverflow,
 				isClickable);
-		// TODO Auto-generated constructor stub
 	}
 
 	public PlayCard() {
 	}
 
 	@Override
-	public View getCardContent(Context context) {
-		View playCardView = ((LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.card_play, null);
-
+	protected void applyTo(View playCardView) {
 		((TextView) playCardView.findViewById(R.id.card_play_title))
 				.setText(titlePlay);
 		((TextView) playCardView.findViewById(R.id.card_play_title))
@@ -58,7 +51,10 @@ public class PlayCard extends Card {
 		else
 			((ImageView) playCardView.findViewById(R.id.card_play_overflow))
 					.setVisibility(View.GONE);
+	}
 
-		return playCardView;
+	@Override
+	protected int getCardLayoutId() {
+		return R.layout.card_play;
 	}
 }

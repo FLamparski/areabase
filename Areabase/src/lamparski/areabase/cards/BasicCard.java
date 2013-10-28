@@ -1,14 +1,12 @@
 package lamparski.areabase.cards;
 
 import lamparski.areabase.R;
-import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.fima.cardsui.objects.Card;
+import com.fima.cardsui.objects.RecyclableCard;
 
-public class BasicCard extends Card {
+public class BasicCard extends RecyclableCard {
 
 	/**
 	 * @param title
@@ -24,17 +22,16 @@ public class BasicCard extends Card {
 	}
 
 	@Override
-	public View getCardContent(Context context) {
-		View contentView = ((LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(
-				R.layout.card_ex, null);
-
-		((TextView) contentView.findViewById(R.id.card_basic_title))
+	protected void applyTo(View convertCardView) {
+		((TextView) convertCardView.findViewById(R.id.card_basic_title))
 				.setText(title);
-		((TextView) contentView.findViewById(R.id.card_basic_text))
+		((TextView) convertCardView.findViewById(R.id.card_basic_text))
 				.setText(desc);
+	}
 
-		return contentView;
+	@Override
+	protected int getCardLayoutId() {
+		return R.layout.card_ex;
 	}
 
 }

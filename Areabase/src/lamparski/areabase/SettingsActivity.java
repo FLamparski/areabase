@@ -4,11 +4,10 @@ import android.annotation.TargetApi;
 import android.app.FragmentManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-
-public class SettingsActivity extends SherlockPreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 
 	public static boolean ALWAYS_SIMPLE_PREFERENCES = false;
 

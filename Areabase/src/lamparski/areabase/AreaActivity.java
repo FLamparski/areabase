@@ -6,19 +6,24 @@ import java.util.List;
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.SummaryFragment;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -26,13 +31,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
-public class AreaActivity extends SherlockFragmentActivity {
+public class AreaActivity extends Activity {
 
 	// private AreaInfoPagerAdapter mAreaInfoPagerAdapter;
 	protected NavDrawerListAdapter mNavDrawerAdapter;
@@ -86,7 +85,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 
 		setContentView(R.layout.area_activity);
 
-		ActionBar mActionBar = getSupportActionBar();
+		ActionBar mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		mActionBar.setTitle("Areabase");
 		mActionBar.setHomeButtonEnabled(true);
@@ -118,12 +117,12 @@ public class AreaActivity extends SherlockFragmentActivity {
 				R.string.drawer_close) {
 			@Override
 			public void onDrawerClosed(View drawerView) {
-				getSupportActionBar().setTitle(mTitle);
+				getActionBar().setTitle(mTitle);
 			}
 
 			@Override
 			public void onDrawerOpened(View drawerView) {
-				getSupportActionBar().setTitle("Areabase");
+				getActionBar().setTitle("Areabase");
 			}
 		};
 
@@ -305,13 +304,13 @@ public class AreaActivity extends SherlockFragmentActivity {
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
-		getSupportActionBar().setTitle(title);
+		getActionBar().setTitle(title);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getSupportMenuInflater().inflate(R.menu.areabase_opts_menu, menu);
+		getMenuInflater().inflate(R.menu.areabase_opts_menu, menu);
 
 		/*
 		 * Search action: Handle expanding the search box and starting the
@@ -544,7 +543,7 @@ public class AreaActivity extends SherlockFragmentActivity {
 	}
 
 	private void performFragmentTransaction(Fragment frag) {
-		FragmentManager fragmentManager = getSupportFragmentManager();
+		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction().replace(mFragmentHostId, frag)
 				.commit();
 		if (frag instanceof IAreabaseFragment) {
