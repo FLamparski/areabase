@@ -31,4 +31,13 @@ public class DateFormat {
 		return CACHED_CALENDAR.getTime();
 	}
 
+	/**
+	 * 
+	 * @param datetimeString
+	 *            Expected format: yyyy-MM-ddT~~~~~~
+	 * @return
+	 */
+	public static Date fromNDEDateTime(String datetimeString) {
+		return fromNDEDateOnly(datetimeString.split("T")[0]);
+	}
 }

@@ -2,7 +2,6 @@ package nde2.pull.methodcalls.discovery;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,9 +51,9 @@ public class FindAreas extends DiscoveryMethodCall {
 	 * 
 	 * @param postcode
 	 *            Postcode of the area to find
-	 * @return Modified {@link FindAreasMethodCall} for currying
+	 * @return Modified {@link FindAreas} for currying
 	 */
-	public FindAreas addPostcode(String postcode) {
+	public FindAreas forPostcode(String postcode) {
 		this.postcode = postcode.replace(" ", "");
 		return this;
 	}
@@ -63,9 +62,9 @@ public class FindAreas extends DiscoveryMethodCall {
 	 * 
 	 * @param areaNamePart
 	 *            Part of the required area's name
-	 * @return Modified {@link FindAreasMethodCall} for currying
+	 * @return Modified {@link FindAreas} for currying
 	 */
-	public FindAreas addAreaNamePart(String areaNamePart) {
+	public FindAreas whoseNameContains(String areaNamePart) {
 		this.areaNamePart = areaNamePart;
 		return this;
 	}
@@ -76,7 +75,7 @@ public class FindAreas extends DiscoveryMethodCall {
 	 *            SNAC code of the area to find
 	 * @return Modified {@link FindAreasMethodCall} for currying
 	 */
-	public FindAreas addCode(String code) {
+	public FindAreas forSNACCode(String code) {
 		this.code = code;
 		return this;
 	}
@@ -86,9 +85,9 @@ public class FindAreas extends DiscoveryMethodCall {
 	 * @param levelTypeId
 	 *            Level Type ID to filter results with -- see {@link Area} for
 	 *            allowed values.
-	 * @return Modified {@link FindAreasMethodCall} for currying
+	 * @return Modified {@link FindAreas} for currying
 	 */
-	public FindAreas addLevelTypeId(int levelTypeId) {
+	public FindAreas ofLevelType(int levelTypeId) {
 		this.levelTypeId = levelTypeId;
 		return this;
 	}
@@ -98,9 +97,9 @@ public class FindAreas extends DiscoveryMethodCall {
 	 * @param hierarchyId
 	 *            Hierarchy ID to filter results with -- see {@link Area} for
 	 *            allowed values.
-	 * @return Modified {@link FindAreasMethodCall} for currying
+	 * @return Modified {@link FindAreas} for currying
 	 */
-	public FindAreas addHierarchyId(int hierarchyId) {
+	public FindAreas inHierarchy(int hierarchyId) {
 		this.hierarchyId = hierarchyId;
 		return this;
 	}
@@ -128,9 +127,9 @@ public class FindAreas extends DiscoveryMethodCall {
 	}
 
 	/**
-	 * This method will take data supplied to this {@link FindAreasMethodCall}
-	 * and call the web service. It will then parse the result, or thrown an
-	 * Exception if there is a problem.
+	 * This method will take data supplied to this {@link FindAreas} and call
+	 * the web service. It will then parse the result, or thrown an Exception if
+	 * there is a problem.
 	 * 
 	 * @return A set of areas returned by the service.
 	 * @throws IOException
@@ -146,46 +145,8 @@ public class FindAreas extends DiscoveryMethodCall {
 			NDE2Exception {
 		XmlPullParser xpp = execute(collectParams());
 
-		String key = null;
-		String value = null;
-		Set<Area> areaSet = new HashSet<Area>();
-		Area area = null;
-		NDE2Exception error = null;
-		int event = xpp.getEventType();
-		while (event != XmlPullParser.END_DOCUMENT) {
-			switch (event) {
-			case XmlPullParser.START_TAG:
-				key = xpp.getName();
-				if (key.equals("Error"))
-					error = new NDE2Exception();
-				if (key.equals("Area"))
-					area = new Area();
-				break;
-			case XmlPullParser.TEXT:
-				value = xpp.getText();
-				if (key.equals("AreaId"))
-					area.setAreaId(Integer.parseInt(value));
-				if (key.equals("Name"))
-					area.setName(value);
-				if (key.equals("HierarchyId"))
-					area.setHierarchyId(Integer.parseInt(value));
-				if (key.equals("LevelTypeId"))
-					area.setLevelTypeId(Integer.parseInt(value));
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
-				break;
-			case XmlPullParser.END_TAG:
-				if (xpp.getName().equals("Area"))
-					areaSet.add(area);
-				break;
-			}
-			event = xpp.next();
-		}
-
-		if (error != null)
-			throw error;
+		Set<Area> areaSet = processAreaSet(xpp);
 		return areaSet;
 	}
+
 }

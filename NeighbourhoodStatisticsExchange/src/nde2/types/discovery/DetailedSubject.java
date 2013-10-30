@@ -6,6 +6,7 @@ package nde2.types.discovery;
  * @author filip
  * @see {@link Subject}
  */
+@Deprecated
 public class DetailedSubject extends Subject {
 
 	/**

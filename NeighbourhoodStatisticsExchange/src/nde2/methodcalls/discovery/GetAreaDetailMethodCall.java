@@ -35,6 +35,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class GetAreaDetailMethodCall extends BaseMethodCall {
 
 	private static final String METHOD_NAME = "GetAreaDetail";

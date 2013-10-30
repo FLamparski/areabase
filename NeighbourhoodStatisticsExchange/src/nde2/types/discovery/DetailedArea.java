@@ -10,6 +10,7 @@ import org.w3c.dom.Node;
  * @author filip
  * @see {@link Area}
  */
+@Deprecated
 public class DetailedArea extends Area {
 
 	/**

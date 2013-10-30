@@ -8,6 +8,7 @@ import nde2.types.NDE2Result;
  * @author filip
  * 
  */
+@Deprecated
 public class DataSetFamily extends NDE2Result {
 
 	private static final long serialVersionUID = 1L;

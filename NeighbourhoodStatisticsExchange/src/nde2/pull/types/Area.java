@@ -2,10 +2,12 @@ package nde2.pull.types;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import nde2.errors.NDE2Exception;
+import nde2.pull.methodcalls.discovery.GetAreaChildren;
+import nde2.pull.methodcalls.discovery.GetAreaParent;
 import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
 import nde2.types.discovery.DetailedArea;
 
@@ -200,7 +202,7 @@ public class Area implements Serializable {
 	private int levelTypeId;
 	private int hierarchyId;
 	private Area parent;
-	private List<Area> children;
+	private Set<Area> children;
 	private Map<Subject, Integer> compatibleSubjects;
 
 	public Area(String name, int areaId, int levelTypeId, int hierarchyId) {
@@ -298,6 +300,37 @@ public class Area implements Serializable {
 	 */
 	public void setParent(Area parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * 
+	 * @return A Set of child areas, fetching the information from NeSS if
+	 *         necessary.
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 * @throws NDE2Exception
+	 */
+	public Set<Area> getChildren() throws IOException, XmlPullParserException,
+			NDE2Exception {
+		if (children == null) {
+			children = new GetAreaChildren(this).execute();
+		}
+		return children;
+	}
+
+	/**
+	 * 
+	 * @return The parent area of this area.
+	 * @throws NDE2Exception
+	 * @throws XmlPullParserException
+	 * @throws IOException
+	 */
+	public Area getParent() throws IOException, XmlPullParserException,
+			NDE2Exception {
+		if (parent == null) {
+			parent = new GetAreaParent(this).execute();
+		}
+		return parent;
 	}
 
 	/**

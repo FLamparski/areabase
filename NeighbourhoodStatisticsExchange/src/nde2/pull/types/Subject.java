@@ -1,7 +1,20 @@
 package nde2.pull.types;
 
+import java.io.IOException;
 import java.io.Serializable;
 
+import nde2.errors.NDE2Exception;
+import nde2.pull.methodcalls.discovery.GetSubjectDetail;
+
+import org.xmlpull.v1.XmlPullParserException;
+
+/**
+ * Represents a subject in the NDE database.
+ * 
+ * @author filip
+ * @see {@link DetailedSubject}
+ * 
+ */
 public class Subject implements Serializable {
 	/**
 	 * 
@@ -54,6 +67,19 @@ public class Subject implements Serializable {
 	 */
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	/**
+	 * 
+	 * @return A detailed representation of this Subject, containing description
+	 *         and explanation of the subject.
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 * @throws NDE2Exception
+	 */
+	public DetailedSubject getDetailed() throws IOException,
+			XmlPullParserException, NDE2Exception {
+		return new GetSubjectDetail(this).execute();
 	}
 
 	/*
