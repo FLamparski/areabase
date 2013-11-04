@@ -11,6 +11,7 @@ import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
+import nde2.errors.NDE2Exception;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
@@ -187,8 +188,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 						.getParcelable(AreaActivity.CURRENT_COORDS);
 			} else {
 				mLocation = new Location("mock");
-				mLocation.setLongitude(-0.0887);
-				mLocation.setLatitude(51.5135);
+				mLocation.setLongitude(-0.041229);
+				mLocation.setLatitude(51.448800);
 			}
 		} else {
 			Log.w("SummaryFragment", "Called with no arguments!");
@@ -274,8 +275,22 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 								@Override
 								public void run() {
-									Log.e("SummaryActivity",
+									Log.e("SummaryFragment",
 											"Error processing NDE data", err);
+									try {
+										NDE2Exception cockup = (NDE2Exception) err;
+										Log.w("SummaryFragment",
+												String.format(
+														"NDE2 error response %d: Title: %s; detail: %s",
+														cockup.getNessCode(),
+														cockup.getNessMessage(),
+														cockup.getNessDetail()));
+									} catch (Exception e) {
+										Log.d("SummaryFragment",
+												"Not a NDE2Exception, got: "
+														+ err.getClass()
+																.getSimpleName());
+									}
 									Toast.makeText(
 											getActivity(),
 											R.string.summaryactivity_cardmaker_onserror,
@@ -358,8 +373,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		mCardUI.addCardToLastStack(new BasicCard("Location updated",
 				"New location: " + location.getLongitude() + "; "
 						+ location.getLatitude()));
-		// mOpenSpaceView.setCentre(location);
-		// mOpenSpaceView.setZoom(10);
+		mOpenSpaceView.setCentre(location);
+		mOpenSpaceView.setZoom(10);
 		refreshContent();
 	}
 

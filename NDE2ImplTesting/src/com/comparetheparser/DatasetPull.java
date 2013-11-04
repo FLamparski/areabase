@@ -1,5 +1,7 @@
 package com.comparetheparser;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -13,28 +15,27 @@ import nde2.pull.types.Subject;
 
 import org.junit.Test;
 
+@SuppressWarnings("unused")
 public class DatasetPull implements DatasetFamiliesWorkflow {
 
 	@Override
 	@Test
 	public void crimeForMyArea() throws Exception {
 		Set<Area> theAreas = new FindAreas().forPostcode("SE6 4UX")
-				.ofLevelType(Area.LEVELTYPE_LA)
+				.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
 				.inHierarchy(Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
 				.execute();
+		// The call above should return only ONE element. If there's more,
+		// complain.
+		assertEquals(1, theAreas.size());
 
 		Area theArea = null;
 		Iterator<Area> aI = theAreas.iterator();
-		while (theArea == null) {
-			Area a = aI.next();
-			if (a.getHierarchyId() == Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
-				/*
-				 * Wait a second, didn't I just say that? Yes, in line 23. The
-				 * problem is that for some fked up reason, ONS also returns an
-				 * Area from hierarchy 2. They have different IDs, too.
-				 */
-				theArea = a;
-		}
+
+		theArea = aI.next(); /*
+							 * The call to FindAreas will return only one
+							 * element, so it is safe to say this.
+							 */
 
 		Map<Subject, Integer> subjectListing = theArea.getCompatibleSubjects();
 		Set<Subject> subjectSet = subjectListing.keySet();

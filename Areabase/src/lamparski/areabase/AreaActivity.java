@@ -137,8 +137,8 @@ public class AreaActivity extends Activity {
 			// changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
 		} else {
 			mGeoPoint = new Location("mock");
-			mGeoPoint.setLongitude(-0.0887);
-			mGeoPoint.setLatitude(51.5135);
+			mGeoPoint.setLongitude(-0.041229);
+			mGeoPoint.setLatitude(51.448800);
 			changeFragment(SUMMARY);
 			doRefreshFragment();
 		}
@@ -416,6 +416,7 @@ public class AreaActivity extends Activity {
 			@Override
 			public void run() {
 				try {
+					getContentFragment().updateGeo(mGeoPoint);
 					getContentFragment().refreshContent();
 				} catch (NullPointerException e) {
 					doRefreshFragment();

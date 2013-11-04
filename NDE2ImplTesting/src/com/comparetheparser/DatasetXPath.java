@@ -29,7 +29,7 @@ public class DatasetXPath implements DatasetFamiliesWorkflow {
 			ParserConfigurationException, SAXException, IOException,
 			NDE2Exception, ValueNotAvailable, ParseException {
 		List<Area> theAreas = new FindAreasMethodCall().addPostcode("SE6 4UX")
-				.findAreas();
+				.addLevelTypeId(13).addHierarchyId(26).findAreas();
 		Area theArea = theAreas.get(2);
 		Map<Subject, Integer> areaSubjects = theArea.getCompatibleSubjects();
 		Set<Subject> subjectSet = areaSubjects.keySet();
