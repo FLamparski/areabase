@@ -6,16 +6,30 @@ import java.util.Map;
 import java.util.Set;
 
 import nde2.errors.NDE2Exception;
-import nde2.methodcalls.discovery.FindAreasMethodCall;
 import nde2.pull.types.Area;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * <i>Encapsulates the FindAreas() call to the NDE2 web service. Creation
- * follows the Builder pattern. This uses pull parsing.</i>
+ * <i>Encapsulates the FindAreas() call to the NDE2 web service.</i>
  * 
+ * <p>
+ * Build FindAreas requests declaratively by currying, for instance:
+ * 
+ * <pre>
+ * new FindAreas().forPostcode(POSTCODE).ofLevelType(LEVELTYPE)
+ * 		.inHierarchy(HIERARCHY);
+ * </pre>
+ * 
+ * <p>
+ * The remote method only gets called when you <code>execute()</code> it.
+ * 
+ * <p>
+ * This will return a set of areas that contain POSTCODE, are of the LEVELTYPE
+ * level in hierarchy HIERARCHY. <b>Note:</b> The remote procedure for this is
+ * wonky. It may return objects that were not asked for (i.e. an Area of
+ * hierarchy 2 if asked for areas of hierarchy 26).
  * <p>
  * This operation is a composite search operation which combines all the
  * existing area searches. The postcode, area string and SNAC code are separate
@@ -41,6 +55,8 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class FindAreas extends DiscoveryMethodCall {
 	private static final String METHOD_NAME = "FindAreas";
+	private static final String METHOD_NAME_S_BY_A_BY_POSTCODE = "SearchSByAByPostcode";
+
 	private String postcode;
 	private String areaNamePart;
 	private String code;
@@ -73,7 +89,7 @@ public class FindAreas extends DiscoveryMethodCall {
 	 * 
 	 * @param code
 	 *            SNAC code of the area to find
-	 * @return Modified {@link FindAreasMethodCall} for currying
+	 * @return Modified {@link FindAreas} for currying
 	 */
 	public FindAreas forSNACCode(String code) {
 		this.code = code;
@@ -107,6 +123,28 @@ public class FindAreas extends DiscoveryMethodCall {
 	@Override
 	protected XmlPullParser execute(Map<String, String> params)
 			throws IOException, XmlPullParserException {
+		/*
+		 * Special case: There is a bug in the ONS service, wherein upon making
+		 * a call to FindAreas(), inquiring about an area containing a postcode,
+		 * of a specified level in a specified hierarchy, one receives that
+		 * area, as well as another area from a hierarchy that is altogether
+		 * different. Hence, in order to avoid such issues, this will check if
+		 * the user wants to make that particular query, and switches to a more
+		 * predictable call, SearchSByAByPostcode(). Good thing the latter
+		 * returns the same datatypes. And also only the hierarchies etc that
+		 * are requested.
+		 * 
+		 * See: http://goo.gl/ezODf8
+		 */
+		boolean no_name = (areaNamePart == null);
+		boolean has_postcode = (postcode != null);
+		boolean has_leveltype = (levelTypeId > -1);
+		boolean has_hierarchy = (hierarchyId > -1);
+		if (no_name && has_postcode && has_hierarchy && has_leveltype) {
+			// FindAreas is broken under this configuration, so let's use
+			// something that isn't.
+			return super.doCall(METHOD_NAME_S_BY_A_BY_POSTCODE, params);
+		}
 		return super.doCall(METHOD_NAME, params);
 	}
 

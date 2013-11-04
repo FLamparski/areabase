@@ -40,4 +40,20 @@ public class DateFormat {
 	public static Date fromNDEDateTime(String datetimeString) {
 		return fromNDEDateOnly(datetimeString.split("T")[0]);
 	}
+
+	/**
+	 * A faster? variant of new SimpleDateFormat("yyyy-MM-dd").format(date).
+	 * 
+	 * @param date
+	 *            The date to be formatted
+	 * @return A string formatted using the year-month-day format.
+	 */
+	public static String toNDEDate(Date date) {
+		CACHED_CALENDAR.setTime(date);
+		StringBuilder b = new StringBuilder();
+		b.append(CACHED_CALENDAR.get(GregorianCalendar.YEAR)).append("-");
+		b.append(CACHED_CALENDAR.get(GregorianCalendar.MONTH)).append("-");
+		b.append(CACHED_CALENDAR.get(GregorianCalendar.DAY_OF_MONTH));
+		return b.toString();
+	}
 }

@@ -10,6 +10,7 @@ import nde2.types.NDE2Result;
  * @author filip
  * 
  */
+@Deprecated
 public class DataSetItem extends NDE2Result {
 
 	/**

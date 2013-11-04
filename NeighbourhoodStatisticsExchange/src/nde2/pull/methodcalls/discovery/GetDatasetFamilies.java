@@ -3,7 +3,6 @@ package nde2.pull.methodcalls.discovery;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +54,7 @@ public class GetDatasetFamilies extends DiscoveryMethodCall {
 		String key = null;
 		String value = null;
 		int event = xpp.getEventType();
-		List<DataSetFamily> dataSetFamilies = new LinkedList<DataSetFamily>();
+		ArrayList<DataSetFamily> dataSetFamilies = new ArrayList<DataSetFamily>();
 		NDE2Exception error = null;
 		DataSetFamily dataSetFamily = null;
 		DateRange dateRange = null;
@@ -108,6 +107,12 @@ public class GetDatasetFamilies extends DiscoveryMethodCall {
 
 		if (error != null)
 			throw error;
+		/*
+		 * Let's not waste memory. On the other hand, when this is trimmed, it
+		 * could cause a performance hit depending on the GC (looking at you,
+		 * Android).
+		 */
+		dataSetFamilies.trimToSize();
 		return dataSetFamilies;
 	}
 

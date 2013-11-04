@@ -14,6 +14,7 @@ import nde2.types.discovery.DataSetFamily;
  * @author filip
  * 
  */
+@Deprecated
 public class Dataset extends NDE2Result {
 
 	/**

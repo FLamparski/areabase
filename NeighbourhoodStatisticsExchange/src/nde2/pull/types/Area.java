@@ -9,7 +9,6 @@ import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.discovery.GetAreaChildren;
 import nde2.pull.methodcalls.discovery.GetAreaParent;
 import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
-import nde2.types.discovery.DetailedArea;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -55,27 +54,27 @@ public class Area implements Serializable {
 	/**
 	 * Community
 	 */
-	public static final int LEVELTYPE_COM = 164;
+	public static final int LEVELTYPE_COMMUNITY = 164;
 	/**
 	 * Country
 	 */
-	public static final int LEVELTYPE_CTRY = 10;
+	public static final int LEVELTYPE_COUNTRY = 10;
 	/**
 	 * County
 	 */
-	public static final int LEVELTYPE_CTY = 12;
+	public static final int LEVELTYPE_COUNTY = 12;
 	/**
 	 * Education Area
 	 */
-	public static final int LEVELTYPE_EA = 180;
+	public static final int LEVELTYPE_EDUCATION_AREA = 180;
 	/**
 	 * England and Wales
 	 */
-	public static final int LEVELTYPE_EW = 9;
+	public static final int LEVELTYPE_ENGLAND_WALES = 9;
 	/**
 	 * Former county
 	 */
-	public static final int LEVELTYPE_FCTY = 96;
+	public static final int LEVELTYPE_FORMER_COUNTY = 96;
 	/**
 	 * ???
 	 */
@@ -91,19 +90,19 @@ public class Area implements Serializable {
 	/**
 	 * Great Britain
 	 */
-	public static final int LEVELTYPE_GB = 8;
+	public static final int LEVELTYPE_GREAT_BRITAIN = 8;
 	/**
 	 * Government Office Region
 	 */
-	public static final int LEVELTYPE_GOR = 11;
+	public static final int LEVELTYPE_GOV_OFFICE_REGION = 11;
 	/**
 	 * Health Authority
 	 */
-	public static final int LEVELTYPE_HA = 19;
+	public static final int LEVELTYPE_HEALTH_AUTHORITY = 19;
 	/**
 	 * Local Authority
 	 */
-	public static final int LEVELTYPE_LA = 13;
+	public static final int LEVELTYPE_LOCAL_AUTHORITY = 13;
 	/**
 	 * Lower layer super output area
 	 */
@@ -115,11 +114,11 @@ public class Area implements Serializable {
 	/**
 	 * New Deal for Community
 	 */
-	public static final int LEVELTYPE_NDC = 201;
+	public static final int LEVELTYPE_NEW_DEAL_FOR_COMMUNITY = 201;
 	/**
 	 * National Park
 	 */
-	public static final int LEVELTYPE_NP = 17;
+	public static final int LEVELTYPE_NATIONAL_PARK = 17;
 	/**
 	 * Output area
 	 */
@@ -127,51 +126,51 @@ public class Area implements Serializable {
 	/**
 	 * Parish
 	 */
-	public static final int LEVELTYPE_P = 16;
+	public static final int LEVELTYPE_PARISH = 16;
 	/**
 	 * Postcode area
 	 */
-	public static final int LEVELTYPE_PA = 25;
+	public static final int LEVELTYPE_POSTCODE_AREA = 25;
 	/**
 	 * Postcode
 	 */
-	public static final int LEVELTYPE_PCD = 22;
+	public static final int LEVELTYPE_POSTCODE = 22;
 	/**
 	 * Postcode 2
 	 */
-	public static final int LEVELTYPE_PCD2 = 257;
+	public static final int LEVELTYPE_POSTCODE2 = 257;
 	/**
 	 * Primary Care Organisation
 	 */
-	public static final int LEVELTYPE_PCO = 20;
+	public static final int LEVELTYPE_PRIMARY_CARE_ORG = 20;
 	/**
 	 * Postcode district
 	 */
-	public static final int LEVELTYPE_PD = 24;
+	public static final int LEVELTYPE_POSTCODE_DISTRICT = 24;
 	/**
 	 * Postcode sector
 	 */
-	public static final int LEVELTYPE_PS = 23;
+	public static final int LEVELTYPE_POSTCODE_SECTOR = 23;
 	/**
 	 * Regional office
 	 */
-	public static final int LEVELTYPE_RO = 97;
+	public static final int LEVELTYPE_REGIONAL_OFFICE = 97;
 	/**
 	 * Strategic Health Authority
 	 */
-	public static final int LEVELTYPE_SHA = 81;
+	public static final int LEVELTYPE_STRATEGIC_HEALTH_AUTHORITY = 81;
 	/**
 	 * Statistical neighbourhood
 	 */
-	public static final int LEVELTYPE_SN = 143;
+	public static final int LEVELTYPE_STAT_NEIGHBOURHOOD = 143;
 	/**
 	 * Scottish Parliamentary region
 	 */
-	public static final int LEVELTYPE_SPR = 144;
+	public static final int LEVELTYPE_SCOTTISH_PARL_REGION = 144;
 	/**
 	 * Urban area
 	 */
-	public static final int LEVELTYPE_U = 28;
+	public static final int LEVELTYPE_URBAN_AREA = 28;
 	/**
 	 * United Kingdom -- England, Scotland, Wales, N Ireland
 	 */
@@ -179,7 +178,7 @@ public class Area implements Serializable {
 	/**
 	 * Urban subdivision
 	 */
-	public static final int LEVELTYPE_USD = 29;
+	public static final int LEVELTYPE_URBAN_SUBDIV = 29;
 	/**
 	 * Upper layer super output area
 	 */
@@ -191,7 +190,7 @@ public class Area implements Serializable {
 	/**
 	 * Westminster Parliamentary constituency
 	 */
-	public static final int LEVELTYPE_WPC = 27;
+	public static final int LEVELTYPE_WESTMINSTER_PARL_CONSTITUENCY = 27;
 	/**
 	 * Denotes an invalid/"null" leveltype
 	 */

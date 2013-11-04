@@ -12,6 +12,7 @@ import nde2.types.NDE2Result;
  * @author filip
  * 
  */
+@Deprecated
 public class DateRange extends NDE2Result {
 
 	private static final long serialVersionUID = 1L;

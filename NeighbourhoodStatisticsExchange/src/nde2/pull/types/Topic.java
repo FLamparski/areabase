@@ -1,6 +1,7 @@
-package nde2.types.delivery;
+package nde2.pull.types;
 
-import nde2.types.NDE2Result;
+import java.io.Serializable;
+
 import nde2.types.discovery.DataSetFamily;
 
 /**
@@ -10,45 +11,22 @@ import nde2.types.discovery.DataSetFamily;
  * @author filip
  * 
  */
-@Deprecated
-public class Topic extends NDE2Result {
+public class Topic implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	// Fun fact -- after declaring these fields, I added all these methods
-	// without writing any code.
-	// Shift-Alt-S is awesome.
+	private int __delivery_getTables_topicPointer;
 	private int topicId;
-	private int topicCode;
-	private int identifier;
+	private int datasetFamilyId;
 	private String creator;
 	private String description;
 	private String title;
 	private String coinageUnit;
 
-	/**
-	 * @param topicId
-	 * @param topicCode
-	 * @param creator
-	 * @param description
-	 * @param title
-	 * @param coinageUnit
-	 *            the unit in which this value is presented. Count, Percentage,
-	 *            etc.
-	 */
-	public Topic(int topicId, int topicCode, int identifier, String creator,
-			String description, String title, String coinageUnit) {
-		super(VALID_FOR_DAYS); // Default Delivery timekeeping thing
-		this.topicId = topicId;
-		this.topicCode = topicCode;
-		this.identifier = identifier;
-		this.creator = creator;
-		this.description = description;
-		this.title = title;
-		this.coinageUnit = coinageUnit;
+	public Topic() {
 	}
 
 	/**
@@ -56,26 +34,27 @@ public class Topic extends NDE2Result {
 	 * {@link Topic#getTopicCode()} instead. This is only useful when ordering
 	 * topics during the creation of a {@link Dataset}.
 	 * 
-	 * @return ID of the topic as spat out by the server, but normalised and
-	 *         with a zero-based index.
+	 * @return the ID element of the Topic that is used in the response
+	 *         document. Actually an internal pointer that links topics and
+	 *         items together when SOAP serialized.
+	 */
+	public int get__pointer() {
+		return __delivery_getTables_topicPointer;
+	}
+
+	/**
+	 * @return the ID of this topic
 	 */
 	public int getTopicId() {
 		return topicId;
 	}
 
 	/**
-	 * @return the topicCode
-	 */
-	public int getTopicCode() {
-		return topicCode;
-	}
-
-	/**
 	 * @return the identifier -- which is also the id of the
 	 *         {@link DataSetFamily} this Topic is in.
 	 */
-	public int getIdentifier() {
-		return identifier;
+	public int getDatasetFamilyId() {
+		return datasetFamilyId;
 	}
 
 	/**
@@ -107,6 +86,62 @@ public class Topic extends NDE2Result {
 		return coinageUnit;
 	}
 
+	/**
+	 * @param the
+	 *            __pointer to set. explanation in get__pointer().
+	 */
+	public void set__pointer(int __delivery_getTables_topicPointer) {
+		this.__delivery_getTables_topicPointer = __delivery_getTables_topicPointer;
+	}
+
+	/**
+	 * @param topicId
+	 *            the topicCode to set
+	 */
+	public void setTopicId(int topicId) {
+		this.topicId = topicId;
+	}
+
+	/**
+	 * @param identifier
+	 *            the identifier to set
+	 */
+	public void setDatasetFamilyId(int identifier) {
+		this.datasetFamilyId = identifier;
+	}
+
+	/**
+	 * @param creator
+	 *            the creator to set
+	 */
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param title
+	 *            the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @param coinageUnit
+	 *            the coinageUnit to set
+	 */
+	public void setCoinageUnit(String coinageUnit) {
+		this.coinageUnit = coinageUnit;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -121,9 +156,9 @@ public class Topic extends NDE2Result {
 		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result + identifier;
+		result = prime * result + datasetFamilyId;
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + topicCode;
+		result = prime * result + topicId;
 		return result;
 	}
 
@@ -156,14 +191,14 @@ public class Topic extends NDE2Result {
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (identifier != other.identifier)
+		if (datasetFamilyId != other.datasetFamilyId)
 			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (topicCode != other.topicCode)
+		if (topicId != other.topicId)
 			return false;
 		return true;
 	}

@@ -53,6 +53,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class GetTablesMethodCall extends BaseMethodCall {
 	private final static String METHOD_NAME = "getTables";
 	private List<Area> areas;

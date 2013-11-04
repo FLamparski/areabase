@@ -1,13 +1,12 @@
-package nde2.types.delivery;
+package nde2.pull.types;
 
-import java.text.ParseException;
+import java.io.Serializable;
 import java.util.Date;
 
-import nde2.helpers.DateFormat;
-import nde2.types.NDE2Result;
+public class Period implements Serializable {
 
-@Deprecated
-public class Period extends NDE2Result {
+	public static final char SINGLE_DATE = 's';
+	public static final char DATE_RANGE = 'r';
 
 	/**
 	 * 
@@ -16,23 +15,10 @@ public class Period extends NDE2Result {
 
 	private Date startDate;
 	private Date endDate;
-	private int periodId;
+	private char periodType;
+	private int __delivery_getTables_periodPointer;
 
-	/**
-	 * 
-	 * @param startDateStr
-	 *            String representation of the starting date (yyyy-MM-dd)
-	 * @param endDateStr
-	 *            String representation of the ending date (yyyy-MM-dd)
-	 * @throws ParseException
-	 *             If one or both of the date strings don't match the pattern
-	 */
-	public Period(String startDateStr, String endDateStr, int periodCode)
-			throws ParseException {
-		super(VALID_FOR_DAYS);
-		startDate = DateFormat.fromNDEDateOnly(startDateStr);
-		endDate = DateFormat.fromNDEDateOnly(endDateStr);
-		this.periodId = periodCode;
+	public Period() {
 	}
 
 	/**
@@ -49,14 +35,40 @@ public class Period extends NDE2Result {
 		return endDate;
 	}
 
+	public int get__pointer() {
+		return __delivery_getTables_periodPointer;
+	}
+
+	public char getPeriodType() {
+		return periodType;
+	}
+
 	/**
-	 * <b>Do not use</b>: This is only useful when ordering topics during the
-	 * creation of a {@link Dataset}.
-	 * 
-	 * @return ID of this particular time period as spat out by the server.
+	 * @param startDate
+	 *            the startDate to set
 	 */
-	public int getPeriodId() {
-		return periodId;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	/**
+	 * @param endDate
+	 *            the endDate to set
+	 */
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	/**
+	 * @param __delivery_getTables_periodPointer
+	 *            the __delivery_getTables_periodPointer to set
+	 */
+	public void set__pointer(int __delivery_getTables_periodPointer) {
+		this.__delivery_getTables_periodPointer = __delivery_getTables_periodPointer;
+	}
+
+	public void setPeriodType(char periodType) {
+		this.periodType = periodType;
 	}
 
 	/*
@@ -69,6 +81,7 @@ public class Period extends NDE2Result {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + periodType;
 		result = prime * result
 				+ ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
@@ -92,6 +105,8 @@ public class Period extends NDE2Result {
 			if (other.endDate != null)
 				return false;
 		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (periodType != other.periodType)
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)

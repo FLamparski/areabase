@@ -1,10 +1,8 @@
-package nde2.types.delivery;
+package nde2.pull.types;
 
-import nde2.types.NDE2Result;
+import java.io.Serializable;
 
-@Deprecated
-public class Boundary extends NDE2Result {
-
+public class Boundary implements Serializable {
 	/**
 	 * 
 	 */
@@ -12,27 +10,11 @@ public class Boundary extends NDE2Result {
 
 	private String boundaryCode;
 	private String envelope;
-	private String creator;
 	private int identifier;
-	private int id;
+	private int __delivery_getTables_boundaryPointer;
 	private String title;
 
-	/**
-	 * @param boundaryCode
-	 * @param envelope
-	 * @param creator
-	 * @param identifier
-	 * @param title
-	 */
-	public Boundary(String boundaryCode, String envelope, String creator,
-			int identifier, int id, String title) {
-		super(VALID_FOR_DAYS);
-		this.boundaryCode = boundaryCode;
-		this.envelope = envelope;
-		this.creator = creator;
-		this.identifier = identifier;
-		this.id = id;
-		this.title = title;
+	public Boundary() {
 	}
 
 	/**
@@ -43,6 +25,14 @@ public class Boundary extends NDE2Result {
 	}
 
 	/**
+	 * @param boundaryCode
+	 *            the boundaryCode to set
+	 */
+	public void setBoundaryCode(String boundaryCode) {
+		this.boundaryCode = boundaryCode;
+	}
+
+	/**
 	 * @return the envelope
 	 */
 	public String getEnvelope() {
@@ -50,25 +40,34 @@ public class Boundary extends NDE2Result {
 	}
 
 	/**
-	 * @return the creator
+	 * @param envelope
+	 *            the envelope to set
 	 */
-	public String getCreator() {
-		return creator;
+	public void setEnvelope(String envelope) {
+		this.envelope = envelope;
 	}
 
 	/**
-	 * @return the identifier, aka the AreaId of the area that this boundary
-	 *         envelopes.
+	 * @return the identifier
 	 */
 	public int getIdentifier() {
 		return identifier;
 	}
 
 	/**
-	 * @return the id
+	 * @param identifier
+	 *            the identifier to set
 	 */
-	public int getId() {
-		return id;
+	public void setIdentifier(int identifier) {
+		this.identifier = identifier;
+	}
+
+	public int get__pointer() {
+		return __delivery_getTables_boundaryPointer;
+	}
+
+	public void set__pointer(int __delivery_getTables_boundaryPointer) {
+		this.__delivery_getTables_boundaryPointer = __delivery_getTables_boundaryPointer;
 	}
 
 	/**
@@ -76,6 +75,14 @@ public class Boundary extends NDE2Result {
 	 */
 	public String getTitle() {
 		return title;
+	}
+
+	/**
+	 * @param title
+	 *            the title to set
+	 */
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/*
@@ -87,7 +94,8 @@ public class Boundary extends NDE2Result {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((creator == null) ? 0 : creator.hashCode());
+		result = prime * result
+				+ ((boundaryCode == null) ? 0 : boundaryCode.hashCode());
 		result = prime * result
 				+ ((envelope == null) ? 0 : envelope.hashCode());
 		result = prime * result + identifier;
@@ -109,10 +117,10 @@ public class Boundary extends NDE2Result {
 		if (!(obj instanceof Boundary))
 			return false;
 		Boundary other = (Boundary) obj;
-		if (creator == null) {
-			if (other.creator != null)
+		if (boundaryCode == null) {
+			if (other.boundaryCode != null)
 				return false;
-		} else if (!creator.equals(other.creator))
+		} else if (!boundaryCode.equals(other.boundaryCode))
 			return false;
 		if (envelope == null) {
 			if (other.envelope != null)

@@ -70,6 +70,18 @@ public abstract class BaseMethodCall {
 			Map<String, String> params) throws IOException,
 			XmlPullParserException;
 
+	/**
+	 * Defines the execution plan of a call. Usually, this means plugging in a
+	 * remote method name and the params into the other doCall(), however it can
+	 * be used for anything, such as checking some parameters and then deciding
+	 * to use a different call altogether, because the other one is utterly
+	 * broken for given inputs.
+	 * 
+	 * @param params
+	 * @return An {@link XmlPullParser} primed with the response document.
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 */
 	abstract protected XmlPullParser execute(Map<String, String> params)
 			throws IOException, XmlPullParserException;
 

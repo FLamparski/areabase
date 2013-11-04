@@ -39,6 +39,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class GetDatasetsMethodCall extends BaseMethodCall {
 
 	private static final String METHOD_NAME = "GetDatasets";
