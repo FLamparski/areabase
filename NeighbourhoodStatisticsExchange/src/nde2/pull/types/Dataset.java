@@ -2,7 +2,6 @@ package nde2.pull.types;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -156,12 +155,10 @@ public class Dataset implements Serializable {
 	 * @return the items with topic t
 	 */
 	public Set<DataSetItem> getItems(Topic t) {
-		Set<DataSetItem> filtered = new HashSet<DataSetItem>(items);
-		Iterator<DataSetItem> filterIterator = filtered.iterator();
-		while (filterIterator.hasNext()) {
-			DataSetItem i = filterIterator.next();
-			if (!(i.getTopic().equals(t)))
-				filterIterator.remove();
+		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
+		for (DataSetItem e : items) {
+			if (e.getTopic().equals(t))
+				filtered.add(e);
 		}
 		return filtered;
 	}
@@ -172,12 +169,10 @@ public class Dataset implements Serializable {
 	 * @return the items with period p
 	 */
 	public Set<DataSetItem> getItems(Period p) {
-		Set<DataSetItem> filtered = new HashSet<DataSetItem>(items);
-		Iterator<DataSetItem> filterIterator = filtered.iterator();
-		while (filterIterator.hasNext()) {
-			DataSetItem i = filterIterator.next();
-			if (!(i.getPeriod().equals(p)))
-				filterIterator.remove();
+		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
+		for (DataSetItem e : items) {
+			if (e.getTopic().equals(p))
+				filtered.add(e);
 		}
 		return filtered;
 	}
@@ -188,12 +183,10 @@ public class Dataset implements Serializable {
 	 * @return the items with boundary b
 	 */
 	public Set<DataSetItem> getItems(Boundary b) {
-		Set<DataSetItem> filtered = new HashSet<DataSetItem>(items);
-		Iterator<DataSetItem> filterIterator = filtered.iterator();
-		while (filterIterator.hasNext()) {
-			DataSetItem i = filterIterator.next();
-			if (!(i.getBoundary().equals(b)))
-				filterIterator.remove();
+		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
+		for (DataSetItem e : items) {
+			if (e.getTopic().equals(b))
+				filtered.add(e);
 		}
 		return filtered;
 	}

@@ -177,7 +177,7 @@ public class GetTables extends DeliveryMethodCall {
 			}
 			// Delete trailing comma
 			commaSeparatedDatasets
-					.deleteCharAt(commaSeparatedDatasets.length());
+					.deleteCharAt(commaSeparatedDatasets.length() - 1);
 			params.put("Datasets", commaSeparatedDatasets.toString());
 		} else {
 			throw new InvalidParameterException("Datasets",
@@ -280,7 +280,7 @@ public class GetTables extends DeliveryMethodCall {
 	}
 
 	protected Set<DataSetItem> processItems(XmlPullParser xpp)
-			throws XmlPullParserException {
+			throws XmlPullParserException, IOException {
 		Set<DataSetItem> items = new HashSet<DataSetItem>();
 		String key = null;
 		String value = null;
@@ -322,6 +322,8 @@ public class GetTables extends DeliveryMethodCall {
 					in_items = false;
 				break;
 			}
+			if (in_items)
+				event = xpp.next();
 		}
 		return items;
 	}
@@ -367,7 +369,7 @@ public class GetTables extends DeliveryMethodCall {
 				if (xpp.getName().equals("Period"))
 					periods.put(__p, p);
 				// Done with ALL of the periods
-				if (xpp.getName().equals("Boundaries"))
+				if (xpp.getName().equals("Periods"))
 					in_periods = false;
 				break;
 			}
