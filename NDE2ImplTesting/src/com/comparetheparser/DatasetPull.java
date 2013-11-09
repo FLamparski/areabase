@@ -15,7 +15,6 @@ import nde2.pull.types.Subject;
 
 import org.junit.Test;
 
-@SuppressWarnings("unused")
 public class DatasetPull implements DatasetFamiliesWorkflow {
 
 	@Override
