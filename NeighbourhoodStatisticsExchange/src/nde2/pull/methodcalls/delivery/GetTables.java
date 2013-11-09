@@ -28,7 +28,7 @@ import org.xmlpull.v1.XmlPullParserException;
 public class GetTables extends DeliveryMethodCall {
 	private final static String METHOD_NAME = "getTables";
 
-	private Set<Area> areas;
+	protected Set<Area> areas;
 	protected Set<DataSetFamily> datasetFamilies;
 	protected DateRange dateRange;
 
@@ -138,6 +138,13 @@ public class GetTables extends DeliveryMethodCall {
 	protected Map<String, String> collectParams()
 			throws InvalidParameterException {
 		Map<String, String> params = new HashMap<String, String>();
+		collectAreasToParams(params);
+		collectDatasetFamiliesToParams(params);
+		collectDateRangeToParams(params);
+		return params;
+	}
+
+	protected void collectAreasToParams(Map<String, String> params) {
 		if (areas.size() > 0) {
 			StringBuilder commaSeparatedAreas = new StringBuilder();
 			for (Area a : areas) {
@@ -150,6 +157,19 @@ public class GetTables extends DeliveryMethodCall {
 			throw new InvalidParameterException("Areas",
 					"Please specify at least one Area.");
 		}
+	}
+
+	protected void collectDateRangeToParams(Map<String, String> params) {
+		if (dateRange != null) {
+			StringBuilder p = new StringBuilder();
+			p.append(DateFormat.toNDEDate(dateRange.getStartDate()))
+					.append(":")
+					.append(DateFormat.toNDEDate(dateRange.getEndDate()));
+			params.put("TimePeriod", p.toString());
+		}
+	}
+
+	protected void collectDatasetFamiliesToParams(Map<String, String> params) {
 		if (datasetFamilies.size() > 0) {
 			StringBuilder commaSeparatedDatasets = new StringBuilder();
 			for (DataSetFamily d : datasetFamilies) {
@@ -163,20 +183,27 @@ public class GetTables extends DeliveryMethodCall {
 			throw new InvalidParameterException("Datasets",
 					"Please specify at least one Dataset Family");
 		}
-		if (dateRange != null) {
-			StringBuilder p = new StringBuilder();
-			p.append(DateFormat.toNDEDate(dateRange.getStartDate()))
-					.append(":")
-					.append(DateFormat.toNDEDate(dateRange.getEndDate()));
-			params.put("TimePeriod", p.toString());
-		}
-		return params;
 	}
 
 	public Set<Dataset> execute() throws InvalidParameterException,
 			IOException, XmlPullParserException, NDE2Exception {
 		XmlPullParser xpp = execute(collectParams());
 
+		return processDataCubeResponseElement(xpp);
+	}
+
+	/**
+	 * Extracted to a separate method because {@link GetChildAreaTables} remote
+	 * operation returns the same response element.
+	 * 
+	 * @param xpp
+	 * @return
+	 * @throws XmlPullParserException
+	 * @throws IOException
+	 * @throws NDE2Exception
+	 */
+	protected Set<Dataset> processDataCubeResponseElement(XmlPullParser xpp)
+			throws XmlPullParserException, IOException, NDE2Exception {
 		Set<Dataset> datasets = new HashSet<Dataset>();
 		String parent_key = null;
 		String previous_key = null;
