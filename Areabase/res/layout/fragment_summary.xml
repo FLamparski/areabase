@@ -5,18 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <WebView
-        android:id="@+id/summary_map_webview"
+    <lamparski.areabase.map_support.OrdnanceSurveyMapView
+        android:id="@+id/fragment_summary_OSMapView_DEFAULT"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".4"
-        android:visibility="visible" />
+        android:layout_weight="40" />
 
-    <fragment
-        android:id="@+id/summary_card_list_fragment"
-        android:name="lamparski.areabase.cards.SummaryCardListFragment"
-        android:layout_width="match_parent"
+    <com.fima.cardsui.views.CardUI
+        android:id="@+id/fragment_summary_CardsUI_DEFAULT"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight=".6" />
+        android:layout_weight="60" />
 
 </LinearLayout>

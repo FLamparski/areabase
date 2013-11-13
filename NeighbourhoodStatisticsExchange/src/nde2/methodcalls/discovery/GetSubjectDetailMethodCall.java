@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class GetSubjectDetailMethodCall extends BaseMethodCall {
 
 	private static final String METHOD_NAME = "GetSubjectDetail";

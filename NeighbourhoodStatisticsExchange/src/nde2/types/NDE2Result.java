@@ -11,6 +11,7 @@ import java.util.Date;
  * @author filip
  * 
  */
+@Deprecated
 public abstract class NDE2Result implements Serializable {
 
 	/**

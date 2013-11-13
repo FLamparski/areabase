@@ -3,10 +3,10 @@ package lamparski.areabase;
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.dummy.mockup_classes.DummyData;
 import android.annotation.SuppressLint;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 public class AreaInfoPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -29,14 +29,14 @@ public class AreaInfoPagerAdapter extends FragmentStatePagerAdapter {
 	@DummyData(why = "Need to set up the tabs correctly", replace_with = "Areabase tabs such as Summary, Demographics, etc.")
 	public int getCount() {
 		// Number of demo stupid pages
-		return AreaActivity.TAB_NAMES.length;
+		return 0;
 	}
 
 	@SuppressLint("DefaultLocale")
 	@Override
 	@DummyData(why = "Need to set up the tabs correctly", replace_with = "Areabase tabs such as Summary, Demographics, etc.")
 	public CharSequence getPageTitle(int position) {
-		return AreaActivity.TAB_NAMES[position].toUpperCase();
+		return null;
 	}
 
 }

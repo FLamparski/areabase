@@ -1,19 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- app -->
     <string name="app_name">Areabase</string>
+
+    <!-- actions -->
     <string name="action_settings">Settings</string>
     <string name="action_locate">Locate</string>
     <string name="action_search">Search</string>
     <string name="action_refresh">Refresh</string>
-    <string name="card_subtitle_view_demographics">View demographics</string>
-    <string name="card_subtitle_view_indices">View indices</string>
-    <string name="card_subtitle_view_crime">View crime</string>
-    <string name="card_subtitle_view_environment">View environment</string>
+    <string name="action_help">Help</string>
+    <string name="action_search_hint">Postcode or area name&#8230;</string>
+
+    <!-- messages -->
     <string name="toast_mapview_not_loading">Could not load the map view.</string>
     <string name="error_illegal_url_title">Something is trying to open in the map area.</string>
     <string name="error_illegal_url_formatstring">This should not happen. If you think this is not a problem, here is the url: %1$s</string>
     <string name="error_illegal_url_response_dontgo">Stay in Areabase</string>
     <string name="error_illegal_url_response_open">Open in browser (caution)</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="error_cannot_fetch_area_data">Sorry, data about this area could not be fetched.</string>
+    <string name="error_cannot_fetch_area_data_body">Please make sure you are connected to the Internet and try again later. The message associated with this error is: %1$s. Hope this helps.</string>
+    <string name="summaryactivity_cardmaker_onserror">Nuts! Error processing ONS data.</string>
+    <string name="summaryactivity_cardmaker_servicedisconnect_title">Oh noes!</string>
+    <string name="summaryactivity_cardmaker_servicedisconnect_message">An important component of Areabase, %1$s, just broke. The app will probably crash and burn soon. Sorry :(</string>
+    <string name="summaryactivity_cardmaker_values_not_available">Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.</string>
+
+    <!-- navigation -->
+    <string name="navdrawer_secheader_basic_info">This area</string>
+    <string name="caption_summary">Summary</string>
+    <string name="caption_crime">Crime</string>
+    <string name="caption_economy">Economy</string>
+    <string name="caption_environment">Environment</string>
+    <string name="navdrawer_secheader_more_data">Explore data</string>
+    <string name="caption_ONS">Office for National Statistics</string>
+    <string name="caption_Police">Police.uk</string>
+    <string name="navdrawer_secheader_misc">Miscellaneous</string>
+    <string name="caption_area_hierarchy">Hierarchy</string>
+    <string name="caption_area_compare">Compare areas</string>
+
+    <!-- preferences -->
+    <string name="title_activity_settings">Preferences</string>
+    <!-- preferences -> location -->
+    <string name="pref_category_location_heading">Location</string>
+    <string name="pref_category_location_autoLocate_primaryText">Automatically find location</string>
+    <string name="pref_category_location_autoLocate_infoText_enabled">Areabase will automatically find your location on startup.</string>
+    <string name="pref_category_location_autoLocate_infoText_disabled">Areabase will wait until you press &quot;Locate&quot; to find your location.</string>
+    <string name="pref_category_location_backgroundRefix_primaryText">Update location in the background</string>
+    <string name="pref_category_location_backgroundRefix_infoText_enabled">Areabase will keep your location up-to-date by querying GPS periodically.</string>
+    <string name="pref_category_location_backgroundRefix_infoText_disabled">Areabase will not keep track of your location. This may save battery, but &quot;Locate&quot; may take longer.</string>
+    <!-- preferences -> testing -->
+    <string name="pref_category_testing_heading">Experimental</string>
+    <string name="pref_category_testing_phoneHome_primaryText">Report crashes</string>
+    <string name="pref_category_testing_phoneHome_infoText_enabled">If the application crashes, an automatic report will be sent to the developer.</string>
+    <string name="pref_category_testing_phoneHome_infoText_disabled">Areabase will not send anything to the developer. You want to turn this on though.</string>
+
+    <!-- cards -->
+    <!-- cards -> demographics -->
+    <string name="card_demographics_title_base">%1$s is a demographically %2$s area.</string>
+
+    <string-array name="card_demographics_pop_size_trend_descriptors">
+        <item>collapsing</item>
+        <item>declining</item>
+        <item>stable</item>
+        <item>growing</item>
+        <item>exploding</item>
+    </string-array>
+
+    <string name="card_demographics_body_base">There is %1$s and average age is %2$f. The area is %3$s</string>
+
+    <string-array name="card_demographics_sex_dominance_descriptors">
+        <item>significantly more women</item>
+        <item>more women</item>
+        <item>gender balance</item>
+        <item>more men</item>
+        <item>significantly more men</item>
+    </string-array>
+    <string-array name="card_demographics_pop_density_descriptors">
+        <item>very sparsely populated</item>
+        <item>sparsely populated</item>
+        <item>normally populated</item>
+        <item>densely populated</item>
+        <item>very densely populated</item>
+    </string-array>
+
+    <string name="card_error_values_not_available_title">Some data for this area is not available.</string>
+    <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>
 
 </resources>

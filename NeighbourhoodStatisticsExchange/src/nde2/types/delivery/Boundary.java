@@ -2,6 +2,7 @@ package nde2.types.delivery;
 
 import nde2.types.NDE2Result;
 
+@Deprecated
 public class Boundary extends NDE2Result {
 
 	/**

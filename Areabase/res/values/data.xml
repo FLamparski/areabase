@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="pop_density" format="float" type="fraction">256.0</item>
+
+</resources>

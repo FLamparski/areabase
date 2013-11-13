@@ -15,7 +15,7 @@ import nde2.errors.NDE2Exception;
 import nde2.methodcalls.delivery.GetTablesMethodCall;
 import nde2.types.delivery.Dataset;
 import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +24,10 @@ import org.xml.sax.SAXException;
 
 public class TooManyItems {
 	private ArrayList<Area> myAreas;
-	private ArrayList<DataSetFamiliy> myFamilies;
+	private ArrayList<DataSetFamily> myFamilies;
 
 	private ArrayList<Area> badAreas;
-	private ArrayList<DataSetFamiliy> badDsFamilies;
+	private ArrayList<DataSetFamily> badDsFamilies;
 
 	@Before
 	public void setUp() throws Exception {
@@ -42,7 +42,7 @@ public class TooManyItems {
 			myAreas.add(mockArea);
 		}
 
-		DataSetFamiliy mockDsFamily = mock(DataSetFamiliy.class);
+		DataSetFamily mockDsFamily = mock(DataSetFamily.class);
 		when(mockDsFamily.getFamilyId()).thenReturn(2266, 2265, 2264, 1471,
 				1470, 1469, 1468, 1163, 904, 971, 650);
 		for (int i = 0; i < 11; i++) {
@@ -53,7 +53,7 @@ public class TooManyItems {
 		badAreas = new ArrayList<>();
 		badAreas.add(badArea);
 
-		DataSetFamiliy badDsFam = mock(DataSetFamiliy.class);
+		DataSetFamily badDsFam = mock(DataSetFamily.class);
 		when(badDsFam.getFamilyId()).thenReturn(-1);
 		badDsFamilies = new ArrayList<>();
 		badDsFamilies.add(badDsFam);

@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class Area extends NDE2Result {
 	/**
 	 * 
@@ -262,6 +263,38 @@ public class Area extends NDE2Result {
 	 */
 	public int getHierarchyId() {
 		return hierarchyId;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param areaId
+	 *            the areaId to set
+	 */
+	public void setAreaId(long areaId) {
+		this.areaId = areaId;
+	}
+
+	/**
+	 * @param levelTypeId
+	 *            the levelTypeId to set
+	 */
+	public void setLevelTypeId(int levelTypeId) {
+		this.levelTypeId = levelTypeId;
+	}
+
+	/**
+	 * @param hierarchyId
+	 *            the hierarchyId to set
+	 */
+	public void setHierarchyId(int hierarchyId) {
+		this.hierarchyId = hierarchyId;
 	}
 
 	/**

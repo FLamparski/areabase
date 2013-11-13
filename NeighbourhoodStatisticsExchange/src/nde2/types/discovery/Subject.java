@@ -18,6 +18,7 @@ import org.xml.sax.SAXException;
  * @see {@link DetailedSubject}
  * 
  */
+@Deprecated
 public class Subject extends NDE2Result {
 
 	/**

@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
  * @author filip
  * 
  */
+@Deprecated
 public class GetAreaParentMethodCall extends BaseMethodCall {
 	private Area area;
 	private final String METHOD_NAME = "GetAreaComparators";

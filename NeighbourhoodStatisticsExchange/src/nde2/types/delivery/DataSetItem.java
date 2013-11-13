@@ -10,6 +10,7 @@ import nde2.types.NDE2Result;
  * @author filip
  * 
  */
+@Deprecated
 public class DataSetItem extends NDE2Result {
 
 	/**
@@ -19,7 +20,7 @@ public class DataSetItem extends NDE2Result {
 	private Topic topic;
 	private Boundary boundary;
 	private Period period;
-	private int value;
+	private float value;
 
 	/**
 	 * @param topic
@@ -27,7 +28,8 @@ public class DataSetItem extends NDE2Result {
 	 * @param period
 	 * @param value
 	 */
-	public DataSetItem(Topic topic, Boundary boundary, Period period, int value) {
+	public DataSetItem(Topic topic, Boundary boundary, Period period,
+			float value) {
 		super(VALID_FOR_DAYS);
 		this.topic = topic;
 		this.boundary = boundary;
@@ -60,7 +62,7 @@ public class DataSetItem extends NDE2Result {
 	 * @return the value
 	 * @throws ValueNotAvailable
 	 */
-	public int getValue() throws ValueNotAvailable {
+	public float getValue() throws ValueNotAvailable {
 		if (value > Integer.MIN_VALUE)
 			return value;
 		else

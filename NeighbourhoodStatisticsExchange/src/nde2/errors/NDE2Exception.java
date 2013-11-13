@@ -65,4 +65,28 @@ public class NDE2Exception extends Exception {
 		return nessCode;
 	}
 
+	/**
+	 * @param nessMessage
+	 *            the nessMessage to set
+	 */
+	public void setNessMessage(String nessMessage) {
+		this.nessMessage = nessMessage;
+	}
+
+	/**
+	 * @param nessDetail
+	 *            the nessDetail to set
+	 */
+	public void setNessDetail(String nessDetail) {
+		this.nessDetail = nessDetail;
+	}
+
+	/**
+	 * @param nessCode
+	 *            the nessCode to set
+	 */
+	public void setNessCode(int nessCode) {
+		this.nessCode = nessCode;
+	}
+
 }

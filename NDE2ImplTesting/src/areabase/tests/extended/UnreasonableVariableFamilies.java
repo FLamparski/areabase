@@ -13,7 +13,7 @@ import javax.xml.xpath.XPathExpressionException;
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.methodcalls.discovery.GetVariablesMethodCall;
-import nde2.types.discovery.DataSetFamiliy;
+import nde2.types.discovery.DataSetFamily;
 import nde2.types.discovery.DateRange;
 import nde2.types.discovery.VariableFamily;
 
@@ -23,12 +23,14 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.xml.sax.SAXException;
 
+import areabase.tests.Repr;
+
 public class UnreasonableVariableFamilies {
 
 	@Mock
-	private DataSetFamiliy mockDsFam;
+	private DataSetFamily mockDsFam;
 	@Mock
-	private DataSetFamiliy mockBadFam;
+	private DataSetFamily mockBadFam;
 	@Mock
 	private DateRange mockDateRange;
 
@@ -62,6 +64,19 @@ public class UnreasonableVariableFamilies {
 			ValueNotAvailable {
 		List<VariableFamily> families = new GetVariablesMethodCall()
 				.addDatasetFamily(mockBadFam).getVariables();
+	}
+
+	@Test
+	public void dateTest() throws XPathExpressionException,
+			ParserConfigurationException, SAXException, IOException,
+			NDE2Exception, ParseException, ValueNotAvailable,
+			IllegalArgumentException, IllegalAccessException {
+		List<VariableFamily> families = new GetVariablesMethodCall()
+				.addDatasetFamily(mockDsFam).getVariables();
+		DateRange[] ranges = families.get(0).getDateRanges();
+		for (DateRange range : ranges) {
+			Repr.repr(range);
+		}
 	}
 
 }

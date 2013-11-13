@@ -36,9 +36,9 @@ public class StreetLevelOutcomesMethodCall extends StreetLevelCrimeMethodCall {
 			parameters.put("lng", longitude.toString());
 		} else if (poly != null) {
 			String polyRep = "";
-			for (Double[] point : poly) {
-				polyRep += point[0].toString() + ":" + point[1].toString()
-						+ ",";
+			for (double[] point : poly) {
+				polyRep += Double.toString(point[1]) + ","
+						+ Double.toString(point[0]) + ":";
 			}
 			polyRep = polyRep.substring(0, polyRep.length() - 1); // Remove
 																	// trailing

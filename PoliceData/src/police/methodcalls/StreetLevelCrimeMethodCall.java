@@ -28,7 +28,7 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 	protected Date date = null;
 	protected Double latitude = null;
 	protected Double longitude = null;
-	protected Double[][] poly = null;
+	protected double[][] poly = null;
 
 	private final static String METHOD = "crimes-street";
 
@@ -67,13 +67,13 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 	 * 20 sq km.
 	 * 
 	 * @param poly
-	 *            An array of GPS coordinate pairs [[lat,lon],...] that describe
+	 *            An array of GPS coordinate pairs [[lon,lat],...] that describe
 	 *            the polygon. No need to close this poly as the server will
 	 *            just draw a straight line for you from the last point to the
 	 *            first one.
 	 * @return this object for further modification
 	 */
-	public StreetLevelCrimeMethodCall addAreaPolygon(Double[][] poly) {
+	public StreetLevelCrimeMethodCall addAreaPolygon(double[][] poly) {
 		this.poly = poly;
 		return this;
 	}
@@ -108,9 +108,9 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 			parameters.put("lng", longitude.toString());
 		} else if (poly != null) {
 			String polyRep = "";
-			for (Double[] point : poly) {
-				polyRep += point[0].toString() + ":" + point[1].toString()
-						+ ",";
+			for (double[] point : poly) {
+				polyRep += Double.toString(point[1]) + ","
+						+ Double.toString(point[0]) + ":";
 			}
 			polyRep = polyRep.substring(0, polyRep.length() - 1); // Remove
 																	// trailing
@@ -132,6 +132,8 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 			 * from the server. This can be displayed to user, or used
 			 * internally to gracefully handle weird requests.
 			 */
+			System.err.println("API error: Code " + e.getHttpCode()
+					+ "; message: " + e.getMessage());
 			if (e.getHttpCode() == 400) {
 				throw new APIException("The area specified is too large", e);
 			} else if (e.getHttpCode() == 503) {
