@@ -1,0 +1,3 @@
+The point of ApacheCommonsIO project is to export the actual library, which is jarred.
+It needs no source. However, build tools need a src folder, and git needs folders to
+be non-empty, hence this file.
