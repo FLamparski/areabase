@@ -29,7 +29,6 @@ import nde2.pull.types.Topic;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
@@ -59,41 +58,25 @@ public class DemographicsCardProvider {
 		 * Step 1: Demographics data is located under Census category. We need
 		 * to retrieve it and then get the necessary datasets.
 		 */
-		long sCS = System.currentTimeMillis();
 		Subject censusSubject = findCensusSubject(area);
-		long eCS = System.currentTimeMillis();
-		Log.i("DemographicsCardProvider", "findCensusSubject took "
-				+ (eCS - sCS) + " ms");
 
 		if (censusSubject == null)
 			throw new ValueNotAvailable(
 					"Cannot find Census subject for this area.");
 
-		long sRF = System.currentTimeMillis();
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
 				censusSubject);
-		long eRF = System.currentTimeMillis();
-		Log.i("DemographicsCardProvider", "findRequiredFamilies took "
-				+ (eRF - sRF) + " ms");
 
 		List<Area> areaList = new ArrayList<Area>();
 		areaList.add(area);
 
-		long sGT = System.currentTimeMillis();
 		Set<Dataset> theDatasets = new GetTables().forAreas(areaList)
 				.inFamilies(requiredFamilies).execute();
-		long eGT = System.currentTimeMillis();
-		Log.i("DemographicsCardProvider", "GetTablesMethodCall took "
-				+ (eGT - sGT) + " ms");
 
-		long sLoc = System.currentTimeMillis();
 		TrendDescription popSizeTrendDesc = calculatePopulationTrend(theDatasets);
 		int whichPopDensityDescriptor = popDensityDescriptor(getPopulationDensity(theDatasets));
 		int whichGenderRatioDescriptor = genderRatioDescriptor(calculateGenderRatio(theDatasets));
 		float avgAge = calculateAverageAge(theDatasets);
-		long eLoc = System.currentTimeMillis();
-		Log.i("DemographicsCardProvider", "Data processing took "
-				+ (eLoc - sLoc) + " ms");
 
 		String card_title = res
 				.getString(
@@ -253,7 +236,6 @@ public class DemographicsCardProvider {
 		 */
 		Map<Integer, Integer> popPerYear = new HashMap<Integer, Integer>();
 		for (Dataset ds : theDatasets) {
-			System.out.println("Now considering dataset " + ds.getTitle());
 			if (ds.getTitle().startsWith("Sex")) {
 				int year = Integer.parseInt(ds.getTitle().substring(5, 9));
 				if (!(popPerYear.containsKey(year))) {
@@ -270,8 +252,6 @@ public class DemographicsCardProvider {
 							allPeople = t;
 					}
 					Set<DataSetItem> relevants = ds.getItems(allPeople);
-					System.out
-							.println("Size of relevants: " + relevants.size());
 					popPerYear.put(year, (int) relevants.iterator().next()
 							.getValue());
 				}
@@ -301,15 +281,13 @@ public class DemographicsCardProvider {
 			int newPop = popPerYear.get(current_year);
 			float percentageChange = ((float) newPop - (float) oldPop)
 					/ (float) oldPop;
-			System.err
-					.println(String
-							.format("Percentage difference between %d (in %d) and %d (in %d) = %f",
-									oldPop, previous_year, newPop,
-									current_year, percentageChange * 100f));
+			// System.err
+			// .println(String
+			// .format("Percentage difference between %d (in %d) and %d (in %d) = %f",
+			// oldPop, previous_year, newPop,
+			// current_year, percentageChange * 100f));
 			if (avgPercentageChange == 0f) {
 				avgPercentageChange = percentageChange;
-				System.out.println("Set new avgPercentageChange = "
-						+ avgPercentageChange);
 			} else {
 				avgPercentageChange = (avgPercentageChange + percentageChange) / 2;
 			}
@@ -365,13 +343,6 @@ public class DemographicsCardProvider {
 			Subject s = subjectIter.next();
 			if (s.getName().equals("Census")) {
 				censusSubject = s;
-				Log.i("DemographicsCardProvider",
-						"Found subject Census for Area " + area.getName()
-								+ "; contains " + areaSubjects.get(s)
-								+ " elements; id = " + s.getId());
-			} else {
-				Log.d("DemographicsCardProvider", "Subject " + s.getName()
-						+ " is not Census.");
 			}
 		}
 
