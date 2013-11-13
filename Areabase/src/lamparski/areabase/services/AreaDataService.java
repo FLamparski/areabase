@@ -1,11 +1,11 @@
 package lamparski.areabase.services;
 
-import java.util.List;
+import java.util.Set;
 
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
 import nde2.errors.ValueNotAvailable;
-import nde2.methodcalls.discovery.FindAreasMethodCall;
-import nde2.types.discovery.Area;
+import nde2.pull.methodcalls.discovery.FindAreas;
+import nde2.pull.types.Area;
 import android.app.Service;
 import android.content.Intent;
 import android.location.Address;
@@ -99,15 +99,18 @@ public class AreaDataService extends Service {
 							+ " ms to resolve address");
 
 					long tAreas_s = System.currentTimeMillis();
-					List<Area> areas = new FindAreasMethodCall().addPostcode(
-							address.getPostalCode()).findAreas();
+					Set<nde2.pull.types.Area> areaSet = new FindAreas()
+					.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
+					.inHierarchy(Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+					.forPostcode(address.getPostalCode())
+					.execute();
 					long tAreas_e = System.currentTimeMillis();
 					Log.i("AreaDataService", "[FindAreas] Took "
 							+ (tAreas_e - tAreas_s) + " ms to find NeSS Areas");
 					// 1: Demographics
 					try {
 						CardModel demoCm = DemographicsCardProvider
-								.demographicsCardForArea(areas.get(2),
+								.demographicsCardForArea(areaSet.iterator().next(),
 										getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
@@ -119,11 +122,11 @@ public class AreaDataService extends Service {
 					// 2: Crime
 
 					// 3: Deprivation
-				} catch (Exception e) {
-					commlink.onError(e);
-					return null;
 				} catch (ValueNotAvailable e) {
 					commlink.onValueNotAvailable();
+					return null;
+				} catch (Exception e) {
+					commlink.onError(e);
 					return null;
 				}
 				return null;

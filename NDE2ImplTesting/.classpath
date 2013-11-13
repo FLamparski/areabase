@@ -2,15 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="src" path="nde2_proxy"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
 	<classpathentry kind="lib" path="mockito-all-1.9.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/PoliceData"/>
-	<classpathentry kind="lib" path="/home/filip/programsandprojects/xpp3-1.1.4c/xpp3-1.1.4c.jar" sourcepath="/home/filip/programsandprojects/xpp3-1.1.4c/src">
-		<attributes>
-			<attribute name="javadoc_location" value="file:/home/filip/programsandprojects/xpp3-1.1.4c/doc/api/"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

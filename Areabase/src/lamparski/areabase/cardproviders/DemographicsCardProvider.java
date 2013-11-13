@@ -1,7 +1,6 @@
 package lamparski.areabase.cardproviders;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,24 +11,22 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPathExpressionException;
-
 import lamparski.areabase.R;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
+import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
-import nde2.methodcalls.delivery.GetTablesMethodCall;
-import nde2.methodcalls.discovery.GetDatasetsMethodCall;
-import nde2.types.delivery.DataSetItem;
-import nde2.types.delivery.Dataset;
-import nde2.types.delivery.Topic;
-import nde2.types.discovery.Area;
-import nde2.types.discovery.DataSetFamily;
-import nde2.types.discovery.Subject;
+import nde2.pull.methodcalls.delivery.GetTables;
+import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
+import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
+import nde2.pull.types.DataSetItem;
+import nde2.pull.types.Dataset;
+import nde2.pull.types.Subject;
+import nde2.pull.types.Topic;
 
-import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.res.Resources;
 import android.util.Log;
@@ -56,9 +53,8 @@ public class DemographicsCardProvider {
 	private final static float GENDER_MORE_MALES_UPPER_THRESHOLD = 1.2f;
 
 	public static CardModel demographicsCardForArea(Area area, Resources res)
-			throws XPathExpressionException, ParserConfigurationException,
-			SAXException, IOException, NDE2Exception, ValueNotAvailable,
-			ParseException {
+			throws InvalidParameterException, IOException,
+			XmlPullParserException, NDE2Exception {
 		/*
 		 * Step 1: Demographics data is located under Census category. We need
 		 * to retrieve it and then get the necessary datasets.
@@ -84,9 +80,8 @@ public class DemographicsCardProvider {
 		areaList.add(area);
 
 		long sGT = System.currentTimeMillis();
-		List<Dataset> theDatasets = new GetTablesMethodCall()
-				.addDatasetFamilies(requiredFamilies).addAreas(areaList)
-				.getTables();
+		Set<Dataset> theDatasets = new GetTables().forAreas(areaList)
+				.inFamilies(requiredFamilies).execute();
 		long eGT = System.currentTimeMillis();
 		Log.i("DemographicsCardProvider", "GetTablesMethodCall took "
 				+ (eGT - sGT) + " ms");
@@ -122,7 +117,7 @@ public class DemographicsCardProvider {
 				PlayCard.class);
 	}
 
-	private static float calculateAverageAge(List<Dataset> theDatasets)
+	private static float calculateAverageAge(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		/*
 		 * The "Age by Single Year, 2011" dataset contains almost everything
@@ -141,6 +136,7 @@ public class DemographicsCardProvider {
 				int cyr = Integer.parseInt(ds.getTitle().substring(20, 24));
 
 				if (year < cyr) {
+					year = cyr;
 					float rollingAge = 0;
 					float rollingPopulation = 0;
 					for (Topic t : ds.getTopics().values()) {
@@ -148,7 +144,8 @@ public class DemographicsCardProvider {
 						if (titleMatcher.matches()) {
 							float curAge = Float.parseFloat(titleMatcher
 									.group(2));
-							float curPop = ds.getItems(t).get(0).getValue();
+							float curPop = ds.getItems(t).iterator().next()
+									.getValue();
 							rollingAge += curAge * curPop;
 							rollingPopulation += curPop;
 						}
@@ -176,7 +173,7 @@ public class DemographicsCardProvider {
 		}
 	}
 
-	private static float calculateGenderRatio(List<Dataset> theDatasets)
+	private static float calculateGenderRatio(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		float ratio = 0f;
 		int year = 0;
@@ -185,15 +182,17 @@ public class DemographicsCardProvider {
 				int males = 0, females = 0;
 				int cyr = Integer.parseInt(ds.getTitle().substring(5, 9));
 				if (year < cyr) {
-
+					year = cyr;
 					Iterator<Topic> iterator = ds.getTopics().values()
 							.iterator();
 					while (iterator.hasNext()) {
 						Topic t = iterator.next();
 						if (t.getTitle().startsWith("Males")) {
-							males = (int) ds.getItems(t).get(0).getValue();
+							males = (int) ds.getItems(t).iterator().next()
+									.getValue();
 						} else if (t.getTitle().startsWith("Females")) {
-							females = (int) ds.getItems(t).get(0).getValue();
+							females = (int) ds.getItems(t).iterator().next()
+									.getValue();
 						}
 					}
 
@@ -218,7 +217,7 @@ public class DemographicsCardProvider {
 		return 0; // very sparse
 	}
 
-	private static float getPopulationDensity(List<Dataset> theDatasets)
+	private static float getPopulationDensity(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		int year = 0;
 		float density = 0;
@@ -227,6 +226,7 @@ public class DemographicsCardProvider {
 			if (ds.getTitle().startsWith("Population Density")) {
 				int cyr = Integer.parseInt(ds.getTitle().substring(20, 24));
 				if (year < cyr) {
+					year = cyr;
 					Topic pdTopic = null;
 					Iterator<Topic> iterator = ds.getTopics().values()
 							.iterator();
@@ -236,7 +236,7 @@ public class DemographicsCardProvider {
 							pdTopic = t;
 						}
 					}
-					density = ds.getItems(pdTopic).get(0).getValue();
+					density = ds.getItems(pdTopic).iterator().next().getValue();
 				}
 			}
 		}
@@ -245,7 +245,7 @@ public class DemographicsCardProvider {
 	}
 
 	private static TrendDescription calculatePopulationTrend(
-			List<Dataset> theDatasets) throws ValueNotAvailable {
+			Set<Dataset> theDatasets) throws ValueNotAvailable {
 		TrendDescription desc = new TrendDescription();
 		int mostRecentYear = 0;
 		/**
@@ -269,14 +269,16 @@ public class DemographicsCardProvider {
 						if (t.getTitle().startsWith("All"))
 							allPeople = t;
 					}
-					List<DataSetItem> relevants = ds.getItems(allPeople);
-					popPerYear.put(year, (int) relevants.get(0).getValue());
+					Set<DataSetItem> relevants = ds.getItems(allPeople);
+					System.out
+							.println("Size of relevants: " + relevants.size());
+					popPerYear.put(year, (int) relevants.iterator().next()
+							.getValue());
 				}
 				if (year > mostRecentYear)
 					mostRecentYear = year;
 			}
 		}
-
 		float avgPercentageChange = 0;
 
 		/*
@@ -299,11 +301,11 @@ public class DemographicsCardProvider {
 			int newPop = popPerYear.get(current_year);
 			float percentageChange = ((float) newPop - (float) oldPop)
 					/ (float) oldPop;
-			System.out
+			System.err
 					.println(String
 							.format("Percentage difference between %d (in %d) and %d (in %d) = %f",
 									oldPop, previous_year, newPop,
-									current_year, percentageChange));
+									current_year, percentageChange * 100f));
 			if (avgPercentageChange == 0f) {
 				avgPercentageChange = percentageChange;
 				System.out.println("Set new avgPercentageChange = "
@@ -334,11 +336,10 @@ public class DemographicsCardProvider {
 	}
 
 	private static List<DataSetFamily> findRequiredFamilies(Area area,
-			Subject censusSubject) throws XPathExpressionException,
-			ParserConfigurationException, SAXException, IOException,
-			NDE2Exception, ParseException, ValueNotAvailable {
-		List<DataSetFamily> censusDatasetFamilies = new GetDatasetsMethodCall()
-				.addArea(area).addSubject(censusSubject).getDatasets();
+			Subject censusSubject) throws IOException, XmlPullParserException,
+			NDE2Exception {
+		List<DataSetFamily> censusDatasetFamilies = new GetDatasetFamilies(
+				censusSubject).forArea(area).execute();
 		List<DataSetFamily> requiredFamilies = new ArrayList<DataSetFamily>();
 
 		for (DataSetFamily family : censusDatasetFamilies) {
@@ -351,9 +352,8 @@ public class DemographicsCardProvider {
 		return requiredFamilies;
 	}
 
-	private static Subject findCensusSubject(Area area)
-			throws XPathExpressionException, ParserConfigurationException,
-			SAXException, IOException, NDE2Exception {
+	private static Subject findCensusSubject(Area area) throws IOException,
+			XmlPullParserException, NDE2Exception {
 		Subject censusSubject = null;
 		Map<Subject, Integer> areaSubjects = area.getCompatibleSubjects();
 		/*
@@ -379,6 +379,6 @@ public class DemographicsCardProvider {
 	}
 
 	private static float personPerHectareToPersonPerSqKm(float pph) {
-		return (float) (pph * 0.01);
+		return (float) (pph * 100);
 	}
 }

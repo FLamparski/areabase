@@ -67,7 +67,7 @@
                 android:background="@drawable/selectable_background_cardbank"
                 android:contentDescription="overflow"
                 android:padding="2dip"
-                android:src="?android:drawable/ic_menu_more" />
+                android:src="@drawable/ic_action_overflow" />
         </LinearLayout>
     </LinearLayout>
 
