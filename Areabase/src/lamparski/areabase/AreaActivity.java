@@ -42,12 +42,10 @@ public class AreaActivity extends Activity {
 	private Location mGeoPoint = null;
 	private IAreabaseFragment mContentFragment = null;
 	private int mFragmentHostId;
-	// private AreabaseLocatorService mLocatorService;
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
-	@SuppressWarnings("unused")
-	private boolean is_locator_bound = false;
 
 	public static final int SUMMARY = 0;
 	public static final int CRIME = 1;
@@ -144,109 +142,6 @@ public class AreaActivity extends Activity {
 		}
 	}
 
-	// @Override
-	// protected void onStart() {
-	// super.onStart();
-	//
-	// Intent intent = new Intent(this, AreabaseLocatorService.class);
-	// bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-	// if (getSharedPreferences("AreabasePrefs", 0).getBoolean(
-	// "pref_location_autolocate", true)) {
-	// mLocatorService.startLocationListening();
-	// sOnUpdateLocation.execute(5); // Fast fix -- 5 tries, no target
-	// // accuracy.
-	// }
-	// }
-
-	// @Override
-	// protected void onStop() {
-	// super.onStop();
-	// if (is_locator_bound) {
-	// if (mLocatorService.isListening())
-	// mLocatorService.stopLocationListening();
-	// unbindService(mConnection);
-	// is_locator_bound = false;
-	// }
-	// }
-
-	// private AsyncTask<Integer, Integer, Location> sOnUpdateLocation = new
-	// AsyncTask<Integer, Integer, Location>() {
-	//
-	// @Override
-	// protected void onPreExecute() {
-	// setSupportProgressBarIndeterminateVisibility(true);
-	// };
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see android.os.AsyncTask#doInBackground(Params[])
-	// */
-	// @Override
-	// protected Location doInBackground(Integer... params) {
-	// Location bestLocation = null;
-	// int tries = params[0];
-	// int targetAccuracy = Integer.MAX_VALUE;
-	// if (params.length > 1)
-	// targetAccuracy = params[1];
-	// int currentTry = 0;
-	// int currentAccuracy = targetAccuracy + 1000;
-	// while (currentTry < tries && currentAccuracy > targetAccuracy) {
-	// // This loop quits when it's exceeded the number of allotted
-	// // tries, or if it has found an accurate fix.
-	// if (is_locator_bound) {
-	// currentTry++;
-	// if (bestLocation == null)
-	// bestLocation = mLocatorService.getLocation();
-	//
-	// if (mLocatorService.hasBetterLocation())
-	// bestLocation = mLocatorService.getLocation();
-	//
-	// currentAccuracy = (int) bestLocation.getAccuracy();
-	// try {
-	// Thread.sleep(1000);
-	// } catch (InterruptedException e) {
-	// continue;
-	// }
-	// }
-	// }
-	// return bestLocation;
-	// }
-	//
-	// /*
-	// * (non-Javadoc)
-	// *
-	// * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-	// */
-	// @Override
-	// protected void onPostExecute(Location result) {
-	// mGeoPoint = result;
-	// if (!(getSharedPreferences("AreabasePrefs", 0).getBoolean(
-	// "pref_location_backgroundlocate", true))) {
-	// mLocatorService.stopLocationListening();
-	// }
-	// setSupportProgressBarIndeterminateVisibility(false);
-	// mContentFragment.updateGeo(result);
-	// mContentFragment.refreshContent();
-	// }
-	//
-	// };
-	//
-	// private ServiceConnection mConnection = new ServiceConnection() {
-	//
-	// @Override
-	// public void onServiceDisconnected(ComponentName name) {
-	// is_locator_bound = false;
-	// }
-	//
-	// @Override
-	// public void onServiceConnected(ComponentName name, IBinder service) {
-	// AreabaseLocatorBinder lBinder = (AreabaseLocatorBinder) service;
-	// mLocatorService = lBinder.getService();
-	// is_locator_bound = true;
-	// }
-	// };
-
 	private NavDrawerListAdapter setUpNavDrawer() {
 		mNavDrawerAdapter = new NavDrawerListAdapter(this);
 
@@ -299,6 +194,23 @@ public class AreaActivity extends Activity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		mDrawerToggle.syncState();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		/*
+		 * TODO: This is to prepare this Activity to communicate with the Google
+		 * Play Location Services.
+		 */
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+			Log.w("AreaActivity",
+					"Error resolution request. Intent: " + data.toString());
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

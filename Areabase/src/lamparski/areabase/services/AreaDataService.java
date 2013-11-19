@@ -64,11 +64,10 @@ public class AreaDataService extends Service {
 	 *            A communication interface between this service and host
 	 *            Activity or Fragment.
 	 */
-	public void getBasicAreaInfo(Location location,
+	public void generateCardsForLocation(Location location,
 			final BasicAreaInfoIface commlink) {
 		// this.commlink = commlink;
 		new AsyncTask<Location, CardModel, Void>() {
-
 			@Override
 			protected void onPreExecute() {
 				super.onPreExecute();
@@ -99,19 +98,19 @@ public class AreaDataService extends Service {
 							+ " ms to resolve address");
 
 					long tAreas_s = System.currentTimeMillis();
-					Set<nde2.pull.types.Area> areaSet = new FindAreas()
-					.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
-					.inHierarchy(Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
-					.forPostcode(address.getPostalCode())
-					.execute();
+					Set<Area> areaSet = new FindAreas()
+							.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
+							.inHierarchy(
+									Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+							.forPostcode(address.getPostalCode()).execute();
 					long tAreas_e = System.currentTimeMillis();
 					Log.i("AreaDataService", "[FindAreas] Took "
 							+ (tAreas_e - tAreas_s) + " ms to find NeSS Areas");
 					// 1: Demographics
 					try {
 						CardModel demoCm = DemographicsCardProvider
-								.demographicsCardForArea(areaSet.iterator().next(),
-										getResources());
+								.demographicsCardForArea(areaSet.iterator()
+										.next(), getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
@@ -142,6 +141,7 @@ public class AreaDataService extends Service {
 			protected void onPostExecute(Void result) {
 				commlink.allDone();
 			}
+
 		}.execute(location);
 	}
 

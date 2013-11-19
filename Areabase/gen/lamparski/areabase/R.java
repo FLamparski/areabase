@@ -243,12 +243,12 @@ public final class R {
     public static final class id {
         public static final int RelativeLayout1=0x7f0c0018;
         public static final int ScrollView1=0x7f0c0015;
-        public static final int action_help=0x7f0c002e;
-        public static final int action_locate=0x7f0c002b;
-        public static final int action_refresh=0x7f0c002d;
-        public static final int action_search=0x7f0c002c;
+        public static final int action_help=0x7f0c0031;
+        public static final int action_locate=0x7f0c002e;
+        public static final int action_refresh=0x7f0c0030;
+        public static final int action_search=0x7f0c002f;
         public static final int action_search_edittext_edittext=0x7f0c0000;
-        public static final int action_settings=0x7f0c002a;
+        public static final int action_settings=0x7f0c002d;
         public static final int cardContent=0x7f0c0023;
         public static final int card_basic_text=0x7f0c0008;
         public static final int card_basic_title=0x7f0c0007;
@@ -274,10 +274,13 @@ public final class R {
         public static final int handset_area_activity_drawerLayout_DEFAULT=0x7f0c0001;
         public static final int handset_area_activity_frameLayout_DEFAULT=0x7f0c0002;
         public static final int handset_area_activity_navDrawer_listView_DEFAULT=0x7f0c0003;
+        public static final int imageView1=0x7f0c002a;
         public static final int listView=0x7f0c0013;
         public static final int navbar_list_header_txt_header=0x7f0c0027;
         public static final int navbar_list_item_navicon=0x7f0c0028;
         public static final int navbar_list_item_txt_item=0x7f0c0029;
+        public static final int navdrawer_link_areabaseHelp=0x7f0c002b;
+        public static final int navdrawer_link_summaryView=0x7f0c002c;
         public static final int objectIdTextView=0x7f0c0019;
         public static final int placeholder=0x7f0c0022;
         public static final int stackContainer=0x7f0c0026;
@@ -309,6 +312,7 @@ public final class R {
         public static final int item_stack=0x7f030010;
         public static final int navbar_list_header=0x7f030011;
         public static final int navbar_list_item=0x7f030012;
+        public static final int navdrawer=0x7f030013;
     }
     public static final class menu {
         public static final int areabase_opts_menu=0x7f0b0000;
