@@ -1,11 +1,9 @@
 package lamparski.areabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.SummaryFragment;
+import lamparski.areabase.widgets.RobotoLightTextView;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
@@ -23,13 +21,14 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AreaActivity extends Activity {
 
@@ -37,7 +36,7 @@ public class AreaActivity extends Activity {
 	protected NavDrawerListAdapter mNavDrawerAdapter;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
-	private ListView mDrawerList;
+	private LinearLayout mDrawer;
 	private CharSequence mTitle;
 	private Location mGeoPoint = null;
 	private IAreabaseFragment mContentFragment = null;
@@ -47,33 +46,31 @@ public class AreaActivity extends Activity {
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
 
-	public static final int SUMMARY = 0;
-	public static final int CRIME = 1;
-	public static final int ECONOMY = 2;
-	public static final int ENVIRONMENT = 3;
-	public static final int EXPLORE_ONS = 10;
-	public static final int EXPLORE_POLICE = 11;
+	public static final int SUMMARY = R.id.navdrawer_link_areabaseSummary;
+	public static final int CRIME = R.id.navdrawer_link_areabaseCrime;
+	public static final int ECONOMY = R.id.navdrawer_link_areabaseEconomy;
+	public static final int ENVIRONMENT = R.id.navdrawer_link_areabaseEnvironment;
+	public static final int EXPLORE_ONS = R.id.navdrawer_link_areabaseONSBrowser;
+	public static final int EXPLORE_POLICE = R.id.navdrawer_link_areabasePoliceDataBrowser;
 	public static final int AREA_HIERARCHY = 15;
 	public static final int AREA_COMPARE = 16;
+	public static final int GET_HELP = R.id.navdrawer_link_areabaseHelp;
 	public static final String CURRENT_COORDS = "current-coords";
 
 	private static final String SIS_LOADED_VIEW = "currently-loaded-view";
 	private static final String SIS_LOADED_COORDS = "currently-loaded-coordinates";
 
-	private class DrawerItemClickListener implements
-			ListView.OnItemClickListener {
+	private OnClickListener sDrawerLinkListener = new OnClickListener() {
 
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
-			NavDrawerListItemModel item = (NavDrawerListItemModel) mNavDrawerAdapter
-					.getItem(position);
-			changeFragment(item.getFragId());
-
-			mDrawerList.setItemChecked(position, true);
-			mDrawerLayout.closeDrawer(mDrawerList);
+		public void onClick(View v) {
+			if (v.getId() != GET_HELP) {
+				changeFragment(v.getId());
+			} else {
+				// TODO: Launch a browser for help
+			}
 		}
-	}
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,25 +87,24 @@ public class AreaActivity extends Activity {
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.tablet_area_activity_drawerLayout);
 		if (mDrawerLayout != null) {
-			mDrawerList = (ListView) findViewById(R.id.tablet_area_activity_navDrawer_listView);
+			mDrawer = (LinearLayout) findViewById(R.id.tablet_area_activity_navDrawer_listView);
 			is_tablet = true;
 			mFragmentHostId = R.id.tablet_area_activity_frameLayout;
 			Log.i(getClass().getName(),
 					"Loading tablet version of AreaActivity");
 		} else {
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout_DEFAULT);
-			mDrawerList = (ListView) findViewById(R.id.handset_area_activity_navDrawer_listView_DEFAULT);
+			mDrawer = (LinearLayout) findViewById(R.id.handset_area_activity_navDrawer_listView_DEFAULT);
 			is_tablet = false;
 			mFragmentHostId = R.id.handset_area_activity_frameLayout_DEFAULT;
 			Log.i(getClass().getName(),
 					"Loading handset version of AreaActivity");
 		}
 
+		setUpNavDrawer();
+
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,
 				GravityCompat.START);
-		NavDrawerListAdapter navigationAdapter = setUpNavDrawer();
-		mDrawerList.setAdapter(navigationAdapter);
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, R.string.drawer_open,
@@ -127,7 +123,7 @@ public class AreaActivity extends Activity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		mActionBar.setDisplayHomeAsUpEnabled(true);
-		mDrawerLayout.closeDrawer(mDrawerList);
+		mDrawerLayout.closeDrawer(mDrawer);
 
 		if (savedInstanceState != null) {
 			// Log.d("AreaActivity", "  > savedInstanceState != null");
@@ -142,52 +138,18 @@ public class AreaActivity extends Activity {
 		}
 	}
 
-	private NavDrawerListAdapter setUpNavDrawer() {
-		mNavDrawerAdapter = new NavDrawerListAdapter(this);
-
-		// section: "THIS AREA"
-		List<NavDrawerListItemModel> thisAreaItems = new ArrayList<NavDrawerListItemModel>();
-		thisAreaItems.add(new NavDrawerListItemModel(R.string.caption_summary,
-				R.drawable.navicon_summary, SUMMARY));
-		thisAreaItems.add(new NavDrawerListItemModel(R.string.caption_crime,
-				R.drawable.navicon_crime, CRIME));
-		thisAreaItems.add(new NavDrawerListItemModel(R.string.caption_economy,
-				R.drawable.navicon_economy, ECONOMY));
-		thisAreaItems.add(new NavDrawerListItemModel(
-				R.string.caption_environment, R.drawable.navicon_environment,
-				ENVIRONMENT));
-		NavDrawerSectionAdapter thisAreaSecAdapter = new NavDrawerSectionAdapter(
-				this, thisAreaItems);
-		mNavDrawerAdapter.addSection(
-				getString(R.string.navdrawer_secheader_basic_info),
-				thisAreaSecAdapter);
-
-		// section: "EXPLORE DATA"
-		List<NavDrawerListItemModel> exploreDataItems = new ArrayList<NavDrawerListItemModel>();
-		exploreDataItems.add(new NavDrawerListItemModel(R.string.caption_ONS,
-				R.drawable.action_search, EXPLORE_ONS));
-		exploreDataItems.add(new NavDrawerListItemModel(
-				R.string.caption_Police, R.drawable.action_search,
-				EXPLORE_POLICE));
-		NavDrawerSectionAdapter exploreDataSecAdapter = new NavDrawerSectionAdapter(
-				this, exploreDataItems);
-		mNavDrawerAdapter.addSection(
-				getString(R.string.navdrawer_secheader_more_data),
-				exploreDataSecAdapter);
-
-		// section: "MISCELLANEOUS"
-		List<NavDrawerListItemModel> miscItems = new ArrayList<NavDrawerListItemModel>();
-		miscItems.add(new NavDrawerListItemModel(
-				R.string.caption_area_hierarchy, R.drawable.navicon_hierarchy,
-				AREA_HIERARCHY));
-		miscItems.add(new NavDrawerListItemModel(R.string.caption_area_compare,
-				R.drawable.navicon_compare, AREA_COMPARE));
-		NavDrawerSectionAdapter miscSecAdapter = new NavDrawerSectionAdapter(
-				this, miscItems);
-		mNavDrawerAdapter.addSection(
-				getString(R.string.navdrawer_secheader_misc), miscSecAdapter);
-
-		return mNavDrawerAdapter;
+	private void setUpNavDrawer() {
+		int drawerChildrenCount = mDrawer.getChildCount();
+		for (int i = 0; i < drawerChildrenCount; i++) {
+			View v_at_i = mDrawer.getChildAt(i);
+			if (v_at_i instanceof RobotoLightTextView) {
+				v_at_i.setOnClickListener(sDrawerLinkListener);
+			} else if (v_at_i instanceof TextView) {
+				if (v_at_i.isFocusable()) {
+					v_at_i.setOnClickListener(sDrawerLinkListener);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -299,10 +261,10 @@ public class AreaActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-				mDrawerLayout.closeDrawer(mDrawerList);
-			} else if (!(mDrawerLayout.isDrawerOpen(mDrawerList))) {
-				mDrawerLayout.openDrawer(mDrawerList);
+			if (mDrawerLayout.isDrawerOpen(mDrawer)) {
+				mDrawerLayout.closeDrawer(mDrawer);
+			} else if (!(mDrawerLayout.isDrawerOpen(mDrawer))) {
+				mDrawerLayout.openDrawer(mDrawer);
 			}
 			break;
 		case R.id.action_locate:
@@ -451,6 +413,10 @@ public class AreaActivity extends Activity {
 			args.putString(DemoObjectFragment.ARGUMENT2, "Compare");
 			replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
+			break;
+		default:
+			Toast.makeText(this, String.format("Unknown link id %d", fragId),
+					Toast.LENGTH_SHORT).show();
 			break;
 		}
 	}

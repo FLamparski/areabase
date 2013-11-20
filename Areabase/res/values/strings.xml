@@ -87,5 +87,6 @@
 
     <string name="card_error_values_not_available_title">Some data for this area is not available.</string>
     <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>
+    <string name="a11y_cd_areabase_icon">The Areabase icon</string>
 
 </resources>

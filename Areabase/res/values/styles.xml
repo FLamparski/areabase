@@ -19,5 +19,14 @@
 
     <drawable name="myTransparentDrawable">#0000</drawable>
     <drawable name="mySemiTransparentDrawable">#dfff</drawable>
+    
+    <style name="areabaseNavDrawerLink">
+        <item name="android:typeface">sans</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
 
 </resources>

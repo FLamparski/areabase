@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navdrawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:layout_height="wrap_content"
-		android:layout_width="match_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <ImageView
             android:id="@+id/imageView1"
@@ -16,7 +17,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@string/a11y_cd_areabase_icon"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,6 +26,7 @@
             android:layout_alignTop="@+id/imageView1"
             android:layout_toRightOf="@+id/imageView1"
             android:text="@string/app_name"
+            android:focusable="false"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -34,8 +37,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:text="@string/action_help"
-            android:textColor="@color/holoLightBlueColour"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:focusable="true"
+            android:textColor="@color/holoLightBlueColour" />
 
         <View
             android:layout_width="match_parent"
@@ -43,28 +47,79 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/imageView1"
             android:layout_marginTop="16dp"
-            android:background="@drawable/holoLightBlueDrawable" />
-
+            android:background="@drawable/divider_horizontal_holo_dark" />
     </RelativeLayout>
-    
-    <LinearLayout
-        android:id="@+id/navdrawer_link_summaryView"
+
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabaseSummary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/navicon_summary" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/caption_summary" />
-
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_summary_padded"
+        android:text="@string/caption_summary"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
+    
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabaseCrime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_crime_padded"
+        android:text="@string/caption_crime"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
+    
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabaseEconomy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_economy_padded"
+        android:text="@string/caption_economy"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
+    
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabaseEnvironment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_environment_padded"
+        android:text="@string/caption_environment"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
+    
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabaseONSBrowser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/nav_ons_padded"
+        android:text="@string/caption_ONS"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
+    
+    <lamparski.areabase.widgets.RobotoLightTextView
+        android:id="@+id/navdrawer_link_areabasePoliceDataBrowser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/navicon_police"
+        android:text="@string/caption_Police"
+        style="@style/areabaseNavDrawerLink" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/divider_horizontal_holo_dark" />
 </LinearLayout>

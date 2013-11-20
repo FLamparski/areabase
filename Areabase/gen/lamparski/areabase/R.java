@@ -216,26 +216,35 @@ public final class R {
         public static final int card_background=0x7f020004;
         public static final int card_background_shadow=0x7f020005;
         public static final int card_shadow=0x7f020006;
-        public static final int divider_vertical=0x7f020007;
-        public static final int drawer_shadow=0x7f020008;
-        public static final int holoLightBlueDrawable=0x7f020018;
-        public static final int ic_action_overflow=0x7f020009;
-        public static final int ic_drawer=0x7f02000a;
-        public static final int ic_launcher=0x7f02000b;
-        public static final int icon_chart=0x7f02000c;
-        public static final int icon_chart_blue=0x7f02000d;
-        public static final int location_place=0x7f02000e;
-        public static final int mySemiTransparentDrawable=0x7f02001a;
-        public static final int myTransparentDrawable=0x7f020019;
-        public static final int navicon_compare=0x7f02000f;
-        public static final int navicon_crime=0x7f020010;
-        public static final int navicon_economy=0x7f020011;
-        public static final int navicon_environment=0x7f020012;
-        public static final int navicon_hierarchy=0x7f020013;
-        public static final int navicon_summary=0x7f020014;
-        public static final int navigation_refresh=0x7f020015;
-        public static final int selectable_background_cardbank=0x7f020016;
-        public static final int top_shadow=0x7f020017;
+        public static final int divider_horizontal_holo_dark=0x7f020007;
+        public static final int divider_horizontal_holo_light=0x7f020008;
+        public static final int divider_vertical=0x7f020009;
+        public static final int drawer_shadow=0x7f02000a;
+        public static final int holoLightBlueDrawable=0x7f020021;
+        public static final int ic_action_overflow=0x7f02000b;
+        public static final int ic_drawer=0x7f02000c;
+        public static final int ic_launcher=0x7f02000d;
+        public static final int icon_chart=0x7f02000e;
+        public static final int icon_chart_blue=0x7f02000f;
+        public static final int location_place=0x7f020010;
+        public static final int mySemiTransparentDrawable=0x7f020023;
+        public static final int myTransparentDrawable=0x7f020022;
+        public static final int nav_crime_padded=0x7f020011;
+        public static final int nav_economy_padded=0x7f020012;
+        public static final int nav_environment_padded=0x7f020013;
+        public static final int nav_ons_padded=0x7f020014;
+        public static final int nav_summary_padded=0x7f020015;
+        public static final int navicon_compare=0x7f020016;
+        public static final int navicon_crime=0x7f020017;
+        public static final int navicon_economy=0x7f020018;
+        public static final int navicon_environment=0x7f020019;
+        public static final int navicon_hierarchy=0x7f02001a;
+        public static final int navicon_police=0x7f02001b;
+        public static final int navicon_summary=0x7f02001c;
+        public static final int navigation_refresh=0x7f02001d;
+        public static final int ons_logo_small=0x7f02001e;
+        public static final int selectable_background_cardbank=0x7f02001f;
+        public static final int top_shadow=0x7f020020;
     }
     public static final class fraction {
         public static final int pop_density=0x7f080000;
@@ -243,12 +252,12 @@ public final class R {
     public static final class id {
         public static final int RelativeLayout1=0x7f0c0018;
         public static final int ScrollView1=0x7f0c0015;
-        public static final int action_help=0x7f0c0031;
-        public static final int action_locate=0x7f0c002e;
-        public static final int action_refresh=0x7f0c0030;
-        public static final int action_search=0x7f0c002f;
+        public static final int action_help=0x7f0c0037;
+        public static final int action_locate=0x7f0c0034;
+        public static final int action_refresh=0x7f0c0036;
+        public static final int action_search=0x7f0c0035;
         public static final int action_search_edittext_edittext=0x7f0c0000;
-        public static final int action_settings=0x7f0c002d;
+        public static final int action_settings=0x7f0c0033;
         public static final int cardContent=0x7f0c0023;
         public static final int card_basic_text=0x7f0c0008;
         public static final int card_basic_title=0x7f0c0007;
@@ -274,13 +283,19 @@ public final class R {
         public static final int handset_area_activity_drawerLayout_DEFAULT=0x7f0c0001;
         public static final int handset_area_activity_frameLayout_DEFAULT=0x7f0c0002;
         public static final int handset_area_activity_navDrawer_listView_DEFAULT=0x7f0c0003;
-        public static final int imageView1=0x7f0c002a;
+        public static final int imageView1=0x7f0c002b;
         public static final int listView=0x7f0c0013;
         public static final int navbar_list_header_txt_header=0x7f0c0027;
         public static final int navbar_list_item_navicon=0x7f0c0028;
         public static final int navbar_list_item_txt_item=0x7f0c0029;
-        public static final int navdrawer_link_areabaseHelp=0x7f0c002b;
-        public static final int navdrawer_link_summaryView=0x7f0c002c;
+        public static final int navdrawer_layout=0x7f0c002a;
+        public static final int navdrawer_link_areabaseCrime=0x7f0c002e;
+        public static final int navdrawer_link_areabaseEconomy=0x7f0c002f;
+        public static final int navdrawer_link_areabaseEnvironment=0x7f0c0030;
+        public static final int navdrawer_link_areabaseHelp=0x7f0c002c;
+        public static final int navdrawer_link_areabaseONSBrowser=0x7f0c0031;
+        public static final int navdrawer_link_areabasePoliceDataBrowser=0x7f0c0032;
+        public static final int navdrawer_link_areabaseSummary=0x7f0c002d;
         public static final int objectIdTextView=0x7f0c0019;
         public static final int placeholder=0x7f0c0022;
         public static final int stackContainer=0x7f0c0026;
@@ -318,6 +333,7 @@ public final class R {
         public static final int areabase_opts_menu=0x7f0b0000;
     }
     public static final class string {
+        public static final int a11y_cd_areabase_icon=0x7f09002f;
         public static final int action_help=0x7f090005;
         public static final int action_locate=0x7f090002;
         public static final int action_refresh=0x7f090004;
@@ -405,8 +421,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f070009;
-        public static final int ButtonBar=0x7f07000b;
-        public static final int ButtonBarButton=0x7f07000a;
+        public static final int ButtonBar=0x7f07000c;
+        public static final int ButtonBarButton=0x7f07000b;
         public static final int CardLightText=0x7f070001;
         /** 
           <style name="CardTitle">
@@ -427,6 +443,7 @@ public final class R {
         public static final int Item_Sticky=0x7f070007;
         public static final int Item_Top=0x7f070006;
         public static final int StackTitle=0x7f070004;
+        public static final int areabaseNavDrawerLink=0x7f07000a;
     }
     public static final class xml {
         public static final int preferences=0x7f040000;
