@@ -11,6 +11,7 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -67,7 +68,9 @@ public class AreaActivity extends Activity {
 			if (v.getId() != GET_HELP) {
 				changeFragment(v.getId());
 			} else {
-				// TODO: Launch a browser for help
+				Intent helpIntent = new Intent(Intent.ACTION_VIEW,
+						Uri.parse("http://flamparski.github.io/areabase/"));
+				startActivity(helpIntent);
 			}
 		}
 	};
@@ -87,14 +90,14 @@ public class AreaActivity extends Activity {
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.tablet_area_activity_drawerLayout);
 		if (mDrawerLayout != null) {
-			mDrawer = (LinearLayout) findViewById(R.id.tablet_area_activity_navDrawer_listView);
+			mDrawer = (LinearLayout) findViewById(R.id.navdrawer_layout);
 			is_tablet = true;
 			mFragmentHostId = R.id.tablet_area_activity_frameLayout;
 			Log.i(getClass().getName(),
 					"Loading tablet version of AreaActivity");
 		} else {
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout_DEFAULT);
-			mDrawer = (LinearLayout) findViewById(R.id.handset_area_activity_navDrawer_listView_DEFAULT);
+			mDrawer = (LinearLayout) findViewById(R.id.navdrawer_layout);
 			is_tablet = false;
 			mFragmentHostId = R.id.handset_area_activity_frameLayout_DEFAULT;
 			Log.i(getClass().getName(),
@@ -268,7 +271,7 @@ public class AreaActivity extends Activity {
 			}
 			break;
 		case R.id.action_locate:
-			updateLocation();
+			// updateLocation();
 			break;
 		case R.id.action_refresh:
 			doRefreshFragment();
@@ -297,11 +300,6 @@ public class AreaActivity extends Activity {
 				}
 			}
 		}, 500);
-	}
-
-	private void updateLocation() {
-		// Max. 30 tries(secs), target accuracy = 50m.
-		// sOnUpdateLocation.execute(30, 50);
 	}
 
 	@Override
