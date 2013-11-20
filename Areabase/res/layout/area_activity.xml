@@ -13,15 +13,6 @@
     </FrameLayout>
     <!-- Nav drawer -->
 
-    <ListView
-        android:id="@+id/handset_area_activity_navDrawer_listView_DEFAULT"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:drawable/screen_background_light"
-        android:choiceMode="singleChoice"
-        android:divider="@android:drawable/divider_horizontal_bright"
-        android:dividerHeight="1dp" >
-    </ListView>
+    <include layout="@layout/navdrawer" />
 
 </android.support.v4.widget.DrawerLayout>

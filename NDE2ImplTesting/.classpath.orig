@@ -1,0 +1,26 @@
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="src" path="nde2_proxy"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
+	<classpathentry kind="lib" path="swing2swt.jar"/>
+	<classpathentry kind="lib" path="mockito-all-1.9.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PoliceData"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="src" path="nde2_proxy"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/NeighbourhoodStatisticsExchange"/>
+	<classpathentry kind="lib" path="mockito-all-1.9.5.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PoliceData"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
+>>>>>>> 5b35c5919168f63bc8f0573c0ad89f63f56c581d
