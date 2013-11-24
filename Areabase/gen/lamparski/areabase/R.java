@@ -222,15 +222,15 @@ public final class R {
         public static final int divider_horizontal_holo_light=0x7f020008;
         public static final int divider_vertical=0x7f020009;
         public static final int drawer_shadow=0x7f02000a;
-        public static final int holoLightBlueDrawable=0x7f020021;
+        public static final int holoLightBlueDrawable=0x7f020022;
         public static final int ic_action_overflow=0x7f02000b;
         public static final int ic_drawer=0x7f02000c;
         public static final int ic_launcher=0x7f02000d;
         public static final int icon_chart=0x7f02000e;
         public static final int icon_chart_blue=0x7f02000f;
         public static final int location_place=0x7f020010;
-        public static final int mySemiTransparentDrawable=0x7f020023;
-        public static final int myTransparentDrawable=0x7f020022;
+        public static final int mySemiTransparentDrawable=0x7f020024;
+        public static final int myTransparentDrawable=0x7f020023;
         public static final int nav_crime_padded=0x7f020011;
         public static final int nav_economy_padded=0x7f020012;
         public static final int nav_environment_padded=0x7f020013;
@@ -246,7 +246,8 @@ public final class R {
         public static final int navigation_refresh=0x7f02001d;
         public static final int ons_logo_small=0x7f02001e;
         public static final int selectable_background_cardbank=0x7f02001f;
-        public static final int top_shadow=0x7f020020;
+        public static final int selectable_background_links=0x7f020020;
+        public static final int top_shadow=0x7f020021;
     }
     public static final class fraction {
         public static final int pop_density=0x7f080000;

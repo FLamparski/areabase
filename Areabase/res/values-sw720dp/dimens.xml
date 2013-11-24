@@ -2,6 +2,6 @@
 <resources>
 
     <dimen name="nav_drawer_catsep_height">32dp</dimen>
-    <dimen name="nav_drawer_width">320dp</dimen>
+    <dimen name="nav_drawer_width">350dp</dimen>
 
 </resources>

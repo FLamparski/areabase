@@ -67,11 +67,15 @@ public class AreaActivity extends Activity {
 		public void onClick(View v) {
 			if (v.getId() != GET_HELP) {
 				changeFragment(v.getId());
-			} else {
-				Intent helpIntent = new Intent(Intent.ACTION_VIEW,
-						Uri.parse("http://flamparski.github.io/areabase/"));
+			}
+			if (v.getId() == GET_HELP) {
+				Log.i("AreaActivity navdrawer", "We are getting help!");
+				Intent helpIntent = new Intent(Intent.ACTION_VIEW);
+				helpIntent.setData(Uri
+						.parse("http://flamparski.github.io/areabase/"));
 				startActivity(helpIntent);
 			}
+			mDrawerLayout.closeDrawer(GravityCompat.START);
 		}
 	};
 
@@ -145,14 +149,16 @@ public class AreaActivity extends Activity {
 		int drawerChildrenCount = mDrawer.getChildCount();
 		for (int i = 0; i < drawerChildrenCount; i++) {
 			View v_at_i = mDrawer.getChildAt(i);
+			// Find me all children that are the links
 			if (v_at_i instanceof RobotoLightTextView) {
 				v_at_i.setOnClickListener(sDrawerLinkListener);
-			} else if (v_at_i instanceof TextView) {
-				if (v_at_i.isFocusable()) {
-					v_at_i.setOnClickListener(sDrawerLinkListener);
-				}
 			}
 		}
+		// Special case for the "help" link, which is further down the
+		// hierarchy:
+		View helplink = mDrawer.findViewById(R.id.navdrawer_link_areabaseHelp);
+		if (helplink != null)
+			helplink.setOnClickListener(sDrawerLinkListener);
 	}
 
 	@Override
