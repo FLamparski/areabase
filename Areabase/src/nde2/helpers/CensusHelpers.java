@@ -18,7 +18,7 @@ public class CensusHelpers {
 
 	/**
 	 * Finds {@link DataSetFamily DataSetFamilies} for an {@link Area} that
-	 * begin with any of the keywords.
+	 * contain any of the keywords.
 	 * 
 	 * @param area
 	 *            Area to find datasets for
@@ -31,17 +31,19 @@ public class CensusHelpers {
 	 * @throws XmlPullParserException
 	 * @throws IOException
 	 * @throws NDE2Exception
+	 * @throws ClassNotFoundException
 	 */
 	public static List<DataSetFamily> findRequiredFamilies(Area area,
 			Subject subject, String[] keywords) throws IOException,
-			XmlPullParserException, NDE2Exception {
+			XmlPullParserException, NDE2Exception, ClassNotFoundException {
 		List<DataSetFamily> censusDatasetFamilies = new GetDatasetFamilies(
 				subject).forArea(area).execute();
+
 		List<DataSetFamily> requiredFamilies = new ArrayList<DataSetFamily>();
 
 		for (DataSetFamily family : censusDatasetFamilies) {
 			for (String kw : keywords) {
-				if (family.getName().startsWith(kw))
+				if (family.getName().contains(kw))
 					requiredFamilies.add(family);
 			}
 		}

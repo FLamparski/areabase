@@ -102,4 +102,8 @@ public class GetAreaDetail extends DiscoveryMethodCall {
 		return detailedArea;
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

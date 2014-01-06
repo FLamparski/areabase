@@ -64,4 +64,9 @@ public class GetAreaChildren extends DiscoveryMethodCall {
 		return childSet;
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
+
 }

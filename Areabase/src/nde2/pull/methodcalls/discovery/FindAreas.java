@@ -120,6 +120,14 @@ public class FindAreas extends DiscoveryMethodCall {
 		return this;
 	}
 
+	private boolean useAlternateMethod() {
+		boolean no_name = (areaNamePart == null);
+		boolean has_postcode = (postcode != null);
+		boolean has_leveltype = (levelTypeId > -1);
+		boolean has_hierarchy = (hierarchyId > -1);
+		return (no_name && has_postcode && has_hierarchy && has_leveltype);
+	}
+
 	@Override
 	protected XmlPullParser execute(Map<String, String> params)
 			throws IOException, XmlPullParserException {
@@ -136,11 +144,8 @@ public class FindAreas extends DiscoveryMethodCall {
 		 * 
 		 * See: http://goo.gl/ezODf8
 		 */
-		boolean no_name = (areaNamePart == null);
-		boolean has_postcode = (postcode != null);
-		boolean has_leveltype = (levelTypeId > -1);
-		boolean has_hierarchy = (hierarchyId > -1);
-		if (no_name && has_postcode && has_hierarchy && has_leveltype) {
+
+		if (useAlternateMethod()) {
 			// FindAreas is broken under this configuration, so let's use
 			// something that isn't.
 			return super.doCall(METHOD_NAME_S_BY_A_BY_POSTCODE, params);
@@ -185,6 +190,15 @@ public class FindAreas extends DiscoveryMethodCall {
 
 		Set<Area> areaSet = processAreaSet(xpp);
 		return areaSet;
+	}
+
+	@Override
+	public String toURLString() {
+		if (useAlternateMethod()) {
+			return buildURLString(DISCOVERY_ENDPOINT,
+					METHOD_NAME_S_BY_A_BY_POSTCODE, collectParams());
+		}
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
 	}
 
 }

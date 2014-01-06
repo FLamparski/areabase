@@ -75,4 +75,8 @@ public class GetAreaParent extends DiscoveryMethodCall {
 		return parentCandidate;
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

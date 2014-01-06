@@ -70,4 +70,8 @@ public class GetChildAreaTables extends GetTables {
 		return processDataCubeResponseElement(xpp);
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DELIVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

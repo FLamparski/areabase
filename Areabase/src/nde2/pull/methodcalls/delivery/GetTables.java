@@ -478,4 +478,9 @@ public class GetTables extends DeliveryMethodCall {
 		}
 		return topics;
 	}
+
+	@Override
+	public String toURLString() {
+		return buildURLString(DELIVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

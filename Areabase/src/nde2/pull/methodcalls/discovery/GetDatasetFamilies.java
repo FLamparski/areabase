@@ -116,4 +116,8 @@ public class GetDatasetFamilies extends DiscoveryMethodCall {
 		return dataSetFamilies;
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

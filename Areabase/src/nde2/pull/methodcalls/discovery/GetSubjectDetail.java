@@ -86,4 +86,9 @@ public class GetSubjectDetail extends DiscoveryMethodCall {
 			throw error;
 		return dsubject;
 	}
+
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

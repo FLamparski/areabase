@@ -9,7 +9,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class DeliveryMethodCall extends BaseMethodCall {
-	private static final String DELIVERY_ENDPOINT = "http://neighbourhood.statistics.gov.uk/NDE2/Deli/";
+	protected static final String DELIVERY_ENDPOINT = "http://neighbourhood.statistics.gov.uk/NDE2/Deli/";
 
 	@Override
 	protected XmlPullParser doCall(String method, Map<String, String> params)

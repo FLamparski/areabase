@@ -8,6 +8,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -61,6 +62,8 @@ public class AreaActivity extends Activity {
 	private static final String SIS_LOADED_VIEW = "currently-loaded-view";
 	private static final String SIS_LOADED_COORDS = "currently-loaded-coordinates";
 
+	private static Context appCtx;
+
 	private OnClickListener sDrawerLinkListener = new OnClickListener() {
 
 		@Override
@@ -82,6 +85,9 @@ public class AreaActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		appCtx = getApplicationContext();
+
 		Log.d("AreaActivity", "onCreate() called");
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
@@ -434,4 +440,7 @@ public class AreaActivity extends Activity {
 		}
 	}
 
+	public static Context getAreabaseApplicationContext() {
+		return appCtx;
+	}
 }

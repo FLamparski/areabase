@@ -89,4 +89,8 @@ public class GetCompatibleSubjects extends DiscoveryMethodCall {
 		return subjects;
 	}
 
+	@Override
+	public String toURLString() {
+		return buildURLString(DISCOVERY_ENDPOINT, METHOD_NAME, collectParams());
+	}
 }

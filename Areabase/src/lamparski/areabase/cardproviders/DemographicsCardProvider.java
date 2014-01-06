@@ -1,5 +1,8 @@
 package lamparski.areabase.cardproviders;
 
+import static nde2.helpers.CensusHelpers.findRequiredFamilies;
+import static nde2.helpers.CensusHelpers.findSubject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +21,6 @@ import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
 import nde2.pull.methodcalls.delivery.GetTables;
-import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.DataSetItem;
@@ -53,19 +55,19 @@ public class DemographicsCardProvider {
 
 	public static CardModel demographicsCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
-			XmlPullParserException, NDE2Exception {
+			XmlPullParserException, NDE2Exception, ClassNotFoundException {
 		/*
 		 * Step 1: Demographics data is located under Census category. We need
 		 * to retrieve it and then get the necessary datasets.
 		 */
-		Subject censusSubject = findCensusSubject(area);
+		Subject censusSubject = findSubject(area, "Census");
 
 		if (censusSubject == null)
 			throw new ValueNotAvailable(
 					"Cannot find Census subject for this area.");
 
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
-				censusSubject);
+				censusSubject, DATASET_KEYWORDS);
 
 		List<Area> areaList = new ArrayList<Area>();
 		areaList.add(area);
@@ -311,42 +313,6 @@ public class DemographicsCardProvider {
 		}
 
 		return desc;
-	}
-
-	private static List<DataSetFamily> findRequiredFamilies(Area area,
-			Subject censusSubject) throws IOException, XmlPullParserException,
-			NDE2Exception {
-		List<DataSetFamily> censusDatasetFamilies = new GetDatasetFamilies(
-				censusSubject).forArea(area).execute();
-		List<DataSetFamily> requiredFamilies = new ArrayList<DataSetFamily>();
-
-		for (DataSetFamily family : censusDatasetFamilies) {
-			for (String kw : DATASET_KEYWORDS) {
-				if (family.getName().startsWith(kw))
-					requiredFamilies.add(family);
-			}
-		}
-
-		return requiredFamilies;
-	}
-
-	private static Subject findCensusSubject(Area area) throws IOException,
-			XmlPullParserException, NDE2Exception {
-		Subject censusSubject = null;
-		Map<Subject, Integer> areaSubjects = area.getCompatibleSubjects();
-		/*
-		 * Loop exit condition: valid subject id is found; or there are no more
-		 * subjects left.
-		 */
-		Iterator<Subject> subjectIter = areaSubjects.keySet().iterator();
-		while (subjectIter.hasNext() && censusSubject == null) {
-			Subject s = subjectIter.next();
-			if (s.getName().equals("Census")) {
-				censusSubject = s;
-			}
-		}
-
-		return censusSubject;
 	}
 
 	private static float personPerHectareToPersonPerSqKm(float pph) {

@@ -14,7 +14,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class DiscoveryMethodCall extends BaseMethodCall {
-	private static final String DISCOVERY_ENDPOINT = "http://neighbourhood.statistics.gov.uk/NDE2/Disco/";
+	protected static final String DISCOVERY_ENDPOINT = "http://neighbourhood.statistics.gov.uk/NDE2/Disco/";
 
 	@Override
 	protected XmlPullParser doCall(String method, Map<String, String> params)
