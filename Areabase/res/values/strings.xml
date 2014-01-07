@@ -22,7 +22,9 @@
     <string name="drawer_close">Close drawer</string>
     <string name="error_cannot_fetch_area_data">Sorry, data about this area could not be fetched.</string>
     <string name="error_cannot_fetch_area_data_body">Please make sure you are connected to the Internet and try again later. The message associated with this error is: %1$s. Hope this helps.</string>
-    <string name="summaryactivity_cardmaker_onserror">Nuts! Error processing ONS data.</string>
+    <string name="summaryactivity_cardmaker_ioerror">Check your connection and try again.</string>
+        <string name="summaryactivity_cardmaker_onserror">Error processing ONS data. Sorry :(</string>
+    
     <string name="summaryactivity_cardmaker_servicedisconnect_title">Oh noes!</string>
     <string name="summaryactivity_cardmaker_servicedisconnect_message">An important component of Areabase, %1$s, just broke. The app will probably crash and burn soon. Sorry :(</string>
     <string name="summaryactivity_cardmaker_values_not_available">Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.</string>

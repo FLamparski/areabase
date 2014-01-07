@@ -334,7 +334,7 @@ public final class R {
         public static final int areabase_opts_menu=0x7f0b0000;
     }
     public static final class string {
-        public static final int a11y_cd_areabase_icon=0x7f09002f;
+        public static final int a11y_cd_areabase_icon=0x7f090030;
         public static final int action_help=0x7f090005;
         public static final int action_locate=0x7f090002;
         public static final int action_refresh=0x7f090004;
@@ -346,21 +346,21 @@ public final class R {
         /**  app 
          */
         public static final int app_name=0x7f090000;
-        public static final int caption_ONS=0x7f09001a;
-        public static final int caption_Police=0x7f09001b;
-        public static final int caption_area_compare=0x7f09001e;
-        public static final int caption_area_hierarchy=0x7f09001d;
-        public static final int caption_crime=0x7f090016;
-        public static final int caption_economy=0x7f090017;
-        public static final int caption_environment=0x7f090018;
-        public static final int caption_summary=0x7f090015;
-        public static final int card_demographics_body_base=0x7f09002c;
+        public static final int caption_ONS=0x7f09001b;
+        public static final int caption_Police=0x7f09001c;
+        public static final int caption_area_compare=0x7f09001f;
+        public static final int caption_area_hierarchy=0x7f09001e;
+        public static final int caption_crime=0x7f090017;
+        public static final int caption_economy=0x7f090018;
+        public static final int caption_environment=0x7f090019;
+        public static final int caption_summary=0x7f090016;
+        public static final int card_demographics_body_base=0x7f09002d;
         /**  cards 
  cards -> demographics 
          */
-        public static final int card_demographics_title_base=0x7f09002b;
-        public static final int card_error_values_not_available_body=0x7f09002e;
-        public static final int card_error_values_not_available_title=0x7f09002d;
+        public static final int card_demographics_title_base=0x7f09002c;
+        public static final int card_error_values_not_available_body=0x7f09002f;
+        public static final int card_error_values_not_available_title=0x7f09002e;
         public static final int drawer_close=0x7f09000d;
         public static final int drawer_open=0x7f09000c;
         public static final int error_cannot_fetch_area_data=0x7f09000e;
@@ -371,31 +371,32 @@ public final class R {
         public static final int error_illegal_url_title=0x7f090008;
         /**  navigation 
          */
-        public static final int navdrawer_secheader_basic_info=0x7f090014;
-        public static final int navdrawer_secheader_misc=0x7f09001c;
-        public static final int navdrawer_secheader_more_data=0x7f090019;
-        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f090023;
-        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f090022;
-        public static final int pref_category_location_autoLocate_primaryText=0x7f090021;
-        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f090026;
-        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f090025;
-        public static final int pref_category_location_backgroundRefix_primaryText=0x7f090024;
+        public static final int navdrawer_secheader_basic_info=0x7f090015;
+        public static final int navdrawer_secheader_misc=0x7f09001d;
+        public static final int navdrawer_secheader_more_data=0x7f09001a;
+        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f090024;
+        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f090023;
+        public static final int pref_category_location_autoLocate_primaryText=0x7f090022;
+        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f090027;
+        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f090026;
+        public static final int pref_category_location_backgroundRefix_primaryText=0x7f090025;
         /**  preferences -> location 
          */
-        public static final int pref_category_location_heading=0x7f090020;
+        public static final int pref_category_location_heading=0x7f090021;
         /**  preferences -> testing 
          */
-        public static final int pref_category_testing_heading=0x7f090027;
-        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f09002a;
-        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f090029;
-        public static final int pref_category_testing_phoneHome_primaryText=0x7f090028;
-        public static final int summaryactivity_cardmaker_onserror=0x7f090010;
-        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f090012;
-        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f090011;
-        public static final int summaryactivity_cardmaker_values_not_available=0x7f090013;
+        public static final int pref_category_testing_heading=0x7f090028;
+        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f09002b;
+        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f09002a;
+        public static final int pref_category_testing_phoneHome_primaryText=0x7f090029;
+        public static final int summaryactivity_cardmaker_ioerror=0x7f090010;
+        public static final int summaryactivity_cardmaker_onserror=0x7f090011;
+        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f090013;
+        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f090012;
+        public static final int summaryactivity_cardmaker_values_not_available=0x7f090014;
         /**  preferences 
          */
-        public static final int title_activity_settings=0x7f09001f;
+        public static final int title_activity_settings=0x7f090020;
         /**  messages 
          */
         public static final int toast_mapview_not_loading=0x7f090007;

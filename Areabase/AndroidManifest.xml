@@ -33,6 +33,7 @@
 
         <service android:name=".services.AreaDataService" >
         </service>
+        <provider android:name="CacheContentProvider" android:exported="false" android:authorities="lamparski.areabase.content"></provider>
     </application>
 
 </manifest>

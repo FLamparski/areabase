@@ -86,6 +86,7 @@ public class AreaDataService extends Service {
 
 			@Override
 			protected Void doInBackground(Location... params) {
+				Thread.currentThread().setName("AreaDataService thread");
 				Location loc = params[0];
 				Geocoder gcoder = new Geocoder(getApplicationContext());
 				try {

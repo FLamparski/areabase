@@ -85,8 +85,14 @@ public abstract class BaseMethodCall {
 		} else {
 			System.out.printf("Calling: %s\n", callUrl);
 			String response = sendRequest(callUrl);
-			updateCacheDb(resolver, callUrl, response);
-			return makeParser(response);
+			if(response.contains("<Error>") && response.contains("</Error>")){
+				c.close();
+				return makeParser(response);
+			} else {
+				c.close(); // why the hell doesn't Java use RAII?
+				updateCacheDb(resolver, callUrl, response);
+				return makeParser(response);
+			}
 		}
 	}
 

@@ -1,5 +1,7 @@
 package lamparski.areabase.fragments;
 
+import java.io.IOException;
+
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
@@ -139,7 +141,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 				refreshContent();
 			}
 		} else {
-			refreshContent();
+			//refreshContent();
 		}
 	}
 
@@ -291,10 +293,17 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 													+ err.getClass()
 															.getSimpleName());
 								}
-								Toast.makeText(
-										getActivity(),
-										R.string.summaryactivity_cardmaker_onserror,
-										Toast.LENGTH_SHORT).show();
+								if(err instanceof IOException){
+									Toast.makeText(
+											getActivity(),
+											R.string.summaryactivity_cardmaker_ioerror,
+											Toast.LENGTH_SHORT).show();
+								} else {
+									Toast.makeText(
+											getActivity(),
+											R.string.summaryactivity_cardmaker_onserror,
+											Toast.LENGTH_SHORT).show();
+								}
 							}
 						});
 			}
