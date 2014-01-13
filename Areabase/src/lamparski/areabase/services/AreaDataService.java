@@ -3,6 +3,7 @@ package lamparski.areabase.services;
 import java.util.Set;
 
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
+import lamparski.areabase.cardproviders.EconomyCardProvider;
 import nde2.errors.ValueNotAvailable;
 import nde2.pull.methodcalls.discovery.FindAreas;
 import nde2.pull.types.Area;
@@ -15,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fima.cardsui.objects.CardModel;
 
@@ -52,7 +54,6 @@ public class AreaDataService extends Service {
 		return mBinder;
 	}
 
-	// private BasicAreaInfoIface commlink;
 
 	/**
 	 * This function will spin off a background thread that updates cards as new
@@ -66,7 +67,7 @@ public class AreaDataService extends Service {
 	 */
 	public void generateCardsForLocation(Location location,
 			final BasicAreaInfoIface commlink) {
-		// this.commlink = commlink;
+		Log.d("AreaDataService", "generateCardsForLocation("+ location.toString() +")");
 		new AsyncTask<Location, CardModel, Void>() {
 			@Override
 			protected void onPreExecute() {
@@ -100,7 +101,7 @@ public class AreaDataService extends Service {
 
 					long tAreas_s = System.currentTimeMillis();
 					Set<Area> areaSet = new FindAreas()
-							.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
+							.ofLevelType(Area.LEVELTYPE_MSOA)
 							.inHierarchy(
 									Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
 							.forPostcode(address.getPostalCode()).execute();
@@ -108,10 +109,14 @@ public class AreaDataService extends Service {
 					Log.i("AreaDataService", "[FindAreas] Took "
 							+ (tAreas_e - tAreas_s) + " ms to find NeSS Areas");
 					// 1: Demographics
+					Area theArea = null;
+					for(Area a : areaSet){
+						if(a.getLevelTypeId() == Area.LEVELTYPE_MSOA)
+							theArea = a;
+					}
 					try {
 						CardModel demoCm = DemographicsCardProvider
-								.demographicsCardForArea(areaSet.iterator()
-										.next(), getResources());
+								.demographicsCardForArea(theArea, getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
@@ -120,8 +125,22 @@ public class AreaDataService extends Service {
 						commlink.onError(e);
 					}
 					// 2: Crime
-
-					// 3: Deprivation
+					
+					// 3: Economy
+					try {
+						CardModel demoCm = EconomyCardProvider.economyCardForArea(theArea, getResources());
+						publishProgress(demoCm);
+					} catch (Exception e) {
+						if(e.getMessage().equals("Service not Available")){
+							Toast.makeText(getApplicationContext(), "Geocoder can't be accessed.", 0).show();
+						}
+						Log.e("AreaDataService",
+								"Error processing card for Economy: "
+										+ e.getClass().getSimpleName(), e);
+						commlink.onError(e);
+						return null;
+					}
+					// 4: Environment
 				} catch (ValueNotAvailable e) {
 					commlink.onValueNotAvailable();
 					return null;

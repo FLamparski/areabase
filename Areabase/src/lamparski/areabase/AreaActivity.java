@@ -306,7 +306,6 @@ public class AreaActivity extends Activity {
 			public void run() {
 				try {
 					getContentFragment().updateGeo(mGeoPoint);
-					getContentFragment().refreshContent();
 				} catch (NullPointerException e) {
 					doRefreshFragment();
 				}

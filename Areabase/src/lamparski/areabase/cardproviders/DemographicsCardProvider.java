@@ -79,14 +79,14 @@ public class DemographicsCardProvider {
 		int whichPopDensityDescriptor = popDensityDescriptor(getPopulationDensity(theDatasets));
 		int whichGenderRatioDescriptor = genderRatioDescriptor(calculateGenderRatio(theDatasets));
 		float avgAge = calculateAverageAge(theDatasets);
+		
+		String card_title = res.getString(R.string.card_demographics_title, area.getName());
 
-		String card_title = res
-				.getString(
+		String card_description = res.getString(
 						R.string.card_demographics_title_base,
 						area.getName(),
 						res.getStringArray(R.array.card_demographics_pop_size_trend_descriptors)[popSizeTrendDesc.which + 2]);
-		String card_description = res
-				.getString(
+		card_description += " " + res.getString(
 						R.string.card_demographics_body_base,
 						res.getStringArray(R.array.card_demographics_sex_dominance_descriptors)[whichGenderRatioDescriptor],
 						avgAge,

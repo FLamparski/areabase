@@ -78,6 +78,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			@Override
 			public boolean onItemAdded(Object item) {
 				try {
+					Toast.makeText(getActivity(), "Cards: adding object " + item.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
 					mCardUI.addCard((Card) CardFactory
 							.createCard((CardModel) item));
 					mCardUI.refresh();
@@ -129,6 +130,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 								+ depickledCards.toString());
 
 				cardModels = (EventfulArrayList<CardModel>) depickledCards;
+				Toast.makeText(getActivity(), "Found saved instance state cards", Toast.LENGTH_SHORT).show();
 
 				Log.d("SummaryFragment",
 						"    cast depickledCards -> cardModels; "
@@ -138,10 +140,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			} else {
 				Log.w("SummaryFragment",
 						"depickledCards turns out to be null, what.");
-				refreshContent();
+				//refreshContent();
 			}
-		} else {
-			//refreshContent();
 		}
 	}
 
@@ -264,7 +264,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	@Override
 	public void refreshContent() {
+		Toast.makeText(getActivity(), "Refreshing view: clearing cards.", Toast.LENGTH_SHORT).show();
+		cardModels.clear();
 		mCardUI.clearCards();
+		mCardUI.invalidate();
+		mCardUI.refresh();
+		mCardUI.forceLayout();
 
 		getActivity().setProgressBarIndeterminateVisibility(true);
 
