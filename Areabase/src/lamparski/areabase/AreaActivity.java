@@ -59,7 +59,7 @@ public class AreaActivity extends Activity {
 	public static final int GET_HELP = R.id.navdrawer_link_areabaseHelp;
 	public static final String CURRENT_COORDS = "current-coords";
 
-	private static final String SIS_LOADED_VIEW = "currently-loaded-view";
+	private static final String SIS_LOADED_FRAGMENT = "currently-loaded-fragment";
 	private static final String SIS_LOADED_COORDS = "currently-loaded-coordinates";
 
 	private static Context appCtx;
@@ -139,9 +139,11 @@ public class AreaActivity extends Activity {
 		mDrawerLayout.closeDrawer(mDrawer);
 
 		if (savedInstanceState != null) {
-			// Log.d("AreaActivity", "  > savedInstanceState != null");
-			// mGeoPoint = savedInstanceState.getParcelable(SIS_LOADED_COORDS);
-			// changeFragment(savedInstanceState.getInt(SIS_LOADED_VIEW));
+			Log.d("AreaActivity", "  > savedInstanceState != null");
+			Log.d("AreaActivity", "Restoring the reference to currently loaded fragment: " + savedInstanceState.getString(SIS_LOADED_FRAGMENT));
+			mContentFragment =
+					(IAreabaseFragment) getFragmentManager().findFragmentByTag(savedInstanceState.getString(SIS_LOADED_FRAGMENT));
+			mGeoPoint = (Location) savedInstanceState.getParcelable(SIS_LOADED_COORDS);
 		} else {
 			mGeoPoint = new Location("mock");
 			mGeoPoint.setLongitude(-0.041229);
@@ -286,6 +288,7 @@ public class AreaActivity extends Activity {
 			// updateLocation();
 			break;
 		case R.id.action_refresh:
+			Log.d("AreaActivity", "Action: refresh");
 			doRefreshFragment();
 			break;
 		case R.id.action_settings:
@@ -299,15 +302,28 @@ public class AreaActivity extends Activity {
 	private void searchAreasByText(String searchQuery) {
 		mContentFragment.searchByText(searchQuery);
 	}
+	
+	int doRefreshFragment_retries = 0;
 
 	private void doRefreshFragment() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
+				Log.d("AreaActivity", "Attempting to refresh the content fragment...");
 				try {
 					getContentFragment().updateGeo(mGeoPoint);
+					Log.d("AreaActivity", "Attempt successful!");
+					doRefreshFragment_retries = 0;
 				} catch (NullPointerException e) {
-					doRefreshFragment();
+					Log.w("AreaActivity", "Null pointer exception when trying to refresh the fragment, will try again in 500ms");
+					if(++doRefreshFragment_retries <= 10){
+						doRefreshFragment();
+					} else {
+						Log.w("AreaActivity", "Exceeded maximum number of tries, aborting refresh. Here's what's going on:");
+						Log.d("AreaActivity", String.format("\tgetContentFragment() => %s\n\tmGeoPoint => %s", 
+								(getContentFragment() == null ? "null" : getContentFragment().getClass().getSimpleName()),
+								(mGeoPoint == null ? "null" : mGeoPoint.toString())));
+					}
 				}
 			}
 		}, 500);
@@ -429,10 +445,18 @@ public class AreaActivity extends Activity {
 			break;
 		}
 	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		Log.d("AreaActivity", "Saving instance state: currently loaded fragment is " + getContentFragment().getClass().getName());
+		outState.putString(SIS_LOADED_FRAGMENT, getContentFragment().getClass().getName());
+		outState.putParcelable(SIS_LOADED_COORDS, mGeoPoint);
+	}
 
 	private void performFragmentTransaction(Fragment frag) {
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(mFragmentHostId, frag)
+		fragmentManager.beginTransaction().replace(mFragmentHostId, frag, frag.getClass().getName())
 				.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;

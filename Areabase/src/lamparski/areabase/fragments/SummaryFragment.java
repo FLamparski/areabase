@@ -47,7 +47,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	 */
 	private EventfulArrayList<CardModel> cardModels;
 	private Location mLocation;
-	private boolean is_tablet, is_landscape;
+	private boolean is_tablet, is_landscape, is_live;
 
 	private AreaDataService mService;
 	private boolean isServiceBound;
@@ -55,10 +55,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			Log.e("SummaryFragment",
-					"The AreaDataService disconnected unexpectedly.");
-			isServiceBound = false;
-			serviceCockupNotify(name);
+			if(is_live){
+				Log.e("SummaryFragment",
+						"The AreaDataService disconnected unexpectedly.");
+				isServiceBound = false;
+				serviceCockupNotify(name);
+			}
 		}
 
 		@Override
@@ -72,6 +74,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	public SummaryFragment() {
 		super();
+		Log.i("SummaryFragment", "Fragment created");
+		is_live = true;
 		cardModels = new EventfulArrayList<CardModel>();
 		cardModels.setOnItemAddedListener(new OnItemAddedListener() {
 
@@ -95,7 +99,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.d("SummaryFragment", "onActivityCreated() enter");
+		Log.i("SummaryFragment", "onActivityCreated() enter");
 
 		Intent intent = new Intent(getActivity(), AreaDataService.class);
 		getActivity().getApplicationContext().bindService(intent,
@@ -119,7 +123,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 					mOpenSpaceView.setCentre(mLocation);
 					mOpenSpaceView.setZoom(10);
 				}
-			}, 500);
+			}, 750);
 
 			Object depickledCards = savedInstanceState
 					.getSerializable("card-models");
@@ -147,7 +151,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.d("SummaryFragment", "onCreateView() enter");
+		Log.i("SummaryFragment", "onCreateView() enter");
 
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
@@ -220,6 +224,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	@Override
 	public void onStop() {
 		super.onStop();
+		Log.i("SummaryFragment", "Stopping AreaDataService.");
+		is_live = false;
 		if (isServiceBound)
 			getActivity().getApplicationContext().unbindService(
 					mServiceConnection);
@@ -249,7 +255,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 								R.string.card_error_values_not_available_title))) {
 					crd.setOnClickListener(sExplainMissingData);
 				}
-				mCardUI.addCard(crd);
+				mCardUI.addCardToLastStack(crd);
 			} catch (java.lang.InstantiationException e) {
 				Log.e("SummaryFragment", "Cannot instantiate a Card.", e);
 			} catch (IllegalAccessException e) {
