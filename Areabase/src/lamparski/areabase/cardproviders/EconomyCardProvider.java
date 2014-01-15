@@ -1,14 +1,24 @@
 package lamparski.areabase.cardproviders;
 
+import static nde2.helpers.CensusHelpers.findRequiredFamilies;
+import static nde2.helpers.CensusHelpers.findSubject;
+
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 import lamparski.areabase.R;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
-
 import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
+import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
+import nde2.pull.types.Dataset;
+import nde2.pull.types.Subject;
+import nde2.pull.types.Topic;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -17,17 +27,33 @@ import android.content.res.Resources;
 import com.fima.cardsui.objects.CardModel;
 
 public class EconomyCardProvider {
-	public static final String[] DATASET_KEYWORDS = {
-			"Income", // Finds the model median income
+	public static final String[] CENSUS_KEYWORDS = {
 			"KS601EW", // Economic activity
 			"QS605EW" // Type of economic activity
+			};
+	public static final String[] ECONOMY_KEYWORDS = {
+			"Income" // Finds the model median income
 			};
 	
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
 			XmlPullParserException, NDE2Exception, ClassNotFoundException {
 		
-		String type_of_economic_activity = "Dummy";
+		// The data we need is split between two subjects,
+		// so both need to be fetched. We'll sort that out later.
+		Subject economySubject = findSubject(area, "Economic Deprivation");
+		Subject censusSubject = findSubject(area, "Census");
+		
+		if(economySubject == null || censusSubject == null)
+			throw new ValueNotAvailable("Cannot find the required subjects for the area");
+		
+		// Coalesce the required families into a single list.
+		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area, censusSubject, CENSUS_KEYWORDS);
+		requiredFamilies.addAll(findRequiredFamilies(area, economySubject, ECONOMY_KEYWORDS));
+		
+		Set<Dataset> theDatasets = new GetTables().forArea(area).inFamilies(requiredFamilies).execute();
+		
+		String type_of_economic_activity = getTypeOfEconomicActivity(theDatasets);
 		String biggest_sector = "Widgets";
 		String avg_income_v_national = res.getStringArray(R.array.card_economy_compare_income_with_national)[2];
 		String avg_income_trend = res.getStringArray(R.array.card_economy_income_trend)[2];
@@ -41,6 +67,49 @@ public class EconomyCardProvider {
 		return makeCard(card_title, card_body);
 	}
 	
+	private static String getTypeOfEconomicActivity(
+			Set<Dataset> theDatasets) {
+		// Largest type of economic activity
+		String largestEconomicActivity = null;
+		int count_lEA = 0;
+		// Largest type of economic inactivity
+		String largestEconomicInactivity = null;
+		int count_lEI = 0;
+		// Tally it up
+		for(Dataset ds : theDatasets){
+			if(ds.getTitle().endsWith("(KS601EW)")){
+				for(Topic t : ds.getTopics().values()){
+					// Compare raw count of persons
+					if(t.getTitle().startsWith("Economically Active; ") && t.getCoinageUnit().equals("Count")){
+						String econActivity = t.getTitle().substring("Economically Active; ".length() - 1);
+						int count = (int) ds.getItems(t).iterator().next().getValue();
+						if (count > count_lEA){
+							count_lEA = count;
+							largestEconomicActivity = econActivity;
+						}
+					} else if(t.getTitle().startsWith("Economically Inactive; ") && t.getCoinageUnit().equals("Count")){
+						String econInactivity = t.getTitle().substring("Economically Inactive; ".length() - 1);
+						int count = (int) ds.getItems(t).iterator().next().getValue();
+						if (count > count_lEI){
+							count_lEI = count;
+							largestEconomicInactivity = econInactivity;
+						}
+					}
+				}
+			}
+		}
+		
+		if(count_lEI > count_lEA){
+			
+		} else {
+			if(largestEconomicActivity.startsWith("Employee; ")){
+				String employeeType = largestEconomicActivity.substring("Employee; ".length() - 1);
+			}
+		}
+		
+		return null;
+	}
+
 	private static CardModel makeCard(String card_title, String card_description) {
 		return new CardModel(card_title, card_description,
 				HoloCSSColourValues.GREEN.getCssValue(),

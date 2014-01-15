@@ -69,10 +69,8 @@ public class DemographicsCardProvider {
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
 				censusSubject, DATASET_KEYWORDS);
 
-		List<Area> areaList = new ArrayList<Area>();
-		areaList.add(area);
 
-		Set<Dataset> theDatasets = new GetTables().forAreas(areaList)
+		Set<Dataset> theDatasets = new GetTables().forArea(area)
 				.inFamilies(requiredFamilies).execute();
 
 		TrendDescription popSizeTrendDesc = calculatePopulationTrend(theDatasets);

@@ -13,12 +13,12 @@ import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
+import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
@@ -83,7 +83,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			public boolean onItemAdded(Object item) {
 				try {
 					Toast.makeText(getActivity(), "Cards: adding object " + item.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
-					mCardUI.addCard((Card) CardFactory
+					mCardUI.addCardToLastStack((Card) CardFactory
 							.createCard((CardModel) item));
 					mCardUI.refresh();
 				} catch (Exception e) {
@@ -99,7 +99,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.i("SummaryFragment", "onActivityCreated() enter");
+		Log.d("SummaryFragment", "onActivityCreated() enter");
 
 		Intent intent = new Intent(getActivity(), AreaDataService.class);
 		getActivity().getApplicationContext().bindService(intent,
@@ -151,7 +151,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.i("SummaryFragment", "onCreateView() enter");
+		Log.d("SummaryFragment", "onCreateView() enter");
 
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
@@ -224,7 +224,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	@Override
 	public void onStop() {
 		super.onStop();
-		Log.i("SummaryFragment", "Stopping AreaDataService.");
+		Log.d("SummaryFragment", "Stopping AreaDataService.");
 		is_live = false;
 		if (isServiceBound)
 			getActivity().getApplicationContext().unbindService(
@@ -240,7 +240,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.i("SummaryFragment", "Saving instance state");
+		Log.d("SummaryFragment", "Saving instance state");
 
 		outState.putParcelable(AreaActivity.CURRENT_COORDS, mLocation);
 		outState.putSerializable("card-models", cardModels);
@@ -422,14 +422,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 										R.string.summaryactivity_cardmaker_servicedisconnect_message,
 										name))
 				.setNeutralButton(android.R.string.ok,
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-							}
-						}).show();
+						CommonDialogHandlers.JUST_DISMISS).show();
 	}
 
 	private OnClickListener sExplainMissingData = new OnClickListener() {
@@ -437,19 +430,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		public void onClick(View v) {
 			new AlertDialog.Builder(getActivity())
 					.setTitle(R.string.card_error_values_not_available_title)
-					.setMessage(
-							getResources()
-									.getString(
-											R.string.summaryactivity_cardmaker_values_not_available))
+					.setMessage(R.string.summaryactivity_cardmaker_values_not_available)
 					.setNeutralButton(android.R.string.ok,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									dialog.dismiss();
-								}
-							}).show();
+							CommonDialogHandlers.JUST_DISMISS).show();
 		}
 	};
 
