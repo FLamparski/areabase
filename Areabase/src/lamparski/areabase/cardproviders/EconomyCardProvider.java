@@ -5,7 +5,10 @@ import static nde2.helpers.CensusHelpers.findSubject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import lamparski.areabase.R;
 import lamparski.areabase.cards.PlayCard;
@@ -34,7 +37,7 @@ public class EconomyCardProvider {
 	public static final String[] ECONOMY_KEYWORDS = {
 			"Income" // Finds the model median income
 			};
-	
+		
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
 			XmlPullParserException, NDE2Exception, ClassNotFoundException {
@@ -54,7 +57,7 @@ public class EconomyCardProvider {
 		Set<Dataset> theDatasets = new GetTables().forArea(area).inFamilies(requiredFamilies).execute();
 		
 		String type_of_economic_activity = getTypeOfEconomicActivity(theDatasets);
-		String biggest_sector = "Widgets";
+		String biggest_sector = getBiggestEconomySector(theDatasets);
 		String avg_income_v_national = res.getStringArray(R.array.card_economy_compare_income_with_national)[2];
 		String avg_income_trend = res.getStringArray(R.array.card_economy_income_trend)[2];
 		
@@ -67,8 +70,31 @@ public class EconomyCardProvider {
 		return makeCard(card_title, card_body);
 	}
 	
+	private static String getBiggestEconomySector(Set<Dataset> theDatasets) {
+		String largestEconomySector = null;
+		int count_lES = 0;
+		
+		for(Dataset ds : theDatasets){
+			if(ds.getTitle().endsWith("((QS605EW)")){
+				for(Topic t : ds.getTopics().values()){
+					if(!(t.getTitle().startsWith("All Usual Residents"))){
+						// ^[A-Z](,[A-Z])?(\\d+\\W+)*\\W?
+						int count = (int) ds.getItems(t).iterator().next().getValue();
+						if(count > count_lES){
+							largestEconomySector = t.getTitle().replaceAll("^[A-Z](,[A-Z])?(\\d+\\W+)*\\W?", "");
+							count_lES = count;
+						}
+					}
+				}
+			}
+		}
+		return largestEconomySector.toLowerCase(Locale.UK);
+	}
+
 	private static String getTypeOfEconomicActivity(
 			Set<Dataset> theDatasets) {
+		// The answer variable
+		String answer = null;
 		// Largest type of economic activity
 		String largestEconomicActivity = null;
 		int count_lEA = 0;
@@ -81,14 +107,20 @@ public class EconomyCardProvider {
 				for(Topic t : ds.getTopics().values()){
 					// Compare raw count of persons
 					if(t.getTitle().startsWith("Economically Active; ") && t.getCoinageUnit().equals("Count")){
-						String econActivity = t.getTitle().substring("Economically Active; ".length() - 1);
+						/*
+						 * Why substring and not replace:
+						 * Substrings share the same base character array as their parent string,
+						 * whereas upon replacing, a new array is created and data copied. I think.
+						 * Thus, using substring may be faster.
+						 */
+						String econActivity = t.getTitle().substring("Economically Active; ".length());
 						int count = (int) ds.getItems(t).iterator().next().getValue();
 						if (count > count_lEA){
 							count_lEA = count;
 							largestEconomicActivity = econActivity;
 						}
 					} else if(t.getTitle().startsWith("Economically Inactive; ") && t.getCoinageUnit().equals("Count")){
-						String econInactivity = t.getTitle().substring("Economically Inactive; ".length() - 1);
+						String econInactivity = t.getTitle().substring("Economically Inactive; ".length());
 						int count = (int) ds.getItems(t).iterator().next().getValue();
 						if (count > count_lEI){
 							count_lEI = count;
@@ -100,14 +132,35 @@ public class EconomyCardProvider {
 		}
 		
 		if(count_lEI > count_lEA){
-			
+			if(largestEconomicInactivity.equals("Retired"))
+				answer = "retired";
+			else if(largestEconomicInactivity.equals("Student (Including Full-Time Students)"))
+				answer = "economically inactive full-time students";
+			else if(largestEconomicInactivity.equals("Looking After Home or Family"))
+				answer = "homemakers";
+			else if(largestEconomicInactivity.equals("Long-Term Sick or Disabled"))
+				answer = "disabled";
+			else
+				answer = "economically inactive*";
 		} else {
 			if(largestEconomicActivity.startsWith("Employee; ")){
-				String employeeType = largestEconomicActivity.substring("Employee; ".length() - 1);
-			}
+				String employeeType = largestEconomicActivity.substring("Employee; ".length());
+				if(employeeType.equals("Part-Time"))
+					answer = "part-time employees";
+				else if (employeeType.equals("Full-Time"))
+					answer = "full-time employees";
+			} 
+			else if (largestEconomicActivity.equals("Self-Employed"))
+				answer = "self-employed";
+			else if (largestEconomicActivity.equals("Unemployed"))
+				answer = "unemployed";
+			else if (largestEconomicActivity.equals("Full-Time Student"))
+				answer = "full-time students";
+			else
+				answer = "economically active*";
 		}
 		
-		return null;
+		return answer;
 	}
 
 	private static CardModel makeCard(String card_title, String card_description) {
