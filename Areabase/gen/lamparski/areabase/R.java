@@ -257,6 +257,7 @@ public final class R {
     public static final class id {
         public static final int RelativeLayout1=0x7f0c0016;
         public static final int ScrollView1=0x7f0c0013;
+        public static final int action_dump_db=0x7f0c0036;
         public static final int action_help=0x7f0c0035;
         public static final int action_locate=0x7f0c0032;
         public static final int action_refresh=0x7f0c0034;

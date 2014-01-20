@@ -1,5 +1,10 @@
 package lamparski.areabase;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.SummaryFragment;
@@ -13,6 +18,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -90,6 +96,7 @@ public class AreaActivity extends Activity {
 
 		Log.d("AreaActivity", "onCreate() called");
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		requestWindowFeature(Window.FEATURE_PROGRESS);
 
 		setContentView(R.layout.area_activity);
 
@@ -295,6 +302,9 @@ public class AreaActivity extends Activity {
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
+		case R.id.action_dump_db:
+			dump_db();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -465,5 +475,73 @@ public class AreaActivity extends Activity {
 
 	public static Context getAreabaseApplicationContext() {
 		return appCtx;
+	}
+	
+	/**
+	 * A helper method that dumps the database contents into a file on the sd card
+	 */
+	private void dump_db(){
+		new AsyncTask<Void, Integer, Void>() {
+
+			@Override
+			protected Void doInBackground(Void... params) {
+				File f = getDatabasePath("CacheDb");
+				FileInputStream fis = null;
+				FileOutputStream fos = null;
+				long size = f.length();
+				long b = 0;
+				try{
+					fis=new FileInputStream(f);
+					fos=new FileOutputStream("/mnt/sdcard/AreabaseCacheDb.db");
+					while(true)
+					{
+					    int i=fis.read();
+					    if(i != -1){
+					    	fos.write(i);
+					    	publishProgress((int) ((++b / size) * 10000l));
+					    }
+					    else
+					    	break;
+					}
+					fos.flush();
+				} catch (Exception e){
+					e.printStackTrace();
+				} finally {
+					try
+					{
+					    fos.close();
+					    fis.close();
+					}
+					catch(Exception ioe)
+					{}
+				}
+				return null;
+			}
+			
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				setProgressBarVisibility(true);
+			}
+			
+			@Override
+			protected void onProgressUpdate(Integer... values) {
+				super.onProgressUpdate(values);
+				setProgress(values[0]);
+			}
+			
+			@Override
+			protected void onPostExecute(Void result) {
+				super.onPostExecute(result);
+				setProgressBarVisibility(false);
+			}
+			
+			@Override
+			protected void onCancelled() {
+				super.onCancelled();
+				setProgressBarVisibility(false);
+				Toast.makeText(appCtx, "DB dump error", 0).show();
+			}
+		}.execute();
 	}
 }

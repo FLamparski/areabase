@@ -26,6 +26,7 @@ import nde2.pull.types.Topic;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
@@ -58,7 +59,8 @@ public class EconomyCardProvider {
 		
 		String type_of_economic_activity = getTypeOfEconomicActivity(theDatasets);
 		String biggest_sector = getBiggestEconomySector(theDatasets);
-		String avg_income_v_national = res.getStringArray(R.array.card_economy_compare_income_with_national)[2];
+		int income_descriptor = compareIncomeWithNational(theDatasets);
+		String avg_income_v_national = res.getStringArray(R.array.card_economy_compare_income_with_national)[income_descriptor + 2];
 		String avg_income_trend = res.getStringArray(R.array.card_economy_income_trend)[2];
 		
 		String card_title = res.getString(R.string.card_economy_title, area.getName());
@@ -70,12 +72,23 @@ public class EconomyCardProvider {
 		return makeCard(card_title, card_body);
 	}
 	
+	private static int compareIncomeWithNational(Set<Dataset> theDatasets) {
+		TrendDescription td = new TrendDescription();
+		
+		for(Dataset ds : theDatasets){
+			// search for the average, then compare it to a constant value
+			// it's bad but will do for now.
+		}
+		
+		return td.which;
+	}
+
 	private static String getBiggestEconomySector(Set<Dataset> theDatasets) {
 		String largestEconomySector = null;
 		int count_lES = 0;
 		
 		for(Dataset ds : theDatasets){
-			if(ds.getTitle().endsWith("((QS605EW)")){
+			if(ds.getTitle().endsWith("(QS605EW)")){
 				for(Topic t : ds.getTopics().values()){
 					if(!(t.getTitle().startsWith("All Usual Residents"))){
 						// ^[A-Z](,[A-Z])?(\\d+\\W+)*\\W?
