@@ -50,10 +50,16 @@ public class DateFormat {
 	 */
 	public static String toNDEDate(Date date) {
 		CACHED_CALENDAR.setTime(date);
-		StringBuilder b = new StringBuilder();
-		b.append(CACHED_CALENDAR.get(GregorianCalendar.YEAR)).append("-");
-		b.append(CACHED_CALENDAR.get(GregorianCalendar.MONTH)).append("-");
-		b.append(CACHED_CALENDAR.get(GregorianCalendar.DAY_OF_MONTH));
-		return b.toString();
+		return String.format("%1$tF", CACHED_CALENDAR);
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * @return The year of given date
+	 */
+	public static int getYear(Date date) {
+		CACHED_CALENDAR.setTime(date);
+		return CACHED_CALENDAR.get(GregorianCalendar.YEAR);
 	}
 }

@@ -3,7 +3,6 @@ package lamparski.areabase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
@@ -20,6 +19,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -147,10 +147,14 @@ public class AreaActivity extends Activity {
 
 		if (savedInstanceState != null) {
 			Log.d("AreaActivity", "  > savedInstanceState != null");
-			Log.d("AreaActivity", "Restoring the reference to currently loaded fragment: " + savedInstanceState.getString(SIS_LOADED_FRAGMENT));
-			mContentFragment =
-					(IAreabaseFragment) getFragmentManager().findFragmentByTag(savedInstanceState.getString(SIS_LOADED_FRAGMENT));
-			mGeoPoint = (Location) savedInstanceState.getParcelable(SIS_LOADED_COORDS);
+			Log.d("AreaActivity",
+					"Restoring the reference to currently loaded fragment: "
+							+ savedInstanceState.getString(SIS_LOADED_FRAGMENT));
+			mContentFragment = (IAreabaseFragment) getFragmentManager()
+					.findFragmentByTag(
+							savedInstanceState.getString(SIS_LOADED_FRAGMENT));
+			mGeoPoint = (Location) savedInstanceState
+					.getParcelable(SIS_LOADED_COORDS);
 		} else {
 			mGeoPoint = new Location("mock");
 			mGeoPoint.setLongitude(-0.041229);
@@ -312,27 +316,36 @@ public class AreaActivity extends Activity {
 	private void searchAreasByText(String searchQuery) {
 		mContentFragment.searchByText(searchQuery);
 	}
-	
+
 	int doRefreshFragment_retries = 0;
 
 	private void doRefreshFragment() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				Log.d("AreaActivity", "Attempting to refresh the content fragment...");
+				Log.d("AreaActivity",
+						"Attempting to refresh the content fragment...");
 				try {
 					getContentFragment().updateGeo(mGeoPoint);
 					Log.d("AreaActivity", "Attempt successful!");
 					doRefreshFragment_retries = 0;
 				} catch (NullPointerException e) {
-					Log.w("AreaActivity", "Null pointer exception when trying to refresh the fragment, will try again in 500ms");
-					if(++doRefreshFragment_retries <= 10){
+					Log.w("AreaActivity",
+							"Null pointer exception when trying to refresh the fragment, will try again in 500ms");
+					if (++doRefreshFragment_retries <= 10) {
 						doRefreshFragment();
 					} else {
-						Log.w("AreaActivity", "Exceeded maximum number of tries, aborting refresh. Here's what's going on:");
-						Log.d("AreaActivity", String.format("\tgetContentFragment() => %s\n\tmGeoPoint => %s", 
-								(getContentFragment() == null ? "null" : getContentFragment().getClass().getSimpleName()),
-								(mGeoPoint == null ? "null" : mGeoPoint.toString())));
+						Log.w("AreaActivity",
+								"Exceeded maximum number of tries, aborting refresh. Here's what's going on:");
+						Log.d("AreaActivity",
+								String.format(
+										"\tgetContentFragment() => %s\n\tmGeoPoint => %s",
+										(getContentFragment() == null ? "null"
+												: getContentFragment()
+														.getClass()
+														.getSimpleName()),
+										(mGeoPoint == null ? "null" : mGeoPoint
+												.toString())));
 					}
 				}
 			}
@@ -455,18 +468,22 @@ public class AreaActivity extends Activity {
 			break;
 		}
 	}
-	
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
-		Log.d("AreaActivity", "Saving instance state: currently loaded fragment is " + getContentFragment().getClass().getName());
-		outState.putString(SIS_LOADED_FRAGMENT, getContentFragment().getClass().getName());
+		Log.d("AreaActivity",
+				"Saving instance state: currently loaded fragment is "
+						+ getContentFragment().getClass().getName());
+		outState.putString(SIS_LOADED_FRAGMENT, getContentFragment().getClass()
+				.getName());
 		outState.putParcelable(SIS_LOADED_COORDS, mGeoPoint);
 	}
 
 	private void performFragmentTransaction(Fragment frag) {
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(mFragmentHostId, frag, frag.getClass().getName())
+		fragmentManager.beginTransaction()
+				.replace(mFragmentHostId, frag, frag.getClass().getName())
 				.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
@@ -476,11 +493,12 @@ public class AreaActivity extends Activity {
 	public static Context getAreabaseApplicationContext() {
 		return appCtx;
 	}
-	
+
 	/**
-	 * A helper method that dumps the database contents into a file on the sd card
+	 * A helper method that dumps the database contents into a file on the sd
+	 * card
 	 */
-	private void dump_db(){
+	private void dump_db() {
 		new AsyncTask<Void, Integer, Void>() {
 
 			@Override
@@ -490,57 +508,58 @@ public class AreaActivity extends Activity {
 				FileOutputStream fos = null;
 				long size = f.length();
 				long b = 0;
-				try{
-					fis=new FileInputStream(f);
-					fos=new FileOutputStream("/mnt/sdcard/AreabaseCacheDb.db");
-					while(true)
-					{
-					    int i=fis.read();
-					    if(i != -1){
-					    	fos.write(i);
-					    	publishProgress((int) ((++b / size) * 10000l));
-					    }
-					    else
-					    	break;
+				try {
+					fis = new FileInputStream(f);
+					fos = new FileOutputStream(Environment
+							.getExternalStoragePublicDirectory(
+									Environment.DIRECTORY_DOWNLOADS)
+							.getAbsolutePath()
+							+ "/AreabaseCache.db");
+					while (true) {
+						int i = fis.read();
+						if (i != -1) {
+							fos.write(i);
+							publishProgress((int) ((++b / size) * 10000l));
+						} else
+							break;
 					}
 					fos.flush();
-				} catch (Exception e){
+				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
-					try
-					{
-					    fos.close();
-					    fis.close();
+					try {
+						fos.close();
+						fis.close();
+					} catch (Exception ioe) {
 					}
-					catch(Exception ioe)
-					{}
 				}
 				return null;
 			}
-			
+
 			@Override
 			protected void onPreExecute() {
 				super.onPreExecute();
 				setProgressBarVisibility(true);
 			}
-			
+
 			@Override
 			protected void onProgressUpdate(Integer... values) {
 				super.onProgressUpdate(values);
 				setProgress(values[0]);
 			}
-			
+
 			@Override
 			protected void onPostExecute(Void result) {
 				super.onPostExecute(result);
 				setProgressBarVisibility(false);
 			}
-			
+
 			@Override
 			protected void onCancelled() {
 				super.onCancelled();
 				setProgressBarVisibility(false);
-				Toast.makeText(appCtx, "DB dump error", 0).show();
+				Toast.makeText(appCtx, "DB dump error", Toast.LENGTH_SHORT)
+						.show();
 			}
 		}.execute();
 	}

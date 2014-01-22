@@ -30,6 +30,7 @@ import nde2.pull.types.Topic;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 
 import com.fima.cardsui.objects.CardModel;
@@ -69,7 +70,6 @@ public class DemographicsCardProvider {
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
 				censusSubject, DATASET_KEYWORDS);
 
-
 		Set<Dataset> theDatasets = new GetTables().forArea(area)
 				.inFamilies(requiredFamilies).execute();
 
@@ -77,14 +77,17 @@ public class DemographicsCardProvider {
 		int whichPopDensityDescriptor = popDensityDescriptor(getPopulationDensity(theDatasets));
 		int whichGenderRatioDescriptor = genderRatioDescriptor(calculateGenderRatio(theDatasets));
 		float avgAge = calculateAverageAge(theDatasets);
-		
-		String card_title = res.getString(R.string.card_demographics_title, area.getName());
 
-		String card_description = res.getString(
+		String card_title = res.getString(R.string.card_demographics_title,
+				area.getName());
+
+		String card_description = res
+				.getString(
 						R.string.card_demographics_title_base,
 						area.getName(),
 						res.getStringArray(R.array.card_demographics_pop_size_trend_descriptors)[popSizeTrendDesc.which + 2]);
-		card_description += " " + res.getString(
+		card_description += " "
+				+ res.getString(
 						R.string.card_demographics_body_base,
 						res.getStringArray(R.array.card_demographics_sex_dominance_descriptors)[whichGenderRatioDescriptor],
 						avgAge,
@@ -227,6 +230,7 @@ public class DemographicsCardProvider {
 		return personPerHectareToPersonPerSqKm(density);
 	}
 
+	@SuppressLint("UseSparseArrays")
 	private static TrendDescription calculatePopulationTrend(
 			Set<Dataset> theDatasets) throws ValueNotAvailable {
 		TrendDescription desc = new TrendDescription();

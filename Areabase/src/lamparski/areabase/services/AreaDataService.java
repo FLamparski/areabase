@@ -16,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.fima.cardsui.objects.CardModel;
 
@@ -54,7 +53,6 @@ public class AreaDataService extends Service {
 		return mBinder;
 	}
 
-
 	/**
 	 * This function will spin off a background thread that updates cards as new
 	 * data is coming in from ONS.
@@ -67,7 +65,8 @@ public class AreaDataService extends Service {
 	 */
 	public void generateCardsForLocation(Location location,
 			final BasicAreaInfoIface commlink) {
-		Log.d("AreaDataService", "generateCardsForLocation("+ location.toString() +")");
+		Log.d("AreaDataService",
+				"generateCardsForLocation(" + location.toString() + ")");
 		new AsyncTask<Location, CardModel, Void>() {
 			@Override
 			protected void onPreExecute() {
@@ -110,13 +109,14 @@ public class AreaDataService extends Service {
 							+ (tAreas_e - tAreas_s) + " ms to find NeSS Areas");
 					// 1: Demographics
 					Area theArea = null;
-					for(Area a : areaSet){
-						if(a.getLevelTypeId() == Area.LEVELTYPE_MSOA)
+					for (Area a : areaSet) {
+						if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA)
 							theArea = a;
 					}
 					try {
 						CardModel demoCm = DemographicsCardProvider
-								.demographicsCardForArea(theArea, getResources());
+								.demographicsCardForArea(theArea,
+										getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
@@ -125,15 +125,13 @@ public class AreaDataService extends Service {
 						commlink.onError(e);
 					}
 					// 2: Crime
-					
+
 					// 3: Economy
 					try {
-						CardModel demoCm = EconomyCardProvider.economyCardForArea(theArea, getResources());
+						CardModel demoCm = EconomyCardProvider
+								.economyCardForArea(theArea, getResources());
 						publishProgress(demoCm);
 					} catch (Exception e) {
-						if(e.getMessage().equals("Service not Available")){
-							Toast.makeText(getApplicationContext(), "Geocoder can't be accessed.", 0).show();
-						}
 						Log.e("AreaDataService",
 								"Error processing card for Economy: "
 										+ e.getClass().getSimpleName(), e);

@@ -55,7 +55,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 		@Override
 		public void onServiceDisconnected(ComponentName name) {
-			if(is_live){
+			if (is_live) {
 				Log.e("SummaryFragment",
 						"The AreaDataService disconnected unexpectedly.");
 				isServiceBound = false;
@@ -82,7 +82,11 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			@Override
 			public boolean onItemAdded(Object item) {
 				try {
-					Toast.makeText(getActivity(), "Cards: adding object " + item.getClass().getSimpleName(), Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							getActivity(),
+							"Cards: adding object "
+									+ item.getClass().getSimpleName(),
+							Toast.LENGTH_SHORT).show();
 					mCardUI.addCardToLastStack((Card) CardFactory
 							.createCard((CardModel) item));
 					mCardUI.refresh();
@@ -134,7 +138,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 								+ depickledCards.toString());
 
 				cardModels = (EventfulArrayList<CardModel>) depickledCards;
-				Toast.makeText(getActivity(), "Found saved instance state cards", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getActivity(),
+						"Found saved instance state cards", Toast.LENGTH_SHORT)
+						.show();
 
 				Log.d("SummaryFragment",
 						"    cast depickledCards -> cardModels; "
@@ -144,7 +150,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			} else {
 				Log.w("SummaryFragment",
 						"depickledCards turns out to be null, what.");
-				//refreshContent();
+				// refreshContent();
 			}
 		}
 	}
@@ -185,7 +191,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			}
 		}
 
-		mCardUI.setSwipeable(true);
+		mCardUI.setSwipeable(false);
 
 		if (getArguments() != null) {
 			mLocation = (Location) getArguments().getParcelable(
@@ -270,7 +276,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	@Override
 	public void refreshContent() {
-		Toast.makeText(getActivity(), "Refreshing view: clearing cards.", Toast.LENGTH_SHORT).show();
+		Toast.makeText(getActivity(), "Refreshing view: clearing cards.",
+				Toast.LENGTH_SHORT).show();
 		cardModels.clear();
 		mCardUI.clearCards();
 		mCardUI.invalidate();
@@ -304,7 +311,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 													+ err.getClass()
 															.getSimpleName());
 								}
-								if(err instanceof IOException){
+								if (err instanceof IOException) {
 									Toast.makeText(
 											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
@@ -430,7 +437,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		public void onClick(View v) {
 			new AlertDialog.Builder(getActivity())
 					.setTitle(R.string.card_error_values_not_available_title)
-					.setMessage(R.string.summaryactivity_cardmaker_values_not_available)
+					.setMessage(
+							R.string.summaryactivity_cardmaker_values_not_available)
 					.setNeutralButton(android.R.string.ok,
 							CommonDialogHandlers.JUST_DISMISS).show();
 		}

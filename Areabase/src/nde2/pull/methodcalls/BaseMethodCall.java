@@ -20,7 +20,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.util.Log;
 
 public abstract class BaseMethodCall {
 	protected String buildURLString(String endpoint, String method,
@@ -74,12 +73,13 @@ public abstract class BaseMethodCall {
 				Long.toString(System.currentTimeMillis() - 30 * 24 * 60 * 60
 						* 1000l) };
 		Cursor c = resolver.query(CacheContentProvider.CACHE_URI,
-				new String[] { "*" },
-				"url = ? AND retrievedOn > ?", selectionArgs,
-				"retrievedOn DESC");
-		/*Log.i("BaseMethodCall", String.format("SELECT %s FROM onsCache WHERE url = \"%s\" AND retrievedOn > %s",
-				"*",
-				selectionArgs[0], selectionArgs[1]));*/
+				new String[] { "*" }, "url = ? AND retrievedOn > ?",
+				selectionArgs, "retrievedOn DESC");
+		/*
+		 * Log.i("BaseMethodCall", String.format(
+		 * "SELECT %s FROM onsCache WHERE url = \"%s\" AND retrievedOn > %s",
+		 * "*", selectionArgs[0], selectionArgs[1]));
+		 */
 		if (c.moveToFirst()) {
 			System.out.printf(
 					"A cached instance of %s is available, returning.\n",
@@ -90,7 +90,7 @@ public abstract class BaseMethodCall {
 		} else {
 			System.out.printf("Calling: %s\n", callUrl);
 			String response = sendRequest(callUrl);
-			if(response.contains("<Error>")){
+			if (response.contains("<Error>")) {
 				c.close();
 				return makeParser(response);
 			} else {
