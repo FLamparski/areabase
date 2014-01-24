@@ -50,7 +50,7 @@ public class EconomyCardProvider {
 	private final static float INCOME_STABLE_UPPER_THRESHOLD = 0.01f;
 	private final static float INCOME_RAPID_UPPER_THRESHOLD = 0.2f;
 	private final static float INCOME_RAPID_LOWER_THRESHOLD = -0.2f;
-	private static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 250f;
+	private static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 500f;
 
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
@@ -155,10 +155,10 @@ public class EconomyCardProvider {
 				previous_year = current_year;
 				continue;
 			}
-			Float oldPop = yearToIncomeMap.get(previous_year);
-			Float newPop = yearToIncomeMap.get(current_year);
-			float percentageChange = ((float) newPop - (float) oldPop)
-					/ (float) oldPop;
+			Float oldVal = yearToIncomeMap.get(previous_year);
+			Float newVal = yearToIncomeMap.get(current_year);
+			float percentageChange = ((float) newVal - (float) oldVal)
+					/ (float) oldVal;
 
 			if (avgPercentageChange == 0f) {
 				avgPercentageChange = percentageChange;
