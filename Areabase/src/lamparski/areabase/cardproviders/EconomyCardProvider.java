@@ -52,6 +52,17 @@ public class EconomyCardProvider {
 	private final static float INCOME_RAPID_LOWER_THRESHOLD = -0.2f;
 	private static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 500f;
 
+	/**
+	 * Generates a summary of economic data for the supplied area.
+	 * @param area The area to query.
+	 * @param res Used to build the text on the card.
+	 * @return A card with the summary of the economic activity within the area.
+	 * @throws InvalidParameterException
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 * @throws NDE2Exception
+	 * @throws ClassNotFoundException
+	 */
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
 			XmlPullParserException, NDE2Exception, ClassNotFoundException {

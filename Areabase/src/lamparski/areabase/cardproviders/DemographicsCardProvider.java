@@ -54,6 +54,18 @@ public class DemographicsCardProvider {
 	private final static float GENDER_MORE_FEMALES_LOWER_THRESHOLD = 0.8f;
 	private final static float GENDER_MORE_MALES_UPPER_THRESHOLD = 1.2f;
 
+	/**
+	 * Generates a card containing a summary of the demographic information
+	 * about the supplied area.
+	 * @param area The area to query.
+	 * @param res Format strings to appear on the card.
+	 * @return A card containing demographics summary.
+	 * @throws InvalidParameterException
+	 * @throws IOException
+	 * @throws XmlPullParserException
+	 * @throws NDE2Exception
+	 * @throws ClassNotFoundException
+	 */
 	public static CardModel demographicsCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
 			XmlPullParserException, NDE2Exception, ClassNotFoundException {
