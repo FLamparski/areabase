@@ -17,6 +17,7 @@ import javax.xml.xpath.XPathExpressionException;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import nde2.errors.NDE2Exception;
+import nde2.helpers.ArrayHelpers;
 import nde2.pull.types.Area;
 
 import org.mysociety.mapit.Mapper;
@@ -45,10 +46,11 @@ public class CrimeCardProvider {
 	 */
 	public static CardModel crimeCardForArea(Area area, Resources res) throws XPathExpressionException, ParserConfigurationException, SAXException, IOException, NDE2Exception, Exception{
 		double[][] areaPolygon = Mapper.getGeometryForArea(area);
+		double[][] simplifiedPolygon = ArrayHelpers.every_nth_pair(areaPolygon, 10);
 		
 		try{
-			Collection<Crime> policeDataCrimes = new StreetLevelCrimeMethodCall().addAreaPolygon(areaPolygon).getStreetLevelCrime();
-			return crimeCardForArea_policeData(area, policeDataCrimes, res);
+			Collection<Crime> policeDataCrimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplifiedPolygon).getStreetLevelCrime();
+			return crimeCardForArea_policeData(area, policeDataCrimes, areaPolygon, res);
 		} catch (APIException apiex){
 			return new CardModel("Census data should take over here", "Incomplete implementation",
 					HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
@@ -56,19 +58,34 @@ public class CrimeCardProvider {
 	}
 
 	private static CardModel crimeCardForArea_policeData(Area area,
-			Collection<Crime> policeDataCrimes, Resources res) throws SocketTimeoutException, IOException, APIException, ParseException {
+			Collection<Crime> policeDataCrimes, double[][] areaPolygon, Resources res) throws SocketTimeoutException, IOException, APIException, ParseException {
 		Map<Long, Map<String, Integer>> dataCube = new HashMap<Long, Map<String, Integer>>();
 		CrimeAvailabilityMethodCall avail = new CrimeAvailabilityMethodCall();
-		Date now = avail.getLastUpdated();
+		Date latestAvailable = avail.getLastUpdated();
 		List<Date> availableDates = avail.getAvailableDates();
-		dataCube.put(now.getTime(), crimeSlice(policeDataCrimes));
+		dataCube.put(latestAvailable.getTime(), crimeSlice(policeDataCrimes));
 		
-		// the following might not work, depending on
-		// whether the ArrayList compares references or
-		// calls .equals() on objects.
-		availableDates.remove(now);
+		Date earliestDate = new Date();
+		for(Date n : availableDates){
+			if(!(n.equals(latestAvailable))){
+				Collection<Crime> crimesForDate = new StreetLevelCrimeMethodCall().addAreaPolygon(areaPolygon).addDate(n).getStreetLevelCrime();
+				dataCube.put(n.getTime(), crimeSlice(crimesForDate));
+				if(n.before(earliestDate)){
+					earliestDate = n;
+				}
+			}
+		}
 		
-		return null;
+		int countAtBeginningOfPeriod = totalCrimes(dataCube.get(earliestDate.getTime()));
+		int countAtEndOfPeriod = totalCrimes(dataCube.get(latestAvailable.getTime()));
+		
+		float gradient = (countAtEndOfPeriod - countAtBeginningOfPeriod) / (latestAvailable.getTime() - earliestDate.getTime());
+		
+		String.format("Crime gradient for %s is %f.", area.getName(), gradient);
+		return new CardModel("Census data should take over here", "Incomplete implementation",
+				HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
+		
+		//return null;
 	}
 
 	private static Map<String, Integer> crimeSlice(
@@ -87,5 +104,15 @@ public class CrimeCardProvider {
 		}
 		
 		return categoryTally;
+	}
+	
+	private static int totalCrimes(Map<String, Integer> slice){
+		int sum = 0;
+		
+		for(Integer c : slice.values()){
+			sum += c;
+		}
+		
+		return sum;
 	}
 }

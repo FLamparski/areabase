@@ -12,6 +12,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -500,13 +501,14 @@ public class AreaActivity extends Activity {
 	 */
 	private void dump_db() {
 		new AsyncTask<Void, Integer, Void>() {
+			
+			private ProgressDialog pdialog;
+			private File f;
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				File f = getDatabasePath("CacheDb");
 				FileInputStream fis = null;
 				FileOutputStream fos = null;
-				long size = f.length();
 				long b = 0;
 				try {
 					fis = new FileInputStream(f);
@@ -519,7 +521,7 @@ public class AreaActivity extends Activity {
 						int i = fis.read();
 						if (i != -1) {
 							fos.write(i);
-							publishProgress((int) ((++b / size) * 10000l));
+							publishProgress((int) ++b);
 						} else
 							break;
 					}
@@ -539,27 +541,34 @@ public class AreaActivity extends Activity {
 			@Override
 			protected void onPreExecute() {
 				super.onPreExecute();
-				setProgressBarVisibility(true);
+				pdialog = new ProgressDialog(AreaActivity.this);
+				f = getDatabasePath("CacheDb");
+				long size = f.length();
+				pdialog.setMax((int) size);
+				pdialog.setProgress(0);
+				pdialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+				pdialog.setTitle("Dumping database to sdcard");
+				pdialog.show();
 			}
 
 			@Override
 			protected void onProgressUpdate(Integer... values) {
 				super.onProgressUpdate(values);
-				setProgress(values[0]);
+				pdialog.setProgress(values[0]);
 			}
 
 			@Override
 			protected void onPostExecute(Void result) {
 				super.onPostExecute(result);
-				setProgressBarVisibility(false);
+				pdialog.dismiss();
 			}
 
 			@Override
 			protected void onCancelled() {
 				super.onCancelled();
-				setProgressBarVisibility(false);
 				Toast.makeText(appCtx, "DB dump error", Toast.LENGTH_SHORT)
 						.show();
+				pdialog.dismiss();
 			}
 		}.execute();
 	}

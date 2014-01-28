@@ -2,6 +2,7 @@ package lamparski.areabase.services;
 
 import java.util.Set;
 
+import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
 import nde2.errors.ValueNotAvailable;
@@ -125,12 +126,20 @@ public class AreaDataService extends Service {
 						commlink.onError(e);
 					}
 					// 2: Crime
-
+					try {
+						CardModel crimeCm = CrimeCardProvider.crimeCardForArea(theArea, getResources());
+						publishProgress(crimeCm);
+					} catch (Exception e) {
+						Log.e("AreaDataService",
+								"Error processing card for Crime: "
+										+ e.getClass().getSimpleName(), e);
+						commlink.onError(e);
+					}
 					// 3: Economy
 					try {
-						CardModel demoCm = EconomyCardProvider
+						CardModel econCm = EconomyCardProvider
 								.economyCardForArea(theArea, getResources());
-						publishProgress(demoCm);
+						publishProgress(econCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
 								"Error processing card for Economy: "
