@@ -105,6 +105,17 @@
         <item>rising</item>
         <item>sharply rising</item>
     </string-array>
+    
+    <!-- cards -> crime (real, ie via police data) -->
+    <string name="card_crime_real_title">Crime in %1$s</string>
+    <string name="card_crime_real_body_base">The most commonly reported type of crime here is %1$s. Crime overall is %2$s.</string>
+    <string-array name="card_crime_real_trend">
+        <item>sharply falling</item>
+        <item>falling</item>
+        <item>stable</item>
+        <item>rising</item>
+        <item>sharply rising</item>
+    </string-array>
 
     <string name="card_error_values_not_available_title">Some data for this area is not available.</string>
     <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>

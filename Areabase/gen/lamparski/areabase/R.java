@@ -9,6 +9,7 @@ package lamparski.areabase;
 
 public final class R {
     public static final class array {
+        public static final int card_crime_real_trend=0x7f0a0005;
         public static final int card_demographics_pop_density_descriptors=0x7f0a0002;
         public static final int card_demographics_pop_size_trend_descriptors=0x7f0a0000;
         public static final int card_demographics_sex_dominance_descriptors=0x7f0a0001;
@@ -337,7 +338,7 @@ public final class R {
         public static final int areabase_opts_menu=0x7f0b0000;
     }
     public static final class string {
-        public static final int a11y_cd_areabase_icon=0x7f090033;
+        public static final int a11y_cd_areabase_icon=0x7f090035;
         public static final int action_help=0x7f090005;
         public static final int action_locate=0x7f090002;
         public static final int action_refresh=0x7f090004;
@@ -357,6 +358,10 @@ public final class R {
         public static final int caption_economy=0x7f090018;
         public static final int caption_environment=0x7f090019;
         public static final int caption_summary=0x7f090016;
+        public static final int card_crime_real_body_base=0x7f090032;
+        /**  cards -> crime (real, ie via police data) 
+         */
+        public static final int card_crime_real_title=0x7f090031;
         public static final int card_demographics_body_base=0x7f09002e;
         /**  cards 
  cards -> demographics 
@@ -367,8 +372,8 @@ public final class R {
         /**  cards -> economy 
          */
         public static final int card_economy_title=0x7f09002f;
-        public static final int card_error_values_not_available_body=0x7f090032;
-        public static final int card_error_values_not_available_title=0x7f090031;
+        public static final int card_error_values_not_available_body=0x7f090034;
+        public static final int card_error_values_not_available_title=0x7f090033;
         public static final int drawer_close=0x7f09000d;
         public static final int drawer_open=0x7f09000c;
         public static final int error_cannot_fetch_area_data=0x7f09000e;
