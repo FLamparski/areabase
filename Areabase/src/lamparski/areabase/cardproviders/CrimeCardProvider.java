@@ -1,9 +1,11 @@
 package lamparski.areabase.cardproviders;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.SocketTimeoutException;
 import java.text.ParseException;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import nde2.errors.NDE2Exception;
 import nde2.helpers.ArrayHelpers;
+import nde2.helpers.DateFormat;
 import nde2.pull.types.Area;
 
 import org.mysociety.mapit.Mapper;
@@ -50,7 +53,7 @@ public class CrimeCardProvider {
 		
 		try{
 			Collection<Crime> policeDataCrimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplifiedPolygon).getStreetLevelCrime();
-			return crimeCardForArea_policeData(area, policeDataCrimes, areaPolygon, res);
+			return crimeCardForArea_policeData(area, policeDataCrimes, simplifiedPolygon, res);
 		} catch (APIException apiex){
 			return new CardModel("Census data should take over here", "Incomplete implementation",
 					HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
@@ -64,6 +67,14 @@ public class CrimeCardProvider {
 		Date latestAvailable = avail.getLastUpdated();
 		List<Date> availableDates = avail.getAvailableDates();
 		dataCube.put(latestAvailable.getTime(), crimeSlice(policeDataCrimes));
+		
+		/*
+		 * This will ensure we only take last 12 months,
+		 * not the whole available range.
+		 */
+		Collections.sort(availableDates);
+		Collections.reverse(availableDates);
+		availableDates = availableDates.subList(0, 12);
 		
 		Date earliestDate = new Date();
 		for(Date n : availableDates){
@@ -79,13 +90,27 @@ public class CrimeCardProvider {
 		int countAtBeginningOfPeriod = totalCrimes(dataCube.get(earliestDate.getTime()));
 		int countAtEndOfPeriod = totalCrimes(dataCube.get(latestAvailable.getTime()));
 		
-		float gradient = (countAtEndOfPeriod - countAtBeginningOfPeriod) / (latestAvailable.getTime() - earliestDate.getTime());
+		double gradient = (double)(countAtEndOfPeriod - countAtBeginningOfPeriod) / 12.0; // dx is known
 		
-		String.format("Crime gradient for %s is %f.", area.getName(), gradient);
-		return new CardModel("Census data should take over here", "Incomplete implementation",
+		String crimegrad_s = String.format("Crime gradient is %f. The most common type of crime last available month is %s.", gradient, getMostCommonCrime(dataCube.get(latestAvailable.getTime())));
+		return new CardModel("Test card for Crime in " + area.getName(), "Incomplete implementation. " + crimegrad_s,
 				HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
 		
 		//return null;
+	}
+
+	private static String getMostCommonCrime(Map<String, Integer> slice) {
+		int c = 0;
+		String rawname = null;
+		for(String category : slice.keySet()){
+			if(c < slice.get(category)){
+				rawname = category;
+			}
+		}
+		if(rawname.equals("anti-social-behaviour"))
+			return "anti-social behaviour";
+		else
+			return rawname.replace("-", " ");
 	}
 
 	private static Map<String, Integer> crimeSlice(

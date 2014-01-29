@@ -3,6 +3,7 @@ package lamparski.areabase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
@@ -507,33 +508,24 @@ public class AreaActivity extends Activity {
 
 			@Override
 			protected Void doInBackground(Void... params) {
-				FileInputStream fis = null;
-				FileOutputStream fos = null;
-				long b = 0;
-				try {
-					fis = new FileInputStream(f);
-					fos = new FileOutputStream(Environment
+				FileChannel finch = null;
+				FileChannel fonch = null;
+				
+				try{
+					finch = new FileInputStream(f).getChannel();
+					fonch = new FileOutputStream(Environment
 							.getExternalStoragePublicDirectory(
 									Environment.DIRECTORY_DOWNLOADS)
 							.getAbsolutePath()
-							+ "/AreabaseCache.db");
-					while (true) {
-						int i = fis.read();
-						if (i != -1) {
-							fos.write(i);
-							publishProgress((int) ++b);
-						} else
-							break;
-					}
-					fos.flush();
-				} catch (Exception e) {
-					e.printStackTrace();
+							+ "/AreabaseCache.db").getChannel();
+					fonch.transferFrom(finch, 0, finch.size());
+				} catch(Exception e) {
+					cancel(true);
 				} finally {
-					try {
-						fos.close();
-						fis.close();
-					} catch (Exception ioe) {
-					}
+					try{
+						finch.close();
+						fonch.close();
+					} catch (Exception e) {}
 				}
 				return null;
 			}
@@ -543,9 +535,7 @@ public class AreaActivity extends Activity {
 				super.onPreExecute();
 				pdialog = new ProgressDialog(AreaActivity.this);
 				f = getDatabasePath("CacheDb");
-				long size = f.length();
-				pdialog.setMax((int) size);
-				pdialog.setProgress(0);
+				pdialog.setIndeterminate(true);
 				pdialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 				pdialog.setTitle("Dumping database to sdcard");
 				pdialog.show();
@@ -554,7 +544,7 @@ public class AreaActivity extends Activity {
 			@Override
 			protected void onProgressUpdate(Integer... values) {
 				super.onProgressUpdate(values);
-				pdialog.setProgress(values[0]);
+				//pdialog.setProgress(values[0]);
 			}
 
 			@Override
