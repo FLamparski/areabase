@@ -8,9 +8,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
@@ -20,10 +22,19 @@ import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import nde2.errors.NDE2Exception;
 import nde2.helpers.ArrayHelpers;
+import nde2.pull.methodcalls.delivery.GetTables;
+import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
+import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
 import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
+import nde2.pull.types.Dataset;
+import nde2.pull.types.DateRange;
+import nde2.pull.types.Subject;
+import nde2.pull.types.Topic;
 
 import org.mysociety.mapit.Mapper;
 import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
 
 import police.errors.APIException;
 import police.methodcalls.CrimeAvailabilityMethodCall;
@@ -38,6 +49,9 @@ public class CrimeCardProvider {
 	private static final double TREND_STABLE_LOWER_THRESHOLD = -0.1;
 	private static final double TREND_RAPID_UPPER_THRESHOLD = 0.5;
 	private static final double TREND_RAPID_LOWER_THRESHOLD = -0.5;
+	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
+	
+	private static final int ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE = 904;
 	
 	/**
 	 * Generates a summary of crime data for the area
@@ -93,22 +107,76 @@ public class CrimeCardProvider {
 					earliestDate = n;
 				}
 			}
-			common_crime_array.add(getMostCommonCrime(slice));
+			common_crime_array.add(mostCommonCrime_police(slice));
 		}
 		
 		int countAtBeginningOfPeriod = totalCrimes(dataCube.get(earliestDate.getTime()));
 		int countAtEndOfPeriod = totalCrimes(dataCube.get(latestAvailable.getTime()));
 		
 		double gradient = (double)(countAtEndOfPeriod - countAtBeginningOfPeriod) / 12.0; // dx is known
-		String most_common_crime = mostCommon(common_crime_array);
-		
-		/*String crimegrad_s = String.format("Crime gradient is %f. The most common type of crime last available month is %s.", gradient, most_common_crime);
-		return new CardModel("Test card for Crime in " + area.getName(), "Incomplete implementation. " + crimegrad_s,
-				HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);*/
+		String most_common_crime = ArrayHelpers.mostCommon(common_crime_array);
 		
 		return makeCard(res, area, most_common_crime, gradient);
+	}
+	
+	private static CardModel crimeCardForArea_censusData(Area area, Resources res) throws IOException, XmlPullParserException, NDE2Exception{
+		Map<Subject, Integer> subjects = new GetCompatibleSubjects(area).execute();
+		Subject crimeSubject = null;
+		for(Subject s : subjects.keySet()){
+			if(s.getName().equals("Crime and Safety")){
+				crimeSubject = s;
+			}
+		}
 		
-		//return null;
+		List<DataSetFamily> families = new GetDatasetFamilies(crimeSubject).forArea(area).execute();
+		DataSetFamily crimeFamily = null;
+		for(DataSetFamily f : families){
+			if(f.getFamilyId() == ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE){
+				crimeFamily = f;
+			}
+		}
+		
+		Set<Dataset> theDatasets = new HashSet<Dataset>();
+		for(DateRange r : crimeFamily.getDateRanges()){
+			Set<Dataset> currentDataset = new GetTables()
+												.forArea(area)
+												.inFamily(crimeFamily)
+												.inDateRange(r)
+												.execute();
+			theDatasets.addAll(currentDataset);
+		}
+		
+		long earliestDate = 0, latestDate = 0;
+		int earliestTotal = 0, latestTotal = 0;
+		List<String> most_common_array = new ArrayList<String>();
+		
+		Map<Long, Map<String, Integer>> onsDatacube = new HashMap<Long, Map<String,Integer>>();
+		for(Dataset d : theDatasets){
+			long date = d.getPeriods().values().iterator().next().getEndDate().getTime();
+			if(date < earliestDate && earliestDate > 0)
+				earliestDate = date;
+			if(date > latestDate)
+				latestDate = date;
+			Map<String, Integer> crimeSlice = new HashMap<String, Integer>();
+			for(Topic t : d.getTopics().values()){
+				String key = t.getTitle();
+				int value = (int) d.getItems(t).iterator().next().getValue();
+				crimeSlice.put(key, value);
+			}
+			most_common_array.add(mostCommonCrime_ons(crimeSlice));
+			onsDatacube.put(date, crimeSlice);
+		}
+		
+		earliestTotal = totalCrimes(onsDatacube.get(earliestDate));
+		latestTotal = totalCrimes(onsDatacube.get(latestDate));
+		
+		String most_common_crime = ArrayHelpers.mostCommon(most_common_array);
+		
+		/* TODO: Test needed! */
+		double dYdX = (latestTotal - earliestTotal) /
+				(((double) latestDate) / UNIX_30_DAYS - ((double) earliestDate) / UNIX_30_DAYS);
+		
+		return makeCard(res, area, most_common_crime, dYdX);
 	}
 	
 	private static CardModel makeCard(Resources res, Area area, String most_common_crime, double gradient){
@@ -131,7 +199,7 @@ public class CrimeCardProvider {
 				HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
 	}
 
-	private static String getMostCommonCrime(Map<String, Integer> slice) {
+	private static String mostCommonCrime_police(Map<String, Integer> slice) {
 		int c = 0;
 		String rawname = null;
 		for(String category : slice.keySet()){
@@ -139,10 +207,27 @@ public class CrimeCardProvider {
 				rawname = category;
 			}
 		}
+		/*
+		 * To be more machine-readable, crime categories
+		 * do not contain spaces. Normally, a simple
+		 * replace would do, but in the case of anti-social behaviour,
+		 * the first dash needs to be preserved.
+		 */
 		if(rawname.equals("anti-social-behaviour"))
 			return "anti-social behaviour";
 		else
-			return rawname.replace("-", " ");
+			return rawname.replace('-', ' ');
+	}
+	
+	private static String mostCommonCrime_ons(Map<String, Integer> slice){
+		int c = 0;
+		String rawname = null;
+		for(String category : slice.keySet()){
+			if(c < slice.get(category)){
+				rawname = category;
+			}
+		}
+		return rawname.toLowerCase(Locale.UK);
 	}
 
 	private static Map<String, Integer> crimeSlice(
@@ -171,23 +256,5 @@ public class CrimeCardProvider {
 		}
 		
 		return sum;
-	}
-	
-	private static <T> T mostCommon(List<T> list){
-		Map<T, Integer> map = new HashMap<T, Integer>();
-		
-		for(T e : list){
-			Integer c = map.get(e);
-			map.put(e, c == null ? 1 : c + 1);
-		}
-		
-		Entry<T, Integer> max = null;
-		
-		for(Entry<T, Integer> e : map.entrySet()){
-			if (max == null || e.getValue() > max.getValue())
-				max = e;
-		}
-		
-		return max.getKey();
 	}
 }
