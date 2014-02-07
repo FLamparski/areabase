@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,6 +42,7 @@ import police.methodcalls.CrimeAvailabilityMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
@@ -73,8 +75,7 @@ public class CrimeCardProvider {
 			Collection<Crime> policeDataCrimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplifiedPolygon).getStreetLevelCrime();
 			return crimeCardForArea_policeData(area, policeDataCrimes, simplifiedPolygon, res);
 		} catch (APIException apiex){
-			return new CardModel("Census data should take over here", "Incomplete implementation",
-					HoloCSSColourValues.PINK.getCssValue(), HoloCSSColourValues.PINK.getCssValue(), false, false, PlayCard.class);
+			return crimeCardForArea_censusData(area, res);
 		}
 	}
 
@@ -110,15 +111,61 @@ public class CrimeCardProvider {
 			common_crime_array.add(mostCommonCrime_police(slice));
 		}
 		
-		int countAtBeginningOfPeriod = totalCrimes(dataCube.get(earliestDate.getTime()));
-		int countAtEndOfPeriod = totalCrimes(dataCube.get(latestAvailable.getTime()));
+		double gradient = calculateCrimeGradient(dataCube);
+		Log.v("linear-regression", "The OLS linear regression for this dataset is " + gradient);
 		
-		double gradient = (double)(countAtEndOfPeriod - countAtBeginningOfPeriod) / 12.0; // dx is known
 		String most_common_crime = ArrayHelpers.mostCommon(common_crime_array);
 		
 		return makeCard(res, area, most_common_crime, gradient);
 	}
 	
+	/**
+	 * This method uses Ordinary Least Squares linear regression
+	 * *** TESTS NEEDED ***
+	 * @param dataCube
+	 * @return b of the OLS for dataCube
+	 */
+	private static double calculateCrimeGradient(
+			Map<Long, Map<String, Integer>> dataCube) {
+		Map<Long, Integer> crimesForDate = new HashMap<Long, Integer>();
+		for(Entry<Long, Map<String, Integer>> sliceWithDate : dataCube.entrySet()){
+			crimesForDate.put(sliceWithDate.getKey(), totalCrimes(sliceWithDate.getValue()));
+		}
+		
+		/*
+		 * OLS linear regression:
+		 * (y - ybar) = (Sxy / Sxx) * (x - xbar)
+		 * we need to find Sxy / Sxx
+		 *        Sum(x*y)
+		 * Sxy = ---------- - (xbar*ybar)
+		 *           n
+		 *        
+		 *        Sum(x^2)
+		 * Sxx = ---------- - (xbar^2)
+		 *           n
+		 * 
+		 * where x is the date Long (key) and y is the Integer value.
+		 */
+		
+		double sxy = 0, sxx = 0;
+		double xbar = 0, ybar = 0;
+		long _sumXY = 0, _sumXX = 0;
+		
+		for(Entry<Long, Integer> datapoint : crimesForDate.entrySet()){
+			long k = datapoint.getKey();
+			int v = datapoint.getValue();
+			xbar = (xbar + k) / 2;
+			ybar = (ybar + v) / 2;
+			_sumXY += k*v;
+			_sumXX += k*k;
+		}
+		
+		sxy = (_sumXY / dataCube.size()) - (xbar * ybar);
+		sxx = (_sumXX / dataCube.size()) - (xbar * xbar);
+		
+		return sxy / sxx;
+	}
+
 	private static CardModel crimeCardForArea_censusData(Area area, Resources res) throws IOException, XmlPullParserException, NDE2Exception{
 		Map<Subject, Integer> subjects = new GetCompatibleSubjects(area).execute();
 		Subject crimeSubject = null;
@@ -173,8 +220,9 @@ public class CrimeCardProvider {
 		String most_common_crime = ArrayHelpers.mostCommon(most_common_array);
 		
 		/* TODO: Test needed! */
-		double dYdX = (latestTotal - earliestTotal) /
-				(((double) latestDate) / UNIX_30_DAYS - ((double) earliestDate) / UNIX_30_DAYS);
+		double dYdX = calculateCrimeGradient(onsDatacube);
+		
+		Log.v("linear-regression", "The OLS linear regression for this dataset is " + dYdX);
 		
 		return makeCard(res, area, most_common_crime, dYdX);
 	}
