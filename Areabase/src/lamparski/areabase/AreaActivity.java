@@ -17,18 +17,22 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
+import lamparski.areabase.fragments.ErrorDialogFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.SummaryFragment;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -71,10 +75,13 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	SharedPreferences.Editor mPrefEditor;
 	
 	private LocationClient mLocationClient;
+	private LocationRequest mLocationRequest;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
+	protected boolean request_location_updates = false;
+	protected boolean is_requesting_updates = false;
 
 	public static final int SUMMARY = R.id.navdrawer_link_areabaseSummary;
 	public static final int CRIME = R.id.navdrawer_link_areabaseCrime;
@@ -185,8 +192,6 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			mGeoPoint = new Location("mock");
 			mGeoPoint.setLongitude(-0.041229);
 			mGeoPoint.setLatitude(51.448800);
-			changeFragment(SUMMARY);
-			doRefreshFragment();
 		}
 	}
 
@@ -210,6 +215,76 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		mDrawerToggle.syncState();
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if(mPref.contains("pref_location_backgroundlocate"))
+			request_location_updates = mPref.getBoolean("pref_location_backgroundlocate", false);
+		
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		mLocationClient.disconnect();
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+		if(is_requesting_updates){
+			is_requesting_updates = false;
+			mLocationClient.removeLocationUpdates(this);
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+	}
+	
+	@Override
+	public void onConnectionFailed(ConnectionResult connResult) {
+		Log.w("Google Play services", "Service connection failed. Attempting to resolve...");
+		if(connResult.hasResolution()){
+			try {
+				connResult.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			} catch (IntentSender.SendIntentException e){
+				e.printStackTrace();
+			}
+		} else {
+			showErrorDialog(connResult.getErrorCode());
+		}
+	}
+
+	@Override
+	public void onConnected(Bundle stuff) {
+		Log.i("Google Play services", "Service connected.");	
+		mGeoPoint = mLocationClient.getLastLocation();
+		changeFragment(SUMMARY);
+		doRefreshFragment();
+		
+		if(request_location_updates){
+			is_requesting_updates = true;
+			
+			if(gServicesConnected()){
+				mLocationClient.requestLocationUpdates(mLocationRequest, this);
+			}
+		}
+	}
+
+	@Override
+	public void onDisconnected() {
+		Log.i("Google Play services", "Service disconnected.");
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		Log.v("LocationListener", "New location received: " + location.toString());
+		mGeoPoint = location;
 	}
 
 	@Override
@@ -241,6 +316,16 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	private void showErrorDialog(int errorCode){
+		Dialog dlg = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+		
+		if (dlg != null){
+			ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+			errorFragment.setDialog(dlg);
+			errorFragment.show(getFragmentManager(), errorFragment.getClass().getName());
 		}
 	}
 
@@ -615,24 +700,4 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 		csvwriter.close();
 	}
 
-	@Override
-	public void onConnectionFailed(ConnectionResult connResult) {
-		Log.e("Google Play services", "Service connection failed.");
-	}
-
-	@Override
-	public void onConnected(Bundle stuff) {
-		Log.i("Google Play services", "Service connected.");		
-	}
-
-	@Override
-	public void onDisconnected() {
-		Log.i("Google Play services", "Service disconnected.");
-	}
-
-	@Override
-	public void onLocationChanged(Location location) {
-		Log.v("LocationListener", "New location received: " + location.toString());
-		mGeoPoint = location;
-	}
 }
