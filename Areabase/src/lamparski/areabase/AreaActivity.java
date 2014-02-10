@@ -3,7 +3,13 @@ package lamparski.areabase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.commons.io.output.FileWriterWithEncoding;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
@@ -561,5 +567,21 @@ public class AreaActivity extends Activity {
 				pdialog.dismiss();
 			}
 		}.execute();
+	}
+	
+	/**
+	 * Writes a CSV file to the Downloads directory
+	 * @param fname file name, include the .csv!
+	 * @param map the map to dump into csv
+	 * @throws IOException
+	 */
+	public static <K, V> void writeCSV(String fname, Map<K, V> map) throws IOException{
+		File csvfile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fname);
+		FileWriterWithEncoding csvwriter = new FileWriterWithEncoding(csvfile, Charset.forName("UTF-8"));
+		for(Entry<K, V> en : map.entrySet()){
+			csvwriter.write(String.format("%s,%s\n", en.getKey(), en.getValue()));
+		}
+		csvwriter.flush();
+		csvwriter.close();
 	}
 }

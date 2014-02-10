@@ -18,6 +18,7 @@ import java.util.Set;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
+import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
@@ -87,7 +88,7 @@ public class CrimeCardProvider {
 		List<Date> availableDates = avail.getAvailableDates();
 		ArrayList<String> common_crime_array = new ArrayList<String>();
 		Map<String, Integer> firstSlice = crimeSlice(policeDataCrimes);
-		dataCube.put(latestAvailable.getTime(), firstSlice);
+		dataCube.put(latestAvailable.getTime() / UNIX_30_DAYS, firstSlice);
 		
 		/*
 		 * This will ensure we only take last 12 months,
@@ -103,7 +104,7 @@ public class CrimeCardProvider {
 			if(!(n.equals(latestAvailable))){
 				Collection<Crime> crimesForDate = new StreetLevelCrimeMethodCall().addAreaPolygon(areaPolygon).addDate(n).getStreetLevelCrime();
 				slice = crimeSlice(crimesForDate);
-				dataCube.put(n.getTime(), slice);
+				dataCube.put(n.getTime() / UNIX_30_DAYS, slice);
 				if(n.before(earliestDate)){
 					earliestDate = n;
 				}
@@ -147,23 +148,37 @@ public class CrimeCardProvider {
 		 * where x is the date Long (key) and y is the Integer value.
 		 */
 		
-		double sxy = 0, sxx = 0;
-		double xbar = 0, ybar = 0;
-		long _sumXY = 0, _sumXX = 0;
+		double Sxy = 0d;
+		double Sxx = 0d;
+		double sumXY = 0d;
+		double sumXX = 0d;
+		double sumX = 0d;
+		double sumY = 0d;
+		double x, y;
+		int n = crimesForDate.size();
 		
-		for(Entry<Long, Integer> datapoint : crimesForDate.entrySet()){
-			long k = datapoint.getKey();
-			int v = datapoint.getValue();
-			xbar = (xbar + k) / 2;
-			ybar = (ybar + v) / 2;
-			_sumXY += k*v;
-			_sumXX += k*k;
+		for(Entry<Long, Integer> point : crimesForDate.entrySet()){
+			x = (double) point.getKey();
+			y = (double) point.getValue();
+			sumX += x;
+			sumY += y;
+			sumXY += x*y;
+			sumXX += x*x;
 		}
 		
-		sxy = (_sumXY / dataCube.size()) - (xbar * ybar);
-		sxx = (_sumXX / dataCube.size()) - (xbar * xbar);
+		double xbar = sumX / n;
+		double ybar = sumY / n;
 		
-		return sxy / sxx;
+		Sxy = sumXY / n - xbar * ybar;
+		Sxx = sumXX / n - xbar * xbar;
+		
+		try {
+			AreaActivity.writeCSV("crimecorrelation.csv", crimesForDate);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return Sxy / Sxx;
 	}
 
 	private static CardModel crimeCardForArea_censusData(Area area, Resources res) throws IOException, XmlPullParserException, NDE2Exception{
@@ -232,11 +247,11 @@ public class CrimeCardProvider {
 		
 		if(gradient > TREND_RAPID_LOWER_THRESHOLD && gradient <= TREND_STABLE_LOWER_THRESHOLD)
 			trend_desc.which = TrendDescription.FALLING;
-		if(gradient > TREND_STABLE_LOWER_THRESHOLD && gradient <= TREND_STABLE_UPPER_THRESHOLD)
+		else if(gradient > TREND_STABLE_LOWER_THRESHOLD && gradient <= TREND_STABLE_UPPER_THRESHOLD)
 			trend_desc.which = TrendDescription.STABLE;
-		if(gradient > TREND_STABLE_UPPER_THRESHOLD && gradient <= TREND_RAPID_UPPER_THRESHOLD)
+		else if(gradient > TREND_STABLE_UPPER_THRESHOLD && gradient <= TREND_RAPID_UPPER_THRESHOLD)
 			trend_desc.which = TrendDescription.RISING;
-		if(gradient > TREND_RAPID_UPPER_THRESHOLD)
+		else if(gradient > TREND_RAPID_UPPER_THRESHOLD)
 			trend_desc.which = TrendDescription.RISING_RAPIDLY;
 		else
 			trend_desc.which = TrendDescription.FALLING_RAPIDLY;
