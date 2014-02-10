@@ -10,6 +10,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
+import org.apache.http.util.LangUtils;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
 
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
@@ -22,6 +29,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
 import android.net.Uri;
@@ -46,7 +54,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AreaActivity extends Activity {
+public class AreaActivity extends Activity implements LocationListener, GooglePlayServicesClient.ConnectionCallbacks,
+GooglePlayServicesClient.OnConnectionFailedListener{
 
 	// private AreaInfoPagerAdapter mAreaInfoPagerAdapter;
 	protected NavDrawerListAdapter mNavDrawerAdapter;
@@ -57,6 +66,11 @@ public class AreaActivity extends Activity {
 	private Location mGeoPoint = null;
 	private IAreabaseFragment mContentFragment = null;
 	private int mFragmentHostId;
+	
+	SharedPreferences mPref;
+	SharedPreferences.Editor mPrefEditor;
+	
+	private LocationClient mLocationClient;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
 	protected boolean is_tablet = false;
@@ -104,10 +118,14 @@ public class AreaActivity extends Activity {
 
 		Log.d("AreaActivity", "onCreate() called");
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		requestWindowFeature(Window.FEATURE_PROGRESS);
 
+		
 		setContentView(R.layout.area_activity);
 
+		mPref = getSharedPreferences("lamparski.areabase.SHARED_PREFERENCES", Context.MODE_PRIVATE);
+		mPrefEditor = mPref.edit();
+		mLocationClient = new LocationClient(this, this, this);
+		
 		ActionBar mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		mActionBar.setTitle("Areabase");
@@ -205,9 +223,24 @@ public class AreaActivity extends Activity {
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
 			Log.w("AreaActivity",
 					"Error resolution request. Intent: " + data.toString());
+			switch (resultCode){
+			case Activity.RESULT_OK:
+				//try again
+				break;
+			}
 			break;
 		default:
 			break;
+		}
+	}
+	
+	private boolean gServicesConnected(){
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+		if(resultCode == ConnectionResult.SUCCESS){
+			Log.d("AreaActivity", "We have Google Services!");
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -381,10 +414,7 @@ public class AreaActivity extends Activity {
 
 		// return mGeoPoint;
 
-		Location fakeLocation = new Location("MDMA");
-		fakeLocation.setLongitude(-0.0879756);
-		fakeLocation.setLatitude(51.5132473);
-		return fakeLocation;
+		return gServicesConnected() ? mLocationClient.getLastLocation() : null;
 	}
 
 	public boolean isTablet() {
@@ -583,5 +613,26 @@ public class AreaActivity extends Activity {
 		}
 		csvwriter.flush();
 		csvwriter.close();
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult connResult) {
+		Log.e("Google Play services", "Service connection failed.");
+	}
+
+	@Override
+	public void onConnected(Bundle stuff) {
+		Log.i("Google Play services", "Service connected.");		
+	}
+
+	@Override
+	public void onDisconnected() {
+		Log.i("Google Play services", "Service disconnected.");
+	}
+
+	@Override
+	public void onLocationChanged(Location location) {
+		Log.v("LocationListener", "New location received: " + location.toString());
+		mGeoPoint = location;
 	}
 }
