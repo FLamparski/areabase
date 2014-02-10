@@ -50,8 +50,8 @@ import com.fima.cardsui.objects.CardModel;
 public class CrimeCardProvider {
 	private static final double TREND_STABLE_UPPER_THRESHOLD = 0.1;
 	private static final double TREND_STABLE_LOWER_THRESHOLD = -0.1;
-	private static final double TREND_RAPID_UPPER_THRESHOLD = 0.5;
-	private static final double TREND_RAPID_LOWER_THRESHOLD = -0.5;
+	private static final double TREND_RAPID_UPPER_THRESHOLD = 0.75;
+	private static final double TREND_RAPID_LOWER_THRESHOLD = -0.75;
 	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 	
 	private static final int ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE = 904;
@@ -113,7 +113,7 @@ public class CrimeCardProvider {
 		}
 		
 		double gradient = calculateCrimeGradient(dataCube);
-		Log.v("linear-regression", "The OLS linear regression for this dataset is " + gradient);
+		Log.i("linear-regression", "The OLS linear regression for this dataset is " + gradient);
 		
 		String most_common_crime = ArrayHelpers.mostCommon(common_crime_array);
 		
@@ -209,7 +209,6 @@ public class CrimeCardProvider {
 		}
 		
 		long earliestDate = 0, latestDate = 0;
-		int earliestTotal = 0, latestTotal = 0;
 		List<String> most_common_array = new ArrayList<String>();
 		
 		Map<Long, Map<String, Integer>> onsDatacube = new HashMap<Long, Map<String,Integer>>();
@@ -229,15 +228,12 @@ public class CrimeCardProvider {
 			onsDatacube.put(date, crimeSlice);
 		}
 		
-		earliestTotal = totalCrimes(onsDatacube.get(earliestDate));
-		latestTotal = totalCrimes(onsDatacube.get(latestDate));
-		
 		String most_common_crime = ArrayHelpers.mostCommon(most_common_array);
 		
 		/* TODO: Test needed! */
 		double dYdX = calculateCrimeGradient(onsDatacube);
 		
-		Log.v("linear-regression", "The OLS linear regression for this dataset is " + dYdX);
+		Log.i("linear-regression", "The OLS linear regression for this dataset is " + dYdX);
 		
 		return makeCard(res, area, most_common_crime, dYdX);
 	}
