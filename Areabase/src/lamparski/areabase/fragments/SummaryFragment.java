@@ -334,7 +334,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 									if(err instanceof NDE2Exception){
 										String msg = String.format("NDE error: %s -- %s", ((NDE2Exception) err).getNessMessage(), ((NDE2Exception) err).getNessDetail());
 										Toast.makeText(getActivity(), msg, 0).show();
-										errorView = new CardUIErrorView(getActivity(), R.string.error_cannot_fetch_area_data, R.string.error_cannot_fetch_area_data_body, R.drawable.icon_chart);
+										errorView = new CardUIErrorView(getActivity(),
+												R.string.error_cannot_fetch_area_data,
+												R.string.error_cannot_fetch_area_data_body,
+												R.drawable.ic_map_error);
 										mCardUI.addView(errorView);
 									}
 								}

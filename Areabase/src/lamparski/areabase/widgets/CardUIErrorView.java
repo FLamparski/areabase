@@ -16,14 +16,22 @@ public class CardUIErrorView extends LinearLayout {
 	public CardUIErrorView(Context context) {
 		super(context);
 		addView(inflate(context, R.layout.cardsui_error_placeholder_view, null));
+		setupChildren();
 	}
 
 	public CardUIErrorView(Context context, int errorTitleId, int errorMsgId, int iconId) {
 		super(context);
 		addView(inflate(context, R.layout.cardsui_error_placeholder_view, null));
+		setupChildren();
 		setErrorTitleId(errorTitleId);
 		setErrorMsgId(errorMsgId);
 		setIconId(iconId);
+	}
+	
+	private void setupChildren(){
+		mErrorTitle = (TextView) findViewById(R.id.cardsui_error_placeholder_title);
+		mErrorMsg = (TextView) findViewById(R.id.cardsui_error_placeholder_msg);
+		mIcon = (ImageView) findViewById(R.id.cardsui_error_placeholder_icon);
 	}
 
 	public int getErrorTitleId() {
