@@ -43,7 +43,7 @@
             android:scaleType="centerCrop" />
 
         <LinearLayout
-            style="@style/ButtonBar"
+            style="@style/button_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@drawable/divider_vertical"
@@ -52,7 +52,7 @@
 
             <Button
                 android:id="@+id/card_picture_large_button_left"
-                style="@style/ButtonBarButton"
+                style="@style/button_bar_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -61,7 +61,7 @@
 
             <Button
                 android:id="@+id/card_picture_large_button_right"
-                style="@style/ButtonBarButton"
+                style="@style/button_bar_button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

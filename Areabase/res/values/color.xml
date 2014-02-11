@@ -5,4 +5,6 @@
 
     <drawable name="holoLightBlueDrawable">#FF33B5E5</drawable>
 
+    <color name="stroke">#FFCCCCCC</color>
+
 </resources>

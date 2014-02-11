@@ -1,6 +1,5 @@
 package lamparski.areabase.map_support;
 
-import lamparski.areabase.R;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -67,15 +66,13 @@ public class OrdnanceSurveyMapView extends WebView {
 						AlertDialog.Builder alert_bldr = new AlertDialog.Builder(
 								context);
 						alert_bldr
-								.setTitle(R.string.error_illegal_url_title)
-								.setMessage(
-										getResources()
-												.getString(
-														R.string.error_illegal_url_formatstring,
-														url))
+								.setTitle(0 /* R.string.error_illegal_url_title */)
+								.setMessage(getResources().getString(0,
+								// R.string.error_illegal_url_formatstring,
+										url))
 								.setIcon(android.R.drawable.ic_dialog_alert)
-								.setPositiveButton(
-										R.string.error_illegal_url_response_dontgo,
+								.setPositiveButton(0,
+								// R.string.error_illegal_url_response_dontgo,
 										new DialogInterface.OnClickListener() {
 
 											@Override
@@ -84,9 +81,8 @@ public class OrdnanceSurveyMapView extends WebView {
 													int which) {
 												dialog.dismiss();
 											}
-										})
-								.setNegativeButton(
-										R.string.error_illegal_url_response_open,
+										}).setNegativeButton(0,
+								// R.string.error_illegal_url_response_open,
 										new DialogInterface.OnClickListener() {
 
 											@Override
@@ -176,5 +172,14 @@ public class OrdnanceSurveyMapView extends WebView {
 
 	public void setZoom(int zoomLevel) {
 		loadUrl(String.format("javascript:wrapper__setZoom(%d)", zoomLevel));
+	}
+
+	public void highlightBoundary(double[][] poly) {
+		/*
+		 * Gson gson = new GsonBuilder().create(); String jsonPoly =
+		 * gson.toJson(poly);
+		 * loadUrl(String.format("javascript:wrapper__drawPoly(%s)", jsonPoly));
+		 */
+		return;
 	}
 }

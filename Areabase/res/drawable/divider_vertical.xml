@@ -4,6 +4,6 @@
 
     <stroke
         a:width="1dp"
-        a:color="@color/text_light" />
+        a:color="@android:color/darker_gray" />
 
 </shape>
