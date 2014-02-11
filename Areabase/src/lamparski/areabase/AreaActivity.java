@@ -243,6 +243,7 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
+		mLocationClient.connect();
 		
 	}
 	
