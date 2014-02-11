@@ -244,7 +244,6 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 	protected void onResume() {
 		super.onResume();
 		mLocationClient.connect();
-		
 	}
 	
 	@Override
@@ -272,6 +271,9 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			is_requesting_updates = true;
 			
 			if(gServicesConnected()){
+				mLocationRequest = LocationRequest.create();
+				mLocationRequest.setFastestInterval(5 * 1000l);
+				mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 				mLocationClient.requestLocationUpdates(mLocationRequest, this);
 			}
 		}
@@ -423,7 +425,10 @@ GooglePlayServicesClient.OnConnectionFailedListener{
 			}
 			break;
 		case R.id.action_locate:
-			// updateLocation();
+			if(gServicesConnected()){
+				mGeoPoint = mLocationClient.getLastLocation();
+				doRefreshFragment();
+			}
 			break;
 		case R.id.action_refresh:
 			Log.d("AreaActivity", "Action: refresh");

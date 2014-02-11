@@ -93,11 +93,16 @@ public class AreaDataService extends Service {
 				try {
 					long tGeocoder_s = System.currentTimeMillis();
 					Address address = gcoder.getFromLocation(loc.getLatitude(),
-							loc.getLongitude(), 1).get(0);
+							loc.getLongitude(), 10).get(0);
 					long tGeocoder_e = System.currentTimeMillis();
 					Log.i("AreaDataService", "[Geocoder] Took "
 							+ (tGeocoder_e - tGeocoder_s)
 							+ " ms to resolve address");
+					
+					for(int i = 0; i < 11; i++){
+						String msg = String.format("The #%d address is %s, %s %s", i + 1, address.getAddressLine(0), address.getPostalCode(), address.getAdminArea());
+						Log.v("AreaDataService", msg);
+					}
 
 					long tAreas_s = System.currentTimeMillis();
 					Set<Area> areaSet = new FindAreas()

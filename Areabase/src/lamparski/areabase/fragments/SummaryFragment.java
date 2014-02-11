@@ -13,6 +13,7 @@ import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
+import lamparski.areabase.widgets.CardUIErrorView;
 import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
 import android.app.AlertDialog;
@@ -48,6 +49,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	private EventfulArrayList<CardModel> cardModels;
 	private Location mLocation;
 	private boolean is_tablet, is_landscape, is_live;
+	
+	private View errorView = null;
 
 	private AreaDataService mService;
 	private boolean isServiceBound;
@@ -279,6 +282,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		Toast.makeText(getActivity(), "Refreshing view: clearing cards.",
 				Toast.LENGTH_SHORT).show();
 		cardModels.clear();
+		
+		if(errorView != null){
+			mCardUI.removeView(errorView);
+			errorView = null;
+		}
+		
 		mCardUI.clearCards();
 		mCardUI.invalidate();
 		mCardUI.refresh();
@@ -316,11 +325,18 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
 											Toast.LENGTH_SHORT).show();
+									
 								} else {
 									Toast.makeText(
 											getActivity(),
 											R.string.summaryactivity_cardmaker_onserror,
 											Toast.LENGTH_SHORT).show();
+									if(err instanceof NDE2Exception){
+										String msg = String.format("NDE error: %s -- %s", ((NDE2Exception) err).getNessMessage(), ((NDE2Exception) err).getNessDetail());
+										Toast.makeText(getActivity(), msg, 0).show();
+										errorView = new CardUIErrorView(getActivity(), R.string.error_cannot_fetch_area_data, R.string.error_cannot_fetch_area_data_body, R.drawable.icon_chart);
+										mCardUI.addView(errorView);
+									}
 								}
 							}
 						});
