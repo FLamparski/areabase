@@ -37,6 +37,10 @@ public class AreaDataService extends Service {
 		public void onError(Throwable err);
 
 		public void onValueNotAvailable();
+		
+		public void onAreaNameFound(String name);
+		
+		public void onAreaBoundaryFound(double[][] poly);
 	}
 
 	public class AreaDataBinder extends Binder {

@@ -49,6 +49,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	private EventfulArrayList<CardModel> cardModels;
 	private Location mLocation;
 	private boolean is_tablet, is_landscape, is_live;
+	private double[][] polygon = null;
 	
 	private View errorView = null;
 
@@ -400,6 +401,17 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 								mCardUI.addCard(crd);
 							}
 						});
+			}
+
+			@Override
+			public void onAreaNameFound(String name) {
+				((AreaActivity) getActivity()).setTitle(name);
+			}
+
+			@Override
+			public void onAreaBoundaryFound(double[][] poly) {
+				polygon = poly;
+				mOpenSpaceView.highlightBoundary(poly);
 			}
 		};
 
