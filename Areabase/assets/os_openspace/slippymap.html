@@ -23,7 +23,7 @@ OS OnDemand WMTS - <script type="text/javascript" src="http://ondemandapi.ordnan
 <script type="text/javascript">
 // Define the osMap variable
 
-var osMap
+var osMap;
 var highlightLayer = null;
 
 // This function creates the map and is called by the div in the HTML
@@ -106,11 +106,38 @@ function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
 function wrapper__setZoom(zoomLevel){
 	osMap.setCenter(osMap.getCenter(), zoomLevel);
 }
+
+function wrapper__drawPoly(polyJson){
+	if(highlightLayer != null){
+		osMap.removeLayer(highlightLayer);
+	}
+	
+	var srcCoords = JSON.parse(polyJson);
+	var sourceProjection = new OpenLayers.Projection("EPSG:4326");
+	var targetProjection = new OpenLayers.Projection("EPSG:27700");
+	var dstPoints = [];
+	var i = srcCoords.length;
+	while(i--){
+		var p = new OpenLayers.Geometry.Point(srcCoords[i][0], srcCoords[i][1]);
+		p.transform(sourceProjection, targetProjection);
+		dstPoints.push(p);
+	}
+	
+	var linearRing = new OpenLayers.Geometry.LinearRing(dstPoints);
+	var geometry = new OpenLayers.Geometry.Polygon([linearRing]);
+	
+	var styleMap = { strokeColor: "#0099CC", fillColor: "#33B5E5", strokeWidth: 3 };
+	
+	var feature = new OpenLayers.Feature.Vector(geometry, null, styleMap);
+	highlightLayer = new OpenLayers.Layer.Vector("highlightLayer", null);
+	highlightLayer.addFeatures([feature], null);
+	osMap.addLayer(highlightLayer);
+}
 </script>
 
 </head>  
   
-<body onload="init()">
+<body onLoad="init()">
   
 <div id="map"></div>
   

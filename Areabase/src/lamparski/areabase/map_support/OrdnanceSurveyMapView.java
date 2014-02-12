@@ -8,7 +8,11 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.webkit.WebView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 /**
  * A custom {@link WebView} that loads a local copy of the Ordnance Survey map,
@@ -175,11 +179,11 @@ public class OrdnanceSurveyMapView extends WebView {
 	}
 
 	public void highlightBoundary(double[][] poly) {
-		/*
-		 * Gson gson = new GsonBuilder().create(); String jsonPoly =
-		 * gson.toJson(poly);
-		 * loadUrl(String.format("javascript:wrapper__drawPoly(%s)", jsonPoly));
-		 */
+		Gson gson = new GsonBuilder().create(); String jsonPoly =
+		gson.toJson(poly);
+		Log.v("highlightBoundary", jsonPoly);
+		loadUrl(String.format("javascript:wrapper__drawPoly(\"%s\")", jsonPoly));
+		
 		return;
 	}
 }

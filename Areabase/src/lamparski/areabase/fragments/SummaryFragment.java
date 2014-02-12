@@ -326,7 +326,11 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
 											Toast.LENGTH_SHORT).show();
-									
+									errorView = new CardUIErrorView(getActivity(),
+											R.string.summaryactivity_cardmaker_ioerror,
+											R.string.summaryactivity_cardmaker_ioerror_body,
+											R.drawable.ic_network_error);
+									mCardUI.addView(errorView);
 								} else {
 									Toast.makeText(
 											getActivity(),
@@ -336,9 +340,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 										String msg = String.format("NDE error: %s -- %s", ((NDE2Exception) err).getNessMessage(), ((NDE2Exception) err).getNessDetail());
 										Toast.makeText(getActivity(), msg, 0).show();
 										errorView = new CardUIErrorView(getActivity(),
-												R.string.error_cannot_fetch_area_data,
-												R.string.error_cannot_fetch_area_data_body,
+												R.string.error_cannot_resolve_postcode,
+												R.string.error_cannot_resolve_postcode_body,
 												R.drawable.ic_map_error);
+										
 										mCardUI.addView(errorView);
 									}
 								}
@@ -409,9 +414,16 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			}
 
 			@Override
-			public void onAreaBoundaryFound(double[][] poly) {
-				polygon = poly;
-				mOpenSpaceView.highlightBoundary(poly);
+			public void onAreaBoundaryFound(final double[][] poly) {
+				getActivity().runOnUiThread(new Runnable() {
+					
+					@Override
+					public void run() {
+						polygon = poly;
+						mOpenSpaceView.highlightBoundary(poly);
+						
+					}
+				});
 			}
 		};
 

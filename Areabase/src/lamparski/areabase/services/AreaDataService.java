@@ -5,6 +5,7 @@ import java.util.Set;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
+import lamparski.areabase.cardproviders.EnvironmentCardProvider;
 import nde2.errors.ValueNotAvailable;
 import nde2.pull.methodcalls.discovery.FindAreas;
 import nde2.pull.types.Area;
@@ -137,6 +138,8 @@ public class AreaDataService extends Service {
 					// 2: Crime
 					try {
 						CardModel crimeCm = CrimeCardProvider.crimeCardForArea(theArea, getResources());
+						double[][] polygon = (double[][]) crimeCm.getData();
+						commlink.onAreaBoundaryFound(polygon);
 						publishProgress(crimeCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
@@ -157,6 +160,16 @@ public class AreaDataService extends Service {
 						return null;
 					}
 					// 4: Environment
+					try {
+						CardModel envCm = EnvironmentCardProvider.environmentCardForArea(theArea, getResources());
+						publishProgress(envCm);
+					} catch (Exception e){
+						Log.e("AreaDataService",
+								"Error processing card for Environment: "
+										+ e.getClass().getSimpleName(), e);
+						commlink.onError(e);
+						return null;
+					}
 				} catch (ValueNotAvailable e) {
 					commlink.onValueNotAvailable();
 					return null;

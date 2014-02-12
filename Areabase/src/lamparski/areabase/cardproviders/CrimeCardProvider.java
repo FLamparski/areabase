@@ -74,7 +74,9 @@ public class CrimeCardProvider {
 		
 		try{
 			Collection<Crime> policeDataCrimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplifiedPolygon).getStreetLevelCrime();
-			return crimeCardForArea_policeData(area, policeDataCrimes, simplifiedPolygon, res);
+			CardModel mdl = crimeCardForArea_policeData(area, policeDataCrimes, simplifiedPolygon, res);
+			mdl.setData(areaPolygon);
+			return mdl;
 		} catch (APIException apiex){
 			return crimeCardForArea_censusData(area, res);
 		}
