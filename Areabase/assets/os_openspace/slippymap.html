@@ -80,7 +80,7 @@ function wrapper__setCentre_keepZoom_eastingNorthing(easting, northing){
 	osMap.setCenter(newCentre, osMap.getZoom());
 }
 
-function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
+/*function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
 	if(highlightLayer != null){
 		osMap.removeLayer(highlightLayer);
 	}
@@ -101,7 +101,7 @@ function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
 	});
 	
 	osMap.addLayer(highlightLayer);
-}
+}*/
 
 function wrapper__setZoom(zoomLevel){
 	osMap.setCenter(osMap.getCenter(), zoomLevel);
@@ -126,7 +126,13 @@ function wrapper__drawPoly(polyJson){
 	var linearRing = new OpenLayers.Geometry.LinearRing(dstPoints);
 	var geometry = new OpenLayers.Geometry.Polygon([linearRing]);
 	
-	var styleMap = { strokeColor: "#0099CC", fillColor: "#33B5E5", strokeWidth: 3 };
+	var styleMap = {
+        strokeColor: "#0099CC",
+        strokeOpacity: 0.8,
+        fillColor: "#33B5E5",
+        fillOpacity: 0.4,
+        strokeWidth: 3
+    };
 	
 	var feature = new OpenLayers.Feature.Vector(geometry, null, styleMap);
 	highlightLayer = new OpenLayers.Layer.Vector("highlightLayer", null);

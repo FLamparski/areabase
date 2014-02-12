@@ -50,7 +50,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	private Location mLocation;
 	private boolean is_tablet, is_landscape, is_live;
 	private double[][] polygon = null;
-	
+
 	private View errorView = null;
 
 	private AreaDataService mService;
@@ -283,12 +283,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		Toast.makeText(getActivity(), "Refreshing view: clearing cards.",
 				Toast.LENGTH_SHORT).show();
 		cardModels.clear();
-		
-		if(errorView != null){
+
+		if (errorView != null) {
 			mCardUI.removeView(errorView);
 			errorView = null;
 		}
-		
+
 		mCardUI.clearCards();
 		mCardUI.invalidate();
 		mCardUI.refresh();
@@ -326,7 +326,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
 											Toast.LENGTH_SHORT).show();
-									errorView = new CardUIErrorView(getActivity(),
+									errorView = new CardUIErrorView(
+											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
 											R.string.summaryactivity_cardmaker_ioerror_body,
 											R.drawable.ic_network_error);
@@ -336,14 +337,21 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 											getActivity(),
 											R.string.summaryactivity_cardmaker_onserror,
 											Toast.LENGTH_SHORT).show();
-									if(err instanceof NDE2Exception){
-										String msg = String.format("NDE error: %s -- %s", ((NDE2Exception) err).getNessMessage(), ((NDE2Exception) err).getNessDetail());
-										Toast.makeText(getActivity(), msg, 0).show();
-										errorView = new CardUIErrorView(getActivity(),
+									if (err instanceof NDE2Exception) {
+										String msg = String.format(
+												"NDE error: %s -- %s",
+												((NDE2Exception) err)
+														.getNessMessage(),
+												((NDE2Exception) err)
+														.getNessDetail());
+										Toast.makeText(getActivity(), msg, 0)
+												.show();
+										errorView = new CardUIErrorView(
+												getActivity(),
 												R.string.error_cannot_resolve_postcode,
 												R.string.error_cannot_resolve_postcode_body,
 												R.drawable.ic_map_error);
-										
+
 										mCardUI.addView(errorView);
 									}
 								}
@@ -409,19 +417,23 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			}
 
 			@Override
-			public void onAreaNameFound(String name) {
-				((AreaActivity) getActivity()).setTitle(name);
+			public void onAreaNameFound(final String name) {
+				getActivity().runOnUiThread(new Runnable() {
+					public void run() {
+						((AreaActivity) getActivity()).setTitle(name);
+					}
+				});
 			}
 
 			@Override
 			public void onAreaBoundaryFound(final double[][] poly) {
 				getActivity().runOnUiThread(new Runnable() {
-					
+
 					@Override
 					public void run() {
 						polygon = poly;
 						mOpenSpaceView.highlightBoundary(poly);
-						
+
 					}
 				});
 			}

@@ -38,9 +38,9 @@ public class AreaDataService extends Service {
 		public void onError(Throwable err);
 
 		public void onValueNotAvailable();
-		
+
 		public void onAreaNameFound(String name);
-		
+
 		public void onAreaBoundaryFound(double[][] poly);
 	}
 
@@ -103,9 +103,13 @@ public class AreaDataService extends Service {
 					Log.i("AreaDataService", "[Geocoder] Took "
 							+ (tGeocoder_e - tGeocoder_s)
 							+ " ms to resolve address");
-					
-					for(int i = 0; i < 11; i++){
-						String msg = String.format("The #%d address is %s, %s %s", i + 1, address.getAddressLine(0), address.getPostalCode(), address.getAdminArea());
+
+					for (int i = 0; i < 11; i++) {
+						String msg = String
+								.format("The #%d address is %s, %s %s", i + 1,
+										address.getAddressLine(0),
+										address.getPostalCode(),
+										address.getAdminArea());
 						Log.v("AreaDataService", msg);
 					}
 
@@ -124,6 +128,9 @@ public class AreaDataService extends Service {
 						if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA)
 							theArea = a;
 					}
+
+					commlink.onAreaNameFound(theArea.getName());
+
 					try {
 						CardModel demoCm = DemographicsCardProvider
 								.demographicsCardForArea(theArea,
@@ -137,9 +144,11 @@ public class AreaDataService extends Service {
 					}
 					// 2: Crime
 					try {
-						CardModel crimeCm = CrimeCardProvider.crimeCardForArea(theArea, getResources());
+						CardModel crimeCm = CrimeCardProvider.crimeCardForArea(
+								theArea, getResources());
 						double[][] polygon = (double[][]) crimeCm.getData();
-						commlink.onAreaBoundaryFound(polygon);
+						if (polygon != null)
+							commlink.onAreaBoundaryFound(polygon);
 						publishProgress(crimeCm);
 					} catch (Exception e) {
 						Log.e("AreaDataService",
@@ -161,9 +170,10 @@ public class AreaDataService extends Service {
 					}
 					// 4: Environment
 					try {
-						CardModel envCm = EnvironmentCardProvider.environmentCardForArea(theArea, getResources());
+						CardModel envCm = EnvironmentCardProvider
+								.environmentCardForArea(theArea, getResources());
 						publishProgress(envCm);
-					} catch (Exception e){
+					} catch (Exception e) {
 						Log.e("AreaDataService",
 								"Error processing card for Environment: "
 										+ e.getClass().getSimpleName(), e);
