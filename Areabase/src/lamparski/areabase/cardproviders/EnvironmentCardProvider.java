@@ -4,12 +4,15 @@ import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import lamparski.areabase.R;
 import lamparski.areabase.cards.PlayCard;
-import lamparski.areabase.map_support.HoloCSSColourValues;
+import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
 import nde2.helpers.DateFormat;
 import nde2.pull.methodcalls.delivery.GetTables;
@@ -17,6 +20,7 @@ import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.DataSetItem;
 import nde2.pull.types.Dataset;
+import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 
@@ -34,6 +38,8 @@ public class EnvironmentCardProvider {
 	private static final int AREA_RURAL = 0;
 	private static final int AREA_URBAN = 1;
 	private static final int AREA_EXTRA_URBAN = 2;
+	
+	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 
 	public static CardModel environmentCardForArea(Area area, Resources res)
 			throws IOException, XmlPullParserException, NDE2Exception {
@@ -62,8 +68,7 @@ public class EnvironmentCardProvider {
 
 	private static CardModel makeCard(String title, String description) {
 		return new CardModel(title, description,
-				HoloCSSColourValues.PURPLE.getCssValue(),
-				HoloCSSColourValues.PURPLE.getCssValue(), false, false,
+				"#BADA55", "#BADA55", false, false,
 				PlayCard.class);
 	}
 
@@ -133,5 +138,31 @@ public class EnvironmentCardProvider {
 		}
 
 		return retval;
+	}
+	
+	private static TrendDescription getEnergyTrend(Area area, List<DataSetFamily> fams) throws InvalidParameterException, IOException, XmlPullParserException, NDE2Exception{
+		TrendDescription ans = new TrendDescription();
+		DataSetFamily fam = null;
+		for(DataSetFamily f : fams){
+			if (f.getName().contains("Domestic Energy Consumption"))
+				fam = f;
+		}
+		
+		Set<Dataset> theDatasets = new HashSet<Dataset>();
+		for(DateRange rng : fam.getDateRanges()){
+			theDatasets.addAll(new GetTables().forArea(area).inFamily(fam).inDateRange(rng).execute());
+		}
+		
+		Map<Integer, Integer> datapoints = new HashMap<Integer, Integer>();
+		for(Dataset ds : theDatasets){
+			for(Topic t : ds.getTopics().values()){
+				if(t.getTitle().contains("Total Consumption of Domestic Electricity and Gas")){
+					DataSetItem item = ds.getItems(t).iterator().next();
+					
+				}
+			}
+		}
+		
+		return ans;
 	}
 }
