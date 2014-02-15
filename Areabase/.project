@@ -5,6 +5,7 @@
 	<projects>
 		<project>ApacheCommonsIO</project>
 		<project>CardsUILib</project>
+		<project>google-play-services_lib</project>
 		<project>PoliceData</project>
 	</projects>
 	<buildSpec>

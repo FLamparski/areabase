@@ -443,7 +443,7 @@ containing a value of this type.
     }
     public static final class id {
         public static final int RelativeLayout1=0x7f08001e;
-        public static final int ScrollView1=0x7f080018;
+        public static final int ScrollView1=0x7f08001b;
         public static final int action_dump_db=0x7f08003d;
         public static final int action_help=0x7f08003c;
         public static final int action_locate=0x7f080039;
@@ -452,21 +452,21 @@ containing a value of this type.
         public static final int action_search_edittext_edittext=0x7f080005;
         public static final int action_settings=0x7f080038;
         public static final int cardContent=0x7f080029;
-        public static final int card_basic_text=0x7f08000b;
-        public static final int card_basic_title=0x7f08000a;
-        public static final int card_picture_image=0x7f08000d;
-        public static final int card_picture_large_button_left=0x7f08000f;
-        public static final int card_picture_large_button_right=0x7f080010;
-        public static final int card_picture_text=0x7f08000e;
-        public static final int card_picture_title=0x7f08000c;
-        public static final int card_play_overflow=0x7f080015;
-        public static final int card_play_stripe=0x7f080011;
-        public static final int card_play_text=0x7f080014;
-        public static final int card_play_title=0x7f080013;
-        public static final int cardsui_error_placeholder_icon=0x7f08001a;
-        public static final int cardsui_error_placeholder_msg=0x7f08001c;
-        public static final int cardsui_error_placeholder_title=0x7f08001b;
-        public static final int contentLayout=0x7f080012;
+        public static final int card_basic_text=0x7f08000e;
+        public static final int card_basic_title=0x7f08000d;
+        public static final int card_picture_image=0x7f080010;
+        public static final int card_picture_large_button_left=0x7f080012;
+        public static final int card_picture_large_button_right=0x7f080013;
+        public static final int card_picture_text=0x7f080011;
+        public static final int card_picture_title=0x7f08000f;
+        public static final int card_play_overflow=0x7f080018;
+        public static final int card_play_stripe=0x7f080014;
+        public static final int card_play_text=0x7f080017;
+        public static final int card_play_title=0x7f080016;
+        public static final int cardsui_error_placeholder_icon=0x7f08000a;
+        public static final int cardsui_error_placeholder_msg=0x7f08000c;
+        public static final int cardsui_error_placeholder_title=0x7f08000b;
+        public static final int contentLayout=0x7f080015;
         public static final int footer=0x7f08001d;
         public static final int fragment_summary_CardsUI_DEFAULT=0x7f080021;
         public static final int fragment_summary_CardsUI_DEFAULT_LAND=0x7f080023;
@@ -479,7 +479,7 @@ containing a value of this type.
         public static final int handset_area_activity_drawerLayout_DEFAULT=0x7f080006;
         public static final int handset_area_activity_frameLayout_DEFAULT=0x7f080007;
         public static final int hybrid=0x7f080004;
-        public static final int listView=0x7f080016;
+        public static final int listView=0x7f080019;
         public static final int navbar_list_header_txt_header=0x7f08002d;
         public static final int navbar_list_item_navicon=0x7f08002e;
         public static final int navbar_list_item_txt_item=0x7f08002f;
@@ -499,8 +499,8 @@ containing a value of this type.
         public static final int stackContainer=0x7f08002c;
         public static final int stackRoot=0x7f08002a;
         public static final int stackTitle=0x7f08002b;
-        public static final int sticky=0x7f080017;
-        public static final int tableLayout=0x7f080019;
+        public static final int sticky=0x7f08001a;
+        public static final int tableLayout=0x7f08001c;
         public static final int tablet_area_activity_drawerLayout=0x7f080008;
         public static final int tablet_area_activity_frameLayout=0x7f080009;
         public static final int terrain=0x7f080003;
@@ -511,13 +511,13 @@ containing a value of this type.
     public static final class layout {
         public static final int action_search_edittext=0x7f030000;
         public static final int area_activity=0x7f030001;
-        public static final int card_ex=0x7f030002;
-        public static final int card_picture=0x7f030003;
-        public static final int card_picture_large=0x7f030004;
-        public static final int card_play=0x7f030005;
-        public static final int cards_view=0x7f030006;
-        public static final int cards_view_multicolumn=0x7f030007;
-        public static final int cardsui_error_placeholder_view=0x7f030008;
+        public static final int card_error=0x7f030002;
+        public static final int card_ex=0x7f030003;
+        public static final int card_picture=0x7f030004;
+        public static final int card_picture_large=0x7f030005;
+        public static final int card_play=0x7f030006;
+        public static final int cards_view=0x7f030007;
+        public static final int cards_view_multicolumn=0x7f030008;
         public static final int footer_fragment=0x7f030009;
         public static final int fragment_collection_object=0x7f03000a;
         public static final int fragment_summary=0x7f03000b;

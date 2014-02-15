@@ -5,6 +5,7 @@ import java.io.IOException;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.BasicCard;
+import lamparski.areabase.cards.ErrorCard;
 import lamparski.areabase.cards.EventfulArrayList;
 import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
 import lamparski.areabase.cards.PlayCard;
@@ -13,7 +14,6 @@ import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
-import lamparski.areabase.widgets.CardUIErrorView;
 import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
 import android.app.AlertDialog;
@@ -50,8 +50,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	private Location mLocation;
 	private boolean is_tablet, is_landscape, is_live;
 	private double[][] polygon = null;
-
-	private View errorView = null;
 
 	private AreaDataService mService;
 	private boolean isServiceBound;
@@ -284,11 +282,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 				Toast.LENGTH_SHORT).show();
 		cardModels.clear();
 
-		if (errorView != null) {
-			mCardUI.removeView(errorView);
-			errorView = null;
-		}
-
 		mCardUI.clearCards();
 		mCardUI.invalidate();
 		mCardUI.refresh();
@@ -326,12 +319,13 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 											getActivity(),
 											R.string.summaryactivity_cardmaker_ioerror,
 											Toast.LENGTH_SHORT).show();
-									errorView = new CardUIErrorView(
-											getActivity(),
-											R.string.summaryactivity_cardmaker_ioerror,
-											R.string.summaryactivity_cardmaker_ioerror_body,
-											R.drawable.ic_network_error);
-									mCardUI.addView(errorView);
+									CardModel errmdl = new CardModel(
+											ErrorCard.class);
+									errmdl.setTitlePlay(getString(R.string.summaryactivity_cardmaker_ioerror));
+									errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
+									errmdl.setImageRes(R.drawable.ic_network_error);
+									cardModels.add(errmdl); // Errors are now
+															// cards.
 								} else {
 									Toast.makeText(
 											getActivity(),
@@ -346,13 +340,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 														.getNessDetail());
 										Toast.makeText(getActivity(), msg, 0)
 												.show();
-										errorView = new CardUIErrorView(
-												getActivity(),
-												R.string.error_cannot_resolve_postcode,
-												R.string.error_cannot_resolve_postcode_body,
-												R.drawable.ic_map_error);
-
-										mCardUI.addView(errorView);
+										CardModel errmdl = new CardModel(
+												ErrorCard.class);
+										errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
+										errmdl.setDescription(getString(R.string.error_cannot_resolve_postcode_body));
+										errmdl.setImageRes(R.drawable.ic_map_error);
+										cardModels.add(errmdl);
 									}
 								}
 							}

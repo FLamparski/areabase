@@ -15,6 +15,7 @@ import lamparski.areabase.cards.PlayCard;
 import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
 import nde2.helpers.DateFormat;
+import nde2.helpers.Statistics;
 import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
@@ -26,6 +27,7 @@ import nde2.pull.types.Topic;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 
 import com.fima.cardsui.objects.CardModel;
@@ -38,7 +40,7 @@ public class EnvironmentCardProvider {
 	private static final int AREA_RURAL = 0;
 	private static final int AREA_URBAN = 1;
 	private static final int AREA_EXTRA_URBAN = 2;
-	
+
 	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 
 	public static CardModel environmentCardForArea(Area area, Resources res)
@@ -56,20 +58,22 @@ public class EnvironmentCardProvider {
 				.getStringArray(R.array.card_environ_area_types)[urbanisationType];
 
 		float[] energyCurrentUse = getLatestEnergyUse(theDatasets);
+		String energyUseTrendString = res
+				.getStringArray(R.array.card_environ_energy_trend)[getEnergyTrend(
+				area, families).which + 2];
 
 		String title = res.getString(R.string.card_environ_title,
 				area.getName());
 		String descr = res.getString(R.string.card_environ_body_base,
 				area.getName(), urbanisationTypeString,
 				Integer.toString((int) energyCurrentUse[0]),
-				energyCurrentUse[1], "FOO");
+				energyCurrentUse[1], energyUseTrendString);
 		return makeCard(title, descr);
 	}
 
 	private static CardModel makeCard(String title, String description) {
-		return new CardModel(title, description,
-				"#BADA55", "#BADA55", false, false,
-				PlayCard.class);
+		return new CardModel(title, description, "#BADA55", "#BADA55", false,
+				false, PlayCard.class);
 	}
 
 	private static int getUrbanisationType(Set<Dataset> theDatasets) {
@@ -139,30 +143,51 @@ public class EnvironmentCardProvider {
 
 		return retval;
 	}
-	
-	private static TrendDescription getEnergyTrend(Area area, List<DataSetFamily> fams) throws InvalidParameterException, IOException, XmlPullParserException, NDE2Exception{
+
+	@SuppressLint("UseSparseArrays")
+	private static TrendDescription getEnergyTrend(Area area,
+			List<DataSetFamily> fams) throws InvalidParameterException,
+			IOException, XmlPullParserException, NDE2Exception {
 		TrendDescription ans = new TrendDescription();
 		DataSetFamily fam = null;
-		for(DataSetFamily f : fams){
+		for (DataSetFamily f : fams) {
 			if (f.getName().contains("Domestic Energy Consumption"))
 				fam = f;
 		}
-		
+
 		Set<Dataset> theDatasets = new HashSet<Dataset>();
-		for(DateRange rng : fam.getDateRanges()){
-			theDatasets.addAll(new GetTables().forArea(area).inFamily(fam).inDateRange(rng).execute());
+		for (DateRange rng : fam.getDateRanges()) {
+			theDatasets.addAll(new GetTables().forArea(area).inFamily(fam)
+					.inDateRange(rng).execute());
 		}
-		
-		Map<Integer, Integer> datapoints = new HashMap<Integer, Integer>();
-		for(Dataset ds : theDatasets){
-			for(Topic t : ds.getTopics().values()){
-				if(t.getTitle().contains("Total Consumption of Domestic Electricity and Gas")){
+
+		Map<Integer, Float> datapoints = new HashMap<Integer, Float>();
+		for (Dataset ds : theDatasets) {
+			for (Topic t : ds.getTopics().values()) {
+				if (t.getTitle().contains(
+						"Total Consumption of Domestic Electricity and Gas")) {
 					DataSetItem item = ds.getItems(t).iterator().next();
-					
+					int shortDate = (int) (item.getPeriod().getEndDate()
+							.getTime() / UNIX_30_DAYS);
+					float value = item.getValue();
+					datapoints.put(shortDate, value);
 				}
 			}
 		}
-		
+
+		double gradient = Statistics.linearRegressionGradient(datapoints);
+
+		if (gradient <= -1.2)
+			ans.which = TrendDescription.FALLING_RAPIDLY;
+		else if (gradient > -1.2 && gradient <= -0.1)
+			ans.which = TrendDescription.FALLING;
+		else if (gradient > -0.1 && gradient <= 0.1)
+			ans.which = TrendDescription.STABLE;
+		else if (gradient > 0.1 && gradient <= 1.2)
+			ans.which = TrendDescription.RISING;
+		else
+			ans.which = TrendDescription.RISING_RAPIDLY;
+
 		return ans;
 	}
 }
