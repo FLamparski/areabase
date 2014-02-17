@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/action_search_edittext_edittext"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:hint="@string/action_search_hint"
+    android:imeOptions="actionSearch"
+    android:inputType="text" >
+
+</EditText>
+<!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/action_search_edittext.xml -->

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navbar_list_header_txt_header"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="2dp"
+    android:paddingLeft="4dp"
+    android:paddingTop="24dp"
+    android:textAppearance="?android:attr/listSeparatorTextViewStyle" />
+
+<!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/navbar_list_header.xml -->

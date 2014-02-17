@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:paddingBottom="4dp"
+    android:paddingLeft="4dp"
+    android:paddingTop="4dp" >
+
+    <ImageView
+        android:id="@+id/navbar_list_item_navicon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/navbar_list_item_txt_item"
+        android:adjustViewBounds="true"
+        android:maxHeight="24dp"
+        android:maxWidth="24dp" />
+
+    <TextView
+        android:id="@+id/navbar_list_item_txt_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/navbar_list_item_navicon"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/navbar_list_item.xml -->

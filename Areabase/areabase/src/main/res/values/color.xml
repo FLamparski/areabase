@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="holoLightBlueColour">#FF33B5E5</color>
+
+    <drawable name="holoLightBlueDrawable">#FF33B5E5</drawable>
+
+    <color name="stroke">#FFCCCCCC</color>
+
+</resources>

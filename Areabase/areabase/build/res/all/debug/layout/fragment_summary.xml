@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <lamparski.areabase.map_support.OrdnanceSurveyMapView
+        android:id="@+id/fragment_summary_OSMapView_DEFAULT"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="40" />
+
+    <com.fima.cardsui.views.CardUI
+        android:id="@+id/fragment_summary_CardsUI_DEFAULT"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="60" />
+
+</LinearLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/fragment_summary.xml -->

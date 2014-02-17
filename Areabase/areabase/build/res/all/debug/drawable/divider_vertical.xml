@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:a="http://schemas.android.com/apk/res/android"
+    a:shape="line" >
+
+    <stroke
+        a:width="1dp"
+        a:color="@android:color/darker_gray" />
+
+</shape><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/drawable/divider_vertical.xml -->

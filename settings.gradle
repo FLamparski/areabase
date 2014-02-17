@@ -1,0 +1,3 @@
+include ':Areabase'
+include ':google_play_services:libproject:google-play-services_lib'
+include ':cardsui-for-android:CardsUILib'

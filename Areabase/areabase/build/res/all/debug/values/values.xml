@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string-array name="card_crime_real_trend">
+        <item>sharply falling</item>
+        <item>falling</item>
+        <item>stable</item>
+        <item>rising</item>
+        <item>sharply rising</item>
+    </string-array>
+    <string-array name="card_demographics_pop_density_descriptors">
+        <item>very sparsely populated</item>
+        <item>sparsely populated</item>
+        <item>normally populated</item>
+        <item>densely populated</item>
+        <item>very densely populated</item>
+    </string-array>
+    <string-array name="card_demographics_pop_size_trend_descriptors">
+        <item>collapsing</item>
+        <item>declining</item>
+        <item>stable</item>
+        <item>growing</item>
+        <item>booming</item>
+    </string-array>
+    <string-array name="card_demographics_sex_dominance_descriptors">
+        <item>significantly more women</item>
+        <item>more women</item>
+        <item>gender balance</item>
+        <item>more men</item>
+        <item>significantly more men</item>
+    </string-array>
+    <string-array name="card_economy_compare_income_with_national">
+        <item>much lower than</item>
+        <item>lower than</item>
+        <item>on par with</item>
+        <item>higher than</item>
+        <item>much higher than</item>
+    </string-array>
+    <string-array name="card_economy_income_trend">
+        <item>sharply falling</item>
+        <item>falling</item>
+        <item>stable</item>
+        <item>rising</item>
+        <item>sharply rising</item>
+    </string-array>
+    <string-array name="card_environ_area_types">
+        <item>a rural</item>
+        <item>an urban</item>
+        <item>an highly urban</item>
+    </string-array>
+    <string-array name="card_environ_energy_trend">
+        <item>quickly decreasing</item>
+        <item>decreasing</item>
+        <item>not changing</item>
+        <item>increasing</item>
+        <item>quickly increasing</item>
+    </string-array>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <color name="card_border">#ffdedede</color>
+    <color name="card_grid_text">#ff707070</color>
+    <color name="card_light_text">#ffb5b5b5</color>
+    <color name="card_separator">#ffe5e5e5</color>
+    <color name="card_text">#ff8d8d8d</color>
+    <color name="card_title_text">#ff707070</color>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/colors.xml -->
+    <eat-comment />
+
+    <color name="common_action_bar_splitter">#d2d2d2</color>
+    <color name="common_signin_btn_dark_text_default">@android:color/white</color>
+    <color name="common_signin_btn_dark_text_disabled">#FFAAAAAA</color>
+    <color name="common_signin_btn_dark_text_focused">@android:color/white</color>
+    <color name="common_signin_btn_dark_text_pressed">@android:color/white</color>
+    <color name="common_signin_btn_default_background">#FFDD4B39</color>
+    <color name="common_signin_btn_light_text_default">#FF737373</color>
+    <color name="common_signin_btn_light_text_disabled">#FFAAAAAA</color>
+    <color name="common_signin_btn_light_text_focused">#FF737373</color>
+    <color name="common_signin_btn_light_text_pressed">@android:color/white</color>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/color.xml -->
+    <eat-comment />
+
+    <color name="holoLightBlueColour">#FF33B5E5</color>
+    <color name="stroke">#FFCCCCCC</color>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <color name="text_light">#66000000</color>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/ads_attrs.xml -->
+    <eat-comment />
+
+    <declare-styleable name="AdsAttrs">
+
+        <!--
+    The size of the ad. It must be one of BANNER, FULL_BANNER, LEADERBOARD,
+    MEDIUM_RECTANGLE, SMART_BANNER, WIDE_SKYSCRAPER, or
+    &lt;width&gt;x&lt;height&gt;.
+        -->
+        <attr name="adSize" format="string" />
+
+        <!--
+    A comma-separated list of the supported ad sizes. The sizes must be one of
+    BANNER, FULL_BANNER, LEADERBOARD, MEDIUM_RECTANGLE, SMART_BANNER,
+    WIDE_SKYSCRAPER, or &lt;width&gt;x&lt;height&gt;.
+        -->
+        <attr name="adSizes" format="string" />
+
+        <!-- The ad unit ID. -->
+        <attr name="adUnitId" format="string" />
+    </declare-styleable>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/maps_attrs.xml -->
+    <eat-comment />
+
+    <declare-styleable name="MapAttrs">
+        <attr name="mapType" format="enum">
+            <enum name="none" value="0" />
+            <enum name="normal" value="1" />
+            <enum name="satellite" value="2" />
+            <enum name="terrain" value="3" />
+            <enum name="hybrid" value="4" />
+        </attr>
+        <attr name="cameraBearing" format="float" />
+        <attr name="cameraTargetLat" format="float" />
+        <attr name="cameraTargetLng" format="float" />
+        <attr name="cameraTilt" format="float" />
+        <attr name="cameraZoom" format="float" />
+        <attr name="uiCompass" format="boolean" />
+        <attr name="uiRotateGestures" format="boolean" />
+        <attr name="uiScrollGestures" format="boolean" />
+        <attr name="uiTiltGestures" format="boolean" />
+        <attr name="uiZoomControls" format="boolean" />
+        <attr name="uiZoomGestures" format="boolean" />
+        <attr name="useViewLifecycle" format="boolean" />
+        <attr name="zOrderOnTop" format="boolean" />
+    </declare-styleable>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <dimen name="action_bar_switch_padding">16.0dip</dimen>
+    <dimen name="action_confirm_button_margin">16.0dip</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <dimen name="app_icon_area_height">120.0dip</dimen>
+    <dimen name="app_icon_area_width">120.0dip</dimen>
+    <dimen name="at_place_card_content_height">150.0dip</dimen>
+    <dimen name="auto_scroll_padding">30.0dip</dimen>
+    <dimen name="card_action_button_height">48.0dip</dimen>
+    <dimen name="card_action_small_text">12.0sp</dimen>
+    <dimen name="card_action_text">16.0sp</dimen>
+    <dimen name="card_grid_font_size">14.0sp</dimen>
+    <dimen name="card_horizontal_map_height">150.0dip</dimen>
+    <dimen name="card_large_text">25.0sp</dimen>
+    <dimen name="card_medium_text">18.0sp</dimen>
+    <dimen name="card_minimum_padding">8.0dip</dimen>
+    <dimen name="card_padding">16.0dip</dimen>
+    <dimen name="card_small_padding">12.0dip</dimen>
+    <dimen name="card_small_text">14.0sp</dimen>
+    <dimen name="card_spacer_margin">8.0dip</dimen>
+    <dimen name="card_temperature_size">90.0dip</dimen>
+    <dimen name="card_xl_text">35.0sp</dimen>
+    <dimen name="cards_max_column_width">446.0dip</dimen>
+    <dimen name="cards_padding_inbetween">10.0dip</dimen>
+    <dimen name="cards_padding_inbetween_adjusted">9.0dip</dimen>
+    <dimen name="contact_avatar_height">148.0dip</dimen>
+    <dimen name="contact_avatar_width">148.0dip</dimen>
+    <dimen name="contact_select_fragment_padding">8.0dip</dimen>
+    <dimen name="context_header_padding">0.0dip</dimen>
+    <dimen name="control_size">48.0dip</dimen>
+    <dimen name="corpus_bar_left_padding">12.0dip</dimen>
+    <dimen name="corpus_bar_more_padding">24.0dip</dimen>
+    <dimen name="corpus_bar_vertical_padding">5.0dip</dimen>
+    <dimen name="corpus_selector_element_margin">5.0dip</dimen>
+    <dimen name="corpus_selector_horizontal_margin">8.0dip</dimen>
+    <dimen name="corpus_selector_text_size">15.0sp</dimen>
+    <dimen name="correction_popup_width_1buttons">60.0dip</dimen>
+    <dimen name="correction_popup_width_2buttons">120.0dip</dimen>
+    <dimen name="correction_popup_width_3buttons">160.0dip</dimen>
+    <dimen name="dialog_corner_radius">8.0px</dimen>
+    <dimen name="dialog_height">320.0dip</dimen>
+    <dimen name="dialog_pos_left">0.0dip</dimen>
+    <dimen name="dialog_pos_top">0.0dip</dimen>
+    <dimen name="dialog_text_size">18.0sp</dimen>
+    <dimen name="dialog_width">320.0dip</dimen>
+    <dimen name="divider_height">1.0dip</dimen>
+    <dimen name="extra_height_to_account_for_system_space_in_landscape">0.0dip</dimen>
+    <dimen name="first_run_context_image_height">100.0dip</dimen>
+    <dimen name="first_run_padding">24.0dip</dimen>
+    <dimen name="footer_height">50.0dip</dimen>
+    <dimen name="gmail_card_button_height">40.0dip</dimen>
+    <dimen name="google_header_margin_bottom">12.0dip</dimen>
+    <dimen name="google_logo_margin_left">4.0dip</dimen>
+    <dimen name="google_logo_margin_right">4.0dip</dimen>
+    <dimen name="half_unit">8.0dip</dimen>
+    <dimen name="hands_free_padding">12.0dip</dimen>
+    <dimen name="hands_free_small_padding">8.0dip</dimen>
+    <dimen name="header_footer_size">48.0dip</dimen>
+    <dimen name="high_confidence_answer_card_image_height">300.0dip</dimen>
+    <dimen name="high_confidence_answer_card_image_width">160.0dip</dimen>
+    <dimen name="high_confidence_answer_card_min_spacing">28.0dip</dimen>
+    <dimen name="hint_bubble_offset">-15.0dip</dimen>
+    <dimen name="histogram_bar_padding">0.0dip</dimen>
+    <dimen name="histogram_bar_size">16.0dip</dimen>
+    <dimen name="histogram_width">100.0dip</dimen>
+    <dimen name="horizontal_static_map_height">150.0dip</dimen>
+    <dimen name="image_result_carousel_height">300.0dip</dimen>
+    <dimen name="image_result_height">100.0dip</dimen>
+    <dimen name="image_view_padding">5.0dip</dimen>
+    <dimen name="ime_button_text_size">14.0sp</dimen>
+    <dimen name="ime_land_height">180.0dip</dimen>
+    <dimen name="ime_mic_size">112.0dip</dimen>
+    <dimen name="ime_padding_bottom">8.0dip</dimen>
+    <dimen name="ime_padding_top">8.0dip</dimen>
+    <dimen name="ime_port_height">240.0dip</dimen>
+    <dimen name="ime_spinner_text">14.0dip</dimen>
+    <dimen name="ime_state_text_size">20.0sp</dimen>
+    <dimen name="ime_title_text_size">14.0sp</dimen>
+    <dimen name="indicator_size">88.0dip</dimen>
+    <dimen name="indicator_stroke">2.0dip</dimen>
+    <dimen name="intent_api_mic_area_size">145.0dip</dimen>
+    <dimen name="large_preview_width">800.0dip</dimen>
+    <dimen name="load_more_button_margin">40.0dip</dimen>
+    <dimen name="local_result_vertical_divider_height">20.0dip</dimen>
+    <dimen name="local_results_item_margin">@dimen/card_minimum_padding</dimen>
+    <dimen name="local_results_map_height">180.0dip</dimen>
+    <dimen name="main_fragment_top_padding">0.0dip</dimen>
+    <dimen name="map_preview_image_height">180.0dip</dimen>
+    <dimen name="map_preview_image_width">320.0dip</dimen>
+    <dimen name="max_height_for_fullscreen">2.5in</dimen>
+    <dimen name="max_preview_area_width">0.0dip</dimen>
+    <dimen name="max_waveform_height">100.0dip</dimen>
+    <dimen name="mic_height">84.0dip</dimen>
+    <dimen name="min_height_background_image">138.0dip</dimen>
+    <dimen name="min_preview_area_width">0.0dip</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="nav_drawer_catsep_height">24dp</dimen>
+    <dimen name="nav_drawer_width">300dp</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <dimen name="negative_unit">-16.0dip</dimen>
+    <dimen name="photo_crop_stroke_width">1.0dip</dimen>
+    <dimen name="photo_crop_width">280.0dip</dimen>
+    <dimen name="photo_preview_size">200.0dip</dimen>
+    <dimen name="playpausebutton_size">60.0dip</dimen>
+    <dimen name="preview_image_height">120.0dip</dimen>
+    <dimen name="preview_image_size">250.0dip</dimen>
+    <dimen name="preview_image_width">120.0dip</dimen>
+    <dimen name="recording_popup_size">170.0dip</dimen>
+    <dimen name="retry_button_size">48.0dip</dimen>
+    <dimen name="sample_card_width">375.0dip</dimen>
+    <dimen name="searchResultListItemHeight">58.0dip</dimen>
+    <dimen name="search_bar_padding">8.0dip</dimen>
+    <dimen name="search_bar_text_size">16.0sp</dimen>
+    <dimen name="search_box_width">0.0dip</dimen>
+    <dimen name="search_device_footer_bottom_margin">12.0dip</dimen>
+    <dimen name="search_plate_expand_threshold">360.0dip</dimen>
+    <dimen name="search_plate_height">70.0dip</dimen>
+    <dimen name="search_plate_icon_height">34.0dip</dimen>
+    <dimen name="search_plate_icon_width">32.0dip</dimen>
+    <dimen name="search_plate_minimum_padding">12.0dip</dimen>
+    <dimen name="small_unit">3.0dip</dimen>
+    <dimen name="small_units_2">6.0dip</dimen>
+    <dimen name="small_units_3">9.0dip</dimen>
+    <dimen name="small_units_4">12.0dip</dimen>
+    <dimen name="speak_now_speech_height">200.0dip</dimen>
+    <dimen name="sports_card_image_height">21.0dip</dimen>
+    <dimen name="sports_card_image_width">37.0dip</dimen>
+    <dimen name="sticky_height">120dp</dimen>
+    <dimen name="stock_chart_height">180.0dip</dimen>
+    <dimen name="stock_chart_width">350.0dip</dimen>
+    <dimen name="stock_price_padding">32.0dip</dimen>
+    <dimen name="suggest_summons_area_padding">0.0dip</dimen>
+    <dimen name="suggest_web_height">56.0dip</dimen>
+    <dimen name="suggest_web_padding">2.0dip</dimen>
+    <dimen name="suggestion_footer_view_height">48.0dip</dimen>
+    <dimen name="suggestion_icon1_left_padding">2.0dip</dimen>
+    <dimen name="suggestion_icon_size">64.0dip</dimen>
+    <dimen name="suggestion_large_image_max_height">640.0dip</dimen>
+    <dimen name="suggestion_large_image_max_width">640.0dip</dimen>
+    <dimen name="suggestion_text2_height">26.0dip</dimen>
+    <dimen name="suggestion_text_padding">16.0dip</dimen>
+    <dimen name="suggestion_view_height">64.0dip</dimen>
+    <dimen name="suggestion_view_height_large">191.5dip</dimen>
+    <dimen name="suggestions_divider_margin_left_right">8.0dip</dimen>
+    <dimen name="suggestions_padding">8.0dip</dimen>
+    <dimen name="summons_height">56.0dip</dimen>
+    <dimen name="summons_inter_source_padding">20.0dip</dimen>
+    <dimen name="summons_padding">2.0dip</dimen>
+    <dimen name="summons_width">350.0dip</dimen>
+    <dimen name="suppressed_web_results_min_visible_height">28.0dip</dimen>
+    <dimen name="table_row_vertical_padding">8.0dip</dimen>
+    <dimen name="text_block_bottom_padding">20.0dip</dimen>
+    <dimen name="text_block_side_padding">@dimen/card_padding</dimen>
+    <dimen name="text_block_top_padding">14.0dip</dimen>
+    <dimen name="tidbit_padding">12.0dip</dimen>
+    <dimen name="unit">16.0dip</dimen>
+    <dimen name="unit_small_caps">14.0dip</dimen>
+    <dimen name="units_2">32.0dip</dimen>
+    <dimen name="units_3">48.0dip</dimen>
+    <dimen name="units_4">64.0dip</dimen>
+    <dimen name="voice_popup_margin">40.0dip</dimen>
+    <dimen name="weather_current_icon_height">64.0dip</dimen>
+    <dimen name="weather_forecast_icon_height">24.0dip</dimen>
+    <dimen name="web_snapshots_default_visible_width">300.0dip</dimen>
+    <dimen name="web_snapshots_dismiss_from_offset">150.0dip</dimen>
+    <dimen name="web_snapshots_just_added_extra_height">150.0dip</dimen>
+    <dimen name="web_snapshots_launch_browser_from_offset">300.0dip</dimen>
+    <dimen name="web_snapshots_text_size">30.0dip</dimen>
+    <dimen name="web_snapshots_width">600.0dip</dimen>
+    <dimen name="web_suggestion_icon_size">32.0dip</dimen>
+    <dimen name="web_suggestion_view_height">48.0dip</dimen>
+    <dimen name="websearch_card_top_margin">0.0dip</dimen>
+    <dimen name="websearch_collapse_card_padding_offscreen_leeway">50.0dip</dimen>
+    <dimen name="websearch_fragment_inbetween_padding">12.0dip</dimen>
+    <dimen name="websearch_header_left_padding">16.0dip</dimen>
+    <dimen name="webview_margin_left">60.0dip</dimen>
+    <dimen name="widget_margin_left_right">8.0dip</dimen>
+    <dimen name="widget_margin_top_bottom">8.0dip</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/color.xml -->
+    <eat-comment />
+
+    <drawable name="holoLightBlueDrawable">#FF33B5E5</drawable>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <drawable name="mySemiTransparentDrawable">#dfff</drawable>
+    <drawable name="myTransparentDrawable">#0000</drawable>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/data.xml -->
+    <eat-comment />
+
+    <item name="pop_density" format="float" type="fraction">256.0</item>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/version.xml -->
+    <eat-comment />
+
+    <integer name="google_play_services_version">4242000</integer>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="a11y_cd_areabase_icon">The Areabase icon</string>
+    <string name="action_help">Help</string>
+    <string name="action_locate">Locate</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_search">Search</string>
+    <string name="action_search_hint">Postcode or area name…</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_name">Areabase</string>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="auth_client_needs_enabling_title">      An application requires Google Play Services to be enabled.</string>
+    <string name="auth_client_needs_installation_title">      An application requires installation of Google Play Services.</string>
+    <string name="auth_client_needs_update_title">      An application requires an update for Google Play Services.</string>
+    <string name="auth_client_play_services_err_notification_msg">Google Play services error</string>
+    <string name="auth_client_requested_by_msg">Requested by <ns1:g id="app_name">%1$s</ns1:g></string>
+    <string name="auth_client_using_bad_version_title">      An application attempted to use a bad version of Google Play Services.</string>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="caption_ONS">Office for National Statistics</string>
+    <string name="caption_Police">Police.uk</string>
+    <string name="caption_area_compare">Compare areas</string>
+    <string name="caption_area_hierarchy">Hierarchy</string>
+    <string name="caption_crime">Crime</string>
+    <string name="caption_economy">Economy</string>
+    <string name="caption_environment">Environment</string>
+    <string name="caption_summary">Summary</string>
+    <string name="card_crime_real_body_base">The most commonly reported type of crime here is %1$s. Crime overall is %2$s.</string>
+    <string name="card_crime_real_title">Crime in %1$s</string>
+    <string name="card_demographics_body_base">There is %1$s and average age is %2$.1f. The area is %3$s.</string>
+    <string name="card_demographics_title">People of %1$s</string>
+    <string name="card_demographics_title_base">%1$s is a demographically %2$s area.</string>
+    <string name="card_economy_body_base">Most of people in %1$s are %2$s. Most people here work in %3$s. The average income is %4$s national average and %5$s.</string>
+    <string name="card_economy_title">Economy of %1$s</string>
+    <string name="card_environ_body_base">%1$s is %2$s area. Energy use as of %3$s was %4$.1f MWh, and it is %5$s.</string>
+    <string name="card_environ_title">Environment in %1$s</string>
+    <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>
+    <string name="card_error_values_not_available_title">Some data for this area is not available.</string>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="common_google_play_services_enable_button" msgid="2523291102206661146">Enable Google Play services</string>
+    <string name="common_google_play_services_enable_text" msgid="227660514972886228">This app won\'t work unless you enable Google Play services.</string>
+    <string name="common_google_play_services_enable_title" msgid="5122002158466380389">Enable Google Play services</string>
+    <string name="common_google_play_services_install_button" msgid="7153882981874058840">Get Google Play services</string>
+    <string name="common_google_play_services_install_text_phone" msgid="2122112764540849864">This app won\'t run without Google Play services, which are missing from your phone.</string>
+    <string name="common_google_play_services_install_text_tablet" msgid="7351599665250191022">This app won\'t run without Google Play services, which are missing from your tablet.</string>
+    <string name="common_google_play_services_install_title" msgid="7215213145546190223">Get Google Play services</string>
+    <string name="common_google_play_services_invalid_account_text">The specified account does not exist on this device. Please choose a different account.</string>
+    <string name="common_google_play_services_invalid_account_title">Invalid Account</string>
+    <string name="common_google_play_services_network_error_text">A data connection is required to connect to Google Play services.</string>
+    <string name="common_google_play_services_network_error_title">Network Error</string>
+    <string name="common_google_play_services_unknown_issue">Unknown issue with Google Play services.</string>
+    <string name="common_google_play_services_unsupported_date_text">The date on the device appears to be incorrect. Please check the date on the device.</string>
+    <string name="common_google_play_services_unsupported_text">Google Play services, which some of your applications rely on, is not supported by your device. Please contact the manufacturer for assistance.</string>
+    <string name="common_google_play_services_unsupported_title">Google Play services</string>
+    <string name="common_google_play_services_update_button" msgid="6556509956452265614">Update</string>
+    <string name="common_google_play_services_update_text" msgid="9053896323427875356">This app won\'t run unless you update Google Play services.</string>
+    <string name="common_google_play_services_update_title" msgid="1788179980625863495">Update Google Play services</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="drawer_close">Close drawer</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="error_cannot_fetch_area_data">Sorry, data about this area could not be fetched.</string>
+    <string name="error_cannot_fetch_area_data_body">Please make sure you are connected to the Internet and try again later. The message associated with this error is: %1$s. Hope this helps.</string>
+    <string name="error_cannot_resolve_postcode">Could not resolve the postcode.</string>
+    <string name="error_cannot_resolve_postcode_body">The postcode for your location appears invalid. This could be because of how Google Geocoder returns postcodes. Try to walk to a different location and press the "Locate" button.</string>
+    <string name="error_illegal_url_formatstring">This should not happen. If you think this is not a problem, here is the url: %1$s</string>
+    <string name="error_illegal_url_response_dontgo">Stay in Areabase</string>
+    <string name="error_illegal_url_response_open">Open in browser (caution)</string>
+    <string name="error_illegal_url_title">Something is trying to open in the map area.</string>
+    <string name="navdrawer_secheader_basic_info">This area</string>
+    <string name="navdrawer_secheader_misc">Miscellaneous</string>
+    <string name="navdrawer_secheader_more_data">Explore data</string>
+    <string name="pref_category_location_autoLocate_infoText_disabled">Areabase will wait until you press "Locate" to find your location.</string>
+    <string name="pref_category_location_autoLocate_infoText_enabled">Areabase will automatically find your location on startup.</string>
+    <string name="pref_category_location_autoLocate_primaryText">Automatically find location</string>
+    <string name="pref_category_location_backgroundRefix_infoText_disabled">Areabase will not keep track of your location. This may save battery, but "Locate" may take longer.</string>
+    <string name="pref_category_location_backgroundRefix_infoText_enabled">Areabase will keep your location up-to-date by querying GPS periodically.</string>
+    <string name="pref_category_location_backgroundRefix_primaryText">Update location in the background</string>
+    <string name="pref_category_location_heading">Location</string>
+    <string name="pref_category_testing_heading">Experimental</string>
+    <string name="pref_category_testing_phoneHome_infoText_disabled">Areabase will not send anything to the developer. You want to turn this on though.</string>
+    <string name="pref_category_testing_phoneHome_infoText_enabled">If the application crashes, an automatic report will be sent to the developer.</string>
+    <string name="pref_category_testing_phoneHome_primaryText">Report crashes</string>
+    <string name="summaryactivity_cardmaker_ioerror">Please check your connection.</string>
+    <string name="summaryactivity_cardmaker_ioerror_body">Ensure that you have some form of connectivity enabled. If you are using an authenticated proxy, Areabase will not work.</string>
+    <string name="summaryactivity_cardmaker_onserror">Error processing ONS data. Sorry :(</string>
+    <string name="summaryactivity_cardmaker_servicedisconnect_message">An important component of Areabase, %1$s, just broke. The app will probably crash and burn soon. Sorry :(</string>
+    <string name="summaryactivity_cardmaker_servicedisconnect_title">Oh noes!</string>
+    <string name="summaryactivity_cardmaker_values_not_available">Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.</string>
+    <string name="title_activity_settings">Preferences</string>
+    <string name="toast_mapview_not_loading">Could not load the map view.</string>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
+    <style name="CardLightText" parent="@style/CardText">
+        <item name="android:textColor">@color/card_light_text</item>
+    </style>
+
+    <style name="CardText">
+        <item name="android:textSize">@dimen/card_small_text</item>
+        <item name="android:textColor">@color/card_text</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="CardTitle" parent="@style/CardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/card_large_text</item>
+        <item name="android:textColor">@color/card_title_text</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="CardTitleBold" parent="@style/CardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/card_large_text</item>
+        <item name="android:textColor">@color/card_title_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="Item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">300dp</item>
+    </style>
+
+    <style name="Item.Sticky">
+        <item name="android:background">#eeeeee</item>
+        <item name="android:layout_height">@dimen/sticky_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="Item.Top">
+        <item name="android:background">#eeeeee</item>
+    </style>
+
+    <style name="StackTitle" parent="@style/CardText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">27sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/card_title_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="areabaseNavDrawerLink">
+        <item name="android:typeface">sans</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@android:color/primary_text_light</item>
+    </style>
+
+    <style name="button_bar" parent="@android:style/Holo.Light.ButtonBar" />
+
+    <style name="button_bar_button" parent="@android:style/Widget.Holo.Light.Button.Borderless.Small" />
+
+</resources>

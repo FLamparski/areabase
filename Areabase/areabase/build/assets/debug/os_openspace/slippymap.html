@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OrdnanceSurveyMapView</title>
+
+  
+<script type="text/javascript" src="http://openspace.ordnancesurvey.co.uk/osmapapi/openspace.js?key=DC0F47314195E2C9E0405F0AC86005DF"></script>  
+  
+<!-- If you use OS OpenSpace Pro or OS OnDemand WMTS then use the relevant following URL instead: 
+  
+OS OpenSpace Pro - <script type="text/javascript" src="http://osopenspacepro.ordnancesurvey.co.uk/osmapapi/openspace.js?key=INSERT_YOUR_API_KEY_HERE"></script>
+  
+OS OnDemand WMTS - <script type="text/javascript" src="http://ondemandapi.ordnancesurvey.co.uk/osmapapi/openspace.js??key=INSERT_YOUR_API_KEY_HERE"></script>
+  
+-->
+
+<style>
+  html, body { margin: 0px; padding: 0px; width: 100%; height: 100%;}
+  #map {width: 100%; height: 100%; position: relative;}
+</style>
+
+<script type="text/javascript">
+// Define the osMap variable
+
+var osMap;
+var highlightLayer = null;
+
+// This function creates the map and is called by the div in the HTML
+function init(){
+    
+// Create new map
+    var mapOptions = {
+        controls: [], // We want to add our own controls later on
+        resolutions: [2500, 1000, 500, 200, 100, 50, 25, 10, 5, 4, 2.5, 2, 1] // Prefer vector resolutions
+    };
+    var navOptions = {
+        documentDrag: true,
+        dragPanOptions: {
+            enableKinetic: true
+        }
+    };
+
+    osMap = new OpenSpace.Map('map', mapOptions);
+    osMap.addControl(new OpenLayers.Control.Navigation(navOptions));
+    osMap.addControl(new OpenLayers.Control.KeyboardDefaults());
+    osMap.addControl(new OpenLayers.Control.TouchNavigation(navOptions));
+    // TODO: Detect touch and load TouchNavigation then, or load Navigation by default.
+    
+// Set map centre in National Grid Eastings and Northings and select zoom level 0
+
+    osMap.setCenter(new OpenSpace.MapPoint(400000, 400000), 0);
+    try{
+    	AreabaseNative.onMapLoaded();
+    	AreabaseNative.consoleInfo("Fired off the onMapLoaded() event");
+    } catch (e) {
+    	console.log("Not in Areabase.");
+    }
+}
+
+/**
+ * Function called by OrdnanceSurveyMapView
+ * Set centre of the map on a specific longitude/latitude.
+ */
+function wrapper__setCentre_keepZoom_WGS84lonlat(longitude, latitude){
+	console.log("Setting new centre at longitude %f, latitude %f", longitude, latitude);
+	var newCentre = new OpenLayers.LonLat(longitude, latitude);
+	console.log("New centre now has a OpenLayers.LonLat!", newCentre);
+	var enNc = newCentre.transform(new OpenLayers.Projection("EPSG:4326"), new OpenLayers.Projection("EPSG:27700"));
+	console.log("New centre: coordinates transformed to Ordnance Survey's!", enNc);
+	osMap.setCenter(enNc, osMap.getZoom());
+}
+
+/**
+ * Function called by OrdnanceSurveyMapView
+ * Set centre of the map on a specific easting/northing
+ */
+function wrapper__setCentre_keepZoom_eastingNorthing(easting, northing){
+	var newCentre = new OpenSpace.MapPoint(easting, northing);
+	osMap.setCenter(newCentre, osMap.getZoom());
+}
+
+/*function wrapper__highlightArea(areaId, adminUnit, lineColour, fillColour){
+	if(highlightLayer != null){
+		osMap.removeLayer(highlightLayer);
+	}
+	var symbolizer = OpenLayers.Util.applyDefaults({}, OpenLayers.Feature.Vector.style["default"]);
+    
+	var styleMap = new OpenLayers.StyleMap(symbolizer);
+	
+	var lookup = new Object();
+	lookup[adminUnit] = {fillColor: fillColour, strokeColor: lineColour, strokeWidth: 3};
+      
+	styleMap.addUniqueValueRules("default", "AREA_CODE", lookup);
+	
+	highlightLayer = new OpenSpace.Layers.Boundary("Boundaries", {
+		strategies: [new OpenSpace.Strategy.BBOX()],
+		area_code: [adminUnit],
+		admin_unit_ids: [areaId],
+		styleMap: styleMap
+	});
+	
+	osMap.addLayer(highlightLayer);
+}*/
+
+function wrapper__setZoom(zoomLevel){
+	osMap.setCenter(osMap.getCenter(), zoomLevel);
+}
+
+function wrapper__drawPoly(polyJson){
+	if(highlightLayer != null){
+		osMap.removeLayer(highlightLayer);
+	}
+	
+	var srcCoords = JSON.parse(polyJson);
+	var sourceProjection = new OpenLayers.Projection("EPSG:4326");
+	var targetProjection = new OpenLayers.Projection("EPSG:27700");
+	var dstPoints = [];
+	var i = srcCoords.length;
+	while(i--){
+		var p = new OpenLayers.Geometry.Point(srcCoords[i][0], srcCoords[i][1]);
+		p.transform(sourceProjection, targetProjection);
+		dstPoints.push(p);
+	}
+	
+	var linearRing = new OpenLayers.Geometry.LinearRing(dstPoints);
+	var geometry = new OpenLayers.Geometry.Polygon([linearRing]);
+	
+	var styleMap = {
+        strokeColor: "#0099CC",
+        strokeOpacity: 0.8,
+        fillColor: "#33B5E5",
+        fillOpacity: 0.4,
+        strokeWidth: 3
+    };
+	
+	var feature = new OpenLayers.Feature.Vector(geometry, null, styleMap);
+	highlightLayer = new OpenLayers.Layer.Vector("highlightLayer", null);
+	highlightLayer.addFeatures([feature], null);
+	osMap.addLayer(highlightLayer);
+}
+</script>
+
+</head>  
+  
+<body onLoad="init()">
+  
+<div id="map"></div>
+  
+</body>
+</html>

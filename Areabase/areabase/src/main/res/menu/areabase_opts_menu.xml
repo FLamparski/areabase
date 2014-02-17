@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/action_locate"
+        android:icon="@drawable/location_place"
+        android:orderInCategory="1"
+        android:showAsAction="always|withText|collapseActionView"
+        android:title="@string/action_locate">
+    </item>
+    <item
+        android:id="@+id/action_search"
+        android:actionLayout="@layout/action_search_edittext"
+        android:icon="@drawable/action_search"
+        android:orderInCategory="2"
+        android:showAsAction="always|collapseActionView"
+        android:title="@string/action_search">
+    </item>
+    <item
+        android:id="@+id/action_refresh"
+        android:icon="@drawable/navigation_refresh"
+        android:orderInCategory="3"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_refresh">
+    </item>
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/action_help"
+        android:orderInCategory="101"
+        android:showAsAction="never"
+        android:title="@string/action_help">
+    </item>
+    <item android:id="@+id/action_dump_db" android:title="Dump Database" android:orderInCategory="102"></item>
+
+</menu>
