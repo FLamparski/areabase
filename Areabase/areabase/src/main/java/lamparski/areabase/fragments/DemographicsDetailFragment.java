@@ -1,5 +1,10 @@
 package lamparski.areabase.fragments;
 
+import android.os.AsyncTask;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.List;
 import java.util.Set;
 
@@ -13,12 +18,8 @@ import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
-import android.os.AsyncTask;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class DemographicsDetailFragment extends DetailViewFragment {
+public abstract class DemographicsDetailFragment extends DetailViewFragment {
 
 	private View myView;
 

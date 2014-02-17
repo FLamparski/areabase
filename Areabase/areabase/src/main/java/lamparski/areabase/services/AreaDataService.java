@@ -1,15 +1,5 @@
 package lamparski.areabase.services;
 
-import java.util.Set;
-
-import lamparski.areabase.cardproviders.CrimeCardProvider;
-import lamparski.areabase.cardproviders.DemographicsCardProvider;
-import lamparski.areabase.cardproviders.EconomyCardProvider;
-import lamparski.areabase.cardproviders.EnvironmentCardProvider;
-import nde2.errors.ValueNotAvailable;
-import nde2.helpers.Statistics;
-import nde2.pull.methodcalls.discovery.FindAreas;
-import nde2.pull.types.Area;
 import android.app.Service;
 import android.content.Intent;
 import android.location.Address;
@@ -21,6 +11,26 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import lamparski.areabase.cardproviders.CrimeCardProvider;
+import lamparski.areabase.cardproviders.DemographicsCardProvider;
+import lamparski.areabase.cardproviders.EconomyCardProvider;
+import lamparski.areabase.cardproviders.EnvironmentCardProvider;
+import nde2.errors.ValueNotAvailable;
+import nde2.helpers.CensusHelpers;
+import nde2.helpers.Statistics;
+import nde2.pull.methodcalls.delivery.GetTables;
+import nde2.pull.methodcalls.discovery.FindAreas;
+import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
+import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
+import nde2.pull.types.Dataset;
+import nde2.pull.types.Subject;
 
 /**
  * For now, this will simply fetch the {@link Area} data for whatever
@@ -50,6 +60,12 @@ public class AreaDataService extends Service {
 
 		public void onError(Throwable err);
 	}
+
+    public interface SubjectDumpIface {
+        public void subjectDumpReady(Map<DataSetFamily, Dataset> map);
+
+        public void onError(Throwable tr);
+    }
 
 	public class AreaDataBinder extends Binder {
 		public AreaDataService getService() {
@@ -437,4 +453,41 @@ public class AreaDataService extends Service {
 
 		}.execute(areaName);
 	}
+
+    /**
+     * Fetches all the datasets in the given subject. May be slow the first time.
+     * @param area The area to fetch information for
+     * @param subjectName The subject name
+     * @param commlink A callback interface
+     */
+    public void subjectDump(Area area, final String subjectName, final SubjectDumpIface commlink){
+        new AsyncTask<Area, Void, Map<DataSetFamily, Dataset>>(){
+
+            @Override
+            protected Map<DataSetFamily, Dataset> doInBackground(Area... params) {
+                Area area = params[0];
+                assert area != null;
+                Map<DataSetFamily, Dataset> result = new HashMap<DataSetFamily, Dataset>();
+                try{
+                    Subject subject = CensusHelpers.findSubject(area, subjectName);
+                    List<DataSetFamily> families = new GetDatasetFamilies(subject).forArea(area).execute();
+                    for(DataSetFamily family : families){
+                        Set<Dataset> datasets = new GetTables().forArea(area).inFamily(family).execute();
+                        assert datasets.size() == 1;
+                        Dataset dataset = datasets.iterator().next();
+                        result.put(family, dataset);
+                    }
+                } catch (Throwable tr) {
+                    commlink.onError(tr);
+                }
+                return result;
+            }
+
+            @Override
+            protected void onPostExecute(Map<DataSetFamily, Dataset> result) {
+                super.onPostExecute(result);
+                commlink.subjectDumpReady(result);
+            }
+        }.execute(area);
+    }
 }

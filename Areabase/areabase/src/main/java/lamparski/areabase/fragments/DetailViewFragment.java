@@ -1,10 +1,5 @@
 package lamparski.areabase.fragments;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
-import lamparski.areabase.services.AreaDataService;
-import lamparski.areabase.services.AreaDataService.AreaDataBinder;
-import lamparski.areabase.services.AreaDataService.DetailViewAreaInfoIface;
-import nde2.pull.types.Area;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
@@ -17,12 +12,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import lamparski.areabase.AreaActivity;
+import lamparski.areabase.services.AreaDataService;
+import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.DetailViewAreaInfoIface;
+import nde2.pull.types.Area;
+
+import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
 public abstract class DetailViewFragment extends Fragment implements
 		IAreabaseFragment {
 
-	protected Area area;
-	protected String subjectName;
+	protected Area area = null;
+	protected String subjectName = null;
 
 	protected AreaDataService mService;
 	protected boolean isServiceBound, is_live;
@@ -44,6 +48,8 @@ public abstract class DetailViewFragment extends Fragment implements
 			AreaDataBinder binder = (AreaDataBinder) service;
 			mService = binder.getService();
 			isServiceBound = true;
+            if(area != null && subjectName != null)
+                refreshContent();
 		}
 	};
 
@@ -51,12 +57,14 @@ public abstract class DetailViewFragment extends Fragment implements
 
 		@Override
 		public void onError(Throwable err) {
-			// Do something about it
+			err.printStackTrace();
 		}
 
 		@Override
 		public void areaReady(Area area) {
+            assert area != null;
 			DetailViewFragment.this.area = area;
+            ((AreaActivity) getActivity()).setTitle(area.getName());
 			refreshContent();
 		}
 	};
@@ -73,6 +81,20 @@ public abstract class DetailViewFragment extends Fragment implements
 	public void searchByText(String query) {
 		mService.areaForName(query, mDetailViewAreaInfoIface);
 	}
+
+    /**
+     * Helper method to simplify toasts cross-platform
+     * @param text
+     * @param duration
+     */
+    protected void showToastCrossThread(final CharSequence text, final int duration){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), text, duration).show();
+            }
+        });
+    }
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -103,22 +125,17 @@ public abstract class DetailViewFragment extends Fragment implements
 	@Override
 	public void onStart() {
 		super.onStart();
-		refreshContent();
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-		super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);
 		outState.putSerializable("saved-area", area);
 		outState.putString("saved-subject-name", subjectName);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
-		return null;
-	}
+	public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState);
 
 }

@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/subject_view_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceLarge"
@@ -12,6 +13,7 @@
         android:drawableBottom="@drawable/divider_horizontal_holo_light"/>
 
     <ExpandableListView
+        android:id="@+id/subject_view_expandable_list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"></ExpandableListView>
 </LinearLayout>

@@ -143,7 +143,7 @@ public class Dataset implements Serializable {
 	}
 
 	/**
-	 * @return the items
+	 * @return the items as a list
 	 */
 	public Set<DataSetItem> getItems() {
 		return items;

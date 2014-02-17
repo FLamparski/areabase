@@ -1,23 +1,5 @@
 package lamparski.areabase;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
-import lamparski.areabase.fragments.DemographicsDetailFragment;
-import lamparski.areabase.fragments.ErrorDialogFragment;
-import lamparski.areabase.fragments.IAreabaseFragment;
-import lamparski.areabase.fragments.SummaryFragment;
-import lamparski.areabase.widgets.RobotoLightTextView;
-
-import org.apache.commons.io.output.FileWriterWithEncoding;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
@@ -58,6 +40,24 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
+
+import org.apache.commons.io.output.FileWriterWithEncoding;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
+import lamparski.areabase.fragments.ErrorDialogFragment;
+import lamparski.areabase.fragments.IAreabaseFragment;
+import lamparski.areabase.fragments.SubjectViewFragment;
+import lamparski.areabase.fragments.SummaryFragment;
+import lamparski.areabase.widgets.RobotoLightTextView;
 
 public class AreaActivity extends Activity implements LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -552,16 +552,15 @@ public class AreaActivity extends Activity implements LocationListener,
 			performFragmentTransaction(replacementFragment);
 			break;
 		case ECONOMY:
-			replacementFragment = new DemoObjectFragment();
-			args.putString(DemoObjectFragment.ARGUMENT,
-					"Collated economy data will be shown here.");
-			args.putString(DemoObjectFragment.ARGUMENT2, "Economy");
-			replacementFragment.setArguments(args);
+			replacementFragment = new SubjectViewFragment();
+            args.putSerializable("argument-subject-name", "Economic Deprivation");
+            replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
 			break;
 		case ENVIRONMENT:
-			// TEST DATA NO NOT USE IN PRODUCTION
-			replacementFragment = new DemographicsDetailFragment();
+			replacementFragment = new SubjectViewFragment();
+            args.putString("argument-subject-name", "Physical Environment");
+            replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
 			break;
 		// "EXPLORE DATA"
