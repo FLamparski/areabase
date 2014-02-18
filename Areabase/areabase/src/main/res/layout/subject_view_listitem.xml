@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="#ffefefef" android:padding="8dp">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/subject_view_listitem_title"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp" />
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="4 to 9 Years Old"
+            android:id="@+id/subject_view_listitem_title"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Percentage of Live enterprises between 4 and 9 years old."
+            android:id="@+id/subject_view_listitem_subtitle"
+            android:textColor="@android:color/secondary_text_light" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Small Text"
-        android:id="@+id/subject_view_listitem_subtitle"
-        android:layout_below="@+id/subject_view_listitem_title"
-        android:layout_alignLeft="@+id/subject_view_listitem_title"
-        android:layout_alignStart="@+id/subject_view_listitem_title"
-        android:textColor="@android:color/darker_gray" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="0"
+        android:text="28.5%"
         android:id="@+id/subject_view_listitem_count"
-        android:layout_alignTop="@+id/subject_view_listitem_title"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_marginRight="8dp"
-        android:layout_alignBottom="@+id/subject_view_listitem_subtitle"
-        android:gravity="center"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_horizontal|center_vertical"
         android:textColor="@android:color/holo_blue_dark"
         android:textAlignment="center" />
-</RelativeLayout>
+</LinearLayout>

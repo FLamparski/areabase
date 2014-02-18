@@ -91,14 +91,12 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if(convertView == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.subject_view_listitem, null);
+            convertView = inflater.inflate(R.layout.subject_view_groupitem, null);
         }
 
         DataSetFamily fam = toplevelItems.get(groupPosition);
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_title)).setText(fam.getName());
-        // Will need to get detailed versions?
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_subtitle)).setText(fam.getName());
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(Integer.toString(childItems.get(fam).size()));
+        ((TextView) convertView.findViewById(R.id.subject_view_groupitem_title)).setText(fam.getName());
+        ((TextView) convertView.findViewById(R.id.subject_view_groupitem_count)).setText(Integer.toString(childItems.get(fam).size()));
 
         return convertView;
     }
@@ -111,10 +109,28 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         DataSetItem item = (DataSetItem) getChild(groupPosition, childPosition);
-        String item_subtitle = String.format("%s -- %s", item.getTopic().getDescription(), item.getTopic().getCoinageUnit());
+
         ((TextView) convertView.findViewById(R.id.subject_view_listitem_title)).setText(item.getTopic().getTitle());
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_subtitle)).setText(item_subtitle);
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(String.format("%.2f", item.getValue()));
+        ((TextView) convertView.findViewById(R.id.subject_view_listitem_subtitle)).setText(item.getTopic().getDescription());
+        float value = item.getValue();
+        String coinageUnit = item.getTopic().getCoinageUnit();
+        String valueString = "";
+        if(coinageUnit.equals("Count"))
+            valueString = String.format("%.0f", value);
+        else if (coinageUnit.equals("Percentage"))
+            valueString = String.format("%.1f%%", value);
+        else if (coinageUnit.equals("Square metres (m2)(thousands)")) {
+            value *= 1000;
+            valueString = String.format("%.2f m²", value);
+        } else if (coinageUnit.equals("Pounds Sterling (thousands)"))
+            valueString = String.format("£%.3fk", value);
+        else if (coinageUnit.equals("Pounds Sterling"))
+            valueString = String.format("£%.2f", value);
+        else if (coinageUnit.equals("Score"))
+            valueString = String.format("%.1f", value);
+        else
+            valueString = String.format("%.1f %s", value, coinageUnit);
+        ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(valueString);
 
         return convertView;
     }

@@ -449,13 +449,13 @@ containing a value of this type.
     public static final class id {
         public static final int RelativeLayout1=0x7f07001e;
         public static final int ScrollView1=0x7f07001b;
-        public static final int action_dump_db=0x7f070049;
-        public static final int action_help=0x7f070048;
-        public static final int action_locate=0x7f070045;
-        public static final int action_refresh=0x7f070047;
-        public static final int action_search=0x7f070046;
+        public static final int action_dump_db=0x7f07004b;
+        public static final int action_help=0x7f07004a;
+        public static final int action_locate=0x7f070047;
+        public static final int action_refresh=0x7f070049;
+        public static final int action_search=0x7f070048;
         public static final int action_search_edittext_edittext=0x7f070005;
-        public static final int action_settings=0x7f070044;
+        public static final int action_settings=0x7f070046;
         public static final int cardContent=0x7f070032;
         public static final int card_basic_text=0x7f07000e;
         public static final int card_basic_title=0x7f07000d;
@@ -513,10 +513,12 @@ containing a value of this type.
         public static final int stackTitle=0x7f070034;
         public static final int sticky=0x7f07001a;
         public static final int subject_view_expandable_list=0x7f070028;
+        public static final int subject_view_groupitem_count=0x7f070042;
+        public static final int subject_view_groupitem_title=0x7f070041;
         public static final int subject_view_header=0x7f070027;
-        public static final int subject_view_listitem_count=0x7f070043;
-        public static final int subject_view_listitem_subtitle=0x7f070042;
-        public static final int subject_view_listitem_title=0x7f070041;
+        public static final int subject_view_listitem_count=0x7f070045;
+        public static final int subject_view_listitem_subtitle=0x7f070044;
+        public static final int subject_view_listitem_title=0x7f070043;
         public static final int tableLayout=0x7f07001c;
         public static final int tablet_area_activity_drawerLayout=0x7f070008;
         public static final int tablet_area_activity_frameLayout=0x7f070009;
@@ -549,7 +551,8 @@ containing a value of this type.
         public static final int navbar_list_header=0x7f030014;
         public static final int navbar_list_item=0x7f030015;
         public static final int navdrawer=0x7f030016;
-        public static final int subject_view_listitem=0x7f030017;
+        public static final int subject_view_groupitem=0x7f030017;
+        public static final int subject_view_listitem=0x7f030018;
     }
     public static final class menu {
         public static final int areabase_opts_menu=0x7f0d0000;

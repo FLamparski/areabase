@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:minHeight="48dp" android:layout_height="wrap_content"
+    android:padding="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="fill_parent"
+            android:minHeight="48dp"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Child Benefit Statistics (1999 - 2012)"
+            android:id="@+id/subject_view_groupitem_title"
+            android:layout_marginLeft="48dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="12"
+        android:id="@+id/subject_view_groupitem_count"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="16dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textAlignment="center" />
+</LinearLayout>

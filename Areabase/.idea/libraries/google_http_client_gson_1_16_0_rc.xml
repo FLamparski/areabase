@@ -1,6 +1,8 @@
 <component name="libraryTable">
   <library name="google-http-client-gson-1.16.0-rc">
-    <CLASSES />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/areabase/libs/google-http-client-gson-1.16.0-rc.jar!/" />
+    </CLASSES>
     <JAVADOC />
     <SOURCES />
   </library>

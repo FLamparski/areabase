@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class SubjectViewFragment extends DetailViewFragment {
 
     @Override
     public void refreshContent() {
+        ((TextView) getView().findViewById(R.id.subject_view_header)).setText(subjectName);
         mService.subjectDump(area, subjectName, mSubjectDumpCallbacks);
     }
 
