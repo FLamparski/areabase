@@ -410,7 +410,7 @@ containing a value of this type.
         public static final int divider_horizontal_holo_light=0x7f020020;
         public static final int divider_vertical=0x7f020021;
         public static final int drawer_shadow=0x7f020022;
-        public static final int holoLightBlueDrawable=0x7f020040;
+        public static final int holoLightBlueDrawable=0x7f020041;
         public static final int ic_action_overflow=0x7f020023;
         public static final int ic_drawer=0x7f020024;
         public static final int ic_launcher=0x7f020025;
@@ -423,8 +423,8 @@ containing a value of this type.
         public static final int icon_chart=0x7f02002c;
         public static final int icon_chart_blue=0x7f02002d;
         public static final int location_place=0x7f02002e;
-        public static final int mySemiTransparentDrawable=0x7f020041;
-        public static final int myTransparentDrawable=0x7f020042;
+        public static final int mySemiTransparentDrawable=0x7f020042;
+        public static final int myTransparentDrawable=0x7f020043;
         public static final int nav_crime_padded=0x7f02002f;
         public static final int nav_economy_padded=0x7f020030;
         public static final int nav_environment_padded=0x7f020031;
@@ -439,9 +439,10 @@ containing a value of this type.
         public static final int navicon_summary=0x7f02003a;
         public static final int navigation_refresh=0x7f02003b;
         public static final int ons_logo_small=0x7f02003c;
-        public static final int selectable_background_cardbank=0x7f02003d;
-        public static final int selectable_background_links=0x7f02003e;
-        public static final int top_shadow=0x7f02003f;
+        public static final int popup_black=0x7f02003d;
+        public static final int selectable_background_cardbank=0x7f02003e;
+        public static final int selectable_background_links=0x7f02003f;
+        public static final int top_shadow=0x7f020040;
     }
     public static final class fraction {
         public static final int pop_density=0x7f090000;
@@ -449,13 +450,13 @@ containing a value of this type.
     public static final class id {
         public static final int RelativeLayout1=0x7f07001e;
         public static final int ScrollView1=0x7f07001b;
-        public static final int action_dump_db=0x7f07004b;
-        public static final int action_help=0x7f07004a;
-        public static final int action_locate=0x7f070047;
-        public static final int action_refresh=0x7f070049;
-        public static final int action_search=0x7f070048;
+        public static final int action_dump_db=0x7f07004d;
+        public static final int action_help=0x7f07004c;
+        public static final int action_locate=0x7f070049;
+        public static final int action_refresh=0x7f07004b;
+        public static final int action_search=0x7f07004a;
         public static final int action_search_edittext_edittext=0x7f070005;
-        public static final int action_settings=0x7f070046;
+        public static final int action_settings=0x7f070048;
         public static final int cardContent=0x7f070032;
         public static final int card_basic_text=0x7f07000e;
         public static final int card_basic_title=0x7f07000d;
@@ -507,18 +508,20 @@ containing a value of this type.
         public static final int normal=0x7f070001;
         public static final int objectIdTextView=0x7f07001f;
         public static final int placeholder=0x7f070031;
+        public static final int police_data_fragment_crime_graph=0x7f070042;
+        public static final int police_data_fragment_header=0x7f070041;
         public static final int satellite=0x7f070002;
         public static final int stackContainer=0x7f070035;
         public static final int stackRoot=0x7f070033;
         public static final int stackTitle=0x7f070034;
         public static final int sticky=0x7f07001a;
         public static final int subject_view_expandable_list=0x7f070028;
-        public static final int subject_view_groupitem_count=0x7f070042;
-        public static final int subject_view_groupitem_title=0x7f070041;
+        public static final int subject_view_groupitem_count=0x7f070044;
+        public static final int subject_view_groupitem_title=0x7f070043;
         public static final int subject_view_header=0x7f070027;
-        public static final int subject_view_listitem_count=0x7f070045;
-        public static final int subject_view_listitem_subtitle=0x7f070044;
-        public static final int subject_view_listitem_title=0x7f070043;
+        public static final int subject_view_listitem_count=0x7f070047;
+        public static final int subject_view_listitem_subtitle=0x7f070046;
+        public static final int subject_view_listitem_title=0x7f070045;
         public static final int tableLayout=0x7f07001c;
         public static final int tablet_area_activity_drawerLayout=0x7f070008;
         public static final int tablet_area_activity_frameLayout=0x7f070009;
@@ -551,8 +554,9 @@ containing a value of this type.
         public static final int navbar_list_header=0x7f030014;
         public static final int navbar_list_item=0x7f030015;
         public static final int navdrawer=0x7f030016;
-        public static final int subject_view_groupitem=0x7f030017;
-        public static final int subject_view_listitem=0x7f030018;
+        public static final int police_data_fragment=0x7f030017;
+        public static final int subject_view_groupitem=0x7f030018;
+        public static final int subject_view_listitem=0x7f030019;
     }
     public static final class menu {
         public static final int areabase_opts_menu=0x7f0d0000;
@@ -621,28 +625,30 @@ containing a value of this type.
         public static final int error_illegal_url_response_dontgo=0x7f0b003c;
         public static final int error_illegal_url_response_open=0x7f0b003d;
         public static final int error_illegal_url_title=0x7f0b003e;
-        public static final int navdrawer_secheader_basic_info=0x7f0b003f;
-        public static final int navdrawer_secheader_misc=0x7f0b0040;
-        public static final int navdrawer_secheader_more_data=0x7f0b0041;
-        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0b0042;
-        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0b0043;
-        public static final int pref_category_location_autoLocate_primaryText=0x7f0b0044;
-        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0b0045;
-        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0b0046;
-        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0b0047;
-        public static final int pref_category_location_heading=0x7f0b0048;
-        public static final int pref_category_testing_heading=0x7f0b0049;
-        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0b004a;
-        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0b004b;
-        public static final int pref_category_testing_phoneHome_primaryText=0x7f0b004c;
-        public static final int summaryactivity_cardmaker_ioerror=0x7f0b004d;
-        public static final int summaryactivity_cardmaker_ioerror_body=0x7f0b004e;
-        public static final int summaryactivity_cardmaker_onserror=0x7f0b004f;
-        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0b0050;
-        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0b0051;
-        public static final int summaryactivity_cardmaker_values_not_available=0x7f0b0052;
-        public static final int title_activity_settings=0x7f0b0053;
-        public static final int toast_mapview_not_loading=0x7f0b0054;
+        public static final int error_police_api=0x7f0b003f;
+        public static final int error_police_api_body=0x7f0b0040;
+        public static final int navdrawer_secheader_basic_info=0x7f0b0041;
+        public static final int navdrawer_secheader_misc=0x7f0b0042;
+        public static final int navdrawer_secheader_more_data=0x7f0b0043;
+        public static final int pref_category_location_autoLocate_infoText_disabled=0x7f0b0044;
+        public static final int pref_category_location_autoLocate_infoText_enabled=0x7f0b0045;
+        public static final int pref_category_location_autoLocate_primaryText=0x7f0b0046;
+        public static final int pref_category_location_backgroundRefix_infoText_disabled=0x7f0b0047;
+        public static final int pref_category_location_backgroundRefix_infoText_enabled=0x7f0b0048;
+        public static final int pref_category_location_backgroundRefix_primaryText=0x7f0b0049;
+        public static final int pref_category_location_heading=0x7f0b004a;
+        public static final int pref_category_testing_heading=0x7f0b004b;
+        public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0b004c;
+        public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0b004d;
+        public static final int pref_category_testing_phoneHome_primaryText=0x7f0b004e;
+        public static final int summaryactivity_cardmaker_ioerror=0x7f0b004f;
+        public static final int summaryactivity_cardmaker_ioerror_body=0x7f0b0050;
+        public static final int summaryactivity_cardmaker_onserror=0x7f0b0051;
+        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0b0052;
+        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0b0053;
+        public static final int summaryactivity_cardmaker_values_not_available=0x7f0b0054;
+        public static final int title_activity_settings=0x7f0b0055;
+        public static final int toast_mapview_not_loading=0x7f0b0056;
     }
     public static final class style {
         /** 
@@ -650,6 +656,7 @@ containing a value of this type.
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         
+ API 11 theme customizations can go here. 
  API 14 theme customizations can go here. 
          */
         public static final int AppBaseTheme=0x7f0c0000;

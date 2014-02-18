@@ -1,23 +1,5 @@
 package lamparski.areabase.fragments;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
-
-import java.io.IOException;
-
-import lamparski.areabase.AreaActivity;
-import lamparski.areabase.R;
-import lamparski.areabase.cards.BasicCard;
-import lamparski.areabase.cards.ErrorCard;
-import lamparski.areabase.cards.EventfulArrayList;
-import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
-import lamparski.areabase.cards.PlayCard;
-import lamparski.areabase.map_support.HoloCSSColourValues;
-import lamparski.areabase.map_support.OrdnanceSurveyMapView;
-import lamparski.areabase.services.AreaDataService;
-import lamparski.areabase.services.AreaDataService.AreaDataBinder;
-import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
-import lamparski.areabase.widgets.CommonDialogHandlers;
-import nde2.errors.NDE2Exception;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ComponentName;
@@ -39,6 +21,24 @@ import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.objects.CardFactory;
 import com.fima.cardsui.objects.CardModel;
 import com.fima.cardsui.views.CardUI;
+
+import java.io.IOException;
+
+import lamparski.areabase.AreaActivity;
+import lamparski.areabase.R;
+import lamparski.areabase.cards.ErrorCard;
+import lamparski.areabase.cards.EventfulArrayList;
+import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
+import lamparski.areabase.cards.PlayCard;
+import lamparski.areabase.map_support.HoloCSSColourValues;
+import lamparski.areabase.map_support.OrdnanceSurveyMapView;
+import lamparski.areabase.services.AreaDataService;
+import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
+import lamparski.areabase.widgets.CommonDialogHandlers;
+import nde2.errors.NDE2Exception;
+
+import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
 public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
@@ -434,12 +434,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	public void updateGeo(Location location) {
 		Log.d("SummaryFragment", "update location: " + location.toString());
 		mLocation = location;
-		mCardUI.addCardToLastStack(new BasicCard("Location updated",
-				"New location: " + location.getLongitude() + "; "
-						+ location.getLatitude()));
-		mOpenSpaceView.setCentre(location);
-		mOpenSpaceView.setZoom(10);
-		refreshContent();
+
+        if(mOpenSpaceView != null && mCardUI != null){
+            mOpenSpaceView.setCentre(location);
+            mOpenSpaceView.setZoom(10);
+            refreshContent();
+        }
 	}
 
 	@Override

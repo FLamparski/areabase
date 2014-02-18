@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import lamparski.areabase.R;
@@ -42,7 +43,7 @@ public class SubjectViewFragment extends DetailViewFragment {
 
     @Override
     public void refreshContent() {
-        ((TextView) getView().findViewById(R.id.subject_view_header)).setText(subjectName);
+        ((TextView) getView().findViewById(R.id.subject_view_header)).setText(subjectName.toUpperCase(Locale.UK));
         mService.subjectDump(area, subjectName, mSubjectDumpCallbacks);
     }
 

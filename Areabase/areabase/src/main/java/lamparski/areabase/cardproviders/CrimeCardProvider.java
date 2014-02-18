@@ -1,5 +1,14 @@
 package lamparski.areabase.cardproviders;
 
+import android.content.res.Resources;
+import android.util.Log;
+
+import com.fima.cardsui.objects.CardModel;
+
+import org.mysociety.mapit.Mapper;
+import org.xml.sax.SAXException;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.text.ParseException;
@@ -33,19 +42,10 @@ import nde2.pull.types.Dataset;
 import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
-
-import org.mysociety.mapit.Mapper;
-import org.xml.sax.SAXException;
-import org.xmlpull.v1.XmlPullParserException;
-
 import police.errors.APIException;
 import police.methodcalls.CrimeAvailabilityMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
-import android.content.res.Resources;
-import android.util.Log;
-
-import com.fima.cardsui.objects.CardModel;
 
 public class CrimeCardProvider {
 	private static final double TREND_STABLE_UPPER_THRESHOLD = 0.1;
@@ -272,7 +272,7 @@ public class CrimeCardProvider {
 		return rawname.toLowerCase(Locale.UK);
 	}
 
-	private static Map<String, Integer> crimeSlice(
+	public static Map<String, Integer> crimeSlice(
 			Collection<Crime> policeDataCrimes) {
 		HashMap<String, Integer> categoryTally = new HashMap<String, Integer>();
 		for (Crime crime : policeDataCrimes) {

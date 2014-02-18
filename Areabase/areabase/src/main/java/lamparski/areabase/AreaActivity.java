@@ -55,6 +55,7 @@ import java.util.Map.Entry;
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.ErrorDialogFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
+import lamparski.areabase.fragments.PoliceDataFragment;
 import lamparski.areabase.fragments.SubjectViewFragment;
 import lamparski.areabase.fragments.SummaryFragment;
 import lamparski.areabase.widgets.RobotoLightTextView;
@@ -544,10 +545,8 @@ public class AreaActivity extends Activity implements LocationListener,
 			performFragmentTransaction(replacementFragment);
 			break;
 		case CRIME:
-			replacementFragment = new DemoObjectFragment();
-			args.putString(DemoObjectFragment.ARGUMENT,
-					"Collated crime data will be shown here.");
-			args.putString(DemoObjectFragment.ARGUMENT2, "Crime");
+			replacementFragment = new SubjectViewFragment();
+            args.putString("argument-subject-name", "Crime and Safety");
 			replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
 			break;
@@ -573,10 +572,7 @@ public class AreaActivity extends Activity implements LocationListener,
 			performFragmentTransaction(replacementFragment);
 			break;
 		case EXPLORE_POLICE:
-			replacementFragment = new DemoObjectFragment();
-			args.putString(DemoObjectFragment.ARGUMENT,
-					"Various Police-related information will be shown here");
-			args.putString(DemoObjectFragment.ARGUMENT2, "Police Data");
+			replacementFragment = new PoliceDataFragment();
 			replacementFragment.setArguments(args);
 			performFragmentTransaction(replacementFragment);
 			break;
@@ -619,9 +615,11 @@ public class AreaActivity extends Activity implements LocationListener,
 		FragmentManager fragmentManager = getFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(mFragmentHostId, frag, frag.getClass().getName())
+                .addToBackStack("Areabase")
 				.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
+            if(mGeoPoint != null) mContentFragment.updateGeo(mGeoPoint);
 		}
 	}
 

@@ -139,4 +139,7 @@
     <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>
     <string name="a11y_cd_areabase_icon">The Areabase icon</string>
 
+    <string name="error_police_api">Could not fetch crime data</string>
+    <string name="error_police_api_body">Please try again later. The following might be helpful: %1$s</string>
+
 </resources>

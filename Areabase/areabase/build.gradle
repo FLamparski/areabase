@@ -24,6 +24,7 @@ android {
 
 dependencies {
     compile project(':cardsUILib')
+    compile project(':HoloGraphLibrary')
     compile 'com.android.support:support-v13:+'
     compile 'com.google.code.gson:gson:2.1'
     compile 'com.google.android.gms:play-services:+'

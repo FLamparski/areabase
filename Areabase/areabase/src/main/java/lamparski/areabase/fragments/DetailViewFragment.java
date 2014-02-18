@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,14 +73,24 @@ public abstract class DetailViewFragment extends Fragment implements
 	@Override
 	public abstract void refreshContent();
 
+    int retries = 0;
 	@Override
 	public void updateGeo(Location location) {
-		mService.areaForLocation(location, mDetailViewAreaInfoIface);
+		if(isServiceBound) mService.areaForLocation(location, mDetailViewAreaInfoIface);
+        else {
+            final Location LOCATION = location;
+            if(retries++ < 10) new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    updateGeo(LOCATION);
+                }
+            }, 500);
+        }
 	}
 
 	@Override
 	public void searchByText(String query) {
-		mService.areaForName(query, mDetailViewAreaInfoIface);
+		if(isServiceBound) mService.areaForName(query, mDetailViewAreaInfoIface);
 	}
 
     /**
