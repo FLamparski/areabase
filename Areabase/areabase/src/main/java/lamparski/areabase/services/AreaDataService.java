@@ -64,6 +64,8 @@ public class AreaDataService extends Service {
     public interface SubjectDumpIface {
         public void subjectDumpReady(Map<DataSetFamily, Dataset> map);
 
+        public void onProgress(int position, int size);
+
         public void onError(Throwable tr);
     }
 
@@ -471,7 +473,9 @@ public class AreaDataService extends Service {
                 try{
                     Subject subject = CensusHelpers.findSubject(area, subjectName);
                     List<DataSetFamily> families = new GetDatasetFamilies(subject).forArea(area).execute();
-                    for(DataSetFamily family : families){
+                    for(int i = 0; i < families.size(); i++){
+                        commlink.onProgress(i + 1, families.size());
+                        DataSetFamily family = families.get(i);
                         Set<Dataset> datasets = new GetTables().forArea(area).inFamily(family).execute();
                         assert datasets.size() == 1;
                         Dataset dataset = datasets.iterator().next();

@@ -105,6 +105,12 @@ public class PoliceDataFragment extends DetailViewFragment {
         new AsyncTask<Area, Void, Collection<Crime>>(){
 
             @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                getActivity().setProgressBarIndeterminateVisibility(true);
+            }
+
+            @Override
             protected Collection<Crime> doInBackground(Area... params) {
                 double[][] areaPoly = new double[0][];
                 try {
@@ -132,6 +138,7 @@ public class PoliceDataFragment extends DetailViewFragment {
             @Override
             protected void onPostExecute(Collection<Crime> crimes) {
                 super.onPostExecute(crimes);
+                getActivity().setProgressBarIndeterminateVisibility(false);
                 onCrimeDataFound(crimes);
             }
         }.execute(area);
@@ -182,14 +189,7 @@ public class PoliceDataFragment extends DetailViewFragment {
         });
     }
 
-    protected void onIOError(){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), R.string.error_cannot_fetch_area_data, 0).show();
-            }
-        });
-    }
+
 
     private int nextSliceColour(){
         int baseColor = SLICE_COLOURS[currentSliceColour++ % SLICE_COLOURS.length];

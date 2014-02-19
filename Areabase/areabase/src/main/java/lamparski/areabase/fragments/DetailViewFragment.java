@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import lamparski.areabase.AreaActivity;
+import lamparski.areabase.R;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.DetailViewAreaInfoIface;
@@ -65,7 +66,7 @@ public abstract class DetailViewFragment extends Fragment implements
 		public void areaReady(Area area) {
             assert area != null;
 			DetailViewFragment.this.area = area;
-            ((AreaActivity) getActivity()).setTitle(area.getName());
+            if(getActivity() != null) ((AreaActivity) getActivity()).setTitle(area.getName());
 			refreshContent();
 		}
 	};
@@ -149,4 +150,12 @@ public abstract class DetailViewFragment extends Fragment implements
 	public abstract View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState);
 
+    protected void onIOError(){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), R.string.io_exception_generic_message, 0).show();
+            }
+        });
+    }
 }

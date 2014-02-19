@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentManager.OnBackStackChangedListener;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
@@ -56,13 +59,15 @@ import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.ErrorDialogFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
 import lamparski.areabase.fragments.PoliceDataFragment;
+import lamparski.areabase.fragments.SubjectListFragment;
 import lamparski.areabase.fragments.SubjectViewFragment;
 import lamparski.areabase.fragments.SummaryFragment;
 import lamparski.areabase.widgets.RobotoLightTextView;
+import nde2.pull.types.Area;
 
 public class AreaActivity extends Activity implements LocationListener,
-		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener {
+		ConnectionCallbacks,
+		OnConnectionFailedListener, OnBackStackChangedListener {
 
 	// private AreaInfoPagerAdapter mAreaInfoPagerAdapter;
 	protected NavDrawerListAdapter mNavDrawerAdapter;
@@ -180,6 +185,8 @@ public class AreaActivity extends Activity implements LocationListener,
 
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		mDrawerLayout.closeDrawer(mDrawer);
+
+        getFragmentManager().addOnBackStackChangedListener(this);
 
 		if (savedInstanceState != null) {
 			Log.d("AreaActivity", "  > savedInstanceState != null");
@@ -542,48 +549,45 @@ public class AreaActivity extends Activity implements LocationListener,
 				args.putParcelable(CURRENT_COORDS, mGeoPoint);
 			}
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		case CRIME:
 			replacementFragment = new SubjectViewFragment();
             args.putString("argument-subject-name", "Crime and Safety");
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		case ECONOMY:
 			replacementFragment = new SubjectViewFragment();
             args.putSerializable("argument-subject-name", "Economic Deprivation");
             replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		case ENVIRONMENT:
 			replacementFragment = new SubjectViewFragment();
             args.putString("argument-subject-name", "Physical Environment");
             replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		// "EXPLORE DATA"
 		case EXPLORE_ONS:
-			replacementFragment = new DemoObjectFragment();
-			args.putString(DemoObjectFragment.ARGUMENT,
-					"A list of area-compatible topics will be shown here");
-			args.putString(DemoObjectFragment.ARGUMENT2, "ONS Data");
+			replacementFragment = new SubjectListFragment();
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		case EXPLORE_POLICE:
 			replacementFragment = new PoliceDataFragment();
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
-		// "MISC."
+		// "MISC." UNUSED
 		case AREA_HIERARCHY:
 			replacementFragment = new DemoObjectFragment();
 			args.putString(DemoObjectFragment.ARGUMENT,
 					"ONS-extracted hierarchy of this area will be shown");
 			args.putString(DemoObjectFragment.ARGUMENT2, "Hierarchy");
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		case AREA_COMPARE:
 			replacementFragment = new DemoObjectFragment();
@@ -591,7 +595,7 @@ public class AreaActivity extends Activity implements LocationListener,
 					"Here are options to compare two areas based on selected datasets.");
 			args.putString(DemoObjectFragment.ARGUMENT2, "Compare");
 			replacementFragment.setArguments(args);
-			performFragmentTransaction(replacementFragment);
+			performFragmentTransaction(replacementFragment, false);
 			break;
 		default:
 			Toast.makeText(this, String.format("Unknown link id %d", fragId),
@@ -611,12 +615,12 @@ public class AreaActivity extends Activity implements LocationListener,
 		outState.putParcelable(SIS_LOADED_COORDS, mGeoPoint);
 	}
 
-	private void performFragmentTransaction(Fragment frag) {
+	private void performFragmentTransaction(Fragment frag, boolean addToBackStack) {
 		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(mFragmentHostId, frag, frag.getClass().getName())
-                .addToBackStack("Areabase")
-				.commit();
+		FragmentTransaction transaction = fragmentManager.beginTransaction()
+				.replace(mFragmentHostId, frag, frag.getClass().getName());
+        if(addToBackStack) transaction.addToBackStack("Areabase");
+        transaction.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
             if(mGeoPoint != null) mContentFragment.updateGeo(mGeoPoint);
@@ -720,4 +724,19 @@ public class AreaActivity extends Activity implements LocationListener,
 		csvwriter.close();
 	}
 
+    public void showSubjectView(Area area, String subjectName) {
+        Bundle args = new Bundle();
+        Fragment replacementFragment = new SubjectViewFragment();
+        args.putString("argument-subject-name", subjectName);
+        args.putSerializable("argument-area", area);
+        replacementFragment.setArguments(args);
+        performFragmentTransaction(replacementFragment, true);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        // Ensure the correct fragment is referenced
+        mContentFragment = (IAreabaseFragment) getFragmentManager().findFragmentById(mFragmentHostId);
+        if(mGeoPoint != null) mContentFragment.updateGeo(mGeoPoint);
+    }
 }

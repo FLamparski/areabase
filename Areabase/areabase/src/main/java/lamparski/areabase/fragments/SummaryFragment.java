@@ -99,10 +99,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 					}
 					if (err instanceof IOException) {
 						Toast.makeText(getActivity(),
-								R.string.summaryactivity_cardmaker_ioerror,
+								R.string.io_exception_generic_message,
 								Toast.LENGTH_SHORT).show();
 						CardModel errmdl = new CardModel(ErrorCard.class);
-						errmdl.setTitlePlay(getString(R.string.summaryactivity_cardmaker_ioerror));
+						errmdl.setTitlePlay(getString(R.string.io_exception_generic_message));
 						errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
 						errmdl.setImageRes(R.drawable.ic_network_error);
 						cardModels.add(errmdl); // Errors are now

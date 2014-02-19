@@ -22,7 +22,7 @@
     <string name="drawer_close">Close drawer</string>
     <string name="error_cannot_fetch_area_data">Sorry, data about this area could not be fetched.</string>
     <string name="error_cannot_fetch_area_data_body">Please make sure you are connected to the Internet and try again later. The message associated with this error is: %1$s. Hope this helps.</string>
-    <string name="summaryactivity_cardmaker_ioerror">Please check your connection.</string>
+    <string name="io_exception_generic_message">Please check your connection.</string>
     <string name="summaryactivity_cardmaker_ioerror_body">Ensure that you have some form of connectivity enabled. If you are using an authenticated proxy, Areabase will not work.</string>
     <string name="summaryactivity_cardmaker_onserror">Error processing ONS data. Sorry :(</string>
     <string name="summaryactivity_cardmaker_servicedisconnect_title">Oh noes!</string>

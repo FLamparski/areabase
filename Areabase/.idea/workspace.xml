@@ -18,6 +18,18 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml">
+        <config>
+          <device>Nexus 10</device>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
+      <layout url="file://$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml">
+        <config>
+          <device>Nexus 7 2013</device>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/areabase/src/main/res/layout/police_data_fragment.xml">
         <config>
           <device>Nexus 7 2013</device>
@@ -42,48 +54,34 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Subject views now look better and behave.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/drawable-hdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/drawable-mdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/drawable-xhdpi/popup_black.9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/AndroidManifest.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Bar.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/BarGraph.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/HoloGraphLibrary.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/LICENSE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Line.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LineGraph.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LinePoint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/NOTICE.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieGraph.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieSlice.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/build.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout/police_data_fragment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/proguard-project.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/project.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v11/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v14/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_19_0_0.xml" />
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Police data view. Kind of.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_list.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitmodules" afterPath="$PROJECT_DIR$/../.gitmodules" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/AndroidManifest.xml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Bar.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Bar.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/BarGraph.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/BarGraph.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Line.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Line.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LineGraph.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LineGraph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LinePoint.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/LinePoint.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/NOTICE.txt" afterPath="$PROJECT_DIR$/HoloGraphLibrary/NOTICE.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieGraph.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieGraph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieSlice.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/PieSlice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/areabase.iml" afterPath="$PROJECT_DIR$/areabase/areabase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build.gradle" afterPath="$PROJECT_DIR$/areabase/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/res/values/strings.xml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/res/values/styles.xml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v11/styles.xml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v11/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v14/styles.xml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/res/values-v14/styles.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -156,7 +154,7 @@
       <file leaf-file-name="SubjectExpandableListAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0" vertical-offset="396" max-vertical-offset="2664">
+            <state line="111" column="0" selection-start="3515" selection-end="3515" vertical-scroll-proportion="0.0" vertical-offset="1393" max-vertical-offset="2286">
               <folding />
             </state>
           </provider>
@@ -165,37 +163,55 @@
       <file leaf-file-name="PoliceDataFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="203" column="39" selection-start="7333" selection-end="7333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3204">
+            <state line="140" column="74" selection-start="4846" selection-end="4846" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3150">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SubjectViewFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="65" column="0" selection-start="2101" selection-end="2101" vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1332">
               <folding>
-                <element signature="e#6278#6752#0" expanded="true" />
-                <element signature="e#6444#6469#0" expanded="true" />
-                <element signature="e#6507#6581#0" expanded="true" />
-                <element signature="e#6741#6742#0" expanded="true" />
-                <element signature="e#6830#7020#0" expanded="true" />
-                <element signature="e#6947#6984#0" expanded="true" />
-                <element signature="e#7009#7010#0" expanded="true" />
+                <element signature="e#1388#1623#0" expanded="true" />
+                <element signature="e#1608#1609#0" expanded="true" />
+                <element signature="e#1739#1929#0" expanded="true" />
+                <element signature="e#1914#1915#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="police_data_fragment.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml">
+      <file leaf-file-name="fragment_subject_view.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="38" selection-start="766" selection-end="766" vertical-scroll-proportion="0.7037037" vertical-offset="0" max-vertical-offset="828">
+            <state line="28" column="41" selection-start="1086" selection-end="1086" vertical-scroll-proportion="-15.75" vertical-offset="0" max-vertical-offset="720">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CrimeCardProvider.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
+      <file leaf-file-name="AreaDataService.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="274" column="10" selection-start="9444" selection-end="9444" vertical-scroll-proportion="0.0" vertical-offset="4180" max-vertical-offset="4698">
+            <state line="41" column="13" selection-start="1259" selection-end="1259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8514">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AreaActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="629" column="0" selection-start="20059" selection-end="20059" vertical-scroll-proportion="1.6651735" vertical-offset="8395" max-vertical-offset="12006">
+              <folding>
+                <element signature="e#6436#6456#0" expanded="true" />
+                <element signature="e#6462#6483#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -203,10 +219,9 @@
       <file leaf-file-name="DetailViewFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="2776" selection-end="2776" vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2412">
+            <state line="78" column="46" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2448">
               <folding>
-                <element signature="e#2471#2622#0" expanded="true" />
-                <element signature="e#2607#2608#0" expanded="true" />
+                <element signature="e#4698#4735#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -218,6 +233,10 @@
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="false" />
     </FindUsagesManager>
+  </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="$USER_HOME$/android-sdk-linux/mykeystore.jks" />
+    <option name="KEY_ALIAS" value="Filip Wieland" />
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -1797,22 +1816,24 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/Dataset.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DemographicsDetailFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/org/mysociety/mapit/Mapper.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_listitem.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_groupitem.xml" />
-        <option value="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml" />
         <option value="$PROJECT_DIR$/areabase/build.gradle" />
         <option value="$PROJECT_DIR$/settings.gradle" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/police_data_fragment.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_list.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
       </list>
     </option>
   </component>
@@ -2104,6 +2125,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="fragments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2169,11 +2224,14 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="015d3c267b18101b" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Testmachine-2" />
     <property name="last_opened_file_path" value="$USER_HOME$/Pictures/edit room" />
+    <property name="ExportedModule" value="areabase" />
+    <property name="ExportedApkPath" value="$PROJECT_DIR$/areabase/areabase.apk" />
+    <property name="AndroidRunProguardForReleaseBuild" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/areabase/src/main/res/layout-land" />
       <recent name="$PROJECT_DIR$/areabase/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/areabase/src/main/res/layout-land" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
@@ -2209,6 +2267,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2234,19 +2305,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2356,7 +2414,11 @@
       <created>1392720729647</created>
       <updated>1392720729647</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Police data view. Kind of.">
+      <created>1392762319822</created>
+      <updated>1392762319822</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2366,24 +2428,24 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.47272727" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47272727" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32937366" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978564" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4049676" sideWeight="0.38181818" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6859593" sideWeight="0.18996799" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4049676" sideWeight="0.6181818" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41576675" sideWeight="0.6181818" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.40021345" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2502674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2502674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2397,11 +2459,11 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6859593" sideWeight="0.18996799" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6859593" sideWeight="0.18996799" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2502674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2418,8 +2480,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4049676" sideWeight="0.810032" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.40021345" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -2438,34 +2500,14 @@
     </option>
     <MESSAGE value="Slapped together a subject view fragment." />
     <MESSAGE value="Subject views now look better and behave." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subject views now look better and behave." />
+    <MESSAGE value="Police data view. Kind of." />
+    <option name="LAST_COMMIT_MESSAGE" value="Police data view. Kind of." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="44" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="1116">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="152" column="30" selection-start="5688" selection-end="5688" vertical-scroll-proportion="0.0" vertical-offset="2736" max-vertical-offset="13158">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="44" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0" vertical-offset="522" max-vertical-offset="882">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="468" column="36" selection-start="13571" selection-end="13571" vertical-scroll-proportion="0.0" vertical-offset="8424" max-vertical-offset="8982">
@@ -2484,8 +2526,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="71" column="13" selection-start="2123" selection-end="2123" vertical-scroll-proportion="0.0" vertical-offset="1278" max-vertical-offset="2286">
           <folding>
-            <element signature="e#2471#2622#0" expanded="true" />
-            <element signature="e#2607#2608#0" expanded="true" />
+            <element signature="e#4698#4735#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2493,14 +2534,22 @@
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="44" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="558" max-vertical-offset="1116">
-          <folding />
+          <folding>
+            <element signature="e#1388#1623#0" expanded="true" />
+            <element signature="e#1608#1609#0" expanded="true" />
+            <element signature="e#1739#1929#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="152" column="30" selection-start="5688" selection-end="5688" vertical-scroll-proportion="0.0" vertical-offset="2736" max-vertical-offset="13158">
-          <folding />
+          <folding>
+            <element signature="e#6436#6456#0" expanded="true" />
+            <element signature="e#6462#6483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2529,8 +2578,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="89" column="5" selection-start="2567" selection-end="2567" vertical-scroll-proportion="0.0" vertical-offset="1602" max-vertical-offset="2538">
           <folding>
-            <element signature="e#2471#2622#0" expanded="true" />
-            <element signature="e#2607#2608#0" expanded="true" />
+            <element signature="e#4698#4735#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2538,7 +2586,12 @@
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="22" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0" vertical-offset="432" max-vertical-offset="1026">
-          <folding />
+          <folding>
+            <element signature="e#1388#1623#0" expanded="true" />
+            <element signature="e#1608#1609#0" expanded="true" />
+            <element signature="e#1739#1929#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2714,44 +2767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="111" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.58454645" vertical-offset="0" max-vertical-offset="893">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2286">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="4" selection-start="231" selection-end="722" vertical-scroll-proportion="0.0" vertical-offset="108" max-vertical-offset="540">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="101" selection-start="8568" selection-end="8568" vertical-scroll-proportion="0.0" vertical-offset="1766" max-vertical-offset="2700">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="431" column="0" selection-start="12760" selection-end="12760" vertical-scroll-proportion="0.0" vertical-offset="6236" max-vertical-offset="7470">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/app/Fragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="766" column="0" selection-start="29179" selection-end="29179" vertical-scroll-proportion="0.33204633" vertical-offset="12644" max-vertical-offset="33264">
@@ -2759,35 +2774,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="468" column="36" selection-start="13571" selection-end="13571" vertical-scroll-proportion="13.996139" vertical-offset="634" max-vertical-offset="8442">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/BaseMethodCall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="22" selection-start="756" selection-end="756" vertical-scroll-proportion="-1.8841699" vertical-offset="1192" max-vertical-offset="1710">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="621" column="0" selection-start="19580" selection-end="19580" vertical-scroll-proportion="5.5444016" vertical-offset="6974" max-vertical-offset="11754">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="2776" selection-end="2776" vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2412">
-          <folding>
-            <element signature="e#2471#2622#0" expanded="true" />
-            <element signature="e#2607#2608#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="29" column="22" selection-start="756" selection-end="756" vertical-scroll-proportion="-1.8841699" vertical-offset="1192" max-vertical-offset="1710" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
@@ -2814,28 +2803,116 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="203" column="39" selection-start="7333" selection-end="7333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3204">
-          <folding>
-            <element signature="e#6278#6752#0" expanded="true" />
-            <element signature="e#6444#6469#0" expanded="true" />
-            <element signature="e#6507#6581#0" expanded="true" />
-            <element signature="e#6741#6742#0" expanded="true" />
-            <element signature="e#6830#7020#0" expanded="true" />
-            <element signature="e#6947#6984#0" expanded="true" />
-            <element signature="e#7009#7010#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="38" selection-start="766" selection-end="766" vertical-scroll-proportion="0.7037037" vertical-offset="0" max-vertical-offset="828">
+        <state line="13" column="39" selection-start="563" selection-end="563" vertical-scroll-proportion="0.2682927" vertical-offset="3" max-vertical-offset="864">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="34" selection-start="1416" selection-end="1416" vertical-scroll-proportion="0.0" vertical-offset="254" max-vertical-offset="2700">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="42" selection-start="885" selection-end="885" vertical-scroll-proportion="0.48820755" vertical-offset="0" max-vertical-offset="848">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="457" column="66" selection-start="13387" selection-end="13445" vertical-scroll-proportion="0.0" vertical-offset="6516" max-vertical-offset="7470">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="0" selection-start="3793" selection-end="3793" vertical-scroll-proportion="1.7795275" vertical-offset="1094" max-vertical-offset="2700">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2755#2781#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="46" selection-start="2322" selection-end="2322" vertical-scroll-proportion="0.0" vertical-offset="1350" max-vertical-offset="2448">
+          <folding>
+            <element signature="e#4698#4735#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="0" selection-start="3515" selection-end="3515" vertical-scroll-proportion="0.0" vertical-offset="1393" max-vertical-offset="2286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///tmp/dumpsys-lamparski.areabase118225934987088155.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="41" selection-start="1086" selection-end="1086" vertical-scroll-proportion="-15.75" vertical-offset="0" max-vertical-offset="720">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="13" selection-start="1259" selection-end="1259" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="8514">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="2101" selection-end="2101" vertical-scroll-proportion="0.0" vertical-offset="61" max-vertical-offset="1332">
+          <folding>
+            <element signature="e#1388#1623#0" expanded="true" />
+            <element signature="e#1608#1609#0" expanded="true" />
+            <element signature="e#1739#1929#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="74" selection-start="4846" selection-end="4846" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3150">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="629" column="0" selection-start="20059" selection-end="20059" vertical-scroll-proportion="1.6651735" vertical-offset="8395" max-vertical-offset="12006">
+          <folding>
+            <element signature="e#6436#6456#0" expanded="true" />
+            <element signature="e#6462#6483#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
