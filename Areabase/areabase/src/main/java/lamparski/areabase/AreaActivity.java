@@ -8,9 +8,11 @@ import android.app.FragmentManager;
 import android.app.FragmentManager.OnBackStackChangedListener;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.location.Location;
@@ -19,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -62,15 +65,19 @@ import lamparski.areabase.fragments.PoliceDataFragment;
 import lamparski.areabase.fragments.SubjectListFragment;
 import lamparski.areabase.fragments.SubjectViewFragment;
 import lamparski.areabase.fragments.SummaryFragment;
+import lamparski.areabase.services.AreaDataService;
+import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
+import lamparski.areabase.widgets.CommonDialogs;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
 
+import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
+
 public class AreaActivity extends Activity implements LocationListener,
 		ConnectionCallbacks,
-		OnConnectionFailedListener, OnBackStackChangedListener {
+		OnConnectionFailedListener, OnBackStackChangedListener, AreaLookupCallbacks {
 
-	// private AreaInfoPagerAdapter mAreaInfoPagerAdapter;
-	protected NavDrawerListAdapter mNavDrawerAdapter;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	private LinearLayout mDrawer;
@@ -85,6 +92,32 @@ public class AreaActivity extends Activity implements LocationListener,
 	private LocationClient mLocationClient;
 	private LocationRequest mLocationRequest;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+
+    private Area mArea = null;
+    private AreaDataService areaDataService;
+    protected boolean isAreaDataServiceBound, is_live;
+    protected ServiceConnection mAreaDataServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            if (is_live) {
+                Log.e("AreaActivity",
+                        "The AreaDataService disconnected unexpectedly.");
+                isAreaDataServiceBound = false;
+                serviceCockupNotify(name, AreaActivity.this);
+            }
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.i("AreaActivity", "AreaDataService connected");
+            AreaDataBinder binder = (AreaDataBinder) service;
+            areaDataService = binder.getService();
+            isAreaDataServiceBound = true;
+            if(areaDataService != null)
+                is_live = true;
+        }
+    };
 
 	protected boolean is_tablet = false;
 	protected boolean is_landscape = false;
@@ -104,6 +137,7 @@ public class AreaActivity extends Activity implements LocationListener,
 
 	private static final String SIS_LOADED_FRAGMENT = "currently-loaded-fragment";
 	private static final String SIS_LOADED_COORDS = "currently-loaded-coordinates";
+    private static final String SIS_LOADED_AREA = "currently-loaded-area";
 
 	private static Context appCtx;
 
@@ -198,6 +232,7 @@ public class AreaActivity extends Activity implements LocationListener,
 							savedInstanceState.getString(SIS_LOADED_FRAGMENT));
 			mGeoPoint = (Location) savedInstanceState
 					.getParcelable(SIS_LOADED_COORDS);
+            mArea = (Area) savedInstanceState.getSerializable(SIS_LOADED_AREA);
 		} else {
 			mGeoPoint = new Location("mock");
 			mGeoPoint.setLongitude(-0.041229);
@@ -231,9 +266,9 @@ public class AreaActivity extends Activity implements LocationListener,
 	protected void onStart() {
 		super.onStart();
 		if (mPref.contains("pref_location_backgroundlocate"))
-			request_location_updates = mPref.getBoolean(
-					"pref_location_backgroundlocate", false);
-
+			request_location_updates = mPref.getBoolean("pref_location_backgroundlocate", false);
+        Intent intent = new Intent(this, AreaDataService.class);
+        getApplicationContext().bindService(intent, mAreaDataServiceConnection, BIND_AUTO_CREATE);
 	}
 
 	@Override
@@ -277,8 +312,6 @@ public class AreaActivity extends Activity implements LocationListener,
 	public void onConnected(Bundle stuff) {
 		Log.i("Google Play services", "Service connected.");
 		mGeoPoint = mLocationClient.getLastLocation();
-		changeFragment(SUMMARY);
-		doRefreshFragment();
 
 		if (request_location_updates) {
 			is_requesting_updates = true;
@@ -291,6 +324,10 @@ public class AreaActivity extends Activity implements LocationListener,
 				mLocationClient.requestLocationUpdates(mLocationRequest, this);
 			}
 		}
+
+        if(is_live && mArea == null){
+            beginAreaFetch(mGeoPoint);
+        }
 	}
 
 	@Override
@@ -307,10 +344,6 @@ public class AreaActivity extends Activity implements LocationListener,
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		/*
-		 * TODO: This is to prepare this Activity to communicate with the Google
-		 * Play Location Services.
-		 */
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
@@ -476,7 +509,7 @@ public class AreaActivity extends Activity implements LocationListener,
 				Log.d("AreaActivity",
 						"Attempting to refresh the content fragment...");
 				try {
-					getContentFragment().updateGeo(mGeoPoint);
+					getContentFragment().refreshContent();
 					Log.d("AreaActivity", "Attempt successful!");
 					doRefreshFragment_retries = 0;
 				} catch (NullPointerException e) {
@@ -509,6 +542,10 @@ public class AreaActivity extends Activity implements LocationListener,
 		doRefreshFragment();
 	}
 
+    private void beginAreaFetch (final Location location){
+        areaDataService.areaForLocation(location, this);
+    }
+
 	/**
 	 * Checks if the locator service has new location, then saves it and returns
 	 * it.
@@ -526,6 +563,10 @@ public class AreaActivity extends Activity implements LocationListener,
 		return gServicesConnected() ? mLocationClient.getLastLocation() : null;
 	}
 
+    public Area getArea() {
+        return mArea;
+    }
+
 	public boolean isTablet() {
 		return is_tablet;
 	}
@@ -541,6 +582,7 @@ public class AreaActivity extends Activity implements LocationListener,
 	private void changeFragment(int fragId) {
 		Fragment replacementFragment;
 		Bundle args = new Bundle();
+        args.putSerializable("argument-area", mArea);
 		switch (fragId) {
 		// "THIS AREA"
 		case SUMMARY:
@@ -623,7 +665,7 @@ public class AreaActivity extends Activity implements LocationListener,
         transaction.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
-            if(mGeoPoint != null) mContentFragment.updateGeo(mGeoPoint);
+            if(mGeoPoint != null) mContentFragment.refreshContent();
 		}
 	}
 
@@ -737,6 +779,18 @@ public class AreaActivity extends Activity implements LocationListener,
     public void onBackStackChanged() {
         // Ensure the correct fragment is referenced
         mContentFragment = (IAreabaseFragment) getFragmentManager().findFragmentById(mFragmentHostId);
-        if(mGeoPoint != null) mContentFragment.updateGeo(mGeoPoint);
+        if(mGeoPoint != null) mContentFragment.refreshContent();
+    }
+
+    @Override
+    public void areaReady(Area area) {
+        mArea = area;
+        setTitle(area.getName());
+        doRefreshFragment();
+    }
+
+    @Override
+    public void onError(Throwable err) {
+        CommonDialogs.areaDataServiceError(err, this);
     }
 }

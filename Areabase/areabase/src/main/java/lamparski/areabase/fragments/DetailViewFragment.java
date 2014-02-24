@@ -5,9 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +17,7 @@ import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
-import lamparski.areabase.services.AreaDataService.DetailViewAreaInfoIface;
+import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
 import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
@@ -55,7 +53,7 @@ public abstract class DetailViewFragment extends Fragment implements
 		}
 	};
 
-	protected DetailViewAreaInfoIface mDetailViewAreaInfoIface = new DetailViewAreaInfoIface() {
+	protected AreaLookupCallbacks mAreaLookupCallbacks = new AreaLookupCallbacks() {
 
 		@Override
 		public void onError(Throwable err) {
@@ -74,24 +72,9 @@ public abstract class DetailViewFragment extends Fragment implements
 	@Override
 	public abstract void refreshContent();
 
-    int retries = 0;
-	@Override
-	public void updateGeo(Location location) {
-		if(isServiceBound) mService.areaForLocation(location, mDetailViewAreaInfoIface);
-        else {
-            final Location LOCATION = location;
-            if(retries++ < 10) new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    updateGeo(LOCATION);
-                }
-            }, 500);
-        }
-	}
-
 	@Override
 	public void searchByText(String query) {
-		if(isServiceBound) mService.areaForName(query, mDetailViewAreaInfoIface);
+		if(isServiceBound) mService.areaForName(query, mAreaLookupCallbacks);
 	}
 
     /**

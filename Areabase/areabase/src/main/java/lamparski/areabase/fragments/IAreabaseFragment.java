@@ -1,8 +1,8 @@
 package lamparski.areabase.fragments;
 
-import lamparski.areabase.AreaActivity;
-import android.location.Location;
 import android.support.v4.app.Fragment;
+
+import lamparski.areabase.AreaActivity;
 
 /**
  * Specifies the methods that any {@link Fragment} that wants to call itself an
@@ -19,15 +19,6 @@ public interface IAreabaseFragment {
 	 * the user selects the "Refresh" action on the parent {@link AreaActivity}.
 	 */
 	public void refreshContent();
-
-	/**
-	 * On fragments that support it, update the geographic location that the
-	 * user is in. Called when the user selects the "Locate" action on the
-	 * parent {@link AreaActivity}.
-	 * 
-	 * @param result
-	 */
-	public void updateGeo(Location result);
 
 	/**
 	 * On fragments that support it, perform a text-based search. Called when

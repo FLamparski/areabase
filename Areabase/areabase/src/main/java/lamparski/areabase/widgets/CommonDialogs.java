@@ -1,9 +1,10 @@
 package lamparski.areabase.widgets;
 
-import lamparski.areabase.R;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
+
+import lamparski.areabase.R;
 
 public class CommonDialogs {
 	/**
@@ -24,4 +25,16 @@ public class CommonDialogs {
 				.setNeutralButton(android.R.string.ok,
 						CommonDialogHandlers.JUST_DISMISS).show();
 	}
+
+    public static void areaDataServiceError(Throwable err, Context ctx) {
+        new AlertDialog.Builder(ctx)
+                .setTitle(
+                        R.string.error_cannot_fetch_area_data)
+                .setMessage(
+                        ctx.getResources()
+                                .getString(
+                                        R.string.error_cannot_fetch_area_data_body, err.toString()))
+                .setNeutralButton(android.R.string.ok,
+                        CommonDialogHandlers.JUST_DISMISS).show();
+    }
 }

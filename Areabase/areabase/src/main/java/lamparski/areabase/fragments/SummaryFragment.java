@@ -34,9 +34,11 @@ import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
 import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
+import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
@@ -50,6 +52,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	 */
 	private EventfulArrayList<CardModel> cardModels;
 	private Location mLocation;
+    private Area area;
 	private boolean is_tablet, is_landscape, is_live;
 	private double[][] polygon = null;
 
@@ -129,7 +132,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 		@Override
 		public void cardReady(final CardModel cm) {
-			SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
+            if(getActivity() != null) SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					cardModels.add(cm);
 				}
@@ -138,7 +141,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 		@Override
 		public void allDone() {
-			getActivity().setProgressBarIndeterminateVisibility(false);
+            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
 		}
 
 		@Override
@@ -182,7 +185,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 		@Override
 		public void onAreaNameFound(final String name) {
-			getActivity().runOnUiThread(new Runnable() {
+            if(getActivity() != null) getActivity().runOnUiThread(new Runnable() {
 				public void run() {
 					((AreaActivity) getActivity()).setTitle(name);
 				}
@@ -240,8 +243,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		getActivity().getApplicationContext().bindService(intent,
 				mServiceConnection, Context.BIND_AUTO_CREATE);
 
-		getActivity().setTitle("Test Area");
-
 		if (savedInstanceState != null) {
 			Log.d("SummaryFragment",
 					"savedInstanceState != null; reading state...");
@@ -293,8 +294,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
 
-		is_tablet = ((AreaActivity) getActivity()).isTablet();
-		is_landscape = ((AreaActivity) getActivity()).isLandscape();
+        if(getActivity() != null){
+            is_tablet = ((AreaActivity) getActivity()).isTablet();
+		    is_landscape = ((AreaActivity) getActivity()).isLandscape();
+        }
 
 		if (is_tablet) {
 			if (is_landscape) {
@@ -363,7 +366,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		super.onStop();
 		Log.d("SummaryFragment", "Stopping AreaDataService.");
 		is_live = false;
-		if (isServiceBound)
+		if (isServiceBound && getActivity() != null)
 			getActivity().getApplicationContext().unbindService(
 					mServiceConnection);
 	}
@@ -407,8 +410,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	@Override
 	public void refreshContent() {
-		Toast.makeText(getActivity(), "Refreshing view: clearing cards.",
-				Toast.LENGTH_SHORT).show();
+        if(area == null && getActivity() != null){
+            area = ((AreaActivity) getActivity()).getArea();
+        }
 		cardModels.clear();
 
 		mCardUI.clearCards();
@@ -416,12 +420,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		mCardUI.refresh();
 		mCardUI.forceLayout();
 
-		getActivity().setProgressBarIndeterminateVisibility(true);
+		if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(true);
 
 		if (isServiceBound) {
-			mService.generateCardsForLocation(mLocation, mAreaInfoCallbacks);
+			mService.generateCardsForArea(area, mAreaInfoCallbacks);
 		} else {
-			getActivity().setProgressBarIndeterminateVisibility(false);
+            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
 			Log.wtf("SummaryFragment",
 					"refreshContent(): AreaService is unbound :(");
 		}
@@ -431,36 +435,23 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 	}
 
 	@Override
-	public void updateGeo(Location location) {
-		Log.d("SummaryFragment", "update location: " + location.toString());
-		mLocation = location;
-
-        if(mOpenSpaceView != null && mCardUI != null){
-            mOpenSpaceView.setCentre(location);
-            mOpenSpaceView.setZoom(10);
-            refreshContent();
-        }
-	}
-
-	@Override
 	public void searchByText(String query) {
 		Log.d("SummaryFragment", "search called with query: " + query);
 
-		Toast.makeText(getActivity(), "Refreshing view: clearing cards.",
-				Toast.LENGTH_SHORT).show();
-		cardModels.clear();
-
-		mCardUI.clearCards();
-		mCardUI.invalidate();
-		mCardUI.refresh();
-		mCardUI.forceLayout();
-
-		getActivity().setProgressBarIndeterminateVisibility(true);
-
 		if (isServiceBound) {
-			mService.generateCardsForAreaName(query, mAreaInfoCallbacks);
+			mService.areaForName(query, new AreaLookupCallbacks() {
+                @Override
+                public void areaReady(Area area) {
+                    SummaryFragment.this.area = area;
+                    refreshContent();
+                }
+
+                @Override
+                public void onError(Throwable err) {
+                    if(getActivity() != null) ((AreaActivity) getActivity()).onError(err);
+                }
+            });
 		} else {
-			getActivity().setProgressBarIndeterminateVisibility(false);
 			Log.wtf("SummaryFragment",
 					"refreshContent(): AreaService is unbound :(");
 		}

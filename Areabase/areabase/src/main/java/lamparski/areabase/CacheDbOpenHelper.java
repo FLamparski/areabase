@@ -7,8 +7,7 @@ import android.util.Log;
 
 public class CacheDbOpenHelper extends SQLiteOpenHelper {
 
-	public static class CacheTable {
-		public static final String TABLE_NAME = "onsCache";
+	protected static class BaseCacheTable {
 		public static final String FIELD_ID = "_id";
 		public static final String FIELD_URL = "url";
 		public static final String FIELD_CACHED_OBJECT = "cachedObject";
@@ -16,19 +15,41 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
 		public static final String[] PROJECTION_ALL = new String[] { FIELD_ID,
 				FIELD_URL, FIELD_CACHED_OBJECT, FIELD_RETRIEVED_ON };
 
-		public static void onCreate(SQLiteDatabase db) {
-			db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + FIELD_ID
-					+ " INTEGER PRIMARY KEY AUTOINCREMENT," + FIELD_URL
-					+ " TEXT," + FIELD_RETRIEVED_ON + " INTEGER,"
-					+ FIELD_CACHED_OBJECT + " TEXT)");
-		}
-
-		public static void onUpgrade(SQLiteDatabase db) {
-			Log.w("CacheTable",
-					"Upgrading the cache table, entries will be deleted.");
-			db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-		}
+        public static String getSchema(String TABLE_NAME){
+            return "CREATE TABLE " + TABLE_NAME + " (" + FIELD_ID
+                    + " INTEGER PRIMARY KEY AUTOINCREMENT," + FIELD_URL
+                    + " TEXT," + FIELD_RETRIEVED_ON + " INTEGER,"
+                    + FIELD_CACHED_OBJECT + " TEXT)";
+        }
 	}
+
+    public static class OnsCacheTable {
+        public static final String TABLE_NAME = "onsCache";
+
+        public static void onCreate(SQLiteDatabase db) {
+            db.execSQL(BaseCacheTable.getSchema(TABLE_NAME));
+        }
+
+        public static void onUpgrade(SQLiteDatabase db) {
+            Log.w("OnsCacheTable",
+                    "Upgrading the cache table, entries will be deleted.");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        }
+    }
+
+    public static class PoliceCacheTable {
+        public static final String TABLE_NAME = "policeCache";
+
+        public static void onCreate(SQLiteDatabase db) {
+            db.execSQL(BaseCacheTable.getSchema(TABLE_NAME));
+        }
+
+        public static void onUpgrade(SQLiteDatabase db) {
+            Log.w("PoliceCacheTable",
+                    "Upgrading the cache table, entries will be deleted.");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        }
+    }
 
 	private static final int VERSION = 1;
 
@@ -38,12 +59,12 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		CacheTable.onCreate(db);
+		OnsCacheTable.onCreate(db);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		CacheTable.onUpgrade(db);
+		OnsCacheTable.onUpgrade(db);
 		onCreate(db);
 	}
 

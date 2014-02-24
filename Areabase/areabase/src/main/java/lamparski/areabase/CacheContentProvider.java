@@ -6,13 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import lamparski.areabase.CacheDbOpenHelper.OnsCacheTable;
+
 public class CacheContentProvider extends ContentProvider {
 
 	private CacheDbOpenHelper helper;
 	public static final String AUTHORITY = "lamparski.areabase.content";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
 	public static final Uri CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
-			CacheDbOpenHelper.CacheTable.TABLE_NAME);
+			OnsCacheTable.TABLE_NAME);
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {

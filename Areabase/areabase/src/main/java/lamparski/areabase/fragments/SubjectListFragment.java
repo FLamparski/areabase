@@ -68,6 +68,9 @@ public class SubjectListFragment extends DetailViewFragment implements OnItemCli
 
     @Override
     public void refreshContent() {
+        if(area == null){
+            area = ((AreaActivity) getActivity()).getArea();
+        }
         new AsyncTask<Area, Void, Map<DetailedSubject, Integer>>(){
 
             @Override

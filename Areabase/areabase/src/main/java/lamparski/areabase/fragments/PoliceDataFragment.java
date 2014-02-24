@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.widgets.CommonDialogHandlers;
@@ -102,6 +103,9 @@ public class PoliceDataFragment extends DetailViewFragment {
 
     @Override
     public void refreshContent() {
+        if(area == null){
+            area = ((AreaActivity) getActivity()).getArea();
+        }
         new AsyncTask<Area, Void, Collection<Crime>>(){
 
             @Override
