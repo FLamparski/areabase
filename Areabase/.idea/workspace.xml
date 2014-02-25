@@ -55,129 +55,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Alpha release time!!!!!!!!">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__ComGoogleAndroidGmsPlayServices4242_aar.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_io_2_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_api_client_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_api_client_android_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_api_services_androidpublisher_v1_1_rev12_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_http_client_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_http_client_android_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_http_client_gson_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_http_client_jackson2_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_http_client_jackson_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__google_oauth_client_1_16_0_rc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__gson_2_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__jackson_core_2_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__jackson_core_asl_1_9_11.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__jsr305_1_3_9.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_io_2_4.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__support_v13_19_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__support_v4_19_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__support_v4_19_0_1.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/classes.jar" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/AndroidManifest.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/AndroidManifest.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/buildConfig/debug/lamparski/areabase/BuildConfig.java" afterPath="$PROJECT_DIR$/areabase/build/source/buildConfig/debug/lamparski/areabase/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cardsUILib/build/source/buildConfig/debug/com/fima/cardsui/BuildConfig.java" afterPath="$PROJECT_DIR$/cardsUILib/build/source/buildConfig/debug/com/fima/cardsui/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cardsUILib/build/source/buildConfig/release/com/fima/cardsui/BuildConfig.java" afterPath="$PROJECT_DIR$/cardsUILib/build/source/buildConfig/release/com/fima/cardsui/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/HoloGraphLibrary.iml" afterPath="$PROJECT_DIR$/HoloGraphLibrary/HoloGraphLibrary.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/R.txt" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/R.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/ads_attrs.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/ads_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/areabase.iml" afterPath="$PROJECT_DIR$/areabase/areabase.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/drawable/card.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/drawable/card.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cardsUILib/cardsUILib.iml" afterPath="$PROJECT_DIR$/cardsUILib/cardsUILib.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view_multicolumn.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view_multicolumn.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/colors.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_icon_dark.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_icon_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_icon_light.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_icon_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/color/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/color/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_text_dark.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_text_dark.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/color/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/color/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_text_light.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/drawable/common_signin_btn_text_light.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew" afterPath="$PROJECT_DIR$/gradlew" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/header.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_first.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_first.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_last.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_last.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_play_card_empty_first.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_play_card_empty_first.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_stack.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_stack.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/maps_attrs.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/maps_attrs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/proguard.txt" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/proguard.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/project.properties" afterPath="$PROJECT_DIR$/HoloGraphLibrary/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-af/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-af/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-am/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-am/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ar/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ar/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-bg/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-bg/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ca/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ca/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-cs/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-cs/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-da/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-da/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-de/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-de/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-el/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-el/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-en-rGB/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-en-rGB/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-en-rIN/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-en-rIN/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-es/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-es-rUS/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-es-rUS/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-et-rEE/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-et-rEE/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fa/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fa/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fi/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fi/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fr/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fr-rCA/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-fr-rCA/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hi/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hi/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hr/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hu/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hu/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hy-rAM/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-hy-rAM/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-in/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-in/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-it/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-it/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-iw/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-iw/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ja/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ja/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ka-rGE/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ka-rGE/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-km-rKH/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-km-rKH/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ko/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ko/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lo-rLA/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lo-rLA/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lt/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lt/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lv/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-lv/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-mn-rMN/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-mn-rMN/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ms-rMY/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ms-rMY/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-nb/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-nb/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-nl/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-nl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pl/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt-rBR/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt-rBR/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt-rPT/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-pt-rPT/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ro/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ro/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ru/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-ru/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sk/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sk/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sl/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sr/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sv/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sv/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sw/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-sw/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-th/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-th/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-tl/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-tl/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-tr/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-tr/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-uk/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-uk/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-vi/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-vi/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rCN/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rCN/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rHK/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rHK/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rTW/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zh-rTW/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zu/strings.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values-zu/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/version.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/ComGoogleAndroidGmsPlayServices4242.aar/res/values/version.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -262,10 +141,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SubjectViewFragment.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SubjectViewFragment.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="0" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.68600684" vertical-offset="278" max-vertical-offset="1581">
+            <state line="52" column="0" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1581">
               <folding>
                 <element signature="e#2200#2848#0" expanded="true" />
                 <element signature="e#2841#2842#0" expanded="true" />
@@ -295,12 +174,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SummaryFragment.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="SummaryFragment.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="437" column="72" selection-start="14717" selection-end="14717" vertical-scroll-proportion="0.0" vertical-offset="6911" max-vertical-offset="8398">
+            <state line="57" column="0" selection-start="2057" selection-end="2057" vertical-scroll-proportion="-2.9044368" vertical-offset="1991" max-vertical-offset="7718">
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#2842#5300#0" expanded="true" />
                 <element signature="e#3753#3790#0" expanded="true" />
                 <element signature="e#3959#4007#0" expanded="true" />
@@ -322,13 +200,13 @@
                 <element signature="e#7925#7926#0" expanded="true" />
                 <element signature="e#8138#8637#0" expanded="true" />
                 <element signature="e#8632#8633#0" expanded="true" />
-                <element signature="e#13142#13223#0" expanded="true" />
-                <element signature="e#14148#15114#0" expanded="true" />
-                <element signature="e#15107#15108#0" expanded="true" />
-                <element signature="e#15892#16247#0" expanded="true" />
-                <element signature="e#16017#16063#0" expanded="true" />
-                <element signature="e#16090#16145#0" expanded="true" />
-                <element signature="e#16243#16244#0" expanded="true" />
+                <element signature="e#13149#13230#0" expanded="true" />
+                <element signature="e#14155#15121#0" expanded="true" />
+                <element signature="e#15114#15115#0" expanded="true" />
+                <element signature="e#15899#16254#0" expanded="true" />
+                <element signature="e#16024#16070#0" expanded="true" />
+                <element signature="e#16097#16152#0" expanded="true" />
+                <element signature="e#16250#16251#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1878,8 +1756,8 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
       </list>
     </option>
   </component>
@@ -2570,7 +2448,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -3019,11 +2897,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="0" selection-start="1740" selection-end="1740" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1581">
+          <folding>
+            <element signature="e#2200#2848#0" expanded="true" />
+            <element signature="e#2841#2842#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="437" column="72" selection-start="14717" selection-end="14717" vertical-scroll-proportion="0.0" vertical-offset="6911" max-vertical-offset="8398">
+        <state line="57" column="0" selection-start="2057" selection-end="2057" vertical-scroll-proportion="-2.9044368" vertical-offset="1991" max-vertical-offset="7718">
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#2842#5300#0" expanded="true" />
             <element signature="e#3753#3790#0" expanded="true" />
             <element signature="e#3959#4007#0" expanded="true" />
@@ -3045,23 +2932,13 @@
             <element signature="e#7925#7926#0" expanded="true" />
             <element signature="e#8138#8637#0" expanded="true" />
             <element signature="e#8632#8633#0" expanded="true" />
-            <element signature="e#13142#13223#0" expanded="true" />
-            <element signature="e#14148#15114#0" expanded="true" />
-            <element signature="e#15107#15108#0" expanded="true" />
-            <element signature="e#15892#16247#0" expanded="true" />
-            <element signature="e#16017#16063#0" expanded="true" />
-            <element signature="e#16090#16145#0" expanded="true" />
-            <element signature="e#16243#16244#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2155" selection-end="2155" vertical-scroll-proportion="0.68600684" vertical-offset="278" max-vertical-offset="1581">
-          <folding>
-            <element signature="e#2200#2848#0" expanded="true" />
-            <element signature="e#2841#2842#0" expanded="true" />
+            <element signature="e#13149#13230#0" expanded="true" />
+            <element signature="e#14155#15121#0" expanded="true" />
+            <element signature="e#15114#15115#0" expanded="true" />
+            <element signature="e#15899#16254#0" expanded="true" />
+            <element signature="e#16024#16070#0" expanded="true" />
+            <element signature="e#16097#16152#0" expanded="true" />
+            <element signature="e#16250#16251#0" expanded="true" />
           </folding>
         </state>
       </provider>

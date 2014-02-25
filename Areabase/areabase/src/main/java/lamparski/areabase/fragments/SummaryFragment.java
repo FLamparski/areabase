@@ -360,7 +360,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 		Log.d("SummaryFragment", "Stopping AreaDataService.");
 		is_live = false;
 		if (isServiceBound && getActivity() != null)
-			getActivity().getApplicationContext().unbindService(
+			AreaActivity.getAreabaseApplicationContext().unbindService(
 					mServiceConnection);
 	}
 
