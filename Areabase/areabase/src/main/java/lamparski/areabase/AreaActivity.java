@@ -96,6 +96,7 @@ public class AreaActivity extends Activity implements LocationListener,
     private Area mArea = null;
     private AreaDataService areaDataService;
     protected boolean isAreaDataServiceBound, is_live;
+    private boolean restoring_from_savestate = false;
     protected ServiceConnection mAreaDataServiceConnection = new ServiceConnection() {
 
         @Override
@@ -177,7 +178,7 @@ public class AreaActivity extends Activity implements LocationListener,
 
 		ActionBar mActionBar = getActionBar();
 		mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		mActionBar.setTitle("Areabase");
+		mActionBar.setTitle(R.string.app_name);
 		mActionBar.setHomeButtonEnabled(true);
 
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.tablet_area_activity_drawerLayout);
@@ -185,14 +186,14 @@ public class AreaActivity extends Activity implements LocationListener,
 			mDrawer = (LinearLayout) findViewById(R.id.navdrawer_layout);
 			is_tablet = true;
 			mFragmentHostId = R.id.tablet_area_activity_frameLayout;
-			Log.i(getClass().getName(),
+			Log.i("AreaActivity",
 					"Loading tablet version of AreaActivity");
 		} else {
 			mDrawerLayout = (DrawerLayout) findViewById(R.id.handset_area_activity_drawerLayout_DEFAULT);
 			mDrawer = (LinearLayout) findViewById(R.id.navdrawer_layout);
 			is_tablet = false;
 			mFragmentHostId = R.id.handset_area_activity_frameLayout_DEFAULT;
-			Log.i(getClass().getName(),
+			Log.i("AreaActivity",
 					"Loading handset version of AreaActivity");
 		}
 
@@ -233,10 +234,7 @@ public class AreaActivity extends Activity implements LocationListener,
 			mGeoPoint = (Location) savedInstanceState
 					.getParcelable(SIS_LOADED_COORDS);
             mArea = (Area) savedInstanceState.getSerializable(SIS_LOADED_AREA);
-		} else {
-			mGeoPoint = new Location("mock");
-			mGeoPoint.setLongitude(-0.041229);
-			mGeoPoint.setLatitude(51.448800);
+            restoring_from_savestate = true;
 		}
 	}
 
@@ -327,6 +325,8 @@ public class AreaActivity extends Activity implements LocationListener,
 
         if(is_live && mArea == null){
             beginAreaFetch(mGeoPoint);
+        } else if (restoring_from_savestate) {
+            doRefreshFragment();
         }
 	}
 
@@ -666,7 +666,7 @@ public class AreaActivity extends Activity implements LocationListener,
         transaction.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
-            if(mGeoPoint != null) mContentFragment.refreshContent();
+            doRefreshFragment();
 		}
 	}
 

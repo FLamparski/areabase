@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
     
     <com.fima.cardsui.views.QuickReturnListView
         android:id="@android:id/list"
@@ -25,4 +24,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/primary_text_dark" />
 
-</RelativeLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/layout/footer_fragment.xml -->
+</RelativeLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/footer_fragment.xml -->

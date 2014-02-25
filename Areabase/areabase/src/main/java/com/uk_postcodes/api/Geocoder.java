@@ -1,6 +1,7 @@
 package com.uk_postcodes.api;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -23,6 +24,8 @@ public class Geocoder {
     private final static String CALL = "http://uk-postcodes.com/latlng/%f,%f.json";
     public static String postcodeForLocation(Location location) throws Exception {
         String address = String.format(CALL, location.getLatitude(), location.getLongitude());
+
+        Log.d("Geocoder", "Calling: " + address);
 
         URL callUrl = new URL(address);
         HttpURLConnection callConnection = (HttpURLConnection) callUrl

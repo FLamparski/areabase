@@ -2,6 +2,7 @@ package lamparski.areabase.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.widgets.SubjectExpandableListAdapter;
+import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 
@@ -88,6 +90,8 @@ public class SubjectViewFragment extends DetailViewFragment {
         if(is_live){
             if(++refreshContentTries <= 10){
                 new Handler().postDelayed(refreshContentAction, 100);
+            } else {
+                Log.e("Subject View", "Exceeded the maximum number of tries for refreshContent() when service is connected.");
             }
         } else {
             if(++refreshContentTries <= 20){
@@ -99,6 +103,16 @@ public class SubjectViewFragment extends DetailViewFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View theView = inflater.inflate(R.layout.fragment_subject_view, container, false);
+
+        if(getArguments() != null){
+            if(getArguments().containsKey("argument-area")){
+                area = (Area) getArguments().getSerializable("argument-area");
+            }
+
+            if(getArguments().containsKey("argument-subject-name")){
+                subjectName = getArguments().getString("argument-subject-name");
+            }
+        }
 
         mPlaceholderProgressBar = (ProgressBar) theView.findViewById(R.id.subject_view_progress_bar);
 

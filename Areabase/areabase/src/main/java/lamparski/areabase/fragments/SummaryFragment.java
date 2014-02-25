@@ -76,6 +76,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 			AreaDataBinder binder = (AreaDataBinder) service;
 			mService = binder.getService();
 			isServiceBound = true;
+            is_live = true;
 		}
 	};
 
@@ -129,12 +130,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
     }
 
     @Override
-    public void cardReady(final CardModel cm) {
-        if(getActivity() != null) SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                cardModels.add(cm);
-            }
-        });
+    public void cardReady(CardModel cm) {
+        cardModels.add(cm);
     }
 
     @Override
@@ -203,31 +200,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
         });
     }
 
+    @Deprecated
 	public SummaryFragment() {
 		super();
 		Log.i("SummaryFragment", "Fragment created");
-		is_live = true;
-		cardModels = new EventfulArrayList<CardModel>();
-		cardModels.setOnItemAddedListener(new OnItemAddedListener() {
-
-			@Override
-			public boolean onItemAdded(Object item) {
-				try {
-					Toast.makeText(
-							getActivity(),
-							"Cards: adding object "
-									+ item.getClass().getSimpleName(),
-							Toast.LENGTH_SHORT).show();
-					mCardUI.addCardToLastStack((Card) CardFactory
-							.createCard((CardModel) item));
-					mCardUI.refresh();
-				} catch (Exception e) {
-					Log.w("SummaryFragment", "Cannot create card.", e);
-					return false;
-				}
-				return true;
-			}
-		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -267,6 +243,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 								+ depickledCards.toString());
 
 				cardModels = (EventfulArrayList<CardModel>) depickledCards;
+                cardModels.setOnItemAddedListener(sOnCardModelAdded); // context leak fix?
 				Toast.makeText(getActivity(),
 						"Found saved instance state cards", Toast.LENGTH_SHORT)
 						.show();
@@ -287,6 +264,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		Log.d("SummaryFragment", "onCreateView() enter");
+
+        cardModels = new EventfulArrayList<CardModel>();
+        cardModels.setOnItemAddedListener(sOnCardModelAdded);
 
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
@@ -403,7 +383,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
 	@Override
 	public void refreshContent() {
-        if(is_live){
+        if(is_live && isServiceBound){
             try{
                 new Handler().postDelayed(refreshContentAction, 100);
             } catch (NullPointerException npe){
@@ -422,7 +402,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
     private Runnable refreshContentAction = new Runnable() {
         @Override
         public void run() {
-            if(area == null && getActivity() != null){
+            assert getActivity() != null;
+            if(area == null){
                 area = ((AreaActivity) getActivity()).getArea();
             }
             cardModels.clear();
@@ -432,12 +413,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
             mCardUI.refresh();
             mCardUI.forceLayout();
 
-            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(true);
+            getActivity().setProgressBarIndeterminateVisibility(true);
 
             if (isServiceBound) {
                 mService.generateCardsForArea(area, SummaryFragment.this);
             } else {
-                if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
+                getActivity().setProgressBarIndeterminateVisibility(false);
                 Log.wtf("SummaryFragment",
                         "refreshContent(): AreaService is unbound :(");
             }
@@ -484,5 +465,22 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 							CommonDialogHandlers.JUST_DISMISS).show();
 		}
 	};
+
+    private OnItemAddedListener sOnCardModelAdded = new OnItemAddedListener() {
+
+        @Override
+        public boolean onItemAdded(Object item) {
+            try {
+                Log.v("SummaryFragment", "A card model has been added, creating a card...");
+                mCardUI.addCardToLastStack((Card) CardFactory
+                        .createCard((CardModel) item));
+                mCardUI.refresh();
+            } catch (Exception e) {
+                Log.w("SummaryFragment", "Cannot create card.", e);
+                return false;
+            }
+            return true;
+        }
+    };
 
 }

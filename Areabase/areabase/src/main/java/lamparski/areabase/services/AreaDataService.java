@@ -178,7 +178,7 @@ public class AreaDataService extends Service {
 				Area theArea = null;
 				try {
                     String postcode = com.uk_postcodes.api.Geocoder.postcodeForLocation(loc);
-
+                    Log.i("AreaDataService", "Got postcode: " + postcode);
 					Set<Area> areaSet = new FindAreas()
 							.ofLevelType(Area.LEVELTYPE_MSOA)
 							.inHierarchy(
