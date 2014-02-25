@@ -22,6 +22,18 @@ import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
+/**
+ * A base class for all fragments that deal with {@link nde2.pull.types.Area} objects and/or
+ * @{link Subject}s but are not {@link lamparski.areabase.fragments.SummaryFragment}s. This offers
+ * a way of connecting to the {@link lamparski.areabase.services.AreaDataService} and retains the
+ * area information, however most implementations usually just go for getting the area from
+ * AreaActivity.
+ *
+ * @author filip
+ * @see lamparski.areabase.services.AreaDataService
+ * @see lamparski.areabase.AreaActivity
+ * @see lamparski.areabase.fragments.SummaryFragment
+ */
 public abstract class DetailViewFragment extends Fragment implements
 		IAreabaseFragment {
 

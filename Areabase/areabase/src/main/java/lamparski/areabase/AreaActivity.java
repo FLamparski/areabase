@@ -74,6 +74,19 @@ import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
+/**
+ * The main screen of the application. It contains the fragment host for all of the components which
+ * use the area data provided by the ONS and so on. It contains the reference to the Area object,
+ * and links to display different data about this Area. At present, it only loads the current MSOA
+ * for where the user is standing and has limited support to load other areas based on the text
+ * search, but this could be alleviated...
+ * TODO: Create an issue on this; should be able to view other areas & navigate hierarchy.
+ * ...but not right now.
+ *
+ * @author filip
+ * @see nde2.pull.types.Area
+ * @see lamparski.areabase.fragments.IAreabaseFragment
+ */
 public class AreaActivity extends Activity implements LocationListener,
 		ConnectionCallbacks,
 		OnConnectionFailedListener, OnBackStackChangedListener, AreaLookupCallbacks {

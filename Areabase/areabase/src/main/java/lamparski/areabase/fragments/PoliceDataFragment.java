@@ -35,7 +35,10 @@ import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
 /**
- * Created by filip on 18/02/14.
+ * Shows the breakdown of crimes for the past 12 months for this area.
+ * TODO: make it also show a chart of these crimes in time, not just a pie.
+ *
+ * @author filip
  */
 public class PoliceDataFragment extends DetailViewFragment {
     private class CrimeLegendEntry {

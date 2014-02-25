@@ -24,7 +24,13 @@ import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 
 /**
- * Created by filip on 17/02/14.
+ * A way to display datasets for a particular subject for a particular area.
+ * It shows all datasets (using {@link Dataset} objects) in a {@link nde2.pull.types.Subject} as a
+ * two-level list (an {@link android.widget.ExpandableListView}), where level 1 is the title of the
+ * dataset, and level 2 is the content.
+ *
+ * @author filip
+ * @see lamparski.areabase.fragments.SubjectListFragment
  */
 public class SubjectViewFragment extends DetailViewFragment {
 

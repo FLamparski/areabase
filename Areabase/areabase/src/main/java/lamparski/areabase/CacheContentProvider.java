@@ -8,6 +8,9 @@ import android.net.Uri;
 
 import lamparski.areabase.CacheDbOpenHelper.OnsCacheTable;
 
+/**
+ * Good for caching purposes.
+ */
 public class CacheContentProvider extends ContentProvider {
 
 	private CacheDbOpenHelper helper;

@@ -42,6 +42,19 @@ import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
+/**
+ * The lovely Summary Fragment.
+ *
+ * Displays the map of the area, and cards with information relating to the area. It uses
+ * state-of-the-art adaptive Mad Libs generation technology to deliver human-readable descriptions
+ * for even the most confusing statistical data... or, you know, might just crash horribly.
+ *
+ * no but really this is what the user sees first so it should be good.
+ *
+ * @author filip
+ * @see lamparski.areabase.fragments.IAreabaseFragment
+ * @see lamparski.areabase.AreaActivity
+ */
 public class SummaryFragment extends Fragment implements IAreabaseFragment, BasicAreaInfoIface {
 
 	private OrdnanceSurveyMapView mOpenSpaceView;

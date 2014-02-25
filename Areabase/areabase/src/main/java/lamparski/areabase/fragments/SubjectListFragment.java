@@ -27,7 +27,14 @@ import nde2.pull.types.DetailedSubject;
 import nde2.pull.types.Subject;
 
 /**
- * Created by filip on 19/02/14.
+ * Shows a list of subjects (and the number of datasets they contain) for a given {@link nde2.pull.types.Area}.
+ * The items are links which, when clicked, should take the user to the {@link lamparski.areabase.fragments.SubjectViewFragment}
+ * for the corresponding {@link nde2.pull.types.Subject}.
+ *
+ * @author filip
+ * @see nde2.pull.types.Subject
+ * @see lamparski.areabase.fragments.SubjectViewFragment
+ * @see nde2.pull.types.Area
  */
 public class SubjectListFragment extends DetailViewFragment implements OnItemClickListener {
 

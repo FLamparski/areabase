@@ -4,6 +4,9 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 
+/**
+ * Something the framework requires
+ */
 public class ErrorDialogFragment extends DialogFragment {
 	private Dialog mDialog;
 

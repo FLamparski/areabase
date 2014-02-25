@@ -19,6 +19,14 @@ import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 
+/**
+ * Keeping this one around as it may come in handy.
+ *
+ * Displays slightly more detailed information about the demographics in the area.
+ *
+ * @see lamparski.areabase.fragments.SummaryFragment
+ */
+@SuppressWarnings("unused")
 public abstract class DemographicsDetailFragment extends DetailViewFragment {
 
 	private View myView;
