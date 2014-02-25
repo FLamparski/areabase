@@ -655,6 +655,7 @@ public class AreaActivity extends Activity implements LocationListener,
 		outState.putString(SIS_LOADED_FRAGMENT, getContentFragment().getClass()
 				.getName());
 		outState.putParcelable(SIS_LOADED_COORDS, mGeoPoint);
+        outState.putSerializable(SIS_LOADED_AREA, mArea);
 	}
 
 	private void performFragmentTransaction(Fragment frag, boolean addToBackStack) {
@@ -779,18 +780,27 @@ public class AreaActivity extends Activity implements LocationListener,
     public void onBackStackChanged() {
         // Ensure the correct fragment is referenced
         mContentFragment = (IAreabaseFragment) getFragmentManager().findFragmentById(mFragmentHostId);
-        if(mGeoPoint != null) mContentFragment.refreshContent();
+        if(mGeoPoint != null && mContentFragment != null) mContentFragment.refreshContent();
     }
 
     @Override
     public void areaReady(Area area) {
         mArea = area;
         setTitle(area.getName());
-        doRefreshFragment();
+        if(mContentFragment == null){
+            changeFragment(SUMMARY);
+        } else {
+            doRefreshFragment();
+        }
     }
 
     @Override
-    public void onError(Throwable err) {
-        CommonDialogs.areaDataServiceError(err, this);
+    public void onError(final Throwable err) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                CommonDialogs.areaDataServiceError(err, AreaActivity.this);
+            }
+        });
     }
 }

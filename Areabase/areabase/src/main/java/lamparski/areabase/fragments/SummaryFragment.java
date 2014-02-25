@@ -42,7 +42,7 @@ import nde2.pull.types.Area;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
-public class SummaryFragment extends Fragment implements IAreabaseFragment {
+public class SummaryFragment extends Fragment implements IAreabaseFragment, BasicAreaInfoIface {
 
 	private OrdnanceSurveyMapView mOpenSpaceView;
 	private CardUI mCardUI;
@@ -79,132 +79,129 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		}
 	};
 
-	private BasicAreaInfoIface mAreaInfoCallbacks = new BasicAreaInfoIface() {
+    @Override
+    public void onError(final Throwable err) {
+        SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
 
-		@Override
-		public void onError(final Throwable err) {
-			SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("SummaryFragment", "Error processing NDE data", err);
+                try {
+                    NDE2Exception cockup = (NDE2Exception) err;
+                    Log.w("SummaryFragment",
+                            String.format(
+                                    "NDE2 error response %d: Title: %s; detail: %s",
+                                    cockup.getNessCode(),
+                                    cockup.getNessMessage(),
+                                    cockup.getNessDetail()));
+                } catch (Exception e) {
+                    Log.d("SummaryFragment", "Not a NDE2Exception, got: "
+                            + err.getClass().getSimpleName());
+                }
+                if (err instanceof IOException) {
+                    Toast.makeText(getActivity(),
+                            R.string.io_exception_generic_message,
+                            Toast.LENGTH_SHORT).show();
+                    CardModel errmdl = new CardModel(ErrorCard.class);
+                    errmdl.setTitlePlay(getString(R.string.io_exception_generic_message));
+                    errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
+                    errmdl.setImageRes(R.drawable.ic_network_error);
+                    cardModels.add(errmdl); // Errors are now
+                                            // cards.
+                } else {
+                    Toast.makeText(getActivity(),
+                            R.string.summaryactivity_cardmaker_onserror,
+                            Toast.LENGTH_SHORT).show();
+                    if (err instanceof NDE2Exception) {
+                        String msg = String.format("NDE error: %s -- %s",
+                                ((NDE2Exception) err).getNessMessage(),
+                                ((NDE2Exception) err).getNessDetail());
+                        Toast.makeText(getActivity(), msg, 0).show();
+                        CardModel errmdl = new CardModel(ErrorCard.class);
+                        errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
+                        errmdl.setDescription(getString(R.string.error_cannot_resolve_postcode_body));
+                        errmdl.setImageRes(R.drawable.ic_map_error);
+                        cardModels.add(errmdl);
+                    }
+                }
+            }
+        });
+    }
 
-				@Override
-				public void run() {
-					Log.e("SummaryFragment", "Error processing NDE data", err);
-					try {
-						NDE2Exception cockup = (NDE2Exception) err;
-						Log.w("SummaryFragment",
-								String.format(
-										"NDE2 error response %d: Title: %s; detail: %s",
-										cockup.getNessCode(),
-										cockup.getNessMessage(),
-										cockup.getNessDetail()));
-					} catch (Exception e) {
-						Log.d("SummaryFragment", "Not a NDE2Exception, got: "
-								+ err.getClass().getSimpleName());
-					}
-					if (err instanceof IOException) {
-						Toast.makeText(getActivity(),
-								R.string.io_exception_generic_message,
-								Toast.LENGTH_SHORT).show();
-						CardModel errmdl = new CardModel(ErrorCard.class);
-						errmdl.setTitlePlay(getString(R.string.io_exception_generic_message));
-						errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
-						errmdl.setImageRes(R.drawable.ic_network_error);
-						cardModels.add(errmdl); // Errors are now
-												// cards.
-					} else {
-						Toast.makeText(getActivity(),
-								R.string.summaryactivity_cardmaker_onserror,
-								Toast.LENGTH_SHORT).show();
-						if (err instanceof NDE2Exception) {
-							String msg = String.format("NDE error: %s -- %s",
-									((NDE2Exception) err).getNessMessage(),
-									((NDE2Exception) err).getNessDetail());
-							Toast.makeText(getActivity(), msg, 0).show();
-							CardModel errmdl = new CardModel(ErrorCard.class);
-							errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
-							errmdl.setDescription(getString(R.string.error_cannot_resolve_postcode_body));
-							errmdl.setImageRes(R.drawable.ic_map_error);
-							cardModels.add(errmdl);
-						}
-					}
-				}
-			});
-		}
+    @Override
+    public void cardReady(final CardModel cm) {
+        if(getActivity() != null) SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                cardModels.add(cm);
+            }
+        });
+    }
 
-		@Override
-		public void cardReady(final CardModel cm) {
-            if(getActivity() != null) SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
-				public void run() {
-					cardModels.add(cm);
-				}
-			});
-		}
+    @Override
+    public void allDone() {
+        if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
+    }
 
-		@Override
-		public void allDone() {
-            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
-		}
+    @Override
+    public void onValueNotAvailable() {
+        SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                for (CardModel ecm : cardModels) {
+                    if (ecm.getTitlePlay()
+                            .equals(getResources()
+                                    .getString(
+                                            R.string.card_error_values_not_available_title))) {
+                        return;
+                    }
+                }
+                CardModel cm = new CardModel(
+                        getResources()
+                                .getString(
+                                        R.string.card_error_values_not_available_title),
+                        getResources()
+                                .getString(
+                                        R.string.card_error_values_not_available_body),
+                        HoloCSSColourValues.ORANGE.getCssValue(),
+                        HoloCSSColourValues.ORANGE.getCssValue(), false,
+                        true, PlayCard.class);
+                cardModels.addSilent(cm);
+                Card crd;
+                try {
+                    crd = (Card) CardFactory.createCard(cm);
+                } catch (java.lang.InstantiationException e) {
+                    e.printStackTrace();
+                    return;
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                crd.setOnClickListener(sExplainMissingData);
+                mCardUI.addCard(crd);
+            }
+        });
+    }
 
-		@Override
-		public void onValueNotAvailable() {
-			SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
-				public void run() {
-					for (CardModel ecm : cardModels) {
-						if (ecm.getTitlePlay()
-								.equals(getResources()
-										.getString(
-												R.string.card_error_values_not_available_title))) {
-							return;
-						}
-					}
-					CardModel cm = new CardModel(
-							getResources()
-									.getString(
-											R.string.card_error_values_not_available_title),
-							getResources()
-									.getString(
-											R.string.card_error_values_not_available_body),
-							HoloCSSColourValues.ORANGE.getCssValue(),
-							HoloCSSColourValues.ORANGE.getCssValue(), false,
-							true, PlayCard.class);
-					cardModels.addSilent(cm);
-					Card crd;
-					try {
-						crd = (Card) CardFactory.createCard(cm);
-					} catch (java.lang.InstantiationException e) {
-						e.printStackTrace();
-						return;
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
-						return;
-					}
-					crd.setOnClickListener(sExplainMissingData);
-					mCardUI.addCard(crd);
-				}
-			});
-		}
+    @Override
+    public void onAreaNameFound(final String name) {
+        if(getActivity() != null) getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                ((AreaActivity) getActivity()).setTitle(name);
+            }
+        });
+    }
 
-		@Override
-		public void onAreaNameFound(final String name) {
-            if(getActivity() != null) getActivity().runOnUiThread(new Runnable() {
-				public void run() {
-					((AreaActivity) getActivity()).setTitle(name);
-				}
-			});
-		}
+    @Override
+    public void onAreaBoundaryFound(final double[][] poly) {
+        getActivity().runOnUiThread(new Runnable() {
 
-		@Override
-		public void onAreaBoundaryFound(final double[][] poly) {
-			getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                polygon = poly;
+                mOpenSpaceView.highlightBoundary(poly);
 
-				@Override
-				public void run() {
-					polygon = poly;
-					mOpenSpaceView.highlightBoundary(poly);
-
-				}
-			});
-		}
-	};
+            }
+        });
+    }
 
 	public SummaryFragment() {
 		super();
@@ -252,14 +249,14 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 			Log.d("SummaryFragment", "    read current-coords -> mLocation; "
 					+ mLocation.toString());
 
-			new Handler().postDelayed(new Runnable() {
+			/*new Handler().postDelayed(new Runnable() {
 
 				@Override
 				public void run() {
 					mOpenSpaceView.setCentre(mLocation);
 					mOpenSpaceView.setZoom(10);
 				}
-			}, 750);
+			}, 750); */
 
 			Object depickledCards = savedInstanceState
 					.getSerializable("card-models");
@@ -328,16 +325,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 		mCardUI.setSwipeable(false);
 
 		if (getArguments() != null) {
-			mLocation = (Location) getArguments().getParcelable(
-					AreaActivity.CURRENT_COORDS);
-			if (savedInstanceState != null) {
-				mLocation = (Location) savedInstanceState
-						.getParcelable(AreaActivity.CURRENT_COORDS);
-			} else {
-				mLocation = new Location("mock");
-				mLocation.setLongitude(-0.041229);
-				mLocation.setLatitude(51.448800);
-			}
+            if(getArguments().containsKey(AreaActivity.CURRENT_COORDS)){
+			    mLocation = (Location) getArguments().getParcelable(AreaActivity.CURRENT_COORDS);
+            }
+            if(getArguments().containsKey("argument-area")){
+                area = (Area) getArguments().getSerializable("argument-area");
+            }
 		} else {
 			Log.w("SummaryFragment", "Called with no arguments!");
 		}
@@ -410,29 +403,50 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment {
 
 	@Override
 	public void refreshContent() {
-        if(area == null && getActivity() != null){
-            area = ((AreaActivity) getActivity()).getArea();
+        if(is_live){
+            try{
+                new Handler().postDelayed(refreshContentAction, 100);
+            } catch (NullPointerException npe){
+                if(++refreshContentTries <= 10){
+                    refreshContent();
+                }
+            }
+        } else {
+            if(++refreshContentTries <= 20){
+                refreshContent();
+            }
         }
-		cardModels.clear();
-
-		mCardUI.clearCards();
-		mCardUI.invalidate();
-		mCardUI.refresh();
-		mCardUI.forceLayout();
-
-		if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(true);
-
-		if (isServiceBound) {
-			mService.generateCardsForArea(area, mAreaInfoCallbacks);
-		} else {
-            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
-			Log.wtf("SummaryFragment",
-					"refreshContent(): AreaService is unbound :(");
-		}
-
-		mOpenSpaceView.setCentre(mLocation);
-		mOpenSpaceView.setZoom(10);
 	}
+
+    private int refreshContentTries = 0;
+    private Runnable refreshContentAction = new Runnable() {
+        @Override
+        public void run() {
+            if(area == null && getActivity() != null){
+                area = ((AreaActivity) getActivity()).getArea();
+            }
+            cardModels.clear();
+
+            mCardUI.clearCards();
+            mCardUI.invalidate();
+            mCardUI.refresh();
+            mCardUI.forceLayout();
+
+            if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(true);
+
+            if (isServiceBound) {
+                mService.generateCardsForArea(area, SummaryFragment.this);
+            } else {
+                if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
+                Log.wtf("SummaryFragment",
+                        "refreshContent(): AreaService is unbound :(");
+            }
+
+            mOpenSpaceView.setCentre(mLocation);
+            mOpenSpaceView.setZoom(10);
+            refreshContentTries = 0;
+        }
+    };
 
 	@Override
 	public void searchByText(String query) {

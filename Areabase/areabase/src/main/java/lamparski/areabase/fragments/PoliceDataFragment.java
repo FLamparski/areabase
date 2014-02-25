@@ -5,6 +5,7 @@ import android.app.AlertDialog.Builder;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,47 @@ public class PoliceDataFragment extends DetailViewFragment {
         }
     }
 
+    final private AsyncTask<Area, Void, Collection<Crime>> fetchCrimeDataTask = new AsyncTask<Area, Void, Collection<Crime>>(){
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            getActivity().setProgressBarIndeterminateVisibility(true);
+        }
+
+        @Override
+        protected Collection<Crime> doInBackground(Area... params) {
+            double[][] areaPoly = new double[0][];
+            try {
+                areaPoly = Mapper.getGeometryForArea(area);
+            } catch (Exception e) {
+                e.printStackTrace();
+                onIOError();
+            }
+            double[][] simplerPoly = ArrayHelpers.every_nth_pair(areaPoly, 10);
+
+            Collection<Crime> crimes = null;
+            try {
+                crimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplerPoly).getStreetLevelCrime();
+            } catch (IOException e) {
+                e.printStackTrace();
+                onIOError();
+            } catch (APIException e) {
+                e.printStackTrace();
+                onPoliceApiError(e);
+            }
+
+            return crimes;
+        }
+
+        @Override
+        protected void onPostExecute(Collection<Crime> crimes) {
+            super.onPostExecute(crimes);
+            getActivity().setProgressBarIndeterminateVisibility(false);
+            onCrimeDataFound(crimes);
+        }
+    };
+
     private static final int[] SLICE_COLOURS = new int[5];
     private int currentSliceColour = 0;
 
@@ -101,51 +143,34 @@ public class PoliceDataFragment extends DetailViewFragment {
         mListAdapter = new CrimeListAdapter();
     }
 
+    private Runnable refreshContentAction = new Runnable() {
+        @Override
+        public void run() {
+            if(area == null){
+                area = ((AreaActivity) getActivity()).getArea();
+            }
+
+            fetchCrimeDataTask.execute(area);
+        }
+    };
+
+    private int refreshContentTries = 0;
+
     @Override
     public void refreshContent() {
-        if(area == null){
-            area = ((AreaActivity) getActivity()).getArea();
+        if(is_live){
+            try{
+                new Handler().postDelayed(refreshContentAction, 100);
+            } catch (NullPointerException npe){
+                if(++refreshContentTries <= 10){
+                    refreshContent();
+                }
+            }
+        } else {
+            if(++refreshContentTries <= 20){
+                refreshContent();
+            }
         }
-        new AsyncTask<Area, Void, Collection<Crime>>(){
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                getActivity().setProgressBarIndeterminateVisibility(true);
-            }
-
-            @Override
-            protected Collection<Crime> doInBackground(Area... params) {
-                double[][] areaPoly = new double[0][];
-                try {
-                    areaPoly = Mapper.getGeometryForArea(area);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    onIOError();
-                }
-                double[][] simplerPoly = ArrayHelpers.every_nth_pair(areaPoly, 10);
-
-                Collection<Crime> crimes = null;
-                try {
-                    crimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplerPoly).getStreetLevelCrime();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    onIOError();
-                } catch (APIException e) {
-                    e.printStackTrace();
-                    onPoliceApiError(e);
-                }
-
-                return crimes;
-            }
-
-            @Override
-            protected void onPostExecute(Collection<Crime> crimes) {
-                super.onPostExecute(crimes);
-                getActivity().setProgressBarIndeterminateVisibility(false);
-                onCrimeDataFound(crimes);
-            }
-        }.execute(area);
     }
 
     @Override

@@ -2,6 +2,7 @@ package lamparski.areabase.fragments;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,44 @@ import nde2.pull.types.Subject;
  * Created by filip on 19/02/14.
  */
 public class SubjectListFragment extends DetailViewFragment implements OnItemClickListener {
+
+    private final AsyncTask<Area,Void,Map<DetailedSubject,Integer>> areaSubjectDumpTask = new AsyncTask<Area, Void, Map<DetailedSubject, Integer>>() {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            getActivity().setProgressBarIndeterminateVisibility(true);
+        }
+
+        @Override
+        protected Map<DetailedSubject, Integer> doInBackground(Area... params) {
+            Area myArea = params[0];
+            Map<DetailedSubject, Integer> targetHash = new HashMap<DetailedSubject, Integer>();
+
+            try {
+                Map<Subject, Integer> baseHash = myArea.getCompatibleSubjects();
+                for (Entry<Subject, Integer> entry : baseHash.entrySet()) {
+                    DetailedSubject detailedSubject = entry.getKey().getDetailed();
+                    targetHash.put(detailedSubject, entry.getValue());
+                }
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                onIOError();
+            } catch (Exception e) {
+                e.printStackTrace();
+                showToastCrossThread(e.toString(), 0);
+            }
+
+            return targetHash;
+        }
+
+        @Override
+        protected void onPostExecute(Map<DetailedSubject, Integer> result) {
+            super.onPostExecute(result);
+            getActivity().setProgressBarIndeterminateVisibility(false);
+            onSubjectHashFound(result);
+        }
+    };
 
     private class SubjectListAdapter extends BaseAdapter {
 
@@ -62,54 +101,37 @@ public class SubjectListFragment extends DetailViewFragment implements OnItemCli
         }
     }
 
+    private Runnable refreshContentAction = new Runnable() {
+        @Override
+        public void run() {
+            if(area == null){
+                area = ((AreaActivity) getActivity()).getArea();
+            }
+
+            areaSubjectDumpTask.execute(area);
+        }
+    };
+
     private List<DetailedSubject> subjects;
     private Map<DetailedSubject, Integer> subjectsWithCount;
     private SubjectListAdapter mAdapter;
+    private int refreshContentTries = 0;
 
     @Override
     public void refreshContent() {
-        if(area == null){
-            area = ((AreaActivity) getActivity()).getArea();
-        }
-        new AsyncTask<Area, Void, Map<DetailedSubject, Integer>>(){
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                getActivity().setProgressBarIndeterminateVisibility(true);
-            }
-
-            @Override
-            protected Map<DetailedSubject, Integer> doInBackground(Area... params) {
-                Area myArea = params[0];
-                Map<DetailedSubject, Integer> targetHash = new HashMap<DetailedSubject, Integer>();
-
-                try {
-                    Map<Subject, Integer> baseHash = myArea.getCompatibleSubjects();
-                    for(Entry<Subject, Integer> entry : baseHash.entrySet()){
-                        DetailedSubject detailedSubject = entry.getKey().getDetailed();
-                        targetHash.put(detailedSubject, entry.getValue());
-                    }
-                } catch (IOException ioe) {
-                    ioe.printStackTrace();
-                    onIOError();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    showToastCrossThread(e.toString(), 0);
+        if(is_live){
+            try{
+                new Handler().postDelayed(refreshContentAction, 100);
+            } catch (NullPointerException npe){
+                if(++refreshContentTries <= 10){
+                    refreshContent();
                 }
-
-                return targetHash;
             }
-
-            @Override
-            protected void onPostExecute(Map<DetailedSubject, Integer> result) {
-                super.onPostExecute(result);
-                getActivity().setProgressBarIndeterminateVisibility(false);
-                onSubjectHashFound(result);
+        } else {
+            if(++refreshContentTries <= 20){
+                refreshContent();
             }
-        }.execute(area);
-
-
+        }
     }
 
     protected void onSubjectHashFound(Map<DetailedSubject, Integer> hash){

@@ -1,6 +1,7 @@
 package lamparski.areabase.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.widgets.SubjectExpandableListAdapter;
@@ -35,6 +37,7 @@ public class SubjectViewFragment extends DetailViewFragment {
             getActivity().setProgressBarIndeterminateVisibility(false);
             mAdapter.setItems(map);
             mAdapter.notifyDataSetChanged();
+            refreshContentTries = 0;
         }
 
         @Override
@@ -61,12 +64,36 @@ public class SubjectViewFragment extends DetailViewFragment {
         }
     };
 
+    private Runnable refreshContentAction = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                if(area == null){
+                    area = ((AreaActivity) getActivity()).getArea();
+                }
+                ((TextView) getView().findViewById(R.id.subject_view_header)).setText(subjectName.toUpperCase(Locale.UK));
+                getActivity().setProgressBarIndeterminateVisibility(true);
+                mPlaceholderProgressBar.setProgress(0);
+                mService.subjectDump(area, subjectName, mSubjectDumpCallbacks);
+            } catch (NullPointerException npe) {
+                refreshContent();
+            }
+        }
+    };
+
+    private int refreshContentTries = 0;
+
     @Override
     public void refreshContent() {
-        ((TextView) getView().findViewById(R.id.subject_view_header)).setText(subjectName.toUpperCase(Locale.UK));
-        getActivity().setProgressBarIndeterminateVisibility(true);
-        mPlaceholderProgressBar.setProgress(0);
-        mService.subjectDump(area, subjectName, mSubjectDumpCallbacks);
+        if(is_live){
+            if(++refreshContentTries <= 10){
+                new Handler().postDelayed(refreshContentAction, 100);
+            }
+        } else {
+            if(++refreshContentTries <= 20){
+                refreshContent();
+            }
+        }
     }
 
     @Override

@@ -36,4 +36,4 @@
     </item>
     <item android:id="@+id/action_dump_db" android:title="Dump Database" android:orderInCategory="102"></item>
 
-</menu><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/menu/areabase_opts_menu.xml -->
+</menu><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/menu/areabase_opts_menu.xml -->

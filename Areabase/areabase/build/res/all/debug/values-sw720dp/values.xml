@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values-sw720dp/dimens.xml -->
+    <!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/values-sw720dp/dimens.xml -->
     <eat-comment />
 
     <dimen name="nav_drawer_catsep_height">32dp</dimen>
