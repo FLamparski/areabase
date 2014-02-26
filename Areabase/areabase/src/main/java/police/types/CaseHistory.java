@@ -57,23 +57,30 @@ public class CaseHistory {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof CaseHistory))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof CaseHistory)) {
+            return false;
+        }
 		CaseHistory other = (CaseHistory) obj;
 		if (crime == null) {
-			if (other.crime != null)
-				return false;
-		} else if (!crime.equals(other.crime))
-			return false;
+			if (other.crime != null) {
+                return false;
+            }
+		} else if (!crime.equals(other.crime)) {
+            return false;
+        }
 		if (outcomes == null) {
-			if (other.outcomes != null)
-				return false;
-		} else if (!outcomes.equals(other.outcomes))
-			return false;
+			if (other.outcomes != null) {
+                return false;
+            }
+		} else if (!outcomes.equals(other.outcomes)) {
+            return false;
+        }
 		return true;
 	}
 

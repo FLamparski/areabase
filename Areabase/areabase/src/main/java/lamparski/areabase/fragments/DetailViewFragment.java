@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.services.AreaDataService;
@@ -60,8 +62,9 @@ public abstract class DetailViewFragment extends Fragment implements
 			AreaDataBinder binder = (AreaDataBinder) service;
 			mService = binder.getService();
 			isServiceBound = true;
-            if(area != null && subjectName != null)
+            if(area != null && subjectName != null) {
                 refreshContent();
+            }
 		}
 	};
 
@@ -69,14 +72,18 @@ public abstract class DetailViewFragment extends Fragment implements
 
 		@Override
 		public void onError(Throwable err) {
-			err.printStackTrace();
+			Log.e("DetailViewFragment", "AreaLookupCallbacks onError()", err);
 		}
 
 		@Override
 		public void areaReady(Area area) {
             assert area != null;
 			DetailViewFragment.this.area = area;
-            if(getActivity() != null) ((AreaActivity) getActivity()).setTitle(area.getName());
+            if(getActivity() != null) {
+                {
+                    ((AreaActivity) getActivity()).setTitle(area.getName());
+                }
+            }
 			refreshContent();
 		}
 	};
@@ -86,21 +93,27 @@ public abstract class DetailViewFragment extends Fragment implements
 
 	@Override
 	public void searchByText(String query) {
-		if(isServiceBound) mService.areaForName(query, mAreaLookupCallbacks);
+		if(isServiceBound) {
+            {
+                mService.areaForName(query, mAreaLookupCallbacks);
+            }
+        }
 	}
 
     /**
      * Helper method to simplify toasts cross-platform
-     * @param text
-     * @param duration
+     * @param text the text to be displayed
+     * @param duration 0 for short, 1 for long as per {@link android.widget.Toast}
      */
     protected void showToastCrossThread(final CharSequence text, final int duration){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), text, duration).show();
-            }
-        });
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Crouton.makeText(getActivity(), text, Style.INFO).show();
+                }
+            });
+        }
     }
 
 	@Override
@@ -108,8 +121,13 @@ public abstract class DetailViewFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		is_live = true;
 		Intent intent = new Intent(getActivity(), AreaDataService.class);
-		getActivity().getApplicationContext().bindService(intent,
-				mServiceConnection, Context.BIND_AUTO_CREATE);
+		try{
+            getActivity().getApplicationContext().bindService(intent,
+                    mServiceConnection, Context.BIND_AUTO_CREATE);
+        } catch (NullPointerException npe) {
+            Log.e("DetailViewFragment", "Cannot bind AreaDataService: NullPointerException" +
+                    "on either getActivity() or getApplicationContext()", npe);
+        }
 
 		if (savedInstanceState != null) {
 			if (savedInstanceState.containsKey("saved-area")) {
@@ -121,12 +139,14 @@ public abstract class DetailViewFragment extends Fragment implements
 			}
 		}
 
-		if (getArguments().containsKey("argument-area")) {
-			area = (Area) getArguments().getSerializable("argument-area");
-		}
-		if (getArguments().containsKey("argument-subject-name")) {
-			subjectName = getArguments().getString("argument-subject-name");
-		}
+		if(getArguments() != null){
+            if (getArguments().containsKey("argument-area")) {
+                area = (Area) getArguments().getSerializable("argument-area");
+            }
+            if (getArguments().containsKey("argument-subject-name")) {
+                subjectName = getArguments().getString("argument-subject-name");
+            }
+        }
 	}
 
 	@Override
@@ -146,11 +166,13 @@ public abstract class DetailViewFragment extends Fragment implements
 			Bundle savedInstanceState);
 
     protected void onIOError(){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), R.string.io_exception_generic_message, 0).show();
-            }
-        });
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getActivity(), R.string.io_exception_generic_message, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

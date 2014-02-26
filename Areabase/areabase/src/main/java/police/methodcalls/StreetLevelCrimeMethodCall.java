@@ -1,5 +1,10 @@
 package police.methodcalls;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
@@ -9,9 +14,6 @@ import java.util.HashMap;
 
 import police.errors.APIException;
 import police.types.Crime;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 /**
  * Represents a call to the Police API which returns a list of crimes within a
@@ -132,8 +134,8 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 			 * from the server. This can be displayed to user, or used
 			 * internally to gracefully handle weird requests.
 			 */
-			System.err.println("API error: Code " + e.getHttpCode()
-					+ "; message: " + e.getMessage());
+            Log.w("StreetLevelCrimeMethodCall", "API error: Code " + e.getHttpCode()
+                    + "; message: " + e.getMessage());
 			if (e.getHttpCode() == 400) {
 				throw new APIException("The area specified is too large", e);
 			} else if (e.getHttpCode() == 503) {

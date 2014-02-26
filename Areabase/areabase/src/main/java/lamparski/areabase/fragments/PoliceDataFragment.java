@@ -6,13 +6,13 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.echo.holographlibrary.PieGraph;
 import com.echo.holographlibrary.PieSlice;
@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
@@ -100,7 +102,7 @@ public class PoliceDataFragment extends DetailViewFragment {
             try {
                 areaPoly = Mapper.getGeometryForArea(area);
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("PoliceDataFragment", "Error when fetching area geometry", e);
                 onIOError();
             }
             double[][] simplerPoly = ArrayHelpers.every_nth_pair(areaPoly, 10);
@@ -109,10 +111,10 @@ public class PoliceDataFragment extends DetailViewFragment {
             try {
                 crimes = new StreetLevelCrimeMethodCall().addAreaPolygon(simplerPoly).getStreetLevelCrime();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("PoliceDataFragment", "IO exception when fetching area crimes", e);
                 onIOError();
             } catch (APIException e) {
-                e.printStackTrace();
+                Log.e("PoliceDataFragment", "API exception when fetching area crimes", e);
                 onPoliceApiError(e);
             }
 
@@ -203,22 +205,25 @@ public class PoliceDataFragment extends DetailViewFragment {
             }
         mListAdapter.notifyDataSetChanged();
         } else {
-            Toast.makeText(getActivity(), "No crime information received", 0).show();
+            Crouton.makeText(getActivity(), "No crime information received", Style.INFO).show();
         }
     }
 
     protected void onPoliceApiError(final APIException error){
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                AlertDialog dlg = new Builder(getActivity())
-                        .setTitle(R.string.error_police_api)
-                        .setMessage(getResources().getString(R.string.error_police_api_body, error.toString()))
-                        .setNeutralButton("OK", CommonDialogHandlers.JUST_DISMISS)
-                        .create();
-                dlg.show();
-            }
-        });
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog dlg = new Builder(getActivity())
+                            .setTitle(R.string.error_police_api)
+                            .setMessage(getResources().getString(R.string.error_police_api_body, error.toString()))
+                            .setNeutralButton(android.R.string.ok, CommonDialogHandlers.JUST_DISMISS)
+                            .create();
+                    dlg.show();
+                }
+            });
+        }
+        Log.w("PoliceDataFragment", "Police API error", error);
     }
 
 

@@ -68,23 +68,30 @@ public class OutcomeStatus {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof OutcomeStatus))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof OutcomeStatus)) {
+            return false;
+        }
 		OutcomeStatus other = (OutcomeStatus) obj;
 		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
+			if (other.category != null) {
+                return false;
+            }
+		} else if (!category.equals(other.category)) {
+            return false;
+        }
 		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
+			if (other.date != null) {
+                return false;
+            }
+		} else if (!date.equals(other.date)) {
+            return false;
+        }
 		return true;
 	}
 

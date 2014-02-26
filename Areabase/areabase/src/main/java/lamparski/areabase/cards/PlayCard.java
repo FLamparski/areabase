@@ -1,6 +1,5 @@
 package lamparski.areabase.cards;
 
-import lamparski.areabase.R;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.RecyclableCard;
+
+import lamparski.areabase.R;
 
 public class PlayCard extends RecyclableCard {
 
@@ -41,16 +42,18 @@ public class PlayCard extends RecyclableCard {
 		playCardView.findViewById(R.id.card_play_stripe).setBackgroundColor(
 				Color.parseColor(color));
 
-		if (isClickable == true)
-			((LinearLayout) playCardView.findViewById(R.id.contentLayout))
-					.setBackgroundResource(R.drawable.selectable_background_cardbank);
+		if (isClickable) {
+            ((LinearLayout) playCardView.findViewById(R.id.contentLayout))
+                    .setBackgroundResource(R.drawable.selectable_background_cardbank);
+        }
 
-		if (hasOverflow == true)
-			((ImageView) playCardView.findViewById(R.id.card_play_overflow))
-					.setVisibility(View.VISIBLE);
-		else
-			((ImageView) playCardView.findViewById(R.id.card_play_overflow))
-					.setVisibility(View.GONE);
+		if (hasOverflow) {
+            ((ImageView) playCardView.findViewById(R.id.card_play_overflow))
+                    .setVisibility(View.VISIBLE);
+        } else {
+            ((ImageView) playCardView.findViewById(R.id.card_play_overflow))
+                    .setVisibility(View.GONE);
+        }
 	}
 
 	@Override

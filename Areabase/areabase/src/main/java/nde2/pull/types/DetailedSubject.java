@@ -1,10 +1,10 @@
 package nde2.pull.types;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 
 import nde2.errors.NDE2Exception;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * A more detailed representation of a subject. Has *two* descriptions!
@@ -106,23 +106,30 @@ public class DetailedSubject extends Subject {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (!(obj instanceof DetailedSubject))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (!super.equals(obj)) {
+            return false;
+        }
+		if (!(obj instanceof DetailedSubject)) {
+            return false;
+        }
 		DetailedSubject other = (DetailedSubject) obj;
 		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+			if (other.description != null) {
+                return false;
+            }
+		} else if (!description.equals(other.description)) {
+            return false;
+        }
 		if (moreDescription == null) {
-			if (other.moreDescription != null)
-				return false;
-		} else if (!moreDescription.equals(other.moreDescription))
-			return false;
+			if (other.moreDescription != null) {
+                return false;
+            }
+		} else if (!moreDescription.equals(other.moreDescription)) {
+            return false;
+        }
 		return true;
 	}
 }

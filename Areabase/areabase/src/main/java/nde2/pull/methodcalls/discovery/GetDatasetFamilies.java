@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,9 +15,6 @@ import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 public class GetDatasetFamilies extends DiscoveryMethodCall {
 	private static final String METHOD_NAME = "GetDatasets";
@@ -77,25 +77,32 @@ public class GetDatasetFamilies extends DiscoveryMethodCall {
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
 				// DateRange
-				if (key.equals("StartDate"))
-					dateRange.setStartDate(DateFormat.fromNDEDateTime(value));
-				if (key.equals("EndDate"))
-					dateRange.setEndDate(DateFormat.fromNDEDateTime(value));
+				if (key.equals("StartDate")) {
+                    dateRange.setStartDate(DateFormat.fromNDEDateTime(value));
+                }
+				if (key.equals("EndDate")) {
+                    dateRange.setEndDate(DateFormat.fromNDEDateTime(value));
+                }
 				// DSFamily
-				if (key.equals("DSFamilyId"))
-					dataSetFamily.setFamilyId(Integer.parseInt(value));
-				if (key.equals("Name"))
-					dataSetFamily.setName(value);
+				if (key.equals("DSFamilyId")) {
+                    dataSetFamily.setFamilyId(Integer.parseInt(value));
+                }
+				if (key.equals("Name")) {
+                    dataSetFamily.setName(value);
+                }
 				// Error
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
 				String t = xpp.getName();
-				if (t.equals("DateRange"))
-					dateRanges.add(dateRange);
+				if (t.equals("DateRange")) {
+                    dateRanges.add(dateRange);
+                }
 				if (t.equals("DSFamily")) {
 					dataSetFamily.setDateRanges(dateRanges
 							.toArray(new DateRange[dateRanges.size()]));
@@ -105,8 +112,9 @@ public class GetDatasetFamilies extends DiscoveryMethodCall {
 			event = xpp.next();
 		}
 
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 		/*
 		 * Let's not waste memory. On the other hand, when this is trimmed, it
 		 * could cause a performance hit depending on the GC (looking at you,

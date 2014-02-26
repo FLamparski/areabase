@@ -88,23 +88,30 @@ public class DateRange implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof DateRange))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof DateRange)) {
+            return false;
+        }
 		DateRange other = (DateRange) obj;
 		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
+			if (other.endDate != null) {
+                return false;
+            }
+		} else if (!endDate.equals(other.endDate)) {
+            return false;
+        }
 		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
+			if (other.startDate != null) {
+                return false;
+            }
+		} else if (!startDate.equals(other.startDate)) {
+            return false;
+        }
 		return true;
 	}
 

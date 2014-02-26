@@ -49,21 +49,26 @@ public abstract class DemographicsDetailFragment extends DetailViewFragment {
 	 */
 	private void setLabelOnUiThread(final int whichLabel,
 			final String targetText) {
-		getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				((TextView) myView.findViewById(whichLabel))
-						.setText(targetText);
-			}
-		});
+		if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ((TextView) myView.findViewById(whichLabel))
+                            .setText(targetText);
+                }
+            });
+        }
 	}
 
 	@Override
 	public void refreshContent() {
-		if (area != null)
-			((AreaActivity) getActivity()).setTitle(area.getName());
-		else
-			((AreaActivity) getActivity()).setTitle("Demographics view");
+		if(getActivity() != null){
+            if (area != null) {
+                ((AreaActivity) getActivity()).setTitle(area.getName());
+            } else {
+                ((AreaActivity) getActivity()).setTitle("Demographics view");
+            }
+        }
 		new AsyncTask<Area, Void, Void>() {
 			@Override
 			protected void onPreExecute() {
@@ -116,11 +121,7 @@ public abstract class DemographicsDetailFragment extends DetailViewFragment {
 							R.id.demographics_summary_immigration_val,
 							immigration);
 				} catch (final Throwable t) {
-					getActivity().runOnUiThread(new Runnable() {
-						public void run() {
-							Toast.makeText(getActivity(), t.toString(), 0);
-						}
-					});
+					showToastCrossThread(t.toString(), Toast.LENGTH_LONG);
 				}
 
 				return null;

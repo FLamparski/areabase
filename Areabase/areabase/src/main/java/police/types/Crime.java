@@ -1,5 +1,7 @@
 package police.types;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -111,10 +113,11 @@ public class Crime {
 		try {
 			outcomeStr = outcome_status.toString();
 		} catch (Exception e) {
-			if (outcome_status == null)
-				System.err.printf("Crime %d (%s): %s %s\n", id, persistent_id,
-						category, location.getStreet().getName());
-			System.err.println(" >> Outcome status for Crime@"
+			if (outcome_status == null) {
+				Log.w("Crime", String.format("Crime %d (%s): %s %s\n", id, persistent_id,
+                        category, location.getStreet().getName()));
+            }
+            Log.w("Crime", " >> Outcome status for Crime@"
 					+ Integer.toHexString(this.hashCode()) + " is null!");
 		}
 		if (outcomeStr == null) {
@@ -125,14 +128,18 @@ public class Crime {
 		String location_type = this.location_type;
 		String location_subtype = this.location_subtype;
 		String context = this.context;
-		if (this.category == null)
+		if (this.category == null){
 			category = "(null)";
-		if (this.persistent_id == null)
+        }
+		if (this.persistent_id == null){
 			persistent_id = "(null)";
-		if (this.location_type == null)
+        }
+		if (this.location_type == null){
 			location_type = "(null)";
-		if (this.location_subtype == null)
+        }
+		if (this.location_subtype == null){
 			location_type = "(null)";
+        }
 		if (this.context == null) {
 			context = "(null)";
 		}

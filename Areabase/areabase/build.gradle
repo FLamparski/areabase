@@ -26,9 +26,13 @@ dependencies {
     compile project(':cardsUILib')
     compile project(':HoloGraphLibrary')
     compile 'com.android.support:support-v13:+'
-    compile 'com.google.code.gson:gson:2.1'
+    compile 'com.google.code.gson:gson:2.+'
     compile 'com.google.android.gms:play-services:+'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.3') {
+        // exclusion is not neccessary, but generally a good idea.
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
     compile files('libs/jackson-core-asl-1.9.11.jar')
     compile files('libs/google-api-client-android-1.16.0-rc.jar')
     compile files('libs/google-oauth-client-1.16.0-rc.jar')

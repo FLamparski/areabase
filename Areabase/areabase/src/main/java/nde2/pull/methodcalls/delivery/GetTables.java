@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.delivery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,9 +24,6 @@ import nde2.pull.types.Dataset;
 import nde2.pull.types.DateRange;
 import nde2.pull.types.Period;
 import nde2.pull.types.Topic;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 public class GetTables extends DeliveryMethodCall {
 	private final static String METHOD_NAME = "getTables";
@@ -226,39 +226,52 @@ public class GetTables extends DeliveryMethodCall {
 					depth = xpp.getDepth();
 				}
 				key = xpp.getName();
-				if (key.equals("Dataset"))
-					ds = new Dataset();
-				if (key.equals("Topics"))
-					dstopics = processTopics(xpp);
-				if (key.equals("Boundaries"))
-					dsboundaries = processBoundaries(xpp);
-				if (key.equals("Periods"))
-					dsperiods = processPeriods(xpp);
-				if (key.equals("DatasetItems"))
-					dsitems = processItems(xpp);
-				if (key.equals("Error"))
-					error = new NDE2Exception();
+				if (key.equals("Dataset")) {
+                    ds = new Dataset();
+                }
+				if (key.equals("Topics")) {
+                    dstopics = processTopics(xpp);
+                }
+				if (key.equals("Boundaries")) {
+                    dsboundaries = processBoundaries(xpp);
+                }
+				if (key.equals("Periods")) {
+                    dsperiods = processPeriods(xpp);
+                }
+				if (key.equals("DatasetItems")) {
+                    dsitems = processItems(xpp);
+                }
+				if (key.equals("Error")) {
+                    error = new NDE2Exception();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
 				boolean in_dataset_metadata = parent_key
 						.equals("DatasetMetadata");
-				if (key.equals("DatasetCode"))
-					ds.setFamilyId(Integer.parseInt(value));
+				if (key.equals("DatasetCode")) {
+                    ds.setFamilyId(Integer.parseInt(value));
+                }
 				if (in_dataset_metadata) {
-					if (key.equals("Creator"))
-						ds.setCreator(value);
-					if (key.equals("Description"))
-						ds.setDescription(value);
-					if (key.equals("Subject.Category"))
-						ds.setSubjectCategory(value);
-					if (key.equals("Title"))
-						ds.setTitle(value);
+					if (key.equals("Creator")) {
+                        ds.setCreator(value);
+                    }
+					if (key.equals("Description")) {
+                        ds.setDescription(value);
+                    }
+					if (key.equals("Subject.Category")) {
+                        ds.setSubjectCategory(value);
+                    }
+					if (key.equals("Title")) {
+                        ds.setTitle(value);
+                    }
 				}
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
 				String n = xpp.getName();
@@ -274,8 +287,9 @@ public class GetTables extends DeliveryMethodCall {
 			event = xpp.next();
 		}
 
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 		return datasets;
 	}
 
@@ -291,8 +305,9 @@ public class GetTables extends DeliveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("DatasetItem"))
-					i = new DataSetItem();
+				if (key.equals("DatasetItem")) {
+                    i = new DataSetItem();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
@@ -315,15 +330,18 @@ public class GetTables extends DeliveryMethodCall {
 				break;
 			case XmlPullParser.END_TAG:
 				// Done with ONE period
-				if (xpp.getName().equals("DatasetItem"))
-					items.add(i);
+				if (xpp.getName().equals("DatasetItem")) {
+                    items.add(i);
+                }
 				// Done with ALL of the periods
-				if (xpp.getName().equals("DatasetItems"))
-					in_items = false;
+				if (xpp.getName().equals("DatasetItems")) {
+                    in_items = false;
+                }
 				break;
 			}
-			if (in_items)
-				event = xpp.next();
+			if (in_items) {
+                event = xpp.next();
+            }
 		}
 		return items;
 	}
@@ -341,8 +359,9 @@ public class GetTables extends DeliveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Period"))
-					p = new Period();
+				if (key.equals("Period")) {
+                    p = new Period();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
@@ -366,15 +385,18 @@ public class GetTables extends DeliveryMethodCall {
 				break;
 			case XmlPullParser.END_TAG:
 				// Done with ONE period
-				if (xpp.getName().equals("Period"))
-					periods.put(__p, p);
+				if (xpp.getName().equals("Period")) {
+                    periods.put(__p, p);
+                }
 				// Done with ALL of the periods
-				if (xpp.getName().equals("Periods"))
-					in_periods = false;
+				if (xpp.getName().equals("Periods")) {
+                    in_periods = false;
+                }
 				break;
 			}
-			if (in_periods)
-				event = xpp.next();
+			if (in_periods) {
+                event = xpp.next();
+            }
 		}
 		return periods;
 	}
@@ -392,8 +414,9 @@ public class GetTables extends DeliveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Boundary"))
-					b = new Boundary();
+				if (key.equals("Boundary")) {
+                    b = new Boundary();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
@@ -401,26 +424,33 @@ public class GetTables extends DeliveryMethodCall {
 					__p = Integer.parseInt(value);
 					b.set__pointer(__p);
 				}
-				if (key.equals("BoundaryCode"))
-					b.setBoundaryCode(value);
-				if (key.equals("Coverage.Spatial.Location"))
-					b.setEnvelope(value);
-				if (key.equals("Identifier"))
-					b.setIdentifier(Integer.parseInt(value));
-				if (key.equals("Title"))
-					b.setTitle(value);
+				if (key.equals("BoundaryCode")) {
+                    b.setBoundaryCode(value);
+                }
+				if (key.equals("Coverage.Spatial.Location")) {
+                    b.setEnvelope(value);
+                }
+				if (key.equals("Identifier")) {
+                    b.setIdentifier(Integer.parseInt(value));
+                }
+				if (key.equals("Title")) {
+                    b.setTitle(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
 				// Done with ONE boundary
-				if (xpp.getName().equals("Boundary"))
-					boundaries.put(__p, b);
+				if (xpp.getName().equals("Boundary")) {
+                    boundaries.put(__p, b);
+                }
 				// Done with ALL of the boundaries
-				if (xpp.getName().equals("Boundaries"))
-					in_boundaries = false;
+				if (xpp.getName().equals("Boundaries")) {
+                    in_boundaries = false;
+                }
 				break;
 			}
-			if (in_boundaries)
-				event = xpp.next();
+			if (in_boundaries) {
+                event = xpp.next();
+            }
 		}
 		return boundaries;
 	}
@@ -438,8 +468,9 @@ public class GetTables extends DeliveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Topic"))
-					t = new Topic();
+				if (key.equals("Topic")) {
+                    t = new Topic();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
@@ -447,34 +478,43 @@ public class GetTables extends DeliveryMethodCall {
 					__p = Integer.parseInt(value);
 					t.set__pointer(__p);
 				}
-				if (key.equals("TopicCode"))
-					t.setTopicId(Integer.parseInt(value));
-				if (key.equals("Creator"))
-					t.setCreator(value);
-				if (key.equals("Description"))
-					t.setDescription(value);
-				if (key.equals("Identifier"))
-					t.setDatasetFamilyId(Integer.parseInt(value));
-				if (key.equals("Title"))
-					t.setTitle(value);
-				if (key.equals("Coinage.Unit"))
-					t.setCoinageUnit(value);
+				if (key.equals("TopicCode")) {
+                    t.setTopicId(Integer.parseInt(value));
+                }
+				if (key.equals("Creator")) {
+                    t.setCreator(value);
+                }
+				if (key.equals("Description")) {
+                    t.setDescription(value);
+                }
+				if (key.equals("Identifier")) {
+                    t.setDatasetFamilyId(Integer.parseInt(value));
+                }
+				if (key.equals("Title")) {
+                    t.setTitle(value);
+                }
+				if (key.equals("Coinage.Unit")) {
+                    t.setCoinageUnit(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
 				// Done with ONE topic, add to list
-				if (xpp.getName().equals("Topic"))
-					topics.put(__p, t);
+				if (xpp.getName().equals("Topic")) {
+                    topics.put(__p, t);
+                }
 				// Done with ALL the topics, return
-				if (xpp.getName().equals("Topics"))
-					in_topics = false;
+				if (xpp.getName().equals("Topics")) {
+                    in_topics = false;
+                }
 				break;
 			}
 			/*
 			 * Only advance the parser if the end of the list of topics is not
 			 * reached.
 			 */
-			if (in_topics)
-				event = xpp.next();
+			if (in_topics) {
+                event = xpp.next();
+            }
 		}
 		return topics;
 	}

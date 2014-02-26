@@ -68,28 +68,37 @@ public class Outcome {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Outcome))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Outcome)) {
+            return false;
+        }
 		Outcome other = (Outcome) obj;
 		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
+			if (other.category != null) {
+                return false;
+            }
+		} else if (!category.equals(other.category)) {
+            return false;
+        }
 		if (crime == null) {
-			if (other.crime != null)
-				return false;
-		} else if (!crime.equals(other.crime))
-			return false;
+			if (other.crime != null) {
+                return false;
+            }
+		} else if (!crime.equals(other.crime)) {
+            return false;
+        }
 		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
+			if (other.date != null) {
+                return false;
+            }
+		} else if (!date.equals(other.date)) {
+            return false;
+        }
 		return true;
 	}
 

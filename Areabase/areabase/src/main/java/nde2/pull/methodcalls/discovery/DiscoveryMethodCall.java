@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
@@ -9,9 +12,6 @@ import java.util.Set;
 import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.BaseMethodCall;
 import nde2.pull.types.Area;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 public abstract class DiscoveryMethodCall extends BaseMethodCall {
 	protected static final String DISCOVERY_ENDPOINT = "http://neighbourhood.statistics.gov.uk/NDE2/Disco/";
@@ -53,36 +53,46 @@ public abstract class DiscoveryMethodCall extends BaseMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Error"))
-					error = new NDE2Exception();
-				if (key.equals("Area"))
-					area = new Area();
+				if (key.equals("Error")) {
+                    error = new NDE2Exception();
+                }
+				if (key.equals("Area")) {
+                    area = new Area();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
-				if (key.equals("AreaId"))
-					area.setAreaId(Integer.parseInt(value));
-				if (key.equals("Name"))
-					area.setName(value);
-				if (key.equals("HierarchyId"))
-					area.setHierarchyId(Integer.parseInt(value));
-				if (key.equals("LevelTypeId"))
-					area.setLevelTypeId(Integer.parseInt(value));
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("AreaId")) {
+                    area.setAreaId(Integer.parseInt(value));
+                }
+				if (key.equals("Name")) {
+                    area.setName(value);
+                }
+				if (key.equals("HierarchyId")) {
+                    area.setHierarchyId(Integer.parseInt(value));
+                }
+				if (key.equals("LevelTypeId")) {
+                    area.setLevelTypeId(Integer.parseInt(value));
+                }
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
-				if (xpp.getName().equals("Area"))
-					areaSet.add(area);
+				if (xpp.getName().equals("Area")) {
+                    areaSet.add(area);
+                }
 				break;
 			}
 			event = xpp.next();
 		}
 
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 		return areaSet;
 	}
 

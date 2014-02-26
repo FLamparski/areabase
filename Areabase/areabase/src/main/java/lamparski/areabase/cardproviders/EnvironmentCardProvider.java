@@ -1,7 +1,11 @@
 package lamparski.areabase.cardproviders;
 
-import static nde2.helpers.CensusHelpers.findRequiredFamilies;
-import static nde2.helpers.CensusHelpers.findSubject;
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+
+import com.fima.cardsui.objects.CardModel;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,12 +29,8 @@ import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-
-import com.fima.cardsui.objects.CardModel;
+import static nde2.helpers.CensusHelpers.findRequiredFamilies;
+import static nde2.helpers.CensusHelpers.findSubject;
 
 public class EnvironmentCardProvider {
 	private static final String[] REQUIRED_FAMILIES = { "Land Use",
@@ -109,12 +109,13 @@ public class EnvironmentCardProvider {
 			}
 		}
 
-		if (((domesticBuildingsArea + nonDomesticBuildingsArea + roadsArea) / totalNonAdminArea) > 0.5)
-			return AREA_EXTRA_URBAN;
-		else if ((greenspaceArea / totalNonAdminArea) < 0.5)
-			return AREA_URBAN;
-		else
-			return AREA_RURAL;
+		if (((domesticBuildingsArea + nonDomesticBuildingsArea + roadsArea) / totalNonAdminArea) > 0.5) {
+            return AREA_EXTRA_URBAN;
+        } else if ((greenspaceArea / totalNonAdminArea) < 0.5) {
+            return AREA_URBAN;
+        } else {
+            return AREA_RURAL;
+        }
 
 	}
 
@@ -151,8 +152,9 @@ public class EnvironmentCardProvider {
 		TrendDescription ans = new TrendDescription();
 		DataSetFamily fam = null;
 		for (DataSetFamily f : fams) {
-			if (f.getName().contains("Domestic Energy Consumption"))
-				fam = f;
+			if (f.getName().contains("Domestic Energy Consumption")) {
+                fam = f;
+            }
 		}
 
 		Set<Dataset> theDatasets = new HashSet<Dataset>();
@@ -177,16 +179,17 @@ public class EnvironmentCardProvider {
 
 		double gradient = Statistics.linearRegressionGradient(datapoints);
 
-		if (gradient <= -1.2)
-			ans.which = TrendDescription.FALLING_RAPIDLY;
-		else if (gradient > -1.2 && gradient <= -0.1)
-			ans.which = TrendDescription.FALLING;
-		else if (gradient > -0.1 && gradient <= 0.1)
-			ans.which = TrendDescription.STABLE;
-		else if (gradient > 0.1 && gradient <= 1.2)
-			ans.which = TrendDescription.RISING;
-		else
-			ans.which = TrendDescription.RISING_RAPIDLY;
+		if (gradient <= -1.2) {
+            ans.which = TrendDescription.FALLING_RAPIDLY;
+        } else if (gradient > -1.2 && gradient <= -0.1) {
+            ans.which = TrendDescription.FALLING;
+        } else if (gradient > -0.1 && gradient <= 0.1) {
+            ans.which = TrendDescription.STABLE;
+        } else if (gradient > 0.1 && gradient <= 1.2) {
+            ans.which = TrendDescription.RISING;
+        } else {
+            ans.which = TrendDescription.RISING_RAPIDLY;
+        }
 
 		return ans;
 	}

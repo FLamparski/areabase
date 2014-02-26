@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +10,6 @@ import java.util.Map;
 import nde2.errors.NDE2Exception;
 import nde2.pull.types.Area;
 import nde2.pull.types.Subject;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * <i>Encapsulates the GetCompatibleSubjects() call to the NDE2 web service.</i>
@@ -58,23 +58,30 @@ public class GetCompatibleSubjects extends DiscoveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Error"))
-					error = new NDE2Exception();
-				if (key.equals("Subject"))
-					subject = new Subject();
+				if (key.equals("Error")) {
+                    error = new NDE2Exception();
+                }
+				if (key.equals("Subject")) {
+                    subject = new Subject();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
-				if (key.equals("SubjectId"))
-					subject.setId(Integer.parseInt(value));
-				if (key.equals("Name"))
-					subject.setName(value);
-				if (key.equals("Count"))
-					count = Integer.parseInt(value);
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("SubjectId")) {
+                    subject.setId(Integer.parseInt(value));
+                }
+				if (key.equals("Name")) {
+                    subject.setName(value);
+                }
+				if (key.equals("Count")) {
+                    count = Integer.parseInt(value);
+                }
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			case XmlPullParser.END_TAG:
 				if (xpp.getName().equals("SubjectWithCount")) {
@@ -84,8 +91,9 @@ public class GetCompatibleSubjects extends DiscoveryMethodCall {
 			}
 			event = xpp.next();
 		}
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 		return subjects;
 	}
 

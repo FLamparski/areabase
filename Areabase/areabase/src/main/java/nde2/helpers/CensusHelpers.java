@@ -1,5 +1,7 @@
 package nde2.helpers;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,8 +13,6 @@ import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Subject;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 public class CensusHelpers {
 
@@ -43,8 +43,9 @@ public class CensusHelpers {
 
 		for (DataSetFamily family : censusDatasetFamilies) {
 			for (String kw : keywords) {
-				if (family.getName().contains(kw))
-					requiredFamilies.add(family);
+				if (family.getName().contains(kw)) {
+                    requiredFamilies.add(family);
+                }
 			}
 		}
 

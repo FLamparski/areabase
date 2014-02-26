@@ -1,7 +1,11 @@
 package lamparski.areabase.cardproviders;
 
-import static nde2.helpers.CensusHelpers.findRequiredFamilies;
-import static nde2.helpers.CensusHelpers.findSubject;
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+
+import com.fima.cardsui.objects.CardModel;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,12 +32,8 @@ import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-
-import com.fima.cardsui.objects.CardModel;
+import static nde2.helpers.CensusHelpers.findRequiredFamilies;
+import static nde2.helpers.CensusHelpers.findSubject;
 
 public class DemographicsCardProvider {
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
@@ -71,16 +71,17 @@ public class DemographicsCardProvider {
 	 */
 	public static CardModel demographicsCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
-			XmlPullParserException, NDE2Exception, ClassNotFoundException {
+			XmlPullParserException, NDE2Exception {
 		/*
 		 * Step 1: Demographics data is located under Census category. We need
 		 * to retrieve it and then get the necessary datasets.
 		 */
 		Subject censusSubject = findSubject(area, "Census");
 
-		if (censusSubject == null)
-			throw new ValueNotAvailable(
-					"Cannot find Census subject for this area.");
+		if (censusSubject == null) {
+            throw new ValueNotAvailable(
+                    "Cannot find Census subject for this area.");
+        }
 
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
 				censusSubject, DATASET_KEYWORDS);
@@ -267,15 +268,17 @@ public class DemographicsCardProvider {
 							.iterator();
 					while (iterator.hasNext() && allPeople == null) {
 						Topic t = iterator.next();
-						if (t.getTitle().startsWith("All"))
-							allPeople = t;
+						if (t.getTitle().startsWith("All")) {
+                            allPeople = t;
+                        }
 					}
 					Set<DataSetItem> relevants = ds.getItems(allPeople);
 					popPerYear.put(year, (int) relevants.iterator().next()
 							.getValue());
 				}
-				if (year > mostRecentYear)
-					mostRecentYear = year;
+				if (year > mostRecentYear) {
+                    mostRecentYear = year;
+                }
 			}
 		}
 		float avgPercentageChange = 0;

@@ -22,7 +22,14 @@ import nde2.pull.types.DataSetItem;
 import nde2.pull.types.Dataset;
 
 /**
- * Created by filip on 17/02/14.
+ * A {@link android.widget.BaseExpandableListAdapter} implementation that deals with the census
+ * data -- it's the Controller bit of {@link lamparski.areabase.fragments.SubjectViewFragment}'s
+ * MVC flow.
+ *
+ * @author filip
+ * @see android.widget.BaseExpandableListAdapter
+ * @see lamparski.areabase.fragments.SubjectViewFragment
+ * @see nde2.pull.types.Dataset
  */
 public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -38,13 +45,13 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public void setItems(@Nonnull Map<DataSetFamily, Dataset> items){
-        assert items != null;
         toplevelItems = new ArrayList<DataSetFamily>(items.keySet());
         childItems = new HashMap<DataSetFamily, List<DataSetItem>>();
         for(DataSetFamily k : toplevelItems) {
             Collection<DataSetItem> dsitems = items.get(k).getItems();
-            if(dsitems != null)
+            if(dsitems != null) {
                 childItems.put(k, new ArrayList<DataSetItem>(dsitems));
+            }
         }
     }
 
@@ -115,21 +122,22 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         float value = item.getValue();
         String coinageUnit = item.getTopic().getCoinageUnit();
         String valueString = "";
-        if(coinageUnit.equals("Count"))
+        if(coinageUnit.equals("Count")) {
             valueString = String.format("%.0f", value);
-        else if (coinageUnit.equals("Percentage"))
+        } else if (coinageUnit.equals("Percentage")) {
             valueString = String.format("%.1f%%", value);
-        else if (coinageUnit.equals("Square metres (m2)(thousands)")) {
+        } else if (coinageUnit.equals("Square metres (m2)(thousands)")) {
             value *= 1000;
             valueString = String.format("%.2f m²", value);
-        } else if (coinageUnit.equals("Pounds Sterling (thousands)"))
+        } else if (coinageUnit.equals("Pounds Sterling (thousands)")) {
             valueString = String.format("£%.3fk", value);
-        else if (coinageUnit.equals("Pounds Sterling"))
+        } else if (coinageUnit.equals("Pounds Sterling")) {
             valueString = String.format("£%.2f", value);
-        else if (coinageUnit.equals("Score"))
+        } else if (coinageUnit.equals("Score")) {
             valueString = String.format("%.1f", value);
-        else
+        } else {
             valueString = String.format("%.1f %s", value, coinageUnit);
+        }
         ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(valueString);
 
         return convertView;

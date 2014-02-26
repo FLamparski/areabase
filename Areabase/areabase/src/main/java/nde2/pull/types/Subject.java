@@ -1,12 +1,12 @@
 package nde2.pull.types;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.io.Serializable;
 
 import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.discovery.GetSubjectDetail;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * Represents a subject in the NDE database.
@@ -103,20 +103,26 @@ public class Subject implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Subject))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Subject)) {
+            return false;
+        }
 		Subject other = (Subject) obj;
-		if (id != other.id)
-			return false;
+		if (id != other.id) {
+            return false;
+        }
 		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
+			if (other.name != null) {
+                return false;
+            }
+		} else if (!name.equals(other.name)) {
+            return false;
+        }
 		return true;
 	}
 

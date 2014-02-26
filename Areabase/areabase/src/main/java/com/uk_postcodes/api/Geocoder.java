@@ -46,7 +46,6 @@ public class Geocoder {
 
         JsonParser jp = new JsonParser();
         JsonElement response = jp.parse(responseStr);
-        String postcode = response.getAsJsonObject().get("postcode").getAsString();
-        return postcode;
+        return response.getAsJsonObject().get("postcode").getAsString();
     }
 }

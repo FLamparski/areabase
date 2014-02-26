@@ -58,10 +58,10 @@ public class SubjectListFragment extends DetailViewFragment implements OnItemCli
                     targetHash.put(detailedSubject, entry.getValue());
                 }
             } catch (IOException ioe) {
-                ioe.printStackTrace();
+                Log.e("SubjectListFragment", "IO exception when fetching the subject list", ioe);
                 onIOError();
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("SubjectListFragment", "An exception when fetching the subject list", e);
                 showToastCrossThread(e.toString(), 0);
             }
 

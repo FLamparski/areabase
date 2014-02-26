@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +10,6 @@ import java.util.Set;
 
 import nde2.errors.NDE2Exception;
 import nde2.pull.types.Area;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * <i>Encapsulates the FindAreas() call to the NDE2 web service.</i>
@@ -156,16 +156,21 @@ public class FindAreas extends DiscoveryMethodCall {
 	@Override
 	protected Map<String, String> collectParams() {
 		Map<String, String> params = new HashMap<String, String>();
-		if (postcode != null)
-			params.put("Postcode", postcode);
-		if (code != null)
-			params.put("Code", code);
-		if (areaNamePart != null)
-			params.put("AreaNamePart", areaNamePart);
-		if (hierarchyId != -1)
-			params.put("HierarchyId", Integer.toString(hierarchyId));
-		if (levelTypeId != -1)
-			params.put("LevelTypeId", Integer.toString(levelTypeId));
+		if (postcode != null) {
+            params.put("Postcode", postcode);
+        }
+		if (code != null) {
+            params.put("Code", code);
+        }
+		if (areaNamePart != null) {
+            params.put("AreaNamePart", areaNamePart);
+        }
+		if (hierarchyId != -1) {
+            params.put("HierarchyId", Integer.toString(hierarchyId));
+        }
+		if (levelTypeId != -1) {
+            params.put("LevelTypeId", Integer.toString(levelTypeId));
+        }
 		return params;
 	}
 

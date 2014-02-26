@@ -98,30 +98,40 @@ public class DataSetItem implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof DataSetItem))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof DataSetItem)) {
+            return false;
+        }
 		DataSetItem other = (DataSetItem) obj;
 		if (boundary == null) {
-			if (other.boundary != null)
-				return false;
-		} else if (!boundary.equals(other.boundary))
-			return false;
+			if (other.boundary != null) {
+                return false;
+            }
+		} else if (!boundary.equals(other.boundary)) {
+            return false;
+        }
 		if (period == null) {
-			if (other.period != null)
-				return false;
-		} else if (!period.equals(other.period))
-			return false;
+			if (other.period != null) {
+                return false;
+            }
+		} else if (!period.equals(other.period)) {
+            return false;
+        }
 		if (topic == null) {
-			if (other.topic != null)
-				return false;
-		} else if (!topic.equals(other.topic))
-			return false;
-		if (Float.floatToIntBits(value) != Float.floatToIntBits(other.value))
-			return false;
+			if (other.topic != null) {
+                return false;
+            }
+		} else if (!topic.equals(other.topic)) {
+            return false;
+        }
+		if (Float.floatToIntBits(value) != Float.floatToIntBits(other.value)) {
+            return false;
+        }
 		return true;
 	}
 }

@@ -42,7 +42,9 @@ public class SubjectViewFragment extends DetailViewFragment {
     private AreaDataService.SubjectDumpIface mSubjectDumpCallbacks = new AreaDataService.SubjectDumpIface() {
         @Override
         public void subjectDumpReady(Map<DataSetFamily, Dataset> map) {
-            getActivity().setProgressBarIndeterminateVisibility(false);
+            if(getActivity() != null){
+                getActivity().setProgressBarIndeterminateVisibility(false);
+            }
             mAdapter.setItems(map);
             mAdapter.notifyDataSetChanged();
             refreshContentTries = 0;
@@ -50,25 +52,29 @@ public class SubjectViewFragment extends DetailViewFragment {
 
         @Override
         public void onProgress(final int position, final int size) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mPlaceholderProgressBar.setMax(size);
-                    mPlaceholderProgressBar.setProgress(position);
-                }
-            });
+            if(getActivity() != null){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPlaceholderProgressBar.setMax(size);
+                        mPlaceholderProgressBar.setProgress(position);
+                    }
+                });
+            }
         }
 
         @Override
         public void onError(Throwable tr) {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    getActivity().setProgressBarIndeterminateVisibility(false);
-                }
-            });
+            if(getActivity() != null){
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().setProgressBarIndeterminateVisibility(false);
+                    }
+                });
+            }
             showToastCrossThread(tr.toString(), Toast.LENGTH_LONG);
-            tr.printStackTrace();
+            Log.e("SubjectViewFragment", "SubjectDumpCallbacks onError()", tr);
         }
     };
 

@@ -110,30 +110,40 @@ public class Boundary implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Boundary))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Boundary)) {
+            return false;
+        }
 		Boundary other = (Boundary) obj;
 		if (boundaryCode == null) {
-			if (other.boundaryCode != null)
-				return false;
-		} else if (!boundaryCode.equals(other.boundaryCode))
-			return false;
+			if (other.boundaryCode != null) {
+                return false;
+            }
+		} else if (!boundaryCode.equals(other.boundaryCode)) {
+            return false;
+        }
 		if (envelope == null) {
-			if (other.envelope != null)
-				return false;
-		} else if (!envelope.equals(other.envelope))
-			return false;
-		if (identifier != other.identifier)
-			return false;
+			if (other.envelope != null) {
+                return false;
+            }
+		} else if (!envelope.equals(other.envelope)) {
+            return false;
+        }
+		if (identifier != other.identifier) {
+            return false;
+        }
 		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
+			if (other.title != null) {
+                return false;
+            }
+		} else if (!title.equals(other.title)) {
+            return false;
+        }
 		return true;
 	}
 

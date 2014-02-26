@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +10,6 @@ import java.util.Map;
 import nde2.errors.NDE2Exception;
 import nde2.pull.types.Area;
 import nde2.pull.types.DetailedArea;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * <i>Encapsulates the GetAreaDetail() call to the NDE2 web service. Creation
@@ -71,33 +71,42 @@ public class GetAreaDetail extends DiscoveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("Error"))
-					error = new NDE2Exception();
-				if (key.equals("AreaDetail"))
-					detailedArea = new DetailedArea(basicArea, null, null,
-							null, null);
+				if (key.equals("Error")) {
+                    error = new NDE2Exception();
+                }
+				if (key.equals("AreaDetail")) {
+                    detailedArea = new DetailedArea(basicArea, null, null,
+                            null, null);
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
-				if (key.equals("ExtCode"))
-					detailedArea.setExtCode(value);
-				if (key.equals("OptionalMetaData"))
-					detailedArea.setOptionalMetadata(value);
-				if (key.equals("MandatoryMetaData"))
-					detailedArea.setMandatoryMetadata(value);
-				if (key.equals("Envelope"))
-					detailedArea.setEnvelope(value);
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("ExtCode")) {
+                    detailedArea.setExtCode(value);
+                }
+				if (key.equals("OptionalMetaData")) {
+                    detailedArea.setOptionalMetadata(value);
+                }
+				if (key.equals("MandatoryMetaData")) {
+                    detailedArea.setMandatoryMetadata(value);
+                }
+				if (key.equals("Envelope")) {
+                    detailedArea.setEnvelope(value);
+                }
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			}
 			event = xpp.next();
 		}
 
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 
 		return detailedArea;
 	}

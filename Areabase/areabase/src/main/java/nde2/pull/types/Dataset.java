@@ -157,8 +157,9 @@ public class Dataset implements Serializable {
 	public Set<DataSetItem> getItems(Topic t) {
 		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
 		for (DataSetItem e : items) {
-			if (e.getTopic().equals(t))
-				filtered.add(e);
+			if (e.getTopic().equals(t)) {
+                filtered.add(e);
+            }
 		}
 		return filtered;
 	}
@@ -171,8 +172,9 @@ public class Dataset implements Serializable {
 	public Set<DataSetItem> getItems(Period p) {
 		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
 		for (DataSetItem e : items) {
-			if (e.getTopic().equals(p))
-				filtered.add(e);
+			if (e.getTopic().equals(p)) {
+                filtered.add(e);
+            }
 		}
 		return filtered;
 	}
@@ -185,8 +187,9 @@ public class Dataset implements Serializable {
 	public Set<DataSetItem> getItems(Boundary b) {
 		Set<DataSetItem> filtered = new HashSet<DataSetItem>();
 		for (DataSetItem e : items) {
-			if (e.getTopic().equals(b))
-				filtered.add(e);
+			if (e.getTopic().equals(b)) {
+                filtered.add(e);
+            }
 		}
 		return filtered;
 	}
@@ -230,55 +233,75 @@ public class Dataset implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Dataset))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Dataset)) {
+            return false;
+        }
 		Dataset other = (Dataset) obj;
 		if (boundaries == null) {
-			if (other.boundaries != null)
-				return false;
-		} else if (!boundaries.equals(other.boundaries))
-			return false;
+			if (other.boundaries != null) {
+                return false;
+            }
+		} else if (!boundaries.equals(other.boundaries)) {
+            return false;
+        }
 		if (creator == null) {
-			if (other.creator != null)
-				return false;
-		} else if (!creator.equals(other.creator))
-			return false;
+			if (other.creator != null) {
+                return false;
+            }
+		} else if (!creator.equals(other.creator)) {
+            return false;
+        }
 		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (familyId != other.familyId)
-			return false;
+			if (other.description != null) {
+                return false;
+            }
+		} else if (!description.equals(other.description)) {
+            return false;
+        }
+		if (familyId != other.familyId) {
+            return false;
+        }
 		if (items == null) {
-			if (other.items != null)
-				return false;
-		} else if (!items.equals(other.items))
-			return false;
+			if (other.items != null) {
+                return false;
+            }
+		} else if (!items.equals(other.items)) {
+            return false;
+        }
 		if (periods == null) {
-			if (other.periods != null)
-				return false;
-		} else if (!periods.equals(other.periods))
-			return false;
+			if (other.periods != null) {
+                return false;
+            }
+		} else if (!periods.equals(other.periods)) {
+            return false;
+        }
 		if (subjectCategory == null) {
-			if (other.subjectCategory != null)
-				return false;
-		} else if (!subjectCategory.equals(other.subjectCategory))
-			return false;
+			if (other.subjectCategory != null) {
+                return false;
+            }
+		} else if (!subjectCategory.equals(other.subjectCategory)) {
+            return false;
+        }
 		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
+			if (other.title != null) {
+                return false;
+            }
+		} else if (!title.equals(other.title)) {
+            return false;
+        }
 		if (topics == null) {
-			if (other.topics != null)
-				return false;
-		} else if (!topics.equals(other.topics))
-			return false;
+			if (other.topics != null) {
+                return false;
+            }
+		} else if (!topics.equals(other.topics)) {
+            return false;
+        }
 		return true;
 	}
 }

@@ -1,5 +1,15 @@
 package org.mysociety.mapit;
 
+import android.util.Log;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import org.apache.commons.io.IOUtils;
+import org.xml.sax.SAXException;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,14 +20,6 @@ import javax.xml.xpath.XPathExpressionException;
 import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.discovery.GetAreaDetail;
 
-import org.apache.commons.io.IOUtils;
-import org.xml.sax.SAXException;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-
 public class Mapper {
 
 	private final static String CALL = "http://mapit.mysociety.org/area/%s.geojson";
@@ -26,7 +28,7 @@ public class Mapper {
 		String full_url = String.format(CALL, arg);
 
 		// Uncomment for testing:
-		System.out.println("Calling " + full_url);
+		Log.d("Mapper", "Calling " + full_url);
 
 		URL callUrl = new URL(full_url);
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl

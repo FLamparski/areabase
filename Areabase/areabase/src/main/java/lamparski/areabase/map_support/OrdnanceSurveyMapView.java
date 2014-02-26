@@ -32,21 +32,24 @@ public class OrdnanceSurveyMapView extends WebView {
 
 	public OrdnanceSurveyMapView(Context context) {
 		super(context);
-		if (!(isInEditMode()))
-			initOSView();
+		if (!(isInEditMode())) {
+            initOSView();
+        }
 	}
 
 	public OrdnanceSurveyMapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		if (!(isInEditMode()))
-			initOSView();
+		if (!(isInEditMode())) {
+            initOSView();
+        }
 	}
 
 	public OrdnanceSurveyMapView(Context context, AttributeSet attrs,
 			int defStyle) {
 		super(context, attrs, defStyle);
-		if (!(isInEditMode()))
-			initOSView();
+		if (!(isInEditMode())) {
+            initOSView();
+        }
 	}
 
 	private void initOSView() {

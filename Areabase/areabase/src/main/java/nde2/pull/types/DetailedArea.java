@@ -9,6 +9,7 @@ package nde2.pull.types;
  * @author filip
  * @see {@link Area}
  */
+@SuppressWarnings("SameParameterValue")
 public class DetailedArea extends Area {
 
 	/**
@@ -137,33 +138,44 @@ public class DetailedArea extends Area {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (!(obj instanceof DetailedArea))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (!super.equals(obj)) {
+            return false;
+        }
+		if (!(obj instanceof DetailedArea)) {
+            return false;
+        }
 		DetailedArea other = (DetailedArea) obj;
 		if (envelope == null) {
-			if (other.envelope != null)
-				return false;
-		} else if (!envelope.equals(other.envelope))
-			return false;
+			if (other.envelope != null) {
+                return false;
+            }
+		} else if (!envelope.equals(other.envelope)) {
+            return false;
+        }
 		if (extCode == null) {
-			if (other.extCode != null)
-				return false;
-		} else if (!extCode.equals(other.extCode))
-			return false;
+			if (other.extCode != null) {
+                return false;
+            }
+		} else if (!extCode.equals(other.extCode)) {
+            return false;
+        }
 		if (mandatoryMetadata == null) {
-			if (other.mandatoryMetadata != null)
-				return false;
-		} else if (!mandatoryMetadata.equals(other.mandatoryMetadata))
-			return false;
+			if (other.mandatoryMetadata != null) {
+                return false;
+            }
+		} else if (!mandatoryMetadata.equals(other.mandatoryMetadata)) {
+            return false;
+        }
 		if (optionalMetadata == null) {
-			if (other.optionalMetadata != null)
-				return false;
-		} else if (!optionalMetadata.equals(other.optionalMetadata))
-			return false;
+			if (other.optionalMetadata != null) {
+                return false;
+            }
+		} else if (!optionalMetadata.equals(other.optionalMetadata)) {
+            return false;
+        }
 		return true;
 	}
 

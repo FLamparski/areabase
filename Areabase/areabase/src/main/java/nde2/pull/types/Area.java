@@ -1,5 +1,7 @@
 package nde2.pull.types;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
@@ -9,8 +11,6 @@ import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.discovery.GetAreaChildren;
 import nde2.pull.methodcalls.discovery.GetAreaParent;
 import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
-
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * This class of objects represents geographic of administrative areas returned
@@ -340,8 +340,11 @@ public class Area implements Serializable {
 	 */
 	public Map<Subject, Integer> getCompatibleSubjects() throws IOException,
 			XmlPullParserException, NDE2Exception {
-		if (compatibleSubjects == null)
-			compatibleSubjects = new GetCompatibleSubjects(this).execute();
+		if (compatibleSubjects == null) {
+            {
+                compatibleSubjects = new GetCompatibleSubjects(this).execute();
+            }
+        }
 		return compatibleSubjects;
 	}
 
@@ -376,24 +379,32 @@ public class Area implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Area))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Area)) {
+            return false;
+        }
 		Area other = (Area) obj;
-		if (areaId != other.areaId)
-			return false;
-		if (hierarchyId != other.hierarchyId)
-			return false;
-		if (levelTypeId != other.levelTypeId)
-			return false;
+		if (areaId != other.areaId) {
+            return false;
+        }
+		if (hierarchyId != other.hierarchyId) {
+            return false;
+        }
+		if (levelTypeId != other.levelTypeId) {
+            return false;
+        }
 		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
+			if (other.name != null) {
+                return false;
+            }
+		} else if (!name.equals(other.name)) {
+            return false;
+        }
 		return true;
 	}
 

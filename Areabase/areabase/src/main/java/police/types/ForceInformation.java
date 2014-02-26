@@ -105,43 +105,58 @@ public class ForceInformation {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof ForceInformation))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof ForceInformation)) {
+            return false;
+        }
 		ForceInformation other = (ForceInformation) obj;
 		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+			if (other.description != null) {
+                return false;
+            }
+		} else if (!description.equals(other.description)) {
+            return false;
+        }
 		if (engagement_methods == null) {
-			if (other.engagement_methods != null)
-				return false;
-		} else if (!engagement_methods.equals(other.engagement_methods))
-			return false;
+			if (other.engagement_methods != null) {
+                return false;
+            }
+		} else if (!engagement_methods.equals(other.engagement_methods)) {
+            return false;
+        }
 		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
+			if (other.id != null) {
+                return false;
+            }
+		} else if (!id.equals(other.id)) {
+            return false;
+        }
 		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
+			if (other.name != null) {
+                return false;
+            }
+		} else if (!name.equals(other.name)) {
+            return false;
+        }
 		if (telephone == null) {
-			if (other.telephone != null)
-				return false;
-		} else if (!telephone.equals(other.telephone))
-			return false;
+			if (other.telephone != null) {
+                return false;
+            }
+		} else if (!telephone.equals(other.telephone)) {
+            return false;
+        }
 		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
+			if (other.url != null) {
+                return false;
+            }
+		} else if (!url.equals(other.url)) {
+            return false;
+        }
 		return true;
 	}
 

@@ -76,28 +76,37 @@ public class Location {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Location))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Location)) {
+            return false;
+        }
 		Location other = (Location) obj;
 		if (latitude == null) {
-			if (other.latitude != null)
-				return false;
-		} else if (!latitude.equals(other.latitude))
-			return false;
+			if (other.latitude != null) {
+                return false;
+            }
+		} else if (!latitude.equals(other.latitude)) {
+            return false;
+        }
 		if (longitude == null) {
-			if (other.longitude != null)
-				return false;
-		} else if (!longitude.equals(other.longitude))
-			return false;
+			if (other.longitude != null) {
+                return false;
+            }
+		} else if (!longitude.equals(other.longitude)) {
+            return false;
+        }
 		if (street == null) {
-			if (other.street != null)
-				return false;
-		} else if (!street.equals(other.street))
-			return false;
+			if (other.street != null) {
+                return false;
+            }
+		} else if (!street.equals(other.street)) {
+            return false;
+        }
 		return true;
 	}
 

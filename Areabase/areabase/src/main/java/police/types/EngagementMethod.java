@@ -64,28 +64,37 @@ public class EngagementMethod {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof EngagementMethod))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof EngagementMethod)) {
+            return false;
+        }
 		EngagementMethod other = (EngagementMethod) obj;
 		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+			if (other.description != null) {
+                return false;
+            }
+		} else if (!description.equals(other.description)) {
+            return false;
+        }
 		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
+			if (other.title != null) {
+                return false;
+            }
+		} else if (!title.equals(other.title)) {
+            return false;
+        }
 		if (url == null) {
-			if (other.url != null)
-				return false;
-		} else if (!url.equals(other.url))
-			return false;
+			if (other.url != null) {
+                return false;
+            }
+		} else if (!url.equals(other.url)) {
+            return false;
+        }
 		return true;
 	}
 

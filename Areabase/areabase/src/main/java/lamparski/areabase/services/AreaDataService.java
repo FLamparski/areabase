@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class AreaDataService extends Service {
 
 		public void onError(Throwable err);
 
-		public void onValueNotAvailable();
+		/*public void onValueNotAvailable();*/
 
 		public void onAreaNameFound(String name);
 
@@ -110,8 +111,9 @@ public class AreaDataService extends Service {
                     CardModel crimeCm = CrimeCardProvider.crimeCardForArea(
                             theArea, getResources());
                     double[][] polygon = (double[][]) crimeCm.getData();
-                    if (polygon != null)
+                    if (polygon != null) {
                         callbacks.onAreaBoundaryFound(polygon);
+                    }
                     publishProgress(crimeCm);
                 } catch (Exception e) {
                     Log.e("AreaDataService",
@@ -186,8 +188,9 @@ public class AreaDataService extends Service {
 							.forPostcode(postcode).execute();
 
 					for (Area a : areaSet) {
-						if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA)
-							theArea = a;
+						if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA) {
+                            theArea = a;
+                        }
 					}
 
 				} catch (Throwable tr) {
@@ -209,7 +212,7 @@ public class AreaDataService extends Service {
 	 * Fetches an area whose name most closely matches the supplied string
 	 * (partials accepted)
 	 * 
-	 * @param areaName
+	 * @param areaName the name (partials accepted) for the area to find
 	 * @param commlink
 	 *            the callback interface
 	 */
@@ -224,11 +227,16 @@ public class AreaDataService extends Service {
 							.inHierarchy(
 									Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
 							.whoseNameContains(params[0]).execute();
+                    if(areaSet.size() == 0){
+                        commlink.onError(new FileNotFoundException("No areas returned for " +
+                                "query string \"" + params[0] + "\""));
+                    }
 					Area theArea = null;
 					int topStringMatchScore = 0;
 					for (Area a : areaSet) {
+                        assert a != null;
 						int nameScore = Statistics.computeLevenshteinDistance(
-								theArea.getName(), params[0]);
+								theArea != null ? theArea.getName() : "", params[0]);
 						if (nameScore > topStringMatchScore) {
 							theArea = a;
 							topStringMatchScore = nameScore;
@@ -269,7 +277,11 @@ public class AreaDataService extends Service {
                         commlink.onProgress(i + 1, families.size());
                         DataSetFamily family = families.get(i);
                         Set<Dataset> datasets = new GetTables().forArea(area).inFamily(family).execute();
-                        assert datasets.size() == 1;
+                        if (datasets.size() != 1){
+                            Log.wtf("AreaDataService", "Asked for 1 dataset, got "
+                                    + datasets.size() + " instead.");
+                            System.exit(1);
+                        }
                         Dataset dataset = datasets.iterator().next();
                         result.put(family, dataset);
                     }

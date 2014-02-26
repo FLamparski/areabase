@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.discovery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,9 +10,6 @@ import java.util.Map;
 import nde2.errors.NDE2Exception;
 import nde2.pull.types.DetailedSubject;
 import nde2.pull.types.Subject;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * <i>Encapsulates the GetSubjectDetail() call to the NDE2 web service.</i>
@@ -62,28 +62,34 @@ public class GetSubjectDetail extends DiscoveryMethodCall {
 			switch (event) {
 			case XmlPullParser.START_TAG:
 				key = xpp.getName();
-				if (key.equals("SubjectDetail"))
-					dsubject = new DetailedSubject(subject, null, null);
-				else if (key.equals("Error"))
-					error = new NDE2Exception();
+				if (key.equals("SubjectDetail")) {
+                    dsubject = new DetailedSubject(subject, null, null);
+                } else if (key.equals("Error")) {
+                    error = new NDE2Exception();
+                }
 				break;
 			case XmlPullParser.TEXT:
 				value = xpp.getText();
-				if (key.equals("Description"))
-					dsubject.setDescription(value);
-				if (key.equals("OptionalMetaData"))
-					dsubject.setMoreDescription(value);
-				if (key.equals("message"))
-					error.setNessMessage(value);
-				if (key.equals("detail"))
-					error.setNessDetail(value);
+				if (key.equals("Description")) {
+                    dsubject.setDescription(value);
+                }
+				if (key.equals("OptionalMetaData")) {
+                    dsubject.setMoreDescription(value);
+                }
+				if (key.equals("message")) {
+                    error.setNessMessage(value);
+                }
+				if (key.equals("detail")) {
+                    error.setNessDetail(value);
+                }
 				break;
 			}
 			event = xpp.next();
 		}
 
-		if (error != null)
-			throw error;
+		if (error != null) {
+            throw error;
+        }
 		return dsubject;
 	}
 

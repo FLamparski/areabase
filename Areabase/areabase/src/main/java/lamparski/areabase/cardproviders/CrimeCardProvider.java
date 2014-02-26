@@ -189,10 +189,12 @@ public class CrimeCardProvider {
 		for (Dataset d : theDatasets) {
 			long date = d.getPeriods().values().iterator().next().getEndDate()
 					.getTime();
-			if (date < earliestDate && earliestDate > 0)
-				earliestDate = date;
-			if (date > latestDate)
-				latestDate = date;
+			if (date < earliestDate && earliestDate > 0) {
+                earliestDate = date;
+            }
+			if (date > latestDate) {
+                latestDate = date;
+            }
 			Map<String, Integer> crimeSlice = new HashMap<String, Integer>();
 			for (Topic t : d.getTopics().values()) {
 				String key = t.getTitle();
@@ -219,18 +221,19 @@ public class CrimeCardProvider {
 		TrendDescription trend_desc = new TrendDescription();
 
 		if (gradient > TREND_RAPID_LOWER_THRESHOLD
-				&& gradient <= TREND_STABLE_LOWER_THRESHOLD)
-			trend_desc.which = TrendDescription.FALLING;
-		else if (gradient > TREND_STABLE_LOWER_THRESHOLD
-				&& gradient <= TREND_STABLE_UPPER_THRESHOLD)
-			trend_desc.which = TrendDescription.STABLE;
-		else if (gradient > TREND_STABLE_UPPER_THRESHOLD
-				&& gradient <= TREND_RAPID_UPPER_THRESHOLD)
-			trend_desc.which = TrendDescription.RISING;
-		else if (gradient > TREND_RAPID_UPPER_THRESHOLD)
-			trend_desc.which = TrendDescription.RISING_RAPIDLY;
-		else
-			trend_desc.which = TrendDescription.FALLING_RAPIDLY;
+				&& gradient <= TREND_STABLE_LOWER_THRESHOLD) {
+            trend_desc.which = TrendDescription.FALLING;
+        } else if (gradient > TREND_STABLE_LOWER_THRESHOLD
+				&& gradient <= TREND_STABLE_UPPER_THRESHOLD) {
+            trend_desc.which = TrendDescription.STABLE;
+        } else if (gradient > TREND_STABLE_UPPER_THRESHOLD
+				&& gradient <= TREND_RAPID_UPPER_THRESHOLD) {
+            trend_desc.which = TrendDescription.RISING;
+        } else if (gradient > TREND_RAPID_UPPER_THRESHOLD) {
+            trend_desc.which = TrendDescription.RISING_RAPIDLY;
+        } else {
+            trend_desc.which = TrendDescription.FALLING_RAPIDLY;
+        }
 
 		String trend_desc_s = res.getStringArray(R.array.card_crime_real_trend)[trend_desc.which + 2];
 		String body_s = res.getString(R.string.card_crime_real_body_base,
@@ -255,10 +258,11 @@ public class CrimeCardProvider {
 		 * Normally, a simple replace would do, but in the case of anti-social
 		 * behaviour, the first dash needs to be preserved.
 		 */
-		if (rawname.equals("anti-social-behaviour"))
-			return "anti-social behaviour";
-		else
-			return rawname.replace('-', ' ');
+		if (rawname.equals("anti-social-behaviour")) {
+            return "anti-social behaviour";
+        } else {
+            return rawname.replace('-', ' ');
+        }
 	}
 
 	private static String mostCommonCrime_ons(Map<String, Integer> slice) {

@@ -44,8 +44,9 @@ public class ArrayHelpers {
 		Entry<T, Integer> max = null;
 		
 		for(Entry<T, Integer> e : map.entrySet()){
-			if (max == null || e.getValue() > max.getValue())
-				max = e;
+			if (max == null || e.getValue() > max.getValue()) {
+                max = e;
+            }
 		}
 		
 		return max.getKey();

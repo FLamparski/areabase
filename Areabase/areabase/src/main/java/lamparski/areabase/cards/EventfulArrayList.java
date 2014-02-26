@@ -39,8 +39,9 @@ public class EventfulArrayList<E> extends ArrayList<E> {
 	 */
 	@Override
 	public void add(int index, E object) {
-		if (addCb.onItemAdded(object))
-			super.add(index, object);
+		if (addCb.onItemAdded(object)) {
+            super.add(index, object);
+        }
 	}
 
 	public void setOnItemAddedListener(OnItemAddedListener listener) {

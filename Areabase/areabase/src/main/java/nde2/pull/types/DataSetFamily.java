@@ -90,22 +90,29 @@ public class DataSetFamily implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof DataSetFamily))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof DataSetFamily)) {
+            return false;
+        }
 		DataSetFamily other = (DataSetFamily) obj;
-		if (!Arrays.equals(dateRanges, other.dateRanges))
-			return false;
-		if (familyId != other.familyId)
-			return false;
+		if (!Arrays.equals(dateRanges, other.dateRanges)) {
+            return false;
+        }
+		if (familyId != other.familyId) {
+            return false;
+        }
 		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
+			if (other.name != null) {
+                return false;
+            }
+		} else if (!name.equals(other.name)) {
+            return false;
+        }
 		return true;
 	}
 

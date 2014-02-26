@@ -128,8 +128,9 @@ public class AreaActivity extends Activity implements LocationListener,
             AreaDataBinder binder = (AreaDataBinder) service;
             areaDataService = binder.getService();
             isAreaDataServiceBound = true;
-            if(areaDataService != null)
+            if(areaDataService != null) {
                 is_live = true;
+            }
         }
     };
 
@@ -263,8 +264,9 @@ public class AreaActivity extends Activity implements LocationListener,
 		// Special case for the "help" link, which is further down the
 		// hierarchy:
 		View helplink = mDrawer.findViewById(R.id.navdrawer_link_areabaseHelp);
-		if (helplink != null)
-			helplink.setOnClickListener(sDrawerLinkListener);
+		if (helplink != null) {
+            helplink.setOnClickListener(sDrawerLinkListener);
+        }
 	}
 
 	@Override
@@ -276,8 +278,9 @@ public class AreaActivity extends Activity implements LocationListener,
 	@Override
 	protected void onStart() {
 		super.onStart();
-		if (mPref.contains("pref_location_backgroundlocate"))
-			request_location_updates = mPref.getBoolean("pref_location_backgroundlocate", false);
+		if (mPref.contains("pref_location_backgroundlocate")) {
+            request_location_updates = mPref.getBoolean("pref_location_backgroundlocate", false);
+        }
         Intent intent = new Intent(this, AreaDataService.class);
         getApplicationContext().bindService(intent, mAreaDataServiceConnection, BIND_AUTO_CREATE);
 	}
@@ -312,7 +315,7 @@ public class AreaActivity extends Activity implements LocationListener,
 				connResult.startResolutionForResult(this,
 						CONNECTION_FAILURE_RESOLUTION_REQUEST);
 			} catch (IntentSender.SendIntentException e) {
-				e.printStackTrace();
+				Log.e("AreaActivity", "Error when resolving Play Services issue", e);
 			}
 		} else {
 			showErrorDialog(connResult.getErrorCode());
@@ -675,7 +678,9 @@ public class AreaActivity extends Activity implements LocationListener,
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction transaction = fragmentManager.beginTransaction()
 				.replace(mFragmentHostId, frag, frag.getClass().getName());
-        if(addToBackStack) transaction.addToBackStack("Areabase");
+        if(addToBackStack) {
+            transaction.addToBackStack("Areabase");
+        }
         transaction.commit();
 		if (frag instanceof IAreabaseFragment) {
 			mContentFragment = (IAreabaseFragment) frag;
@@ -793,7 +798,9 @@ public class AreaActivity extends Activity implements LocationListener,
     public void onBackStackChanged() {
         // Ensure the correct fragment is referenced
         mContentFragment = (IAreabaseFragment) getFragmentManager().findFragmentById(mFragmentHostId);
-        if(mGeoPoint != null && mContentFragment != null) mContentFragment.refreshContent();
+        if(mGeoPoint != null && mContentFragment != null) {
+            mContentFragment.refreshContent();
+        }
     }
 
     @Override

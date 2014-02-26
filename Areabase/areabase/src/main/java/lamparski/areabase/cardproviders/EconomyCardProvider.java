@@ -1,8 +1,11 @@
 package lamparski.areabase.cardproviders;
 
-import static nde2.helpers.CensusHelpers.findRequiredFamilies;
-import static nde2.helpers.CensusHelpers.findSubject;
-import static nde2.helpers.DateFormat.getYear;
+import android.annotation.SuppressLint;
+import android.content.res.Resources;
+
+import com.fima.cardsui.objects.CardModel;
+
+import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,12 +32,9 @@ import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import android.annotation.SuppressLint;
-import android.content.res.Resources;
-
-import com.fima.cardsui.objects.CardModel;
+import static nde2.helpers.CensusHelpers.findRequiredFamilies;
+import static nde2.helpers.CensusHelpers.findSubject;
+import static nde2.helpers.DateFormat.getYear;
 
 public class EconomyCardProvider {
 	public static final String[] CENSUS_KEYWORDS = { "KS601EW", // Economic
@@ -65,7 +65,7 @@ public class EconomyCardProvider {
 	 */
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
-			XmlPullParserException, NDE2Exception, ClassNotFoundException {
+			XmlPullParserException, NDE2Exception {
 
 		// The data we need is split between two subjects,
 		// so both need to be fetched. We'll sort that out later.

@@ -24,13 +24,13 @@ import com.fima.cardsui.views.CardUI;
 
 import java.io.IOException;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
 import lamparski.areabase.cards.ErrorCard;
 import lamparski.areabase.cards.EventfulArrayList;
 import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
-import lamparski.areabase.cards.PlayCard;
-import lamparski.areabase.map_support.HoloCSSColourValues;
 import lamparski.areabase.map_support.OrdnanceSurveyMapView;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
@@ -95,51 +95,53 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
     @Override
     public void onError(final Throwable err) {
-        SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
 
-            @Override
-            public void run() {
-                Log.e("SummaryFragment", "Error processing NDE data", err);
-                try {
-                    NDE2Exception cockup = (NDE2Exception) err;
-                    Log.w("SummaryFragment",
-                            String.format(
-                                    "NDE2 error response %d: Title: %s; detail: %s",
-                                    cockup.getNessCode(),
-                                    cockup.getNessMessage(),
-                                    cockup.getNessDetail()));
-                } catch (Exception e) {
-                    Log.d("SummaryFragment", "Not a NDE2Exception, got: "
-                            + err.getClass().getSimpleName());
-                }
-                if (err instanceof IOException) {
-                    Toast.makeText(getActivity(),
-                            R.string.io_exception_generic_message,
-                            Toast.LENGTH_SHORT).show();
-                    CardModel errmdl = new CardModel(ErrorCard.class);
-                    errmdl.setTitlePlay(getString(R.string.io_exception_generic_message));
-                    errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
-                    errmdl.setImageRes(R.drawable.ic_network_error);
-                    cardModels.add(errmdl); // Errors are now
-                                            // cards.
-                } else {
-                    Toast.makeText(getActivity(),
-                            R.string.summaryactivity_cardmaker_onserror,
-                            Toast.LENGTH_SHORT).show();
-                    if (err instanceof NDE2Exception) {
-                        String msg = String.format("NDE error: %s -- %s",
-                                ((NDE2Exception) err).getNessMessage(),
-                                ((NDE2Exception) err).getNessDetail());
-                        Toast.makeText(getActivity(), msg, 0).show();
+                @Override
+                public void run() {
+                    Log.e("SummaryFragment", "Error processing NDE data", err);
+                    try {
+                        NDE2Exception cockup = (NDE2Exception) err;
+                        Log.w("SummaryFragment",
+                                String.format(
+                                        "NDE2 error response %d: Title: %s; detail: %s",
+                                        cockup.getNessCode(),
+                                        cockup.getNessMessage(),
+                                        cockup.getNessDetail()));
+                    } catch (Exception e) {
+                        Log.d("SummaryFragment", "Not a NDE2Exception, got: "
+                                + err.getClass().getSimpleName());
+                    }
+                    if (err instanceof IOException) {
+                        Crouton.makeText(getActivity(),
+                                R.string.io_exception_generic_message,
+                                Style.ALERT).show();
                         CardModel errmdl = new CardModel(ErrorCard.class);
-                        errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
-                        errmdl.setDescription(getString(R.string.error_cannot_resolve_postcode_body));
-                        errmdl.setImageRes(R.drawable.ic_map_error);
-                        cardModels.add(errmdl);
+                        errmdl.setTitlePlay(getString(R.string.io_exception_generic_message));
+                        errmdl.setDescription(getString(R.string.summaryactivity_cardmaker_ioerror_body));
+                        errmdl.setImageRes(R.drawable.ic_network_error);
+                        cardModels.add(errmdl); // Errors are now
+                        // cards.
+                    } else {
+                        Crouton.makeText(getActivity(),
+                                R.string.summaryactivity_cardmaker_onserror,
+                                Style.ALERT).show();
+                        if (err instanceof NDE2Exception) {
+                            String msg = String.format("NDE error: %s -- %s",
+                                    ((NDE2Exception) err).getNessMessage(),
+                                    ((NDE2Exception) err).getNessDetail());
+                            Crouton.makeText(getActivity(), msg, Style.INFO).show();
+                            CardModel errmdl = new CardModel(ErrorCard.class);
+                            errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
+                            errmdl.setDescription(getString(R.string.error_cannot_resolve_postcode_body));
+                            errmdl.setImageRes(R.drawable.ic_map_error);
+                            cardModels.add(errmdl);
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
@@ -149,10 +151,12 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
     @Override
     public void allDone() {
-        if(getActivity() != null) getActivity().setProgressBarIndeterminateVisibility(false);
+        if(getActivity() != null) {
+            getActivity().setProgressBarIndeterminateVisibility(false);
+        }
     }
 
-    @Override
+    /*@Override
     public void onValueNotAvailable() {
         SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
             public void run() {
@@ -189,31 +193,34 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                 mCardUI.addCard(crd);
             }
         });
-    }
+    }*/
 
     @Override
     public void onAreaNameFound(final String name) {
-        if(getActivity() != null) getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                ((AreaActivity) getActivity()).setTitle(name);
-            }
-        });
+        if(getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    ((AreaActivity) getActivity()).setTitle(name);
+                }
+            });
+        }
     }
 
     @Override
     public void onAreaBoundaryFound(final double[][] poly) {
-        getActivity().runOnUiThread(new Runnable() {
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
 
-            @Override
-            public void run() {
-                polygon = poly;
-                mOpenSpaceView.highlightBoundary(poly);
+                @Override
+                public void run() {
+                    polygon = poly;
+                    mOpenSpaceView.highlightBoundary(poly);
 
-            }
-        });
+                }
+            });
+        }
     }
 
-    @Deprecated
 	public SummaryFragment() {
 		super();
 		Log.i("SummaryFragment", "Fragment created");
@@ -226,8 +233,13 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 		Log.d("SummaryFragment", "onActivityCreated() enter");
 
 		Intent intent = new Intent(getActivity(), AreaDataService.class);
-		getActivity().getApplicationContext().bindService(intent,
-				mServiceConnection, Context.BIND_AUTO_CREATE);
+        try{
+            getActivity().getApplicationContext().bindService(intent,
+                    mServiceConnection, Context.BIND_AUTO_CREATE);
+        } catch (NullPointerException npe) {
+            Log.e("SummaryFragment", "Cannot bind AreaDataService: NullPointerException" +
+                    "on either getActivity() or getApplicationContext()", npe);
+        }
 
 		if (savedInstanceState != null) {
 			Log.d("SummaryFragment",
@@ -283,6 +295,8 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
 		View theView = inflater.inflate(R.layout.fragment_summary, container,
 				false);
+
+        assert theView != null;
 
         if(getActivity() != null){
             is_tablet = ((AreaActivity) getActivity()).isTablet();
@@ -352,9 +366,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 		super.onStop();
 		Log.d("SummaryFragment", "Stopping AreaDataService.");
 		is_live = false;
-		if (isServiceBound && getActivity() != null)
-			AreaActivity.getAreabaseApplicationContext().unbindService(
-					mServiceConnection);
+		if (isServiceBound && getActivity() != null) {
+            AreaActivity.getAreabaseApplicationContext().unbindService(
+                    mServiceConnection);
+        }
 	}
 
 	/*
@@ -456,7 +471,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
                 @Override
                 public void onError(Throwable err) {
-                    if(getActivity() != null) ((AreaActivity) getActivity()).onError(err);
+                    if(getActivity() != null) {
+                        ((AreaActivity) getActivity()).onError(err);
+                    }
                 }
             });
 		} else {
@@ -470,6 +487,11 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 	private OnClickListener sExplainMissingData = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
+            if(getActivity() == null){
+                Log.w("SummaryFragment", "Missing data (ValueNotAvailable) error, can't display " +
+                        "as there is no Activity or Context to bind to");
+                return;
+            }
 			new AlertDialog.Builder(getActivity())
 					.setTitle(R.string.card_error_values_not_available_title)
 					.setMessage(

@@ -1,14 +1,14 @@
 package lamparski.areabase;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class NavDrawerListAdapter extends BaseAdapter {
 	private final Map<String, Adapter> sections = new LinkedHashMap<String, Adapter>();
@@ -40,10 +40,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			int size = adapter.getCount() + 1;
 
 			// check if the position is within this section
-			if (position == 0)
-				return section;
-			if (position < size)
-				return adapter.getItem(position - 1);
+			if (position == 0) {
+                return section;
+            }
+			if (position < size) {
+                return adapter.getItem(position - 1);
+            }
 
 			// jump to next section
 			position -= size;
@@ -66,10 +68,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			int size = adapter.getCount() + 1;
 
 			// check if the position is within this section
-			if (position == 0)
-				return TYPE_SECTION_HEADER;
-			if (position < size)
-				return type + adapter.getItemViewType(position - 1);
+			if (position == 0) {
+                return TYPE_SECTION_HEADER;
+            }
+			if (position < size) {
+                return type + adapter.getItemViewType(position - 1);
+            }
 
 			// jump to next section
 			position -= size;
@@ -99,10 +103,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
 			int size = adapter.getCount() + 1;
 
 			// check if position is within this section
-			if (position == 0)
-				return headers.getView(sectionnum, convertView, parent);
-			if (position < size)
-				return adapter.getView(position - 1, convertView, parent);
+			if (position == 0) {
+                return headers.getView(sectionnum, convertView, parent);
+            }
+			if (position < size) {
+                return adapter.getView(position - 1, convertView, parent);
+            }
 
 			position -= size;
 			sectionnum++;

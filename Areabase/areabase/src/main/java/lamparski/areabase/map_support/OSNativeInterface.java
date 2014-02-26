@@ -41,11 +41,12 @@ public class OSNativeInterface {
 	@JavascriptInterface
 	public void onMapLoaded() {
 		Log.d("OSNativeInterface", "onMapLoaded() -> calling the listener");
-		if (loadedCallback != null)
-			loadedCallback.onMapLoaded();
-		else
-			Log.w("OSNativeInterface",
-					"onMapLoaded() -> no registered listener");
+		if (loadedCallback != null) {
+            loadedCallback.onMapLoaded();
+        } else {
+            Log.w("OSNativeInterface",
+                    "onMapLoaded() -> no registered listener");
+        }
 	}
 
 	@JavascriptInterface

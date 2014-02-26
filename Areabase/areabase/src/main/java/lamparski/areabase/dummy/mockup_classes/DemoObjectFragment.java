@@ -1,6 +1,5 @@
 package lamparski.areabase.dummy.mockup_classes;
 
-import lamparski.areabase.R;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import lamparski.areabase.R;
+
 /**
  * Dummy fragment. Shows an integer.
  * 
  * @author filip
  * 
  */
-@DummyData(why = "Exists to provide test fragments for navigation testing", replace_with = "Do not use in live app.")
+@Deprecated
 public class DemoObjectFragment extends Fragment {
 	public static final String ARGUMENT = "fragment-content";
 	public static final String ARGUMENT2 = "fragment-title";

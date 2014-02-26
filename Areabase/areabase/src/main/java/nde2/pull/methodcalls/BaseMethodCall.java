@@ -1,5 +1,15 @@
 package nde2.pull.methodcalls;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.util.Log;
+
+import org.apache.commons.io.IOUtils;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -12,15 +22,6 @@ import java.util.Set;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.CacheContentProvider;
 
-import org.apache.commons.io.IOUtils;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import android.content.ContentResolver;
-import android.content.ContentValues;
-import android.database.Cursor;
-
 public abstract class BaseMethodCall {
 	protected String buildURLString(String endpoint, String method,
 			Map<String, String> params) {
@@ -31,7 +32,9 @@ public abstract class BaseMethodCall {
 		for (Entry<String, String> param : paramEntries) {
 
 			methodCallStrBuilder
-					.append(param.getKey() + "=" + param.getValue())
+                    .append(param.getKey())
+                    .append("=")
+                    .append(param.getValue())
 					.append("&");
 		}
 
@@ -80,15 +83,19 @@ public abstract class BaseMethodCall {
 		 * "SELECT %s FROM onsCache WHERE url = \"%s\" AND retrievedOn > %s",
 		 * "*", selectionArgs[0], selectionArgs[1]));
 		 */
+        if (c == null){
+            Log.wtf("BaseMethodCall", "Cannot get a database cursor!");
+            return null;
+        }
 		if (c.moveToFirst()) {
-			System.out.printf(
-					"A cached instance of %s is available, returning.\n",
-					callUrl);
+			Log.d("BaseMethodCall", String.format(
+                    "A cached instance of %s is available, returning.\n",
+                    callUrl));
 			String response = c.getString(c.getColumnIndex("cachedObject"));
 			c.close();
 			return makeParser(response);
 		} else {
-			System.out.printf("Calling: %s\n", callUrl);
+			Log.d("BaseMethodCall", String.format("Calling: %s\n", callUrl));
 			String response = sendRequest(callUrl);
 			if (response.contains("<Error>")) {
 				c.close();
