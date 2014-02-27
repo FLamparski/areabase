@@ -93,7 +93,9 @@ public class PoliceDataFragment extends DetailViewFragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            getActivity().setProgressBarIndeterminateVisibility(true);
+            if(getActivity() != null){
+                getActivity().setProgressBarIndeterminateVisibility(true);
+            }
         }
 
         @Override
@@ -124,7 +126,9 @@ public class PoliceDataFragment extends DetailViewFragment {
         @Override
         protected void onPostExecute(Collection<Crime> crimes) {
             super.onPostExecute(crimes);
-            getActivity().setProgressBarIndeterminateVisibility(false);
+            if(getActivity() != null){
+                getActivity().setProgressBarIndeterminateVisibility(false);
+            }
             onCrimeDataFound(crimes);
         }
     };
@@ -151,11 +155,17 @@ public class PoliceDataFragment extends DetailViewFragment {
     private Runnable refreshContentAction = new Runnable() {
         @Override
         public void run() {
-            if(area == null){
-                area = ((AreaActivity) getActivity()).getArea();
-            }
+            try {
+                if(area == null){
+                    area = ((AreaActivity) getActivity()).getArea();
+                }
 
-            fetchCrimeDataTask.execute(area);
+                fetchCrimeDataTask.execute(area);
+            } catch (Exception e) {
+                Log.w("PoliceDataFragment", "Refresh try #" + refreshContentTries
+                        + " failed because of an Exception", e);
+                refreshContent();
+            }
         }
     };
 
@@ -164,13 +174,7 @@ public class PoliceDataFragment extends DetailViewFragment {
     @Override
     public void refreshContent() {
         if(is_live){
-            try{
-                new Handler().postDelayed(refreshContentAction, 100);
-            } catch (NullPointerException npe){
-                if(++refreshContentTries <= 10){
-                    refreshContent();
-                }
-            }
+            new Handler().postDelayed(refreshContentAction, 100);
         } else {
             if(++refreshContentTries <= 20){
                 refreshContent();
@@ -226,14 +230,13 @@ public class PoliceDataFragment extends DetailViewFragment {
         Log.w("PoliceDataFragment", "Police API error", error);
     }
 
-
-
     private int nextSliceColour(){
         int baseColor = SLICE_COLOURS[currentSliceColour++ % SLICE_COLOURS.length];
         int variation = currentSliceColour / SLICE_COLOURS.length;
         float[] hsv = new float[3];
         Color.colorToHSV(baseColor, hsv);
         hsv[2] = (float) (hsv[2] + (0.1 * variation));
+        hsv[1] = (float) (hsv[1] + (0.1 * variation));
         return Color.HSVToColor(hsv);
     }
 }

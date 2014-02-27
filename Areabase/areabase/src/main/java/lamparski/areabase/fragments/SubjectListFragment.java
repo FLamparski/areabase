@@ -62,7 +62,7 @@ public class SubjectListFragment extends DetailViewFragment implements OnItemCli
                 onIOError();
             } catch (Exception e) {
                 Log.e("SubjectListFragment", "An exception when fetching the subject list", e);
-                showToastCrossThread(e.toString(), 0);
+                showCroutonCrossThread(e.toString());
             }
 
             return targetHash;

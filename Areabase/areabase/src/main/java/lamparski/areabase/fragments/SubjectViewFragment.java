@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -73,7 +72,7 @@ public class SubjectViewFragment extends DetailViewFragment {
                     }
                 });
             }
-            showToastCrossThread(tr.toString(), Toast.LENGTH_LONG);
+            showCroutonCrossThread(tr.toString());
             Log.e("SubjectViewFragment", "SubjectDumpCallbacks onError()", tr);
         }
     };

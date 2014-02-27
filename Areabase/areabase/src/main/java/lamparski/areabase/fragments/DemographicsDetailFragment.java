@@ -3,7 +3,6 @@ package lamparski.areabase.fragments;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 import java.util.Set;
@@ -121,7 +120,7 @@ public abstract class DemographicsDetailFragment extends DetailViewFragment {
 							R.id.demographics_summary_immigration_val,
 							immigration);
 				} catch (final Throwable t) {
-					showToastCrossThread(t.toString(), Toast.LENGTH_LONG);
+					showCroutonCrossThread(t.toString());
 				}
 
 				return null;

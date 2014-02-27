@@ -103,9 +103,8 @@ public abstract class DetailViewFragment extends Fragment implements
     /**
      * Helper method to simplify toasts cross-platform
      * @param text the text to be displayed
-     * @param duration 0 for short, 1 for long as per {@link android.widget.Toast}
      */
-    protected void showToastCrossThread(final CharSequence text, final int duration){
+    protected void showCroutonCrossThread(final CharSequence text){
         if(getActivity() != null){
             getActivity().runOnUiThread(new Runnable() {
                 @Override
