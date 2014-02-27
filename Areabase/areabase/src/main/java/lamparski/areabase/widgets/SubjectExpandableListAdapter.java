@@ -41,6 +41,11 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
     private List<DataSetFamily> toplevelItems;
     private Map<DataSetFamily, List<DataSetItem>> childItems;
 
+    /**
+     * Create a new Adapter for the context given.
+     * @param context the Context to use with this Adapter
+     * @param items Optionally pre-set the items
+     */
     public SubjectExpandableListAdapter(Context context, @Nullable Map<DataSetFamily, Dataset> items){
         if(items != null){
             setItems(items);
@@ -48,6 +53,10 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         mContext = context;
     }
 
+    /**
+     * Sets the new dataset. Please then call {@link #notifyDataSetChanged()}.
+     * @param items the new dataset.
+     */
     public void setItems(@Nonnull Map<DataSetFamily, Dataset> items){
         toplevelItems = new ArrayList<DataSetFamily>(items.keySet());
         childItems = new HashMap<DataSetFamily, List<DataSetItem>>();
@@ -59,6 +68,9 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         }
     }
 
+    /**
+     * @return the currently loaded dataset
+     */
     public Map<DataSetFamily, List<DataSetItem>> getChildItems (){
         return childItems;
     }
@@ -112,6 +124,15 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Generates a view for a dataset item
+     * @param groupPosition the ID of the dataset
+     * @param childPosition the ID of the item
+     * @param isLastChild (framework) is it the last child in the list
+     * @param convertView a view that can be recycled (however sometimes this might not be possible)
+     * @param parent (framework) parent viewgroup
+     * @return the item view
+     */
     private View getRegularChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent){
         if(convertView == null || convertView.findViewById(R.id.subject_view_listitem_title) == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -136,8 +157,14 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Generates a value string from a value and its unit
+     * @param value the value
+     * @param coinageUnit the unit to use
+     * @return a string that best fits the coinage unit and represents the value well
+     */
     private String getValueString(float value, String coinageUnit) {
-        String valueString = "";
+        String valueString;
         if(coinageUnit.equals("Count")) {
             valueString = String.format("%.0f", value);
         } else if (coinageUnit.equals("Percentage")) {

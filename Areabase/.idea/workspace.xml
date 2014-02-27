@@ -63,15 +63,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Some documentation edits.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_listitem_chart.xml" />
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Subject Views now show charts for their data.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values-sw600dp/dimens.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values-sw600dp/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -156,6 +150,9 @@
             <state line="122" column="55" selection-start="3718" selection-end="3718" vertical-scroll-proportion="0.0" vertical-offset="1623" max-vertical-offset="3825">
               <folding>
                 <element signature="imports" expanded="false" />
+                <element signature="e#756#783#0" expanded="false" />
+                <element signature="e#1383#1608#0" expanded="false" />
+                <element signature="e#1593#1594#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -202,8 +199,11 @@
       <file leaf-file-name="SubjectExpandableListAdapter.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="100" selection-start="3874" selection-end="3874" vertical-scroll-proportion="0.29692832" vertical-offset="1356" max-vertical-offset="3247">
-              <folding />
+            <state line="190" column="0" selection-start="7072" selection-end="7072" vertical-scroll-proportion="-0.53754264" vertical-offset="3154" max-vertical-offset="3740">
+              <folding>
+                <element signature="e#2376#2377#0" expanded="true" />
+                <element signature="e#2409#2410#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -2610,7 +2610,11 @@
       <created>1393507267912</created>
       <updated>1393507267912</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Subject Views now show charts for their data.">
+      <created>1393512550967</created>
+      <updated>1393512550967</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2716,7 +2720,8 @@
     <MESSAGE value="Alpha release time!!!!!!!!" />
     <MESSAGE value="Much-needed stability fixes, finished with #21.&#10;&#10;And I got the right issue number this time, too." />
     <MESSAGE value="Some documentation edits." />
-    <option name="LAST_COMMIT_MESSAGE" value="Some documentation edits." />
+    <MESSAGE value="Subject Views now show charts for their data." />
+    <option name="LAST_COMMIT_MESSAGE" value="Subject Views now show charts for their data." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2987,6 +2992,9 @@
         <state line="122" column="55" selection-start="3718" selection-end="3718" vertical-scroll-proportion="0.0" vertical-offset="1623" max-vertical-offset="3825">
           <folding>
             <element signature="imports" expanded="false" />
+            <element signature="e#756#783#0" expanded="false" />
+            <element signature="e#1383#1608#0" expanded="false" />
+            <element signature="e#1593#1594#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3045,8 +3053,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="100" selection-start="3874" selection-end="3874" vertical-scroll-proportion="0.29692832" vertical-offset="1356" max-vertical-offset="3247">
-          <folding />
+        <state line="190" column="0" selection-start="7072" selection-end="7072" vertical-scroll-proportion="-0.53754264" vertical-offset="3154" max-vertical-offset="3740">
+          <folding>
+            <element signature="e#2376#2377#0" expanded="true" />
+            <element signature="e#2409#2410#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
