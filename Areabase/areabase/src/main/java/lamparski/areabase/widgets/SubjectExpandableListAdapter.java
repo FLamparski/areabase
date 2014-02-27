@@ -1,11 +1,15 @@
 package lamparski.areabase.widgets;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.echo.holographlibrary.Bar;
+import com.echo.holographlibrary.BarGraph;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -66,7 +70,7 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return childItems.get(toplevelItems.get(groupPosition)).size();
+        return childItems.get(toplevelItems.get(groupPosition)).size() + 1;
     }
 
     @Override
@@ -96,7 +100,7 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        if(convertView == null){
+        if(convertView == null || convertView.findViewById(R.id.subject_view_groupitem_title) == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.subject_view_groupitem, null);
         }
@@ -108,19 +112,31 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        if(convertView == null){
+    private View getRegularChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent){
+        if(convertView == null || convertView.findViewById(R.id.subject_view_listitem_title) == null){
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(R.layout.subject_view_listitem, null);
+            convertView = inflater.inflate(R.layout.subject_view_listitem, parent, false);
         }
 
         DataSetItem item = (DataSetItem) getChild(groupPosition, childPosition);
+        if(item == null){
+            Log.w("getRegularChildView",
+                    String.format("item #%d for group #%d (%s) not found",
+                            childPosition,
+                            groupPosition,
+                            toplevelItems.get(groupPosition).getName()));
+            return null;
+        }
 
         ((TextView) convertView.findViewById(R.id.subject_view_listitem_title)).setText(item.getTopic().getTitle());
         ((TextView) convertView.findViewById(R.id.subject_view_listitem_subtitle)).setText(item.getTopic().getDescription());
-        float value = item.getValue();
-        String coinageUnit = item.getTopic().getCoinageUnit();
+        String valueString = getValueString(item.getValue(), item.getTopic().getCoinageUnit());
+        ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(valueString);
+
+        return convertView;
+    }
+
+    private String getValueString(float value, String coinageUnit) {
         String valueString = "";
         if(coinageUnit.equals("Count")) {
             valueString = String.format("%.0f", value);
@@ -138,9 +154,53 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         } else {
             valueString = String.format("%.1f %s", value, coinageUnit);
         }
-        ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(valueString);
+        return valueString;
+    }
 
+    private View inflateChartView(ViewGroup parent){
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        return inflater.inflate(R.layout.subject_view_listitem_chart, parent, false);
+    }
+
+    private View getChartChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        Log.d("getChartChildView",
+                String.format("groupPosition = %d, childPosition = %d", groupPosition, childPosition));
+        if(convertView == null){
+            Log.v("getChartChildView", "convertView is null, inflating...");
+            convertView = inflateChartView(parent);
+        } else {
+            Log.v("getChartChildView", "recycling a chart child view");
+        }
+        List<DataSetItem> dataset = childItems.get(toplevelItems.get(groupPosition));
+        BarGraph chart = (BarGraph) convertView.findViewById(R.id.subject_view_listitem_bargraph);
+        if(chart == null){
+            Log.w("getChartChildView", "cannot get the chart element, reinflating view");
+            convertView = inflateChartView(parent);
+            chart = (BarGraph) convertView.findViewById(R.id.subject_view_listitem_bargraph);
+        }
+        ArrayList<Bar> bars = new ArrayList<Bar>();
+        for(DataSetItem item : dataset){
+            String title = item.getTopic().getTitle();
+            if(!(title.contains("All People") || title.contains("All Usual Residents"))){
+                Bar itemBar = new Bar();
+                itemBar.setName(title);
+                itemBar.setValueString(getValueString(item.getValue(), item.getTopic().getCoinageUnit()));
+                itemBar.setValue(item.getValue());
+                itemBar.setColor(mContext.getResources().getColor(android.R.color.holo_blue_light));
+                bars.add(itemBar);
+            }
+        }
+        chart.setBars(bars);
         return convertView;
+    }
+
+    @Override
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        if(childPosition == 0){
+            return getChartChildView(groupPosition, childPosition, isLastChild, convertView, parent);
+        } else {
+            return getRegularChildView(groupPosition, childPosition - 1, isLastChild, convertView, parent);
+        }
     }
 
     @Override
