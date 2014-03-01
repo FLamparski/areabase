@@ -5,4 +5,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/card_background_shadow" >
 
-</FrameLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/layout/item_card.xml --><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml -->
+</FrameLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_card.xml --><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml -->

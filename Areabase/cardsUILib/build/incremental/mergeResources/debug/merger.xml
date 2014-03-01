@@ -2,79 +2,138 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res" >
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res" >
             <file
-                name="card"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\drawable\card.xml"
-                qualifiers=""
-                type="drawable" />
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/styles.xml"
+                qualifiers="" >
+
+                <style name="Item.Sticky" >
+                    <item name="android:background">
+#eeeeee
+                    </item>
+                    <item name="android:layout_height">
+@dimen/sticky_height
+                    </item>
+                    <item name="android:gravity">
+center
+                    </item>
+                    <item name="android:textAppearance">
+?android:textAppearanceLarge
+                    </item>
+                    <item name="android:textAllCaps">
+true
+                    </item>
+                    <item name="android:fontFamily">
+sans-serif-light
+                    </item>
+                    <item name="android:textColor">
+#000000
+                    </item>
+                </style>
+
+                <style name="Item" >
+                    <item name="android:layout_width">
+match_parent
+                    </item>
+                    <item name="android:layout_height">
+300dp
+                    </item>
+                </style>
+
+                <style
+                    name="CardTitleBold"
+                    parent="@style/CardText" >
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:textSize">
+@dimen/card_large_text
+                    </item>
+                    <item name="android:textColor">
+@color/card_title_text
+                    </item>
+                    <item name="android:fontFamily">
+sans-serif
+                    </item>
+                </style>
+
+                <style
+                    name="CardTitle"
+                    parent="@style/CardText" >
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:textSize">
+@dimen/card_large_text
+                    </item>
+                    <item name="android:textColor">
+@color/card_title_text
+                    </item>
+                    <item name="android:fontFamily">
+sans-serif-light
+                    </item>
+                </style>
+
+                <style name="CardText" >
+                    <item name="android:textSize">
+@dimen/card_small_text
+                    </item>
+                    <item name="android:textColor">
+@color/card_text
+                    </item>
+                    <item name="android:ellipsize">
+end
+                    </item>
+                    <item name="android:maxLines">
+2
+                    </item>
+                </style>
+
+                <style name="Item.Top" >
+                    <item name="android:background">
+#eeeeee
+                    </item>
+                </style>
+
+                <style
+                    name="CardLightText"
+                    parent="@style/CardText" >
+                    <item name="android:textColor">
+@color/card_light_text
+                    </item>
+                </style>
+
+                <style
+                    name="StackTitle"
+                    parent="@style/CardText" >
+                    <item name="android:layout_width">
+wrap_content
+                    </item>
+                    <item name="android:layout_height">
+wrap_content
+                    </item>
+                    <item name="android:textSize">
+27sp
+                    </item>
+                    <item name="android:textStyle">
+bold
+                    </item>
+                    <item name="android:textColor">
+@color/card_title_text
+                    </item>
+                    <item name="android:fontFamily">
+sans-serif
+                    </item>
+                </style>
+            </file>
             <file
-                name="card_background"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\drawable-xhdpi\card_background.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="card_background_shadow"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\drawable-xhdpi\card_background_shadow.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="card_shadow"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\drawable-xhdpi\card_shadow.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="top_shadow"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\drawable-xhdpi\top_shadow.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="cards_view"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\cards_view.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="cards_view_multicolumn"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\cards_view_multicolumn.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="footer_fragment"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\footer_fragment.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="header"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\header.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="item_card"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\item_card.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="item_card_empty_first"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\item_card_empty_first.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="item_card_empty_last"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\item_card_empty_last.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="item_play_card_empty_first"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\item_play_card_empty_first.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                name="item_stack"
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\layout\item_stack.xml"
-                qualifiers=""
-                type="layout" />
-            <file
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\values\colors.xml"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/colors.xml"
                 qualifiers="" >
                 <color name="card_grid_text" >#ff707070
                 </color>
@@ -94,7 +153,7 @@
                 </color>
             </file>
             <file
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\values\dimens.xml"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/dimens.xml"
                 qualifiers="" >
                 <dimen name="card_temperature_size" >90.0dip
                 </dimen>
@@ -284,11 +343,11 @@
                 </dimen>
                 <dimen name="search_plate_icon_height" >34.0dip
                 </dimen>
+                <dimen name="suggestion_large_image_max_width" >640.0dip
+                </dimen>
                 <dimen name="photo_crop_width" >280.0dip
                 </dimen>
                 <dimen name="sticky_height" >120dp
-                </dimen>
-                <dimen name="suggestion_large_image_max_width" >640.0dip
                 </dimen>
                 <dimen name="search_device_footer_bottom_margin" >12.0dip
                 </dimen>
@@ -302,9 +361,9 @@
                 </dimen>
                 <dimen name="widget_margin_top_bottom" >8.0dip
                 </dimen>
-                <dimen name="photo_crop_stroke_width" >1.0dip
-                </dimen>
                 <dimen name="webview_margin_left" >60.0dip
+                </dimen>
+                <dimen name="photo_crop_stroke_width" >1.0dip
                 </dimen>
                 <dimen name="search_plate_height" >70.0dip
                 </dimen>
@@ -334,9 +393,9 @@
                 </dimen>
                 <dimen name="unit_small_caps" >14.0dip
                 </dimen>
-                <dimen name="websearch_header_left_padding" >16.0dip
-                </dimen>
                 <dimen name="web_suggestion_view_height" >48.0dip
+                </dimen>
+                <dimen name="websearch_header_left_padding" >16.0dip
                 </dimen>
                 <dimen name="dialog_text_size" >18.0sp
                 </dimen>
@@ -442,139 +501,80 @@
                 </dimen>
             </file>
             <file
-                path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\res\values\styles.xml"
-                qualifiers="" >
-
-                <style name="Item.Sticky" >
-                    <item name="android:background">
-#eeeeee
-                    </item>
-                    <item name="android:layout_height">
-@dimen/sticky_height
-                    </item>
-                    <item name="android:gravity">
-center
-                    </item>
-                    <item name="android:textAppearance">
-?android:textAppearanceLarge
-                    </item>
-                    <item name="android:textAllCaps">
-true
-                    </item>
-                    <item name="android:fontFamily">
-sans-serif-light
-                    </item>
-                    <item name="android:textColor">
-#000000
-                    </item>
-                </style>
-
-                <style name="Item" >
-                    <item name="android:layout_width">
-match_parent
-                    </item>
-                    <item name="android:layout_height">
-300dp
-                    </item>
-                </style>
-
-                <style
-                    name="CardTitleBold"
-                    parent="@style/CardText" >
-                    <item name="android:layout_width">
-wrap_content
-                    </item>
-                    <item name="android:layout_height">
-wrap_content
-                    </item>
-                    <item name="android:textSize">
-@dimen/card_large_text
-                    </item>
-                    <item name="android:textColor">
-@color/card_title_text
-                    </item>
-                    <item name="android:fontFamily">
-sans-serif
-                    </item>
-                </style>
-
-                <style
-                    name="CardTitle"
-                    parent="@style/CardText" >
-                    <item name="android:layout_width">
-wrap_content
-                    </item>
-                    <item name="android:layout_height">
-wrap_content
-                    </item>
-                    <item name="android:textSize">
-@dimen/card_large_text
-                    </item>
-                    <item name="android:textColor">
-@color/card_title_text
-                    </item>
-                    <item name="android:fontFamily">
-sans-serif-light
-                    </item>
-                </style>
-
-                <style name="CardText" >
-                    <item name="android:textSize">
-@dimen/card_small_text
-                    </item>
-                    <item name="android:textColor">
-@color/card_text
-                    </item>
-                    <item name="android:ellipsize">
-end
-                    </item>
-                    <item name="android:maxLines">
-2
-                    </item>
-                </style>
-
-                <style name="Item.Top" >
-                    <item name="android:background">
-#eeeeee
-                    </item>
-                </style>
-
-                <style
-                    name="CardLightText"
-                    parent="@style/CardText" >
-                    <item name="android:textColor">
-@color/card_light_text
-                    </item>
-                </style>
-
-                <style
-                    name="StackTitle"
-                    parent="@style/CardText" >
-                    <item name="android:layout_width">
-wrap_content
-                    </item>
-                    <item name="android:layout_height">
-wrap_content
-                    </item>
-                    <item name="android:textSize">
-27sp
-                    </item>
-                    <item name="android:textStyle">
-bold
-                    </item>
-                    <item name="android:textColor">
-@color/card_title_text
-                    </item>
-                    <item name="android:fontFamily">
-sans-serif
-                    </item>
-                </style>
-            </file>
+                name="card"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/drawable/card.xml"
+                qualifiers=""
+                type="drawable" />
+            <file
+                name="item_card_empty_last"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_card_empty_last.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="item_card_empty_first"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_card_empty_first.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="item_card"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_card.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="header"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/header.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="footer_fragment"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/footer_fragment.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="cards_view"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/cards_view.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="item_stack"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_stack.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="cards_view_multicolumn"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/cards_view_multicolumn.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="item_play_card_empty_first"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/item_play_card_empty_first.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="card_background_shadow"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/drawable-xhdpi/card_background_shadow.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="top_shadow"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/drawable-xhdpi/top_shadow.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="card_background"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/drawable-xhdpi/card_background.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="card_shadow"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/drawable-xhdpi/card_shadow.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
         </source>
-        <source path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\build\res\rs\debug" />
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/build/res/rs/debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\debug\res" />
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/debug/res" />
     </dataSet>
 
 </merger>

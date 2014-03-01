@@ -25,4 +25,4 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@android:color/primary_text_dark" />
 
-</RelativeLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/layout/footer_fragment.xml --><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml -->
+</RelativeLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/layout/footer_fragment.xml --><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml -->
