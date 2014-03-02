@@ -23,7 +23,12 @@
 
         <provider android:authorities="lamparski.areabase.content" android:exported="false" android:name="lamparski.areabase.CacheContentProvider">
         </provider>
+
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+
+        <activity android:label="@string/title_activity_graph" android:name="lamparski.areabase.GraphActivity" android:parentActivityName="lamparski.areabase.AreaActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="AreaActivity"/>
+        </activity>
     </application>
 
 </manifest>

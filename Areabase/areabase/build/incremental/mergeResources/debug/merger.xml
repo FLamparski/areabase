@@ -5892,16 +5892,16 @@
                     msgid="26645092511305524" >"Dapatkan perkhidmatan Google Play"
                 </string>
                 <string
+                    name="auth_client_needs_installation_title"
+                    msgid="7999585836145154206" >"Perkhidmatan Google Play perlu dipasang untuk mengguankan aplikasi."
+                </string>
+                <string
                     name="common_google_play_services_unsupported_date_text"
                     msgid="4725396522367789365" >"Tarikh pada peranti kelihatan tidak betul. Sila semak tarikh pada peranti."
                 </string>
                 <string
                     name="common_signin_button_text"
                     msgid="9071884888741449141" >"Log masuk"
-                </string>
-                <string
-                    name="auth_client_needs_installation_title"
-                    msgid="7999585836145154206" >"Perkhidmatan Google Play perlu dipasang untuk mengguankan aplikasi."
                 </string>
             </file>
             <file
@@ -7664,15 +7664,23 @@ normal
                 </dimen>
                 <dimen name="activity_horizontal_margin" >16dp
                 </dimen>
+                <dimen name="chart_view_height" >180dp
+                </dimen>
                 <dimen name="activity_vertical_margin" >16dp
                 </dimen>
             </file>
             <file
                 path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/strings.xml"
                 qualifiers="" >
+                <string name="title_section1" >Section 1
+                </string>
                 <string name="title_activity_settings" >Preferences
                 </string>
                 <string name="pref_category_location_autoLocate_primaryText" >Automatically find location
+                </string>
+                <string name="title_section3" >Section 3
+                </string>
+                <string name="title_section2" >Section 2
                 </string>
                 <string name="summaryactivity_cardmaker_onserror" >Error processing ONS data. Sorry :(
                 </string>
@@ -7721,6 +7729,8 @@ sharply rising
                 </string>
                 <string name="pref_category_location_backgroundRefix_infoText_disabled" >Areabase will not keep track of your location. This may save battery, but "Locate" may take longer.
                 </string>
+                <string name="title_activity_graph" >GraphActivity
+                </string>
                 <string name="card_demographics_body_base" >There is %1$s and average age is %2$.1f. The area is %3$s.
                 </string>
                 <string name="action_search_hint" >Postcode or area name…
@@ -7728,6 +7738,8 @@ sharply rising
                 <string name="error_cannot_resolve_postcode_body" >The postcode for your location appears invalid. This could be because of how Google Geocoder returns postcodes. Try to walk to a different location and press the "Locate" button.
                 </string>
                 <string name="summaryactivity_cardmaker_values_not_available" >Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.
+                </string>
+                <string name="action_graph_explanation" >Open a new window to view a graph of this dataset.
                 </string>
                 <string name="drawer_close" >Close drawer
                 </string>
@@ -7900,6 +7912,10 @@ higher than
 much higher than
                     </item>
                 </string-array>
+
+                <string name="action_graph" >Graph this data
+                </string>
+
                 <string-array name="card_crime_real_trend" >
                     <item>
 sharply falling
@@ -8046,6 +8062,11 @@ sharply rising
                 qualifiers=""
                 type="layout" />
             <file
+                name="subject_view_listitem_chart"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/subject_view_listitem_chart.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="fragment_demographics_summary"
                 path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/fragment_demographics_summary.xml"
                 qualifiers=""
@@ -8146,6 +8167,12 @@ sharply rising
                 <dimen name="nav_drawer_width" >350dp
                 </dimen>
                 <dimen name="nav_drawer_catsep_height" >32dp
+                </dimen>
+            </file>
+            <file
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values-sw600dp/dimens.xml"
+                qualifiers="sw600dp" >
+                <dimen name="chart_view_height" >320dp
                 </dimen>
             </file>
             <file
@@ -8303,6 +8330,42 @@ sharply rising
                 path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/drawable-mdpi/navicon_hierarchy.png"
                 qualifiers="mdpi"
                 type="drawable" />
+            <file
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values-w820dp/dimens.xml"
+                qualifiers="w820dp" >
+                <dimen name="activity_horizontal_margin" >64dp
+                </dimen>
+            </file>
+            <file
+                name="fragment_graphactivity"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout-land/fragment_graphactivity.xml"
+                qualifiers="land"
+                type="layout" />
+            <file
+                name="fragment_graphactivity"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/fragment_graphactivity.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="ic_add"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/drawable-xhdpi/ic_add.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                name="subject_view_listitem_chartlink"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/subject_view_listitem_chartlink.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="graph"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/menu/graph.xml"
+                qualifiers=""
+                type="menu" />
+            <file
+                name="activity_graph"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/activity_graph.xml"
+                qualifiers=""
+                type="layout" />
         </source>
         <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/res/rs/debug" />
     </dataSet>

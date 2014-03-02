@@ -84,4 +84,38 @@ public class CensusHelpers {
 		return subject;
 	}
 
+    /**
+     * Generates a value string from a value and its unit
+     * @param value the value
+     * @param coinageUnit the unit to use
+     * @return a string that best fits the coinage unit and represents the value well
+     */
+    public static String getValueString(float value, String coinageUnit) {
+        String valueString;
+        if(coinageUnit.equals("Count")) {
+            /* This clause will display all sorts of counts or integer measures */
+            valueString = String.format("%.0f", value);
+        } else if (coinageUnit.equals("Percentage")) {
+            /* This clause will display percentages */
+            valueString = String.format("%.1f%%", value);
+        } else if (coinageUnit.equals("Square metres (m2)(thousands)")) {
+            /* Special case for area measurement */
+            value *= 1000;
+            valueString = String.format("%.2f m²", value);
+        } else if (coinageUnit.equals("Pounds Sterling (thousands)")) {
+            /* A measure for GBP000s values */
+            valueString = String.format("£%.3fk", value);
+        } else if (coinageUnit.equals("Pounds Sterling")) {
+            /* A measure for plain GBP values */
+            valueString = String.format("£%.2f", value);
+        } else if (coinageUnit.equals("Score")
+                    || coinageUnit.equals("Rate")) {
+            /* Scores */
+            valueString = String.format("%.1f", value);
+        } else {
+            /* Any other value: just print it and then its coinage unit */
+            valueString = String.format("%.1f %s", value, coinageUnit);
+        }
+        return valueString;
+    }
 }

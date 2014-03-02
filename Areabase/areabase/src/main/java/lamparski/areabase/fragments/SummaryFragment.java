@@ -94,15 +94,15 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 	};
 
     @Override
-    public void onError(final Throwable err) {
+    public void onError(final Throwable tr) {
         if(getActivity() != null){
             getActivity().runOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
-                    Log.e("SummaryFragment", "Error processing NDE data", err);
+                    Log.e("SummaryFragment", "Error processing NDE data", tr);
                     try {
-                        NDE2Exception cockup = (NDE2Exception) err;
+                        NDE2Exception cockup = (NDE2Exception) tr;
                         Log.w("SummaryFragment",
                                 String.format(
                                         "NDE2 error response %d: Title: %s; detail: %s",
@@ -111,9 +111,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                                         cockup.getNessDetail()));
                     } catch (Exception e) {
                         Log.d("SummaryFragment", "Not a NDE2Exception, got: "
-                                + err.getClass().getSimpleName());
+                                + tr.getClass().getSimpleName());
                     }
-                    if (err instanceof IOException) {
+                    if (tr instanceof IOException) {
                         Crouton.makeText(getActivity(),
                                 R.string.io_exception_generic_message,
                                 Style.ALERT).show();
@@ -127,10 +127,10 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                         Crouton.makeText(getActivity(),
                                 R.string.summaryactivity_cardmaker_onserror,
                                 Style.ALERT).show();
-                        if (err instanceof NDE2Exception) {
+                        if (tr instanceof NDE2Exception) {
                             String msg = String.format("NDE error: %s -- %s",
-                                    ((NDE2Exception) err).getNessMessage(),
-                                    ((NDE2Exception) err).getNessDetail());
+                                    ((NDE2Exception) tr).getNessMessage(),
+                                    ((NDE2Exception) tr).getNessDetail());
                             Crouton.makeText(getActivity(), msg, Style.INFO).show();
                             CardModel errmdl = new CardModel(ErrorCard.class);
                             errmdl.setTitlePlay(getString(R.string.error_cannot_resolve_postcode));
@@ -470,9 +470,9 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                 }
 
                 @Override
-                public void onError(Throwable err) {
+                public void onError(Throwable tr) {
                     if(getActivity() != null) {
-                        ((AreaActivity) getActivity()).onError(err);
+                        ((AreaActivity) getActivity()).onError(tr);
                     }
                 }
             });

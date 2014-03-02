@@ -10,7 +10,9 @@
     <string name="action_search">Search</string>
     <string name="action_refresh">Refresh</string>
     <string name="action_help">Help</string>
-    <string name="action_search_hint">Postcode or area name&#8230;</string>
+    <string name="action_search_hint">Postcode or area name…</string>
+    <string name="action_graph">Graph this data</string>
+    <string name="action_graph_explanation">Open a new window to view a graph of this dataset.</string>
 
     <!-- messages -->
     <string name="toast_mapview_not_loading">Could not load the map view.</string>
@@ -50,10 +52,10 @@
     <string name="pref_category_location_heading">Location</string>
     <string name="pref_category_location_autoLocate_primaryText">Automatically find location</string>
     <string name="pref_category_location_autoLocate_infoText_enabled">Areabase will automatically find your location on startup.</string>
-    <string name="pref_category_location_autoLocate_infoText_disabled">Areabase will wait until you press &quot;Locate&quot; to find your location.</string>
+    <string name="pref_category_location_autoLocate_infoText_disabled">Areabase will wait until you press "Locate" to find your location.</string>
     <string name="pref_category_location_backgroundRefix_primaryText">Update location in the background</string>
     <string name="pref_category_location_backgroundRefix_infoText_enabled">Areabase will keep your location up-to-date by querying GPS periodically.</string>
-    <string name="pref_category_location_backgroundRefix_infoText_disabled">Areabase will not keep track of your location. This may save battery, but &quot;Locate&quot; may take longer.</string>
+    <string name="pref_category_location_backgroundRefix_infoText_disabled">Areabase will not keep track of your location. This may save battery, but "Locate" may take longer.</string>
     <!-- preferences -> testing -->
     <string name="pref_category_testing_heading">Experimental</string>
     <string name="pref_category_testing_phoneHome_primaryText">Report crashes</string>
@@ -108,10 +110,11 @@
         <item>rising</item>
         <item>sharply rising</item>
     </string-array>
-    
+
     <!-- cards -> crime (real, ie via police data) -->
     <string name="card_crime_real_title">Crime in %1$s</string>
     <string name="card_crime_real_body_base">The most commonly reported type of crime here is %1$s. Crime overall is %2$s.</string>
+
     <string-array name="card_crime_real_trend">
         <item>sharply falling</item>
         <item>falling</item>
@@ -119,9 +122,10 @@
         <item>rising</item>
         <item>sharply rising</item>
     </string-array>
-    
+
     <string name="card_environ_title">Environment in %1$s</string>
     <string name="card_environ_body_base">%1$s is %2$s area. Energy use as of %3$s was %4$.1f MWh, and it is %5$s.</string>
+
     <string-array name="card_environ_area_types">
         <item>a rural</item>
         <item>an urban</item>
@@ -138,8 +142,11 @@
     <string name="card_error_values_not_available_title">Some data for this area is not available.</string>
     <string name="card_error_values_not_available_body">Some areas may be missing data in the ONS database; Scotland and Northern Ireland are not supported.</string>
     <string name="a11y_cd_areabase_icon">The Areabase icon</string>
-
     <string name="error_police_api">Could not fetch crime data</string>
     <string name="error_police_api_body">Please try again later. The following might be helpful: %1$s</string>
+    <string name="title_activity_graph">GraphActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>

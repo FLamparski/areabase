@@ -10,16 +10,22 @@ import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import lamparski.areabase.GraphActivity;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
 import lamparski.areabase.cardproviders.EnvironmentCardProvider;
+import lamparski.areabase.utils.OnError;
+import nde2.errors.NDE2Exception;
 import nde2.helpers.CensusHelpers;
 import nde2.helpers.Statistics;
 import nde2.pull.methodcalls.delivery.GetTables;
@@ -28,6 +34,7 @@ import nde2.pull.methodcalls.discovery.GetDatasetFamilies;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
+import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 
 /**
@@ -39,12 +46,10 @@ import nde2.pull.types.Subject;
  */
 public class AreaDataService extends Service {
 
-    public interface BasicAreaInfoIface {
+    public interface BasicAreaInfoIface extends OnError {
 		public void allDone();
 
 		public void cardReady(CardModel cm);
-
-		public void onError(Throwable err);
 
 		/*public void onValueNotAvailable();*/
 
@@ -53,18 +58,19 @@ public class AreaDataService extends Service {
 		public void onAreaBoundaryFound(double[][] poly);
 	}
 
-	public interface AreaLookupCallbacks {
+	public interface AreaLookupCallbacks extends OnError {
 		public void areaReady(Area area);
 
-		public void onError(Throwable err);
 	}
 
-    public interface SubjectDumpIface {
+    public interface SubjectDumpIface extends OnError {
         public void subjectDumpReady(Map<DataSetFamily, Dataset> map);
 
         public void onProgress(int position, int size);
+    }
 
-        public void onError(Throwable tr);
+    public interface DatasetDumpCallbacks extends OnError {
+        public void datasetsDownloaded(HashMap<DateRange, Dataset> datasets);
     }
 
 	public class AreaDataBinder extends Binder {
@@ -297,5 +303,42 @@ public class AreaDataService extends Service {
                 commlink.subjectDumpReady(result);
             }
         }.execute(area);
+    }
+
+    /**
+     * Fetches all data for the dataset family given, referenced by the date ranges they cover.
+     * @param area The area to fetch information for
+     * @param family The dataset family to download
+     * @param callbacks A callback interface
+     */
+    public void datasetDump(final Area area, final DataSetFamily family, final DatasetDumpCallbacks callbacks) {
+        new AsyncTask<Void, Void, HashMap<DateRange, Dataset>>(){
+            @Override
+            protected HashMap<DateRange, Dataset> doInBackground(Void... params) {
+                HashMap<DateRange, Dataset> dateRangeDatasetHashMap = new HashMap<DateRange, Dataset>();
+
+                DateRange[] ranges = family.getDateRanges();
+                for(DateRange range : ranges){
+                    try {
+                        Set<Dataset> current = new GetTables()
+                                .forArea(area)
+                                .inFamily(family)
+                                .inDateRange(range)
+                                .execute();
+                        Dataset currentDataset = current.iterator().next();
+                        dateRangeDatasetHashMap.put(range, currentDataset);
+                    } catch (Exception e) {
+                        callbacks.onError(e);
+                    }
+                }
+
+                return dateRangeDatasetHashMap;
+            }
+
+            @Override
+            protected void onPostExecute(HashMap<DateRange, Dataset> dateRangeDatasetHashMap) {
+                callbacks.datasetsDownloaded(dateRangeDatasetHashMap);
+            }
+        }.execute();
     }
 }

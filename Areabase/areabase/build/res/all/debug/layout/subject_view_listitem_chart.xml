@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="@dimen/chart_view_height"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
+
+    <com.echo.holographlibrary.BarGraph
+        android:id="@+id/subject_view_listitem_bargraph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
+<!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/subject_view_listitem_chart.xml -->

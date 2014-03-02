@@ -71,8 +71,8 @@ public abstract class DetailViewFragment extends Fragment implements
 	protected AreaLookupCallbacks mAreaLookupCallbacks = new AreaLookupCallbacks() {
 
 		@Override
-		public void onError(Throwable err) {
-			Log.e("DetailViewFragment", "AreaLookupCallbacks onError()", err);
+		public void onError(Throwable tr) {
+			Log.e("DetailViewFragment", "AreaLookupCallbacks onError()", tr);
 		}
 
 		@Override

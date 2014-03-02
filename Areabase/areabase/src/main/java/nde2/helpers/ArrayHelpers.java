@@ -1,9 +1,20 @@
 package nde2.helpers;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.HashBiMap;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import nde2.pull.types.DateRange;
+import police.types.KeyValuePair;
 
 public class ArrayHelpers {
 
@@ -51,5 +62,19 @@ public class ArrayHelpers {
 		
 		return max.getKey();
 	}
+
+    public static BiMap<String, DateRange> remapDateRanges(DateRange... dateRanges){
+        BiMap<String, DateRange> newMap = HashBiMap.create();
+        for(DateRange dr : dateRanges){
+            String s;
+            if(dr.getStartDate().compareTo(dr.getEndDate()) == 0){
+                s = String.format("%TF", dr.getEndDate());
+            } else {
+                s = String.format("%TF - %TF", dr.getStartDate(), dr.getEndDate());
+            }
+            newMap.put(s, dr);
+        }
+        return newMap;
+    }
 
 }

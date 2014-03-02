@@ -38,44 +38,6 @@ import nde2.pull.types.Subject;
  */
 public class SubjectListFragment extends DetailViewFragment implements OnItemClickListener {
 
-    private final AsyncTask<Area,Void,Map<DetailedSubject,Integer>> areaSubjectDumpTask = new AsyncTask<Area, Void, Map<DetailedSubject, Integer>>() {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            getActivity().setProgressBarIndeterminateVisibility(true);
-        }
-
-        @Override
-        protected Map<DetailedSubject, Integer> doInBackground(Area... params) {
-            Area myArea = params[0];
-            Map<DetailedSubject, Integer> targetHash = new HashMap<DetailedSubject, Integer>();
-
-            try {
-                Map<Subject, Integer> baseHash = myArea.getCompatibleSubjects();
-                for (Entry<Subject, Integer> entry : baseHash.entrySet()) {
-                    DetailedSubject detailedSubject = entry.getKey().getDetailed();
-                    targetHash.put(detailedSubject, entry.getValue());
-                }
-            } catch (IOException ioe) {
-                Log.e("SubjectListFragment", "IO exception when fetching the subject list", ioe);
-                onIOError();
-            } catch (Exception e) {
-                Log.e("SubjectListFragment", "An exception when fetching the subject list", e);
-                showCroutonCrossThread(e.toString());
-            }
-
-            return targetHash;
-        }
-
-        @Override
-        protected void onPostExecute(Map<DetailedSubject, Integer> result) {
-            super.onPostExecute(result);
-            getActivity().setProgressBarIndeterminateVisibility(false);
-            onSubjectHashFound(result);
-        }
-    };
-
     private class SubjectListAdapter extends BaseAdapter {
 
         @Override
@@ -115,7 +77,43 @@ public class SubjectListFragment extends DetailViewFragment implements OnItemCli
                 area = ((AreaActivity) getActivity()).getArea();
             }
 
-            areaSubjectDumpTask.execute(area);
+            new AsyncTask<Area, Void, Map<DetailedSubject, Integer>>() {
+
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    getActivity().setProgressBarIndeterminateVisibility(true);
+                }
+
+                @Override
+                protected Map<DetailedSubject, Integer> doInBackground(Area... params) {
+                    Area myArea = params[0];
+                    Map<DetailedSubject, Integer> targetHash = new HashMap<DetailedSubject, Integer>();
+
+                    try {
+                        Map<Subject, Integer> baseHash = myArea.getCompatibleSubjects();
+                        for (Entry<Subject, Integer> entry : baseHash.entrySet()) {
+                            DetailedSubject detailedSubject = entry.getKey().getDetailed();
+                            targetHash.put(detailedSubject, entry.getValue());
+                        }
+                    } catch (IOException ioe) {
+                        Log.e("SubjectListFragment", "IO exception when fetching the subject list", ioe);
+                        onIOError();
+                    } catch (Exception e) {
+                        Log.e("SubjectListFragment", "An exception when fetching the subject list", e);
+                        showCroutonCrossThread(e.toString());
+                    }
+
+                    return targetHash;
+                }
+
+                @Override
+                protected void onPostExecute(Map<DetailedSubject, Integer> result) {
+                    super.onPostExecute(result);
+                    getActivity().setProgressBarIndeterminateVisibility(false);
+                    onSubjectHashFound(result);
+                }
+            }.execute(area);
         }
     };
 

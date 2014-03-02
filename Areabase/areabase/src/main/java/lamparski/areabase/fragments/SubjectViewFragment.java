@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -77,6 +78,22 @@ public class SubjectViewFragment extends DetailViewFragment {
         }
     };
 
+    private OnChildClickListener mChildItemClickListener = new OnChildClickListener() {
+        @Override
+        public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            // Check if the click is on a chartlink
+            Log.d("SubjectViewFragment",
+                    String.format("Click event on group %d, item %d", groupPosition, childPosition));
+            if(mAdapter.isGraphable(groupPosition) && childPosition == 0){
+                DataSetFamily theFamily = (DataSetFamily) mAdapter.getGroup(groupPosition);
+                if(getActivity() != null){
+                    ((AreaActivity) getActivity()).startGraphActivity(theFamily, area);
+                }
+            }
+            return true;
+        }
+    };
+
     private Runnable refreshContentAction = new Runnable() {
         @Override
         public void run() {
@@ -131,6 +148,7 @@ public class SubjectViewFragment extends DetailViewFragment {
         ExpandableListView datasetView = (ExpandableListView) theView.findViewById(R.id.subject_view_expandable_list);
         datasetView.setEmptyView(mPlaceholderProgressBar);
         datasetView.setAdapter(mAdapter);
+        datasetView.setOnChildClickListener(mChildItemClickListener);
 
         return theView;
     }

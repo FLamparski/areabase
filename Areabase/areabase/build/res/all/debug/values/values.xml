@@ -170,6 +170,13 @@
     <dimen name="cards_max_column_width">446.0dip</dimen>
     <dimen name="cards_padding_inbetween">10.0dip</dimen>
     <dimen name="cards_padding_inbetween_adjusted">9.0dip</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="chart_view_height">180dp</dimen>
+    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml -->
+    <eat-comment />
+
     <dimen name="contact_avatar_height">148.0dip</dimen>
     <dimen name="contact_avatar_width">148.0dip</dimen>
     <dimen name="contact_select_fragment_padding">8.0dip</dimen>
@@ -348,6 +355,8 @@
     <eat-comment />
 
     <string name="a11y_cd_areabase_icon">The Areabase icon</string>
+    <string name="action_graph">Graph this data</string>
+    <string name="action_graph_explanation">Open a new window to view a graph of this dataset.</string>
     <string name="action_help">Help</string>
     <string name="action_locate">Locate</string>
     <string name="action_refresh">Refresh</string>
@@ -444,7 +453,11 @@
     <string name="summaryactivity_cardmaker_servicedisconnect_message">An important component of Areabase, %1$s, just broke. The app will probably crash and burn soon. Sorry :(</string>
     <string name="summaryactivity_cardmaker_servicedisconnect_title">Oh noes!</string>
     <string name="summaryactivity_cardmaker_values_not_available">Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.</string>
+    <string name="title_activity_graph">GraphActivity</string>
     <string name="title_activity_settings">Preferences</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
     <string name="toast_mapview_not_loading">Could not load the map view.</string>
     <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values/styles.xml -->
     <eat-comment />

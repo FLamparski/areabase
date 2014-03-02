@@ -71,6 +71,7 @@ import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
 import lamparski.areabase.widgets.CommonDialogs;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
@@ -815,12 +816,21 @@ public class AreaActivity extends Activity implements LocationListener,
     }
 
     @Override
-    public void onError(final Throwable err) {
+    public void onError(final Throwable tr) {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonDialogs.areaDataServiceError(err, AreaActivity.this);
+                CommonDialogs.areaDataServiceError(tr, AreaActivity.this);
             }
         });
+    }
+
+    public void startGraphActivity(DataSetFamily family, Area area){
+        Intent intent = new Intent(this, GraphActivity.class);
+        Bundle args = new Bundle();
+        args.putSerializable(GraphActivity.GRAPH_AREA, area);
+        args.putSerializable(GraphActivity.GRAPH_DATASET_FAMILY, family);
+        intent.putExtras(args);
+        startActivity(intent);
     }
 }

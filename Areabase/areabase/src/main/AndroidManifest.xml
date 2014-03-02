@@ -31,16 +31,27 @@
             android:label="@string/title_activity_settings" >
         </activity>
 
-        <service android:name=".services.AreaDataService" >
+        <service android:name="lamparski.areabase.services.AreaDataService" >
         </service>
 
         <provider
-            android:name=".CacheContentProvider"
+            android:name="lamparski.areabase.CacheContentProvider"
             android:authorities="lamparski.areabase.content"
             android:exported="false" >
         </provider>
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="lamparski.areabase.GraphActivity"
+            android:label="@string/title_activity_graph"
+            android:parentActivityName="lamparski.areabase.AreaActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="AreaActivity" />
+        </activity>
     </application>
 
 </manifest>
