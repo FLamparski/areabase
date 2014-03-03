@@ -2,29 +2,29 @@ package lamparski.areabase.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.echo.holographlibrary.Bar;
 import com.echo.holographlibrary.BarGraph;
 import com.echo.holographlibrary.BarGraph.OnBarClickedListener;
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import lamparski.areabase.R;
 import nde2.helpers.CensusHelpers;
 import nde2.pull.types.DataSetItem;
 import nde2.pull.types.Dataset;
+import nde2.pull.types.Topic;
 
 /**
  * Created by filip on 01/03/14.
@@ -51,7 +51,20 @@ public class DatasetGraphFragment extends Fragment
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+            if(convertView == null && getActivity() != null){
+                LayoutInflater inflater = LayoutInflater.from(getActivity());
+                convertView = inflater.inflate(R.layout.subject_view_listitem, parent, false);
+            }
+
+            DataSetItem item = dataSetItems.get(position);
+            Topic topic = item.getTopic();
+            String valstr = CensusHelpers.getValueString(item.getValue(), topic.getCoinageUnit());
+
+            ((TextView) convertView.findViewById(R.id.subject_view_listitem_title)).setText(topic.getTitle());
+            ((TextView) convertView.findViewById(R.id.subject_view_listitem_subtitle)).setText(topic.getDescription());
+            ((TextView) convertView.findViewById(R.id.subject_view_listitem_count)).setText(valstr);
+
+            return convertView;
         }
     }
 
@@ -61,6 +74,7 @@ public class DatasetGraphFragment extends Fragment
 
     private ListView legend;
     private BarGraph graph;
+    private TabHost tabHost;
 
     public DatasetGraphFragment(){
     }
@@ -85,6 +99,7 @@ public class DatasetGraphFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("DatasetGraphFragment", "Creating view...");
         if(getArguments() != null && getArguments().containsKey("dataset")){
             dataset = (Dataset) getArguments().getSerializable("dataset");
             dataSetItems = new ArrayList<DataSetItem>(dataset.getItems());
@@ -93,31 +108,56 @@ public class DatasetGraphFragment extends Fragment
         }
 
         View theView = inflater.inflate(R.layout.fragment_graphactivity, container, false);
+
+        tabHost = (TabHost) theView.findViewById(R.id.graph_activity_tabhost);
+        if(tabHost != null){
+            tabHost.setup();
+
+        }
+
         MListAdapter adapter = new MListAdapter();
         legend = (ListView) theView.findViewById(R.id.graph_activity_legend_list);
+        legend.setAdapter(adapter);
         legend.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         graph = (BarGraph) theView.findViewById(R.id.graph_activity_bargraph);
 
         bars = new ArrayList<Bar>(dataSetItems.size());
         for(DataSetItem item : dataSetItems){
-            Bar bar = new Bar();
-            bar.setName(item.getTopic().getTitle());
-            bar.setValue(item.getValue());
-            bar.setValueString(CensusHelpers.getValueString(item.getValue(), item.getTopic().getCoinageUnit()));
-            bar.setColor(getResources().getColor(android.R.color.holo_blue_dark));
-            bars.add(bar);
+            if(canGraph(item)){
+                Bar bar = new Bar();
+                bar.setName(item.getTopic().getTitle());
+                bar.setValue(item.getValue());
+                bar.setValueString(CensusHelpers.getValueString(item.getValue(), item.getTopic().getCoinageUnit()));
+                bar.setColor(getResources().getColor(android.R.color.holo_blue_dark));
+                bars.add(bar);
+            }
         }
         graph.setBars(bars);
-        legend.setAdapter(adapter);
         return theView;
+    }
+
+    private boolean canGraph(DataSetItem item) {
+        String title = item.getTopic().getTitle().toLowerCase();
+        if(title.contains("all people")){
+            return false;
+        } else if (title.contains("all usual residents")) {
+            return false;
+        } else if (title.contains("all households")){
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        ((TextView) getView().findViewById(R.id.subject_view_header)).setText(dataset.getTitle());
     }
 
     public static DatasetGraphFragment newInstance(Dataset dataset) {
+        Log.d("DatasetGraphFragment",
+                String.format("static newInstance called with %s", dataset.toString()));
         DatasetGraphFragment fragment = new DatasetGraphFragment();
         Bundle args = new Bundle();
         args.putSerializable("dataset", dataset);

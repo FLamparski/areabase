@@ -8,7 +8,7 @@
     <TabHost
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tabHost"
+        android:id="@+id/graph_activity_tabhost"
         android:layout_gravity="center_horizontal">
 
         <LinearLayout
@@ -54,23 +54,23 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/graph_activity_tab1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <com.echo.holographlibrary.BarGraph
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/graph_activity_bargraph"/>
+                        android:id="@id/graph_activity_bargraph"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/graph_activity_tab2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/graph_activity_bargraph"/>
+                        android:id="@id/graph_activity_legend_list"/>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
