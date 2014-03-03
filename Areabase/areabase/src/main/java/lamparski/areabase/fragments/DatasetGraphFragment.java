@@ -27,7 +27,9 @@ import nde2.pull.types.Dataset;
 import nde2.pull.types.Topic;
 
 /**
- * Created by filip on 01/03/14.
+ * Displays data from a single dataset as a graph with a legend.
+ *
+ * @author filip
  */
 public class DatasetGraphFragment extends Fragment
         implements OnItemSelectedListener, OnBarClickedListener {
@@ -66,11 +68,20 @@ public class DatasetGraphFragment extends Fragment
 
             return convertView;
         }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return true;
+        }
     }
+
+    private static final int LEGEND = 0;
+    private static final int GRAPH = 1;
 
     private Dataset dataset;
     private List<DataSetItem> dataSetItems;
     private ArrayList<Bar> bars;
+    private int currentTab = -1;
 
     private ListView legend;
     private BarGraph graph;
@@ -83,11 +94,14 @@ public class DatasetGraphFragment extends Fragment
     public void onClick(int index) {
         graph.getBars().get(index).setColor(getResources().getColor(android.R.color.holo_green_dark));
         legend.setSelection(index);
+        if(tabHost != null ) { tabHost.setCurrentTab(LEGEND); }
+        legend.smoothScrollToPosition(index);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         graph.getBars().get(position).setColor(getResources().getColor(android.R.color.holo_green_dark));
+        if(tabHost != null ) { tabHost.setCurrentTab(GRAPH); }
     }
 
     @Override
@@ -111,8 +125,25 @@ public class DatasetGraphFragment extends Fragment
 
         tabHost = (TabHost) theView.findViewById(R.id.graph_activity_tabhost);
         if(tabHost != null){
+            if(savedInstanceState != null && savedInstanceState.containsKey("which-tab")){
+                currentTab = savedInstanceState.getInt("which-tab");
+            }
             tabHost.setup();
 
+            TabHost.TabSpec graphTabspec = tabHost.newTabSpec("tab-graph");
+            graphTabspec.setIndicator(getResources().getString(R.string.tab_graph));
+            graphTabspec.setContent(R.id.graph_activity_tab1);
+
+            TabHost.TabSpec legendTabspec = tabHost.newTabSpec("tab-legend");
+            legendTabspec.setIndicator(getResources().getString(R.string.tab_legend));
+            legendTabspec.setContent(R.id.graph_activity_tab2);
+
+            tabHost.addTab(graphTabspec);
+            tabHost.addTab(legendTabspec);
+
+            if(currentTab > -1){
+                tabHost.setCurrentTab(currentTab);
+            }
         }
 
         MListAdapter adapter = new MListAdapter();
@@ -146,6 +177,14 @@ public class DatasetGraphFragment extends Fragment
             return false;
         } else {
             return true;
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(tabHost != null){
+            outState.putInt("which-tab", tabHost.getCurrentTab());
         }
     }
 

@@ -23,6 +23,13 @@
       <config />
     </shared>
     <layouts>
+      <layout url="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml">
+        <config>
+          <device>Nexus 4</device>
+          <state>Landscape</state>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
       <layout url="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml">
         <config>
           <device>Nexus 10</device>
@@ -71,58 +78,18 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Subject Views now show charts for their data.">
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\classes-4f933bc1ae42af6fab299dfce1c0f6a087510bb5.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\classes-6b3dedcb62d74130a99e28311f98f2809c4f6288.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\classes-88c76c5d98f4c769543ff25b44f63eaff58dbe81.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\commons-io-2.4-309491f8c9a288bbffc322f722b56454caecafaf.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\crouton-1.8.3-dce09d97155f4363d1d215b2918fd2439815b484.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-api-client-1.16.0-rc-f4f941653256f3f828f7c5bf39aac4f5bc145e92.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-api-client-android-1.16.0-rc-84c19aff8e6e6e0041076d6b289eb642f7b0b1cf.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-api-services-androidpublisher-v1.1-rev12-1.16.0-rc-176ee1a2a0e558f9c50af103178cf2658cf8a828.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-http-client-1.16.0-rc-0d34b79f494adba7d36800ccac3efc0d0dd46f8b.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-http-client-android-1.16.0-rc-cc69dac4c923fb7d5f9fc5a724b01cca6e54e875.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-http-client-jackson-1.16.0-rc-69ed27c54630842d1152979bbfd5050844f05060.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-http-client-jackson2-1.16.0-rc-90f8e834b6533d10b19f26775d8fee9b6248f993.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\google-oauth-client-1.16.0-rc-10ebd23da3b4da5741dc6a7796cf33601144dcbb.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\gson-2.2.4-8dafba03de044a159af45548863dca1bc547ef4d.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\guava-12.0-5af728f64b69002a6d7f7ea501fc32080f92ace9.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\jackson-core-2.1.3-d718a977f1562c9b392382a0018ab2f3c5068efd.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\jackson-core-asl-1.9.11-a0c691d62bb3e8c1484261dfadf7be294959c7fa.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\jsr305-1.3.9-a60db18b18dee3345bc3584592975a9fcf5da5c9.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\org.apache.commons.io-2.4-9da4e6d12fa2f17129e61c685b3ca6da70768b2d.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\support-v13-19.0.1-c7f4f362264cae91225d6219b0281f5dbb067b3e.jar" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\build\pre-dexed\debug\support-v4-19.0.1-8c451d61fd7cad11c0ea9e595a2cc06cd8b8883a.jar" afterPath="" />
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="GraphActivity working in portrait, trying to set up landscape tabs...">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/classes.jar" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/classes.jar" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/classes.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/AndroidManifest.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/AndroidManifest.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/build/source/buildConfig/debug/com/echo/holographlibrary/BuildConfig.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/build/source/buildConfig/debug/com/echo/holographlibrary/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HoloGraphLibrary/build/source/buildConfig/release/com/echo/holographlibrary/BuildConfig.java" afterPath="$PROJECT_DIR$/HoloGraphLibrary/build/source/buildConfig/release/com/echo/holographlibrary/BuildConfig.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/echo/holographlibrary/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/echo/holographlibrary/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/fima/cardsui/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/drawable/card.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/drawable/card.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view_multicolumn.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/cards_view_multicolumn.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/guava_12_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/guava_12_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/header.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/header.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_first.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_first.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_last.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_card_empty_last.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_play_card_empty_first.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_play_card_empty_first.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_stack.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/item_stack.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/play_services_4_2_42.xml" afterPath="$PROJECT_DIR$/.idea/libraries/play_services_4_2_42.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values/values.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values-v11/values.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values-v11/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values-v14/values.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/res/values-v14/values.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -192,46 +159,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="DetailViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
+      <file leaf-file-name="SummaryFragment.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="116" column="0" selection-start="3634" selection-end="3634" vertical-scroll-proportion="0.0" vertical-offset="1972" max-vertical-offset="3111">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SubjectViewFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="41" selection-start="5826" selection-end="5826" vertical-scroll-proportion="0.0" vertical-offset="2533" max-vertical-offset="2737">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="build.gradle" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="67" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="884">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AreaDataService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="211" column="0" selection-start="6850" selection-end="6850" vertical-scroll-proportion="0.0" vertical-offset="2920" max-vertical-offset="5355">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AreaActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="809" column="0" selection-start="25913" selection-end="25913" vertical-scroll-proportion="0.0" vertical-offset="12096" max-vertical-offset="12682">
+            <state line="1" column="0" selection-start="38" selection-end="38" vertical-scroll-proportion="0.029010238" vertical-offset="0" max-vertical-offset="7922">
               <folding />
             </state>
           </provider>
@@ -240,8 +171,11 @@
       <file leaf-file-name="SubjectExpandableListAdapter.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="193" column="64" selection-start="7390" selection-end="7390" vertical-scroll-proportion="0.0" vertical-offset="3281" max-vertical-offset="3519">
-              <folding />
+            <state line="222" column="76" selection-start="8998" selection-end="8998" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3723">
+              <folding>
+                <element signature="e#2444#2445#0" expanded="true" />
+                <element signature="e#2477#2478#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -249,30 +183,19 @@
       <file leaf-file-name="GraphActivity.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="194" column="84" selection-start="7695" selection-end="7695" vertical-scroll-proportion="0.0" vertical-offset="2338" max-vertical-offset="4658">
+            <state line="221" column="51" selection-start="8891" selection-end="8891" vertical-scroll-proportion="0.0" vertical-offset="2966" max-vertical-offset="4726">
               <folding>
-                <element signature="e#8819#8867#0" expanded="true" />
+                <element signature="e#8696#8744#0" expanded="true" />
+                <element signature="method#getItemViewType#0;class#GraphActivityNavigationSpinnerAdapter#0;class#GraphActivity#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatasetGraphFragment.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java">
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="118" column="12" selection-start="4051" selection-end="4051" vertical-scroll-proportion="0.9419795" vertical-offset="978" max-vertical-offset="2533">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_graphactivity.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="47" selection-start="464" selection-end="464" vertical-scroll-proportion="-6.8" vertical-offset="0" max-vertical-offset="1462">
+            <state line="146" column="0" selection-start="8701" selection-end="8701" vertical-scroll-proportion="0.0" vertical-offset="2062" max-vertical-offset="2686">
               <folding />
             </state>
           </provider>
@@ -1812,17 +1735,14 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/dummy/mockup_classes/DemoObjectFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/discovery/GetDatasetFamilies.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DemographicsDetailFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/values-sw600dp/dimens.xml" />
-        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListView.java" />
         <option value="$PROJECT_DIR$/HoloGraphLibrary/src/com/echo/holographlibrary/Bar.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/OnDatasetGraphRequestedListener.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_listitem_chartlink.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout-land/xgfjyg.xml" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/ArrayHelpers.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_graphactivity.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/DatasetGraphLegendAdapter.java" />
@@ -1837,10 +1757,13 @@
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_groupitem.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/fragment_subject_view.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml" />
       </list>
     </option>
   </component>
@@ -2233,6 +2156,19 @@
       </ExternalSystemSettings>
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -2258,19 +2194,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2425,7 +2348,11 @@
       <created>1393512550967</created>
       <updated>1393512550967</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="GraphActivity working in portrait, trying to set up landscape tabs...">
+      <created>1393845700611</created>
+      <updated>1393845700611</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2460,7 +2387,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39978564" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3984375" sideWeight="0.4331551" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3970588" sideWeight="0.4331551" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328125" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32589287" sideWeight="0.52834225" order="8" side_tool="true" content_ui="tabs" />
@@ -2469,7 +2396,7 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60294116" sideWeight="0.6181818" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2489019" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2489019" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2486,11 +2413,11 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6859593" sideWeight="0.18996799" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6859593" sideWeight="0.18996799" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32941177" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2502674" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829374" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2507,8 +2434,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3290461" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4049676" sideWeight="0.810032" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24973261" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.40021345" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
@@ -2532,7 +2459,8 @@
     <MESSAGE value="Much-needed stability fixes, finished with #21.&#10;&#10;And I got the right issue number this time, too." />
     <MESSAGE value="Some documentation edits." />
     <MESSAGE value="Subject Views now show charts for their data." />
-    <option name="LAST_COMMIT_MESSAGE" value="Subject Views now show charts for their data." />
+    <MESSAGE value="GraphActivity working in portrait, trying to set up landscape tabs..." />
+    <option name="LAST_COMMIT_MESSAGE" value="GraphActivity working in portrait, trying to set up landscape tabs..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2548,21 +2476,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/CacheContentProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="15" selection-start="1849" selection-end="1849" vertical-scroll-proportion="1.6245733" vertical-offset="0" max-vertical-offset="1139">
-          <folding />
-        </state>
+        <state line="62" column="15" selection-start="1849" selection-end="1849" vertical-scroll-proportion="1.6245733" vertical-offset="0" max-vertical-offset="1139" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="19" column="17" selection-start="718" selection-end="718" vertical-scroll-proportion="0.28362572" vertical-offset="226" max-vertical-offset="867" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="287" column="0" selection-start="10653" selection-end="10653" vertical-scroll-proportion="6.875427" vertical-offset="0" max-vertical-offset="7922">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
@@ -2593,9 +2512,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/BaseMethodCall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="22" selection-start="3181" selection-end="3181" vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="2737">
-          <folding />
-        </state>
+        <state line="94" column="22" selection-start="3181" selection-end="3181" vertical-scroll-proportion="0.0" vertical-offset="1598" max-vertical-offset="2737" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values-sw600dp/dimens.xml">
@@ -2608,13 +2525,6 @@
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="4" selection-start="308" selection-end="353" vertical-scroll-proportion="0.20307167" vertical-offset="0" max-vertical-offset="586">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="20" selection-start="136" selection-end="136" vertical-scroll-proportion="0.12705882" vertical-offset="0" max-vertical-offset="2736">
           <folding />
         </state>
       </provider>
@@ -2717,11 +2627,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/Wordplay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="28" selection-start="257" selection-end="257" vertical-scroll-proportion="0.16685979" vertical-offset="54" max-vertical-offset="954">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
+        <state line="11" column="28" selection-start="257" selection-end="257" vertical-scroll-proportion="0.16685979" vertical-offset="54" max-vertical-offset="954" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/ArrayHelpers.java">
@@ -2731,9 +2637,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/OnError.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="0" selection-start="144" selection-end="144" vertical-scroll-proportion="0.16685979" vertical-offset="0" max-vertical-offset="863">
-          <folding />
-        </state>
+        <state line="8" column="0" selection-start="144" selection-end="144" vertical-scroll-proportion="0.16685979" vertical-offset="0" max-vertical-offset="863" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/subject_view_listitem_chart.xml">
@@ -2742,13 +2646,6 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="39" selection-end="39" vertical-scroll-proportion="0.02166065" vertical-offset="0" max-vertical-offset="831">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="3634" selection-end="3634" vertical-scroll-proportion="0.0" vertical-offset="1927" max-vertical-offset="2790">
           <folding />
         </state>
       </provider>
@@ -2769,13 +2666,6 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state line="43" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.9314079" vertical-offset="0" max-vertical-offset="882">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="67" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0" vertical-offset="73" max-vertical-offset="936">
           <folding />
         </state>
       </provider>
@@ -2807,20 +2697,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="41" selection-start="5826" selection-end="5826" vertical-scroll-proportion="0.0" vertical-offset="1" max-vertical-offset="1908">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="193" column="64" selection-start="7390" selection-end="7390" vertical-scroll-proportion="0.0" vertical-offset="2322" max-vertical-offset="3240">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/database/DataSetObserver.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="22" selection-start="943" selection-end="943" vertical-scroll-proportion="0.18771726" vertical-offset="0" max-vertical-offset="863" />
@@ -2848,9 +2724,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout/activity_graph.xml">
@@ -2865,9 +2739,7 @@
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-17/android/widget/ListView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1789" column="0" selection-start="69146" selection-end="69146" vertical-scroll-proportion="0.0" vertical-offset="29508" max-vertical-offset="61846">
-          <folding />
-        </state>
+        <state line="1789" column="0" selection-start="69146" selection-end="69146" vertical-scroll-proportion="0.0" vertical-offset="29508" max-vertical-offset="61846" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/widget/AbsListView.java">
@@ -2877,42 +2749,100 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="796" selection-end="796" vertical-scroll-proportion="0.087030716" vertical-offset="0" max-vertical-offset="3196">
+          <folding>
+            <element signature="e#4610#4654#0" expanded="true" />
+            <element signature="e#4838#4883#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="116" column="16" selection-start="4409" selection-end="4409" vertical-scroll-proportion="0.41979522" vertical-offset="1165" max-vertical-offset="2176">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="177" column="25" selection-start="5734" selection-end="5734" vertical-scroll-proportion="0.7440273" vertical-offset="2148" max-vertical-offset="2788">
+          <folding>
+            <element signature="e#5630#5852#0" expanded="false" />
+            <element signature="e#5761#5798#0" expanded="false" />
+            <element signature="e#5837#5838#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="67" selection-start="788" selection-end="788" vertical-scroll-proportion="0.36177474" vertical-offset="298" max-vertical-offset="884">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="211" column="0" selection-start="6850" selection-end="6850" vertical-scroll-proportion="0.0" vertical-offset="2920" max-vertical-offset="5355">
+        <state line="211" column="0" selection-start="6850" selection-end="6850" vertical-scroll-proportion="-1.0153583" vertical-offset="3587" max-vertical-offset="5355">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="809" column="0" selection-start="25913" selection-end="25913" vertical-scroll-proportion="0.0" vertical-offset="12100" max-vertical-offset="12682">
+        <state line="812" column="94" selection-start="26213" selection-end="26213" vertical-scroll-proportion="0.21843003" vertical-offset="12061" max-vertical-offset="12750">
+          <folding>
+            <element signature="e#7709#7726#0" expanded="true" />
+            <element signature="e#8648#8668#0" expanded="true" />
+            <element signature="e#8674#8695#0" expanded="true" />
+            <element signature="e#26154#26191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/SubjectExpandableListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="222" column="76" selection-start="8998" selection-end="8998" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3723">
+          <folding>
+            <element signature="e#2444#2445#0" expanded="true" />
+            <element signature="e#2477#2478#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="146" column="0" selection-start="8701" selection-end="8701" vertical-scroll-proportion="0.0" vertical-offset="2062" max-vertical-offset="2686">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state line="35" column="54" selection-start="1602" selection-end="1602" vertical-scroll-proportion="0.0" vertical-offset="374" max-vertical-offset="1513">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="194" column="84" selection-start="7695" selection-end="7695" vertical-scroll-proportion="0.0" vertical-offset="2338" max-vertical-offset="4658">
+        <state line="221" column="51" selection-start="8891" selection-end="8891" vertical-scroll-proportion="0.0" vertical-offset="2966" max-vertical-offset="4726">
           <folding>
-            <element signature="e#8819#8867#0" expanded="true" />
+            <element signature="e#8696#8744#0" expanded="true" />
+            <element signature="method#getItemViewType#0;class#GraphActivityNavigationSpinnerAdapter#0;class#GraphActivity#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/fragment_graphactivity.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="47" selection-start="464" selection-end="464" vertical-scroll-proportion="-6.8" vertical-offset="0" max-vertical-offset="1462">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DatasetGraphFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="118" column="12" selection-start="4051" selection-end="4051" vertical-scroll-proportion="0.9419795" vertical-offset="978" max-vertical-offset="2533">
+        <state line="1" column="0" selection-start="38" selection-end="38" vertical-scroll-proportion="0.029010238" vertical-offset="0" max-vertical-offset="7922">
           <folding />
         </state>
       </provider>

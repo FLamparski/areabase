@@ -58,6 +58,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 import lamparski.areabase.dummy.mockup_classes.DemoObjectFragment;
 import lamparski.areabase.fragments.ErrorDialogFragment;
 import lamparski.areabase.fragments.IAreabaseFragment;
@@ -665,12 +667,12 @@ public class AreaActivity extends Activity implements LocationListener,
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+        String fragclass = getContentFragment() != null ? getContentFragment().getClass().getName() : null;
 		super.onSaveInstanceState(outState);
 		Log.d("AreaActivity",
 				"Saving instance state: currently loaded fragment is "
-						+ getContentFragment().getClass().getName());
-		outState.putString(SIS_LOADED_FRAGMENT, getContentFragment().getClass()
-				.getName());
+						+ fragclass != null ? fragclass : "null");
+		outState.putString(SIS_LOADED_FRAGMENT, fragclass);
 		outState.putParcelable(SIS_LOADED_COORDS, mGeoPoint);
         outState.putSerializable(SIS_LOADED_AREA, mArea);
 	}
@@ -807,6 +809,10 @@ public class AreaActivity extends Activity implements LocationListener,
     @Override
     public void areaReady(Area area) {
         mArea = area;
+        if(area == null){
+            Crouton.makeText(this, R.string.error_cannot_fetch_area_data, Style.ALERT).show();
+            return;
+        }
         setTitle(area.getName());
         if(mContentFragment == null){
             changeFragment(SUMMARY);

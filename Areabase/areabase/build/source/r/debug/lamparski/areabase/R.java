@@ -494,6 +494,9 @@ containing a value of this type.
         public static final int fragment_summary_OSMapView_TABLET_LANDSCAPE=0x7f070037;
         public static final int graph_activity_bargraph=0x7f070029;
         public static final int graph_activity_legend_list=0x7f07002a;
+        public static final int graph_activity_tab1=0x7f07002c;
+        public static final int graph_activity_tab2=0x7f07002d;
+        public static final int graph_activity_tabhost=0x7f07002b;
         public static final int handset_area_activity_drawerLayout_DEFAULT=0x7f070007;
         public static final int handset_area_activity_frameLayout_DEFAULT=0x7f070008;
         public static final int hybrid=0x7f070004;
@@ -534,9 +537,6 @@ containing a value of this type.
         public static final int subject_view_listitem_subtitle=0x7f07004f;
         public static final int subject_view_listitem_title=0x7f07004e;
         public static final int subject_view_progress_bar=0x7f07002f;
-        public static final int tab1=0x7f07002c;
-        public static final int tab2=0x7f07002d;
-        public static final int tabHost=0x7f07002b;
         public static final int tableLayout=0x7f07001d;
         public static final int tablet_area_activity_drawerLayout=0x7f070009;
         public static final int tablet_area_activity_frameLayout=0x7f07000a;
@@ -670,12 +670,11 @@ containing a value of this type.
         public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0b0054;
         public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0b0055;
         public static final int summaryactivity_cardmaker_values_not_available=0x7f0b0056;
-        public static final int title_activity_graph=0x7f0b0057;
-        public static final int title_activity_settings=0x7f0b0058;
-        public static final int title_section1=0x7f0b0059;
-        public static final int title_section2=0x7f0b005a;
-        public static final int title_section3=0x7f0b005b;
-        public static final int toast_mapview_not_loading=0x7f0b005c;
+        public static final int tab_graph=0x7f0b0057;
+        public static final int tab_legend=0x7f0b0058;
+        public static final int title_activity_graph=0x7f0b0059;
+        public static final int title_activity_settings=0x7f0b005a;
+        public static final int toast_mapview_not_loading=0x7f0b005b;
     }
     public static final class style {
         /** 

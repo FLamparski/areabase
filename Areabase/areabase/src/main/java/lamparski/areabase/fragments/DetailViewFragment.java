@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -88,6 +87,12 @@ public abstract class DetailViewFragment extends Fragment implements
 		}
 	};
 
+    /**
+     * Do something with the area that has been fetched/the user has requsted a refresh/...
+     *
+     * Often the workflow would include continuously post a runnable to the queue until all the
+     * execution conditions are met.
+     */
 	@Override
 	public abstract void refreshContent();
 
@@ -169,7 +174,7 @@ public abstract class DetailViewFragment extends Fragment implements
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getActivity(), R.string.io_exception_generic_message, Toast.LENGTH_LONG).show();
+                    Crouton.makeText(getActivity(), R.string.io_exception_generic_message, Style.ALERT).show();
                 }
             });
         }

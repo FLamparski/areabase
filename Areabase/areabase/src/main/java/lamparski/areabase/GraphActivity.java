@@ -37,6 +37,11 @@ import nde2.pull.types.DateRange;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
 
+/**
+ * Activity dedicated to viewing a single dataset as a graph.
+ *
+ * @author filip
+ */
 public class GraphActivity extends Activity
         implements ActionBar.OnNavigationListener, DatasetDumpCallbacks {
 
@@ -147,6 +152,7 @@ public class GraphActivity extends Activity
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
             getActionBar().setSelectedNavigationItem(
                     savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
+            setProgressBarIndeterminateVisibility(false);
         }
     }
 
@@ -209,7 +215,7 @@ public class GraphActivity extends Activity
 
     @Override
     public void onError(Throwable tr) {
-        Crouton.makeText(this, getString(R.string.error_cannot_fetch_area_data), Style.ALERT);
+        Crouton.makeText(this, getString(R.string.error_cannot_fetch_area_data), Style.ALERT).show();
         Log.e("GraphActivity", "Error downloading datasets", tr);
     }
 

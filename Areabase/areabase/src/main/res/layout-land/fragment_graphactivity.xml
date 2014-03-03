@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="lamparski.areabase.GraphActivity$PlaceholderFragment">
+    tools:context=".GraphActivity">
 
     <TabHost
         android:layout_width="match_parent"
@@ -27,18 +27,21 @@
                     <TextView
                         android:id="@+id/subject_view_header"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:text="SUBJECT NAME"
                         android:fontFamily="sans-serif-condensed"
                         style="@android:style/TextAppearance.Holo.SearchResult.Title"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginRight="16dp"/>
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="gravity"
+                        android:layout_marginRight="16dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@android:color/holo_blue_dark" />
+                        android:background="@android:color/holo_blue_dark"
+                        android:layout_gravity="bottom" />
                     </LinearLayout>
                 <TabWidget
                     android:id="@android:id/tabs"

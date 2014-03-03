@@ -9,9 +9,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.echo.holographlibrary.Bar;
-import com.echo.holographlibrary.BarGraph;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -114,6 +111,14 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return false;
     }
 
+    /**
+     * Generates a top-level view of the list -- a dataset title bar.
+     * @param groupPosition The index of the dataset in the array
+     * @param isExpanded Whether the sub-list (ie the dataset) has been expanded
+     * @param convertView Optionally a recyclable view, however it may not be the one we want
+     * @param parent The list view
+     * @return A complete view
+     */
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if(convertView == null || convertView.findViewById(R.id.subject_view_groupitem_title) == null){
@@ -167,6 +172,14 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     *
+     * @param groupPosition Which dataset
+     * @param convertView Optionally a recyclable view, however it may not be the one we want
+     * @param parent The list view
+     * @return A list item that will launch a {@link lamparski.areabase.GraphActivity} for the
+     * current dataset when clicked.
+     */
     private View getChartLinkChildView(int groupPosition, View convertView, ViewGroup parent){
         if(convertView == null
                 || convertView.findViewById(R.id.subject_view_listitem_chartlink_icon) == null) {
@@ -176,6 +189,20 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    /**
+     * Examines the current dataset and decides which type of list item to display
+     * @param groupPosition The index of the dataset in the array
+     * @param childPosition The index of the data item in the dataset
+     * @param isLastChild Whether the current item is the last child (not really useful here)
+     * @param convertView Optionally a recyclable view, however it may not be the one we want;
+     *                    it just gets passed down to the functions that actually generate views
+     * @param parent The list view
+     * @return Depending on whether the dataset is graphable and the child position, either a
+     * dataset item or a chartlink.
+     *
+     * @see lamparski.areabase.widgets.SubjectExpandableListAdapter#getRegularChildView(int, int, boolean, android.view.View, android.view.ViewGroup)
+     * @see SubjectExpandableListAdapter#getChartLinkChildView(int, android.view.View, android.view.ViewGroup)
+     */
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if(isGraphable(groupPosition)){
@@ -194,6 +221,13 @@ public class SubjectExpandableListAdapter extends BaseExpandableListAdapter {
         return (isGraphable(groupPosition) && childPosition == 0);
     }
 
+    /**
+     * Determines if the dataset is possible to represent as a graph. Currently, it just looks at
+     * whether it has more than 1 item, however it can later use an exclusion list or other rules
+     * to determine graphability
+     * @param groupPosition The index of the dataset in the array
+     * @return <code>true</code> if the dataset can be represented on a graph
+     */
     public boolean isGraphable(int groupPosition){
         int size = childItems.get(toplevelItems.get(groupPosition)).size();
         return size > 1;
