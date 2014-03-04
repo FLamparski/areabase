@@ -1,4 +1,4 @@
-package lamparski.areabase;
+package lamparski.areabase.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

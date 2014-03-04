@@ -1,17 +1,13 @@
 package police.methodcalls;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Hashtable;
-
-import police.errors.APIException;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Hashtable;
 
 public class CrimeCategoriesMethodCall extends BaseMethodCall {
 	private final static String METHOD = "crime-categories";
@@ -23,7 +19,7 @@ public class CrimeCategoriesMethodCall extends BaseMethodCall {
 	}
 
 	public Hashtable<String, String> getCrimeCategories()
-			throws SocketTimeoutException, IOException, APIException {
+            throws Exception {
 		Hashtable<String, String> params = null;
 		if (!(date == null)) {
 			params = new Hashtable<String, String>();

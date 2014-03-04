@@ -1,21 +1,17 @@
 package police.methodcalls;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.HashMap;
-import java.util.Map;
-
-import police.errors.APIException;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class NeighbourhoodsMethodCall extends BaseMethodCall {
 	private static final String METHOD = "neighbourhoods";
 
 	public Map<String, String> listNeighbourhoods(String forceId)
-			throws SocketTimeoutException, IOException, APIException {
+            throws Exception {
 		String raw_json = doCall(forceId + "/" + METHOD, null);
 
 		HashMap<String, String> neighbourhoods = new HashMap<String, String>();

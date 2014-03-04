@@ -16,8 +16,12 @@ public class CacheContentProvider extends ContentProvider {
 	private CacheDbOpenHelper helper;
 	public static final String AUTHORITY = "lamparski.areabase.content";
 	public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY);
-	public static final Uri CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
+	public static final Uri ONS_CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
 			OnsCacheTable.TABLE_NAME);
+    public static final Uri POLICE_CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
+            CacheDbOpenHelper.PoliceCacheTable.TABLE_NAME);
+    public static final Uri MAPIT_CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
+            CacheDbOpenHelper.MapitCacheTable.TABLE_NAME);
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {

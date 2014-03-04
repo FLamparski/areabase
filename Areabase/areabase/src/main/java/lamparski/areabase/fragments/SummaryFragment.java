@@ -40,7 +40,7 @@ import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
 import nde2.pull.types.Area;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
+import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
 /**
  * The lovely Summary Fragment.
@@ -79,7 +79,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 				Log.e("SummaryFragment",
 						"The AreaDataService disconnected unexpectedly.");
 				isServiceBound = false;
-				serviceCockupNotify(name, getActivity());
+				serviceDisconnectAlert(name, getActivity());
 			}
 		}
 
@@ -102,13 +102,13 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                 public void run() {
                     Log.e("SummaryFragment", "Error processing NDE data", tr);
                     try {
-                        NDE2Exception cockup = (NDE2Exception) tr;
+                        NDE2Exception nde2Exception = (NDE2Exception) tr;
                         Log.w("SummaryFragment",
                                 String.format(
                                         "NDE2 error response %d: Title: %s; detail: %s",
-                                        cockup.getNessCode(),
-                                        cockup.getNessMessage(),
-                                        cockup.getNessDetail()));
+                                        nde2Exception.getNessCode(),
+                                        nde2Exception.getNessMessage(),
+                                        nde2Exception.getNessDetail()));
                     } catch (Exception e) {
                         Log.d("SummaryFragment", "Not a NDE2Exception, got: "
                                 + tr.getClass().getSimpleName());
@@ -150,7 +150,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
     }
 
     @Override
-    public void allDone() {
+    public void allDone(float areaRank) {
         if(getActivity() != null) {
             getActivity().setProgressBarIndeterminateVisibility(false);
         }

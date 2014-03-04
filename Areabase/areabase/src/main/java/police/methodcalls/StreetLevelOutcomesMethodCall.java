@@ -1,17 +1,15 @@
 package police.methodcalls;
 
-import java.io.IOException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
-import java.net.SocketTimeoutException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
 
 import police.errors.APIException;
 import police.types.Outcome;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class StreetLevelOutcomesMethodCall extends StreetLevelCrimeMethodCall {
 	private static final String METHOD = "outcomes-at-location";
@@ -24,7 +22,7 @@ public class StreetLevelOutcomesMethodCall extends StreetLevelCrimeMethodCall {
 	}
 
 	public Collection<Outcome> getOutcomesAtLocation()
-			throws SocketTimeoutException, IOException, APIException {
+            throws Exception {
 		HashMap<String, String> parameters = new HashMap<String, String>();
 		if ((latitude == null) && (longitude == null) && (poly == null)) {
 			throw new NullPointerException("Must specify a polygon or a point");

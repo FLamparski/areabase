@@ -10,8 +10,6 @@ import org.xml.sax.SAXException;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -32,6 +30,7 @@ import lamparski.areabase.cards.PlayCard;
 import lamparski.areabase.map_support.HoloCSSColourValues;
 import nde2.errors.NDE2Exception;
 import nde2.helpers.ArrayHelpers;
+import nde2.helpers.CensusHelpers;
 import nde2.helpers.Statistics;
 import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.methodcalls.discovery.GetCompatibleSubjects;
@@ -48,10 +47,10 @@ import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
 public class CrimeCardProvider {
-	private static final double TREND_STABLE_UPPER_THRESHOLD = 0.1;
-	private static final double TREND_STABLE_LOWER_THRESHOLD = -0.1;
-	private static final double TREND_RAPID_UPPER_THRESHOLD = 0.75;
-	private static final double TREND_RAPID_LOWER_THRESHOLD = -0.75;
+	public static final double TREND_STABLE_UPPER_THRESHOLD = 0.1;
+	public static final double TREND_STABLE_LOWER_THRESHOLD = -0.1;
+	public static final double TREND_RAPID_UPPER_THRESHOLD = 0.75;
+	public static final double TREND_RAPID_LOWER_THRESHOLD = -0.75;
 	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 
 	private static final int ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE = 904;
@@ -92,8 +91,7 @@ public class CrimeCardProvider {
 
 	private static CardModel crimeCardForArea_policeData(Area area,
 			Collection<Crime> policeDataCrimes, double[][] areaPolygon,
-			Resources res) throws SocketTimeoutException, IOException,
-			APIException, ParseException {
+			Resources res) throws Exception {
 		Map<Long, Map<String, Integer>> dataCube = new HashMap<Long, Map<String, Integer>>();
 		CrimeAvailabilityMethodCall avail = new CrimeAvailabilityMethodCall();
 		Date latestAvailable = avail.getLastUpdated();
@@ -135,6 +133,78 @@ public class CrimeCardProvider {
 		return makeCard(res, area, most_common_crime, gradient);
 	}
 
+    public static double getCrimeTrend(Area area) throws Exception {
+        double[][] areaPolygon = Mapper.getGeometryForArea(area);
+        double[][] simplifiedPolygon = ArrayHelpers.every_nth_pair(areaPolygon,
+                10);
+
+        Collection<Crime> policeDataCrimes = null;
+        try{
+            policeDataCrimes = new StreetLevelCrimeMethodCall()
+                    .addAreaPolygon(simplifiedPolygon).getStreetLevelCrime();
+            Map<Long, Map<String, Integer>> dataCube = new HashMap<Long, Map<String, Integer>>();
+            CrimeAvailabilityMethodCall avail = new CrimeAvailabilityMethodCall();
+            Date latestAvailable = avail.getLastUpdated();
+            List<Date> availableDates = avail.getAvailableDates();
+            dataCube.put(latestAvailable.getTime() / UNIX_30_DAYS, crimeSlice(policeDataCrimes));
+
+            /*
+             * This will ensure we only take last 12 months, not the whole available
+             * range.
+             */
+            Collections.sort(availableDates);
+            Collections.reverse(availableDates);
+            availableDates = availableDates.subList(0, 12);
+
+            Date earliestDate = new Date();
+            for (Date n : availableDates) {
+                if (!(n.equals(latestAvailable))) {
+                    Collection<Crime> crimesForDate = new StreetLevelCrimeMethodCall()
+                            .addAreaPolygon(areaPolygon).addDate(n)
+                            .getStreetLevelCrime();
+                    Map<String, Integer> slice = crimeSlice(crimesForDate);
+                    dataCube.put(n.getTime() / UNIX_30_DAYS, slice);
+                    if (n.before(earliestDate)) {
+                        earliestDate = n;
+                    }
+                }
+            }
+
+            return calculateCrimeGradient(dataCube);
+        } catch (APIException e) {
+            DataSetFamily crimeFamily = getCrimeFamily(area);
+            Set<Dataset> theDatasets = new HashSet<Dataset>();
+            for (DateRange r : crimeFamily.getDateRanges()) {
+                Set<Dataset> currentDataset = new GetTables().forArea(area)
+                        .inFamily(crimeFamily).inDateRange(r).execute();
+                theDatasets.addAll(currentDataset);
+            }
+
+            long earliestDate = 0, latestDate = 0;
+
+            Map<Long, Map<String, Integer>> onsDatacube = new HashMap<Long, Map<String, Integer>>();
+            for (Dataset d : theDatasets) {
+                long date = d.getPeriods().values().iterator().next().getEndDate()
+                        .getTime();
+                if (date < earliestDate && earliestDate > 0) {
+                    earliestDate = date;
+                }
+                if (date > latestDate) {
+                    latestDate = date;
+                }
+                Map<String, Integer> crimeSlice = new HashMap<String, Integer>();
+                for (Topic t : d.getTopics().values()) {
+                    String key = t.getTitle();
+                    int value = (int) d.getItems(t).iterator().next().getValue();
+                    crimeSlice.put(key, value);
+                }
+                onsDatacube.put(date, crimeSlice);
+            }
+
+            return calculateCrimeGradient(onsDatacube);
+        }
+    }
+
 	/**
 	 * This method uses Ordinary Least Squares linear regression *** TESTS
 	 * NEEDED ***
@@ -154,26 +224,27 @@ public class CrimeCardProvider {
 		return Statistics.linearRegressionGradient(crimesForDate);
 	}
 
+
+    private static DataSetFamily getCrimeFamily(Area area) throws XmlPullParserException, IOException, NDE2Exception {
+        Map<Subject, Integer> subjects = new GetCompatibleSubjects(area)
+                .execute();
+        Subject crimeSubject = CensusHelpers.findSubject(area, "Crime and Safety");
+
+        List<DataSetFamily> families = new GetDatasetFamilies(crimeSubject)
+                .forArea(area).execute();
+        DataSetFamily crimeFamily = null;
+        for (DataSetFamily f : families) {
+            if (f.getFamilyId() == ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE) {
+                crimeFamily = f;
+            }
+        }
+        return crimeFamily;
+    }
+
 	private static CardModel crimeCardForArea_censusData(Area area,
 			Resources res) throws IOException, XmlPullParserException,
 			NDE2Exception {
-		Map<Subject, Integer> subjects = new GetCompatibleSubjects(area)
-				.execute();
-		Subject crimeSubject = null;
-		for (Subject s : subjects.keySet()) {
-			if (s.getName().equals("Crime and Safety")) {
-				crimeSubject = s;
-			}
-		}
-
-		List<DataSetFamily> families = new GetDatasetFamilies(crimeSubject)
-				.forArea(area).execute();
-		DataSetFamily crimeFamily = null;
-		for (DataSetFamily f : families) {
-			if (f.getFamilyId() == ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE) {
-				crimeFamily = f;
-			}
-		}
+		DataSetFamily crimeFamily = getCrimeFamily(area);
 
 		Set<Dataset> theDatasets = new HashSet<Dataset>();
 		for (DateRange r : crimeFamily.getDateRanges()) {

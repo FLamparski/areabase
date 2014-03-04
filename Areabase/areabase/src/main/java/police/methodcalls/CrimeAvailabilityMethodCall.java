@@ -1,18 +1,13 @@
 package police.methodcalls;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
-import police.errors.APIException;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Encapsulates the following Police API methods:
@@ -31,8 +26,7 @@ import com.google.gson.JsonParser;
  */
 public class CrimeAvailabilityMethodCall extends BaseMethodCall {
 
-	public ArrayList<Date> getAvailableDates() throws SocketTimeoutException,
-			IOException, APIException, ParseException {
+	public ArrayList<Date> getAvailableDates() throws Exception {
 		String raw_json = doCall("crimes-street-dates", null);
 		JsonArray idates = new JsonParser().parse(raw_json).getAsJsonArray();
 
@@ -45,8 +39,7 @@ public class CrimeAvailabilityMethodCall extends BaseMethodCall {
 		return dates;
 	}
 
-	public Date getLastUpdated() throws SocketTimeoutException, IOException,
-			APIException, ParseException {
+	public Date getLastUpdated() throws Exception {
 		String raw_json = doCall("crime-last-updated", null);
 
 		JsonObject dateObj = new JsonParser().parse(raw_json).getAsJsonObject();

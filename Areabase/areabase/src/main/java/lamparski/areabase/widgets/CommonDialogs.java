@@ -13,7 +13,7 @@ public class CommonDialogs {
 	 * @param name
 	 *            The name of the incompetent service.
 	 */
-	public static void serviceCockupNotify(ComponentName name, Context ctx) {
+	public static void serviceDisconnectAlert(ComponentName name, Context ctx) {
 		new AlertDialog.Builder(ctx)
 				.setTitle(
 						R.string.summaryactivity_cardmaker_servicedisconnect_title)

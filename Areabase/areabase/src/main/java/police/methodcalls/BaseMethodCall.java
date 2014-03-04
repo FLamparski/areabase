@@ -1,6 +1,9 @@
 package police.methodcalls;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
 import android.os.Environment;
+import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.FileWriterWithEncoding;
@@ -16,6 +19,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.annotation.Nullable;
+
+import lamparski.areabase.AreaActivity;
+import lamparski.areabase.CacheContentProvider;
 import police.errors.APIException;
 
 /**
@@ -29,6 +36,26 @@ import police.errors.APIException;
 public abstract class BaseMethodCall {
 	protected final static String ENDPOINT = "http://data.police.uk/api/";
 	protected final static int TIMEOUT = 5000;
+
+    private String doCallToAPI(String url) throws Exception{
+        URL callUrl = new URL(url);
+        HttpURLConnection callConnection = (HttpURLConnection) callUrl
+                .openConnection();
+        // The ten-second rule:
+        // If there's no data in 5s (or TIMEOUT), assume the worst.
+        callConnection.setReadTimeout(TIMEOUT);
+        // Set the request method to GET.
+        callConnection.setRequestMethod("GET");
+        int code = callConnection.getResponseCode();
+        if (code != HttpURLConnection.HTTP_OK) {
+            throw new APIException("A non-200 code was returned", code);
+        }
+
+        String responseStr;
+        responseStr = IOUtils.toString(callConnection.getInputStream());
+        callConnection.disconnect();
+        return responseStr;
+    }
 
 	/**
 	 * Gets the response from the API
@@ -47,7 +74,7 @@ public abstract class BaseMethodCall {
 	 *             Thrown if the server returns a non-200 HTTP code.
 	 */
 	protected String doCall(String method, Map<String, String> params)
-			throws SocketTimeoutException, IOException, APIException {
+            throws Exception {
 		StringBuilder paramsBuilder = new StringBuilder(ENDPOINT)
 				.append(method);
 		if (params != null) {
@@ -66,30 +93,42 @@ public abstract class BaseMethodCall {
 			paramString = paramString.substring(0, paramString.length() - 1);
 		}
 
-		// Uncomment for testing:
-		saveurl(paramString);
-
-		URL callUrl = new URL(paramString);
-		HttpURLConnection callConnection = (HttpURLConnection) callUrl
-				.openConnection();
-		// The ten-second rule:
-		// If there's no data in 5s (or TIMEOUT), assume the worst.
-		callConnection.setReadTimeout(TIMEOUT);
-		// Set the request method to GET.
-		callConnection.setRequestMethod("GET");
-		int code = callConnection.getResponseCode();
-		if (code != HttpURLConnection.HTTP_OK) {
-			throw new APIException("A non-200 code was returned", code);
-		}
-
-		String responseStr;
-		responseStr = IOUtils.toString(callConnection.getInputStream());
-		callConnection.disconnect();
+		String responseStr = doCallToDB(paramString);
+        if(responseStr == null){
+            responseStr = doCallToAPI(paramString);
+        }
 
 		return responseStr;
 	}
 
-	private void saveurl(String paramString) {
+    private @Nullable String doCallToDB(String url) {
+        ContentResolver contentResolver = AreaActivity
+                .getAreabaseApplicationContext().getContentResolver();
+
+        String[] selectionArgs = { url,
+                Long.toString(System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000l) };
+        Cursor c = contentResolver.query(CacheContentProvider.POLICE_CACHE_URI, new String[]{ "*" }, "url = ? AND retrievedOn > ?",
+                selectionArgs, "retrievedOn DESC");
+
+        if(c == null) { return null; }
+
+        String response;
+        if(c.moveToFirst()){
+            Log.d("BaseMethodCall", String.format(
+                    "A cached instance of %s is available, returning.\n",
+                    url));
+            response = c.getString(c.getColumnIndex("cachedObject"));
+            c.close();
+        } else {
+            return null;
+        }
+
+        Log.d("Mapper", "A cached instance of " + url + " is available, returning.");
+
+        return response;
+    }
+
+    private void saveurl(String paramString) {
 		File logfile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/policedata.log");
 		FileWriterWithEncoding fwriter = null;
 		try{

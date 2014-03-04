@@ -50,7 +50,7 @@ public class EconomyCardProvider {
 	private final static float INCOME_STABLE_UPPER_THRESHOLD = 0.01f;
 	private final static float INCOME_RAPID_UPPER_THRESHOLD = 0.2f;
 	private final static float INCOME_RAPID_LOWER_THRESHOLD = -0.2f;
-	private static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 500f;
+	public static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 500f;
 
 	/**
 	 * Generates a summary of economic data for the supplied area.
@@ -101,7 +101,7 @@ public class EconomyCardProvider {
 		return makeCard(card_title, card_body);
 	}
 
-	private static TrendDescription compareIncomeWithNational(float meanIncome) {
+	public static TrendDescription compareIncomeWithNational(float meanIncome) {
 		TrendDescription td = new TrendDescription();
 		td.currentValue = meanIncome;
 
@@ -123,7 +123,7 @@ public class EconomyCardProvider {
 	}
 
 	@SuppressLint("UseSparseArrays")
-	private static TrendDescription calculateIncomeTrend(Area area,
+	public static TrendDescription calculateIncomeTrend(Area area,
 			List<DataSetFamily> datasetFamilies)
 			throws InvalidParameterException, IOException,
 			XmlPullParserException, NDE2Exception {

@@ -1,23 +1,19 @@
 package police.methodcalls;
 
-import java.io.IOException;
-import java.net.SocketTimeoutException;
-import java.util.HashMap;
-import java.util.Map;
-
-import police.errors.APIException;
-import police.types.ForceInformation;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import police.types.ForceInformation;
+
 public class ForcesMethodCall extends BaseMethodCall {
 	public static final String METHOD = "forces";
 
-	public Map<String, String> listForces() throws SocketTimeoutException,
-			IOException, APIException {
+	public Map<String, String> listForces() throws Exception {
 		String raw_json = doCall(METHOD, null);
 		HashMap<String, String> forces = new HashMap<String, String>();
 		JsonArray forces_array = new JsonParser().parse(raw_json)
@@ -30,7 +26,7 @@ public class ForcesMethodCall extends BaseMethodCall {
 	}
 
 	public ForceInformation getForceDetails(String id)
-			throws SocketTimeoutException, IOException, APIException {
+            throws Exception {
 		String raw_json = doCall(METHOD + "/" + id, null);
 		return new Gson().fromJson(raw_json, ForceInformation.class);
 	}

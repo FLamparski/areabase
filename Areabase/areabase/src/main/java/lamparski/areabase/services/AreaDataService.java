@@ -10,22 +10,17 @@ import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
 
-import org.xmlpull.v1.XmlPullParserException;
-
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import lamparski.areabase.GraphActivity;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.DemographicsCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
 import lamparski.areabase.cardproviders.EnvironmentCardProvider;
 import lamparski.areabase.utils.OnError;
-import nde2.errors.NDE2Exception;
 import nde2.helpers.CensusHelpers;
 import nde2.helpers.Statistics;
 import nde2.pull.methodcalls.delivery.GetTables;
@@ -47,7 +42,7 @@ import nde2.pull.types.Subject;
 public class AreaDataService extends Service {
 
     public interface BasicAreaInfoIface extends OnError {
-		public void allDone();
+		public void allDone(float areaRank);
 
 		public void cardReady(CardModel cm);
 
@@ -89,7 +84,7 @@ public class AreaDataService extends Service {
 	}
 
     public void generateCardsForArea(Area area, final BasicAreaInfoIface callbacks) {
-        new AsyncTask<Area, CardModel, Void>(){
+        new AsyncTask<Area, CardModel, Float>(){
             @Override
             protected void onProgressUpdate(CardModel... values) {
                 super.onProgressUpdate(values);
@@ -97,7 +92,7 @@ public class AreaDataService extends Service {
             }
 
             @Override
-            protected Void doInBackground(Area... params) {
+            protected Float doInBackground(Area... params) {
                 Area theArea = params[0];
                 callbacks.onAreaNameFound(theArea.getName());
 
@@ -137,7 +132,6 @@ public class AreaDataService extends Service {
                             "Error processing card for Economy: "
                                     + e.getClass().getSimpleName(), e);
                     callbacks.onError(e);
-                    return null;
                 }
                 // 4: Environment
                 try {
@@ -149,15 +143,14 @@ public class AreaDataService extends Service {
                             "Error processing card for Environment: "
                                     + e.getClass().getSimpleName(), e);
                     callbacks.onError(e);
-                    return null;
                 }
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                callbacks.allDone();
+            protected void onPostExecute(Float areaRank) {
+                super.onPostExecute(areaRank);
+                callbacks.allDone(areaRank);
             }
         }.execute(area);
     }

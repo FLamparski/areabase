@@ -75,7 +75,7 @@ import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
+import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
 /**
  * The main screen of the application. It contains the fragment host for all of the components which
@@ -121,7 +121,7 @@ public class AreaActivity extends Activity implements LocationListener,
                 Log.e("AreaActivity",
                         "The AreaDataService disconnected unexpectedly.");
                 isAreaDataServiceBound = false;
-                serviceCockupNotify(name, AreaActivity.this);
+                serviceDisconnectAlert(name, AreaActivity.this);
             }
         }
 

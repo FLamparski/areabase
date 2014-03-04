@@ -35,7 +35,7 @@ import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 import nde2.pull.types.DateRange;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
+import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
 /**
  * Activity dedicated to viewing a single dataset as a graph.
@@ -71,7 +71,7 @@ public class GraphActivity extends Activity
                 Log.e("GraphActivity",
                         "The AreaDataService disconnected unexpectedly.");
                 isAreaDataServiceBound = false;
-                serviceCockupNotify(name, GraphActivity.this);
+                serviceDisconnectAlert(name, GraphActivity.this);
             }
         }
 

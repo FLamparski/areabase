@@ -33,9 +33,9 @@ import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
 public class EnvironmentCardProvider {
-	private static final String[] REQUIRED_FAMILIES = { "Land Use",
+	public static final String[] REQUIRED_FAMILIES = { "Land Use",
 			"Domestic Energy Consumption" };
-	private static final String ENVIRONMENT_SUBJECT = "Physical Environment";
+	public static final String ENVIRONMENT_SUBJECT = "Physical Environment";
 
 	private static final int AREA_RURAL = 0;
 	private static final int AREA_URBAN = 1;
@@ -146,7 +146,7 @@ public class EnvironmentCardProvider {
 	}
 
 	@SuppressLint("UseSparseArrays")
-	private static TrendDescription getEnergyTrend(Area area,
+	public static TrendDescription getEnergyTrend(Area area,
 			List<DataSetFamily> fams) throws InvalidParameterException,
 			IOException, XmlPullParserException, NDE2Exception {
 		TrendDescription ans = new TrendDescription();

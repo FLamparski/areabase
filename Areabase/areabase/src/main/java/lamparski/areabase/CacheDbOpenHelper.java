@@ -51,7 +51,21 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-	private static final int VERSION = 1;
+    public static class MapitCacheTable {
+        public static final String TABLE_NAME = "mapitCache";
+
+        public static void onCreate(SQLiteDatabase db){
+            db.execSQL(BaseCacheTable.getSchema(TABLE_NAME));
+        }
+
+        public static void onUpgrade(SQLiteDatabase db) {
+            Log.w("MapitCacheTable",
+                    "Upgrading the cache table, entries will be deleted.");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        }
+    }
+
+	private static final int VERSION = 2;
 
 	public CacheDbOpenHelper(Context context) {
 		super(context, "CacheDb", null, VERSION);

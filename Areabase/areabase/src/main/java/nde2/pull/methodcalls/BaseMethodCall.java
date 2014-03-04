@@ -75,7 +75,7 @@ public abstract class BaseMethodCall {
 				callUrl,
 				Long.toString(System.currentTimeMillis() - 30 * 24 * 60 * 60
 						* 1000l) };
-		Cursor c = resolver.query(CacheContentProvider.CACHE_URI,
+		Cursor c = resolver.query(CacheContentProvider.ONS_CACHE_URI,
 				new String[] { "*" }, "url = ? AND retrievedOn > ?",
 				selectionArgs, "retrievedOn DESC");
 		/*
@@ -117,10 +117,10 @@ public abstract class BaseMethodCall {
 		 * Tries to update existing rows, and if none exist, create a new
 		 * record. That way pruning old records may not even be required.
 		 */
-		if (resolver.update(CacheContentProvider.CACHE_URI, values, "url = ?",
+		if (resolver.update(CacheContentProvider.ONS_CACHE_URI, values, "url = ?",
 				new String[] { url }) == 0) {
 			values.put("url", url);
-			resolver.insert(CacheContentProvider.CACHE_URI, values);
+			resolver.insert(CacheContentProvider.ONS_CACHE_URI, values);
 		}
 	}
 

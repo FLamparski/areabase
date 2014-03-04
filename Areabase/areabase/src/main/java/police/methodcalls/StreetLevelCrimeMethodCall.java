@@ -124,7 +124,7 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 					.put("date", new SimpleDateFormat("yyyy-MM").format(date));
 		}
 
-		String raw_json;
+		String raw_json = null;
 		try {
 			raw_json = doCall(METHOD + "/" + category, parameters);
 		} catch (APIException e) {
@@ -147,9 +147,11 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 			} else {
 				throw e;
 			}
-		}
+		} catch (Exception e) {
+            e.printStackTrace();
+        }
 
-		Collection<Crime> resultValue;
+        Collection<Crime> resultValue;
 
 		resultValue = processCrimes(raw_json);
 

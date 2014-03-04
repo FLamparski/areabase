@@ -21,7 +21,7 @@ import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
 import nde2.pull.types.Area;
 
-import static lamparski.areabase.widgets.CommonDialogs.serviceCockupNotify;
+import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
 /**
  * A base class for all fragments that deal with {@link nde2.pull.types.Area} objects and/or
@@ -51,7 +51,7 @@ public abstract class DetailViewFragment extends Fragment implements
 				Log.e("SummaryFragment",
 						"The AreaDataService disconnected unexpectedly.");
 				isServiceBound = false;
-				serviceCockupNotify(name, getActivity());
+				serviceDisconnectAlert(name, getActivity());
 			}
 		}
 
