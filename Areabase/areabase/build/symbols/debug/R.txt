@@ -335,6 +335,9 @@ int id fragment_summary_OSMapView_TABLET 0x7f070035
 int id fragment_summary_OSMapView_TABLET_LANDSCAPE 0x7f070037
 int id graph_activity_bargraph 0x7f070029
 int id graph_activity_legend_list 0x7f07002a
+int id graph_activity_tab1 0x7f07002c
+int id graph_activity_tab2 0x7f07002d
+int id graph_activity_tabhost 0x7f07002b
 int id handset_area_activity_drawerLayout_DEFAULT 0x7f070007
 int id handset_area_activity_frameLayout_DEFAULT 0x7f070008
 int id hybrid 0x7f070004
@@ -375,9 +378,6 @@ int id subject_view_listitem_count 0x7f070050
 int id subject_view_listitem_subtitle 0x7f07004f
 int id subject_view_listitem_title 0x7f07004e
 int id subject_view_progress_bar 0x7f07002f
-int id tab1 0x7f07002c
-int id tab2 0x7f07002d
-int id tabHost 0x7f07002b
 int id tableLayout 0x7f07001d
 int id tablet_area_activity_drawerLayout 0x7f070009
 int id tablet_area_activity_frameLayout 0x7f07000a
@@ -503,12 +503,11 @@ int string summaryactivity_cardmaker_onserror 0x7f0b0053
 int string summaryactivity_cardmaker_servicedisconnect_message 0x7f0b0054
 int string summaryactivity_cardmaker_servicedisconnect_title 0x7f0b0055
 int string summaryactivity_cardmaker_values_not_available 0x7f0b0056
-int string title_activity_graph 0x7f0b0057
-int string title_activity_settings 0x7f0b0058
-int string title_section1 0x7f0b0059
-int string title_section2 0x7f0b005a
-int string title_section3 0x7f0b005b
-int string toast_mapview_not_loading 0x7f0b005c
+int string tab_graph 0x7f0b0057
+int string tab_legend 0x7f0b0058
+int string title_activity_graph 0x7f0b0059
+int string title_activity_settings 0x7f0b005a
+int string toast_mapview_not_loading 0x7f0b005b
 int style AppBaseTheme 0x7f0c0000
 int style AppTheme 0x7f0c0001
 int style ButtonBar 0x7f0c000d

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/colors.xml -->
+    <!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/values/colors.xml -->
     <eat-comment />
 
     <color name="card_border">#ffdedede</color>
@@ -12,7 +12,7 @@
     <color name="card_title_text">#ff707070</color>
     <color name="stroke">#dddddd</color>
     <color name="text_light">#66000000</color>
-    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/dimens.xml -->
+    <!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/values/dimens.xml -->
     <eat-comment />
 
     <dimen name="action_bar_switch_padding">16.0dip</dimen>
@@ -187,7 +187,7 @@
     <dimen name="webview_margin_left">60.0dip</dimen>
     <dimen name="widget_margin_left_right">8.0dip</dimen>
     <dimen name="widget_margin_top_bottom">8.0dip</dimen>
-    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/res/values/styles.xml -->
+    <!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/cardsUILib/src/main/res/values/styles.xml -->
     <eat-comment />
 
     <style name="CardLightText" parent="@style/CardText">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/values-sw600dp/dimens.xml -->
+    <!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/values-sw600dp/dimens.xml -->
     <eat-comment />
 
     <dimen name="chart_view_height">320dp</dimen>

@@ -26,4 +26,4 @@
         android:layout_toRightOf="@+id/navbar_list_item_navicon"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-</RelativeLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/navbar_list_item.xml -->
+</RelativeLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/layout/navbar_list_item.xml -->

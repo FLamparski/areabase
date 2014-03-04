@@ -24,4 +24,4 @@
         android:id="@+id/subject_list_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
-</LinearLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/fragment_subject_list.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/layout/fragment_subject_list.xml -->

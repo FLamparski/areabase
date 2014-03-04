@@ -31,4 +31,4 @@
         android:id="@+id/listView"
         android:layout_weight="0.5" />
 
-</LinearLayout><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout/police_data_fragment.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/layout/police_data_fragment.xml -->

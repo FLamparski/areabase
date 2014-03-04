@@ -23,4 +23,4 @@
     <item android:drawable="@android:color/holo_blue_light" android:state_pressed="true"/>
     <item android:drawable="@android:color/transparent"/>
 
-</selector><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/drawable/selectable_background_links.xml -->
+</selector><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/drawable/selectable_background_links.xml -->

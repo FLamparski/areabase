@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/src/main/assets" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\src\main\assets" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/src/debug/assets" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\src\debug\assets" />
     </dataSet>
 
 </merger>

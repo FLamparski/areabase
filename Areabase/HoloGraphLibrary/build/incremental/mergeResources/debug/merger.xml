@@ -2,9 +2,30 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res" >
+        <source path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res" >
             <file
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/values/styles.xml"
+                name="ic_launcher"
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\drawable-hdpi\ic_launcher.png"
+                qualifiers="hdpi"
+                type="drawable" />
+            <file
+                name="ic_launcher"
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\drawable-mdpi\ic_launcher.png"
+                qualifiers="mdpi"
+                type="drawable" />
+            <file
+                name="popup_black"
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\drawable-xhdpi\popup_black.9.png"
+                qualifiers="xhdpi"
+                type="drawable" />
+            <file
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\values\strings.xml"
+                qualifiers="" >
+                <string name="app_name" >HoloGraphLibrary
+                </string>
+            </file>
+            <file
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\values\styles.xml"
                 qualifiers="" >
 
                 <style
@@ -26,29 +47,7 @@
                 </style>
             </file>
             <file
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/values/strings.xml"
-                qualifiers="" >
-                <string name="app_name" >HoloGraphLibrary
-                </string>
-            </file>
-            <file
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/values-v14/styles.xml"
-                qualifiers="v14" >
-
-                <style
-                    name="AppBaseTheme"
-                    parent="android:Theme.Holo.Light.DarkActionBar" >
-
-                    <!-- API 14 theme customizations can go here. -->
-                </style>
-            </file>
-            <file
-                name="ic_launcher"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/drawable-hdpi/ic_launcher.png"
-                qualifiers="hdpi"
-                type="drawable" />
-            <file
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/values-v11/styles.xml"
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\values-v11\styles.xml"
                 qualifiers="v11" >
 
                 <style
@@ -59,20 +58,21 @@
                 </style>
             </file>
             <file
-                name="popup_black"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/drawable-xhdpi/popup_black.9.png"
-                qualifiers="xhdpi"
-                type="drawable" />
-            <file
-                name="ic_launcher"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/res/drawable-mdpi/ic_launcher.png"
-                qualifiers="mdpi"
-                type="drawable" />
+                path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\res\values-v14\styles.xml"
+                qualifiers="v14" >
+
+                <style
+                    name="AppBaseTheme"
+                    parent="android:Theme.Holo.Light.DarkActionBar" >
+
+                    <!-- API 14 theme customizations can go here. -->
+                </style>
+            </file>
         </source>
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/build/res/rs/debug" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\build\res\rs\debug" />
     </dataSet>
     <dataSet config="debug" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/HoloGraphLibrary/src/debug/res" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\HoloGraphLibrary\src\debug\res" />
     </dataSet>
 
 </merger>

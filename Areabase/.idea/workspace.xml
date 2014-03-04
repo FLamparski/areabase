@@ -78,32 +78,8 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Documentation and stuff">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java" />
-      <change type="MOVED" beforePath="C:\Users\Minkovsky\areabase\Areabase\areabase\src\main\java\lamparski\areabase\Pickle.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/Pickle.java" />
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Starting AreaRank, more caching">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/BaseMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/BaseMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/BaseMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/BaseMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/CacheContentProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/CacheContentProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/CacheDbOpenHelper.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/CacheDbOpenHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CaseHistoryMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CaseHistoryMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/CommonDialogs.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/widgets/CommonDialogs.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CrimeAvailabilityMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CrimeAvailabilityMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CrimeCategoriesMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CrimeCategoriesMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/DetailViewFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EnvironmentCardProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EnvironmentCardProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/ForcesMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/ForcesMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/GraphActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/org/mysociety/mapit/Mapper.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/org/mysociety/mapit/Mapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/NeighbourhoodsMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/NeighbourhoodsMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/StreetLevelCrimeMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/StreetLevelCrimeMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/StreetLevelOutcomesMethodCall.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/StreetLevelOutcomesMethodCall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -185,7 +161,7 @@
       <file leaf-file-name="AreaRank.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1338" selection-end="1338" vertical-scroll-proportion="0.4884956" vertical-offset="387" max-vertical-offset="2040">
+            <state line="40" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="0.4884956" vertical-offset="404" max-vertical-offset="2057">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -2513,7 +2489,11 @@
       <created>1393860500218</created>
       <updated>1393860500218</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Starting AreaRank, more caching">
+      <created>1393941459938</created>
+      <updated>1393941459938</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2538,7 +2518,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2622,7 +2602,8 @@
     <MESSAGE value="Subject Views now show charts for their data." />
     <MESSAGE value="GraphActivity working in portrait, trying to set up landscape tabs..." />
     <MESSAGE value="Documentation and stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Documentation and stuff" />
+    <MESSAGE value="Starting AreaRank, more caching" />
+    <option name="LAST_COMMIT_MESSAGE" value="Starting AreaRank, more caching" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2970,10 +2951,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="296" column="44" selection-start="11166" selection-end="11166" vertical-scroll-proportion="0.18053098" vertical-offset="4131" max-vertical-offset="5763">
           <folding>
-            <element signature="e#6802#6811#0" expanded="true" />
-            <element signature="e#9589#9598#0" expanded="true" />
-            <element signature="e#11945#12031#0" expanded="true" />
-            <element signature="e#12056#12121#0" expanded="true" />
+            <element signature="e#6696#6705#0" expanded="true" />
+            <element signature="e#9483#9492#0" expanded="true" />
+            <element signature="e#11839#11925#0" expanded="true" />
+            <element signature="e#11950#12015#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3001,7 +2982,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1338" selection-end="1338" vertical-scroll-proportion="0.4884956" vertical-offset="387" max-vertical-offset="2040">
+        <state line="40" column="0" selection-start="1411" selection-end="1411" vertical-scroll-proportion="0.4884956" vertical-offset="404" max-vertical-offset="2057">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

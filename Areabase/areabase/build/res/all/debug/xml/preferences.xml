@@ -25,4 +25,4 @@
             android:title="@string/pref_category_testing_phoneHome_primaryText" />
     </PreferenceCategory>
 
-</PreferenceScreen><!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/xml/preferences.xml -->
+</PreferenceScreen><!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/xml/preferences.xml -->

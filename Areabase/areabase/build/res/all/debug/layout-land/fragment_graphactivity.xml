@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="lamparski.areabase.GraphActivity$PlaceholderFragment">
+    tools:context=".GraphActivity">
 
     <TabHost
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tabHost"
+        android:id="@+id/graph_activity_tabhost"
         android:layout_gravity="center_horizontal">
 
         <LinearLayout
@@ -27,18 +27,21 @@
                     <TextView
                         android:id="@+id/subject_view_header"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:text="SUBJECT NAME"
                         android:fontFamily="sans-serif-condensed"
                         style="@android:style/TextAppearance.Holo.SearchResult.Title"
                         android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginRight="16dp"/>
+                        android:layout_gravity="center_vertical"
+                        android:textAlignment="gravity"
+                        android:layout_marginRight="16dp"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1" />
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@android:color/holo_blue_dark" />
+                        android:background="@android:color/holo_blue_dark"
+                        android:layout_gravity="bottom" />
                     </LinearLayout>
                 <TabWidget
                     android:id="@android:id/tabs"
@@ -54,23 +57,23 @@
                 android:layout_height="fill_parent">
 
                 <LinearLayout
-                    android:id="@+id/tab1"
+                    android:id="@+id/graph_activity_tab1"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <com.echo.holographlibrary.BarGraph
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/graph_activity_bargraph"/>
+                        android:id="@id/graph_activity_bargraph"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tab2"
+                    android:id="@+id/graph_activity_tab2"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <ListView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/graph_activity_bargraph"/>
+                        android:id="@id/graph_activity_legend_list"/>
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>
@@ -78,4 +81,4 @@
 
 
 </LinearLayout>
-<!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/res/layout-land/fragment_graphactivity.xml -->
+<!-- From: file:/C:/Users/Minkovsky/areabase/Areabase/areabase/src/main/res/layout-land/fragment_graphactivity.xml -->

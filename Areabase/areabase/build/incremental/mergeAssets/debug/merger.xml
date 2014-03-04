@@ -2,26 +2,26 @@
 <merger>
 
     <dataSet config="AreabaseHoloGraphLibraryUnspecified.aar" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseHoloGraphLibraryUnspecified.aar/assets" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\areabase\build\exploded-bundles\AreabaseHoloGraphLibraryUnspecified.aar\assets" />
     </dataSet>
     <dataSet config="AreabaseCardsUILibUnspecified.aar" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/assets" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\areabase\build\exploded-bundles\AreabaseCardsUILibUnspecified.aar\assets" />
     </dataSet>
     <dataSet config="main" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets" >
-            <file
-                name="os_openspace/slippymap.html"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/os_openspace/slippymap.html" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\areabase\src\main\assets" >
             <file
                 name="fonts/Roboto-Condensed.ttf"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/fonts/Roboto-Condensed.ttf" />
+                path="C:\Users\Minkovsky\areabase\Areabase\areabase\src\main\assets\fonts\Roboto-Condensed.ttf" />
             <file
                 name="fonts/Roboto-Thin.ttf"
-                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/fonts/Roboto-Thin.ttf" />
+                path="C:\Users\Minkovsky\areabase\Areabase\areabase\src\main\assets\fonts\Roboto-Thin.ttf" />
+            <file
+                name="os_openspace/slippymap.html"
+                path="C:\Users\Minkovsky\areabase\Areabase\areabase\src\main\assets\os_openspace\slippymap.html" />
         </source>
     </dataSet>
     <dataSet config="debug" >
-        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/debug/assets" />
+        <source path="C:\Users\Minkovsky\areabase\Areabase\areabase\src\debug\assets" />
     </dataSet>
 
 </merger>
