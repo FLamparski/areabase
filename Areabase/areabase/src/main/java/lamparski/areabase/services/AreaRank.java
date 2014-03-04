@@ -3,14 +3,21 @@ package lamparski.areabase.services;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
 import lamparski.areabase.cardproviders.EnvironmentCardProvider;
 import lamparski.areabase.cardproviders.TrendDescription;
 import nde2.errors.NDE2Exception;
+import nde2.errors.ValueNotAvailable;
+import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.types.Area;
+import nde2.pull.types.DataSetFamily;
+import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
+import nde2.pull.types.Topic;
 
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
@@ -19,8 +26,9 @@ import static nde2.helpers.CensusHelpers.findSubject;
  * Created by Minkovsky on 04/03/14.
  */
 public class AreaRank {
+    public static float MID_SCORE = 38.0f;
     public static float getScore(Area area) throws Exception {
-        float score = 38.0f;
+        float score = MID_SCORE;
 
         Subject economySubject = findSubject(area, "Economic Deprivation");
         score += crimeTrend(area);
@@ -31,11 +39,35 @@ public class AreaRank {
         score += compareIncomeToNational(incomeTrend);
         score += unemployment(area);
 
-        return (score/(score*2))*100;
+        return (score/(MID_SCORE*2))*100;
     }
 
-    private static float unemployment(Area area) {
-        // TODO: Find the unemployment and compare to all people to obtain a score
+    private static float unemployment(Area area) throws XmlPullParserException, IOException, NDE2Exception {
+        Subject econSubject = findSubject(area, "Economic Deprivation");
+        List<DataSetFamily> families = findRequiredFamilies(area,
+                econSubject, EconomyCardProvider.CENSUS_KEYWORDS);
+        Set<Dataset> data = new GetTables().forArea(area).inFamilies(families).execute();
+        float numUnemployed = 0;
+        float numPeople = 0;
+        for(Dataset ds : data){
+            for(Topic t : ds.getTopics().values()){
+                if(t.getTitle().equals("Economically Active; Unemployed")){
+                    numUnemployed = ds.getItems(t).iterator().next().getValue();
+                }
+                if(t.getTitle().startsWith("All Usual Residents")){
+                    numPeople = ds.getItems(t).iterator().next().getValue();
+                }
+            }
+        }
+
+        if(numPeople == 0){
+            throw new ValueNotAvailable("Number of people in this area is 0. Abort before division.");
+        }
+
+        float unemplRatio = numUnemployed / numPeople;
+
+        // TODO: Return a value according to the specification.
+
         return 0;
     }
 
