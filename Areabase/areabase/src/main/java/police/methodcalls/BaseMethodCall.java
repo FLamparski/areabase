@@ -3,19 +3,14 @@ package police.methodcalls;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.os.Environment;
 import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.FileWriterWithEncoding;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -136,18 +131,4 @@ public abstract class BaseMethodCall {
 
         return response;
     }
-
-    private void saveurl(String paramString) {
-		File logfile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath() + "/policedata.log");
-		FileWriterWithEncoding fwriter = null;
-		try{
-			fwriter = new FileWriterWithEncoding(logfile, Charset.forName("UTF-8"), true);
-			fwriter.append(String.format("%tF,\"%s\"\n", new Date(), paramString));
-		} catch (IOException e){} finally {
-			try {
-				fwriter.close();
-			} catch (Exception e) {
-			}
-		}
-	}
 }

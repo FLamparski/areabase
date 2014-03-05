@@ -174,27 +174,31 @@ containing a value of this type.
         public static final int zOrderOnTop=0x7f010010;
     }
     public static final class color {
-        public static final int card_border=0x7f060000;
-        public static final int card_grid_text=0x7f060001;
-        public static final int card_light_text=0x7f060002;
-        public static final int card_separator=0x7f060003;
-        public static final int card_text=0x7f060004;
-        public static final int card_title_text=0x7f060005;
-        public static final int common_action_bar_splitter=0x7f060006;
-        public static final int common_signin_btn_dark_text_default=0x7f060007;
-        public static final int common_signin_btn_dark_text_disabled=0x7f060008;
-        public static final int common_signin_btn_dark_text_focused=0x7f060009;
-        public static final int common_signin_btn_dark_text_pressed=0x7f06000a;
-        public static final int common_signin_btn_default_background=0x7f06000b;
-        public static final int common_signin_btn_light_text_default=0x7f06000c;
-        public static final int common_signin_btn_light_text_disabled=0x7f06000d;
-        public static final int common_signin_btn_light_text_focused=0x7f06000e;
-        public static final int common_signin_btn_light_text_pressed=0x7f06000f;
-        public static final int common_signin_btn_text_dark=0x7f060013;
-        public static final int common_signin_btn_text_light=0x7f060014;
-        public static final int holoLightBlueColour=0x7f060010;
-        public static final int stroke=0x7f060011;
-        public static final int text_light=0x7f060012;
+        public static final int arearank20=0x7f060000;
+        public static final int arearank40=0x7f060001;
+        public static final int arearank60=0x7f060002;
+        public static final int arearank80=0x7f060003;
+        public static final int card_border=0x7f060004;
+        public static final int card_grid_text=0x7f060005;
+        public static final int card_light_text=0x7f060006;
+        public static final int card_separator=0x7f060007;
+        public static final int card_text=0x7f060008;
+        public static final int card_title_text=0x7f060009;
+        public static final int common_action_bar_splitter=0x7f06000a;
+        public static final int common_signin_btn_dark_text_default=0x7f06000b;
+        public static final int common_signin_btn_dark_text_disabled=0x7f06000c;
+        public static final int common_signin_btn_dark_text_focused=0x7f06000d;
+        public static final int common_signin_btn_dark_text_pressed=0x7f06000e;
+        public static final int common_signin_btn_default_background=0x7f06000f;
+        public static final int common_signin_btn_light_text_default=0x7f060010;
+        public static final int common_signin_btn_light_text_disabled=0x7f060011;
+        public static final int common_signin_btn_light_text_focused=0x7f060012;
+        public static final int common_signin_btn_light_text_pressed=0x7f060013;
+        public static final int common_signin_btn_text_dark=0x7f060017;
+        public static final int common_signin_btn_text_light=0x7f060018;
+        public static final int holoLightBlueColour=0x7f060014;
+        public static final int stroke=0x7f060015;
+        public static final int text_light=0x7f060016;
     }
     public static final class dimen {
         public static final int action_bar_switch_padding=0x7f080000;
@@ -669,16 +673,17 @@ containing a value of this type.
         public static final int pref_category_testing_phoneHome_infoText_disabled=0x7f0b0050;
         public static final int pref_category_testing_phoneHome_infoText_enabled=0x7f0b0051;
         public static final int pref_category_testing_phoneHome_primaryText=0x7f0b0052;
-        public static final int summaryactivity_cardmaker_ioerror_body=0x7f0b0053;
-        public static final int summaryactivity_cardmaker_onserror=0x7f0b0054;
-        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0b0055;
-        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0b0056;
-        public static final int summaryactivity_cardmaker_values_not_available=0x7f0b0057;
-        public static final int tab_graph=0x7f0b0058;
-        public static final int tab_legend=0x7f0b0059;
-        public static final int title_activity_graph=0x7f0b005a;
-        public static final int title_activity_settings=0x7f0b005b;
-        public static final int toast_mapview_not_loading=0x7f0b005c;
+        public static final int select_area_from_list=0x7f0b0053;
+        public static final int summaryactivity_cardmaker_ioerror_body=0x7f0b0054;
+        public static final int summaryactivity_cardmaker_onserror=0x7f0b0055;
+        public static final int summaryactivity_cardmaker_servicedisconnect_message=0x7f0b0056;
+        public static final int summaryactivity_cardmaker_servicedisconnect_title=0x7f0b0057;
+        public static final int summaryactivity_cardmaker_values_not_available=0x7f0b0058;
+        public static final int tab_graph=0x7f0b0059;
+        public static final int tab_legend=0x7f0b005a;
+        public static final int title_activity_graph=0x7f0b005b;
+        public static final int title_activity_settings=0x7f0b005c;
+        public static final int toast_mapview_not_loading=0x7f0b005d;
     }
     public static final class style {
         /** 

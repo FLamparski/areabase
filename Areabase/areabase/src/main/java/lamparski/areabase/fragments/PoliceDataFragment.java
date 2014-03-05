@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.helpers.ArrayHelpers;
 import nde2.pull.types.Area;
 import police.errors.APIException;
+import police.methodcalls.CrimeCategoriesMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
@@ -43,6 +45,8 @@ import police.types.Crime;
  * @author filip
  */
 public class PoliceDataFragment extends DetailViewFragment {
+    private Map<String, String> categoryMap;
+
     private class CrimeLegendEntry {
         public String category;
         public int count;
@@ -53,6 +57,11 @@ public class PoliceDataFragment extends DetailViewFragment {
             this.count = count;
             this.colour = colour;
         }
+    }
+
+    private final class CrimeDataTaskResult {
+        Collection<Crime> theCrimes;
+        Map<String, String> humanReadableCategoryNames;
     }
 
     private class CrimeListAdapter extends BaseAdapter {
@@ -80,15 +89,16 @@ public class PoliceDataFragment extends DetailViewFragment {
 
             CrimeLegendEntry category = mCrimeList.get(position);
 
-            ((TextView) convertView.findViewById(R.id.subject_view_groupitem_title)).setText(category.category);
+            ((TextView) convertView.findViewById(R.id.subject_view_groupitem_title)).setText(categoryMap.get(category.category));
             ((TextView) convertView.findViewById(R.id.subject_view_groupitem_count)).setText(Integer.toString(category.count));
             ((TextView) convertView.findViewById(R.id.subject_view_groupitem_count)).setTextColor(category.colour);
+            ((ImageView) convertView.findViewById(R.id.subject_view_groupitem_graphability_indicator)).setVisibility(View.GONE);
 
             return convertView;
         }
     }
 
-    final private AsyncTask<Area, Void, Collection<Crime>> fetchCrimeDataTask = new AsyncTask<Area, Void, Collection<Crime>>(){
+    private class FetchCrimeDataTask extends AsyncTask<Area, Void, CrimeDataTaskResult>{
 
         @Override
         protected void onPreExecute() {
@@ -99,7 +109,8 @@ public class PoliceDataFragment extends DetailViewFragment {
         }
 
         @Override
-        protected Collection<Crime> doInBackground(Area... params) {
+        protected CrimeDataTaskResult doInBackground(Area... params) {
+            final CrimeDataTaskResult result = new CrimeDataTaskResult();
             double[][] areaPoly = new double[0][];
             try {
                 areaPoly = Mapper.getGeometryForArea(area);
@@ -119,19 +130,36 @@ public class PoliceDataFragment extends DetailViewFragment {
                 Log.e("PoliceDataFragment", "API exception when fetching area crimes", e);
                 onPoliceApiError(e);
             }
+            result.theCrimes = crimes;
 
-            return crimes;
+            Map<String, String> catDict = null;
+            try{
+                catDict = new CrimeCategoriesMethodCall().getCrimeCategories();
+            } catch (IOException e) {
+                Log.e("PoliceDataFragment", "IO exception when fetching area crimes", e);
+                onIOError();
+            } catch (APIException e) {
+                Log.e("PoliceDataFragment", "API exception when fetching area crimes", e);
+                onPoliceApiError(e);
+            } catch (Exception e) {
+                Log.e("PoliceDataFragment", "Exception when fetching area crimes", e);
+                showCroutonCrossThread(e.getMessage());
+            }
+            result.humanReadableCategoryNames = catDict;
+
+            return result;
         }
 
         @Override
-        protected void onPostExecute(Collection<Crime> crimes) {
-            super.onPostExecute(crimes);
+        protected void onPostExecute(CrimeDataTaskResult result) {
+            super.onPostExecute(result);
             if(getActivity() != null){
                 getActivity().setProgressBarIndeterminateVisibility(false);
             }
-            onCrimeDataFound(crimes);
+            onCategoryDescriptionsFound(result.humanReadableCategoryNames);
+            onCrimeDataFound(result.theCrimes);
         }
-    };
+    }
 
     private static final int[] SLICE_COLOURS = new int[5];
     private int currentSliceColour = 0;
@@ -160,7 +188,7 @@ public class PoliceDataFragment extends DetailViewFragment {
                     area = ((AreaActivity) getActivity()).getArea();
                 }
 
-                fetchCrimeDataTask.execute(area);
+                new FetchCrimeDataTask().execute(area);
             } catch (Exception e) {
                 Log.w("PoliceDataFragment", "Refresh try #" + refreshContentTries
                         + " failed because of an Exception", e);
@@ -193,6 +221,10 @@ public class PoliceDataFragment extends DetailViewFragment {
         return theView;
     }
 
+    protected void onCategoryDescriptionsFound(Map<String, String> categoryMap){
+        this.categoryMap = categoryMap;
+    }
+
     protected void onCrimeDataFound(Collection<Crime> mostRecentCrimes){
         if(mostRecentCrimes != null){
             Map<String, Integer> crimeSlice = CrimeCardProvider.crimeSlice(mostRecentCrimes);
@@ -203,7 +235,7 @@ public class PoliceDataFragment extends DetailViewFragment {
                 PieSlice sForE = new PieSlice();
                 sForE.setColor(e.colour);
                 sForE.setValue(e.count);
-                sForE.setTitle(e.category);
+                sForE.setTitle(categoryMap.get(e.category));
                 mGraph.addSlice(sForE);
                 mCrimeList.add(e);
             }

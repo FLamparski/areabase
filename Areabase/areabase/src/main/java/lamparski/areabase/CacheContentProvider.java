@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
+import lamparski.areabase.CacheDbOpenHelper.AreaRankTable;
 import lamparski.areabase.CacheDbOpenHelper.OnsCacheTable;
 
 /**
@@ -22,6 +23,8 @@ public class CacheContentProvider extends ContentProvider {
             CacheDbOpenHelper.PoliceCacheTable.TABLE_NAME);
     public static final Uri MAPIT_CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
             CacheDbOpenHelper.MapitCacheTable.TABLE_NAME);
+    public static final Uri AREARANK_CACHE_URI = Uri.withAppendedPath(CONTENT_URI,
+            AreaRankTable.TABLE_NAME);
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {

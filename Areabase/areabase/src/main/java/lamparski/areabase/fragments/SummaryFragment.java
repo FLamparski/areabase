@@ -163,6 +163,19 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                 CardModel scoreCard = new CardModel(AreaRankCard.class);
                 scoreCard.setTitlePlay(getString(R.string.card_arearank_text, area.getName()));
                 scoreCard.setDescription(String.format("%.1f", areaRank));
+                if(areaRank >= 80.0f){
+                    scoreCard.setColor(String.format("#%08X",
+                            getResources().getColor(R.color.arearank80)));
+                } else if (areaRank >= 60.0f){
+                    scoreCard.setColor(String.format("#%08X",
+                            getResources().getColor(R.color.arearank60)));
+                } else if (areaRank >= 40.0f){
+                    scoreCard.setColor(String.format("#%08X",
+                            getResources().getColor(R.color.arearank40)));
+                } else {
+                    scoreCard.setColor(String.format("#%08X",
+                            getResources().getColor(R.color.arearank20)));
+                }
                 cardModels.add(scoreCard);
             }
         }
@@ -243,15 +256,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		Log.d("SummaryFragment", "onActivityCreated() enter");
-
-		Intent intent = new Intent(getActivity(), AreaDataService.class);
-        try{
-            getActivity().getApplicationContext().bindService(intent,
-                    mServiceConnection, Context.BIND_AUTO_CREATE);
-        } catch (NullPointerException npe) {
-            Log.e("SummaryFragment", "Cannot bind AreaDataService: NullPointerException" +
-                    "on either getActivity() or getApplicationContext()", npe);
-        }
 
 		if (savedInstanceState != null) {
 			Log.d("SummaryFragment",
@@ -365,7 +369,15 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 	@Override
 	public void onStart() {
 		super.onStart();
-
+        is_live = true;
+        Intent intent = new Intent(getActivity(), AreaDataService.class);
+        try{
+            getActivity().getApplicationContext().bindService(intent,
+                    mServiceConnection, Context.BIND_AUTO_CREATE);
+        } catch (NullPointerException npe) {
+            Log.e("SummaryFragment", "Cannot bind AreaDataService: NullPointerException" +
+                    "on either getActivity() or getApplicationContext()", npe);
+        }
 	}
 
 	/*
@@ -378,10 +390,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 		super.onStop();
 		Log.d("SummaryFragment", "Stopping AreaDataService.");
 		is_live = false;
-		if (isServiceBound && getActivity() != null) {
-            AreaActivity.getAreabaseApplicationContext().unbindService(
-                    mServiceConnection);
-        }
 	}
 
 	/*
@@ -495,6 +503,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
             protected void onPostExecute(List<Double> coords) {
                 if(!coords.isEmpty()){
                     mOpenSpaceView.setCentre_byEastingNorthing(coords.get(0), coords.get(1));
+                    mOpenSpaceView.setZoom(10);
                 }
             }
         }.execute();

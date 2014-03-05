@@ -1,11 +1,20 @@
 package lamparski.areabase.services;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.util.Log;
+
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import lamparski.areabase.AreaActivity;
+import lamparski.areabase.CacheContentProvider;
+import lamparski.areabase.CacheDbOpenHelper.AreaRankTable;
 import lamparski.areabase.cardproviders.CrimeCardProvider;
 import lamparski.areabase.cardproviders.EconomyCardProvider;
 import lamparski.areabase.cardproviders.EnvironmentCardProvider;
@@ -27,19 +36,77 @@ import static nde2.helpers.CensusHelpers.findSubject;
  */
 public class AreaRank {
     public static float MID_SCORE = 38.0f;
+
     public static float getScore(Area area) throws Exception {
+        try{
+            return cachedScore(area);
+        } catch (FileNotFoundException fnfe){
+            float score = newScore(area);
+            saveScore(area, score);
+            return score;
+        }
+    }
+
+    private static float cachedScore(Area area) throws FileNotFoundException {
+        ContentResolver resolver = AreaActivity.getAreabaseApplicationContext().getContentResolver();
+        String[] selectionArgs = { Integer.toString(area.getAreaId()),
+                Long.toString(System.currentTimeMillis() - 30 * 24 * 60 * 60 * 1000l) };
+        Cursor c = resolver.query(CacheContentProvider.AREARANK_CACHE_URI,
+                new String[] { "*" },
+                "areaId = ? AND computedOn > ?",
+                selectionArgs, "computedOn DESC");
+
+        if(c == null){
+            throw new FileNotFoundException();
+        }
+
+        float score = Float.NaN;
+        if(c.moveToFirst()){
+            score = c.getFloat(c.getColumnIndex(AreaRankTable.FIELD_AREA_RANK));
+        }
+        c.close();
+        if(Float.isNaN(score)){
+            throw new FileNotFoundException();
+        }
+        Log.d("AreaRank",
+                String.format("Returning a cached score for %s: %.1f", area.getName(), score));
+        return score;
+    }
+
+    private static float newScore(Area area) throws Exception {
         float score = MID_SCORE;
 
+        Log.d("AreaRank",
+                String.format("Computing a new score for %s...", area.getName()));
         Subject economySubject = findSubject(area, "Economic Deprivation");
         score += crimeTrend(area);
+        Log.v("AreaRank",
+                String.format("Computing a new score for %s... [Crime component done]", area.getName()));
         score += energyTrend(area);
+        Log.v("AreaRank",
+                String.format("Computing a new score for %s... [Energy component done]", area.getName()));
         TrendDescription incomeTrend = EconomyCardProvider.calculateIncomeTrend(area,
                 findRequiredFamilies(area, economySubject, EconomyCardProvider.ECONOMY_KEYWORDS));
         score += analyseIncomeTrend(incomeTrend);
         score += compareIncomeToNational(incomeTrend);
+        Log.v("AreaRank",
+                String.format("Computing a new score for %s... [Income component done]", area.getName()));
         score += unemployment(area);
+        Log.v("AreaRank",
+                String.format("Computing a new score for %s... [Unemployment component done]", area.getName()));
 
         return (score/(MID_SCORE*2))*100;
+    }
+
+    private static void saveScore(Area area, float score){
+        ContentResolver resolver = AreaActivity.getAreabaseApplicationContext().getContentResolver();
+        ContentValues values = new ContentValues();
+        values.put(AreaRankTable.FIELD_AREA_ID, area.getAreaId());
+        values.put(AreaRankTable.FIELD_AREA_RANK, score);
+        values.put(AreaRankTable.FIELD_RETRIEVED_ON, System.currentTimeMillis());
+        resolver.insert(CacheContentProvider.AREARANK_CACHE_URI, values);
+        Log.d("AreaRank",
+                String.format("Saving score for %s: %.1f", area.getName(), score));
     }
 
     private static float unemployment(Area area) throws XmlPullParserException, IOException, NDE2Exception {

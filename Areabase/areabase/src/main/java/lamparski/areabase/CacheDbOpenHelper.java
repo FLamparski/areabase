@@ -23,6 +23,37 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
         }
 	}
 
+    /**
+     * AreaRankTable stores some area scores.
+     *
+     * DEFINITION:
+     * CREATE TABLE areaRank (
+     *     _id INTEGER PRIMARY KEY AUTOINCREMENT,
+     *     areaId INTEGER,
+     *     score REAL,
+     *     computedOn INTEGER);
+     */
+    public static class AreaRankTable {
+        public static final String FIELD_ID = "_id";
+        public static final String FIELD_RETRIEVED_ON = "computedOn";
+        public static final String FIELD_AREA_ID = "areaId";
+        public static final String FIELD_AREA_RANK = "score";
+        public static final String TABLE_NAME = "areaRank";
+
+        public static void onCreate(SQLiteDatabase db){
+            db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + FIELD_ID
+                    + " INTEGER PRIMARY KEY AUTOINCREMENT," + FIELD_AREA_ID
+                    + " INTEGER," + FIELD_RETRIEVED_ON + " INTEGER,"
+                    + FIELD_AREA_RANK + " REAL)");
+        }
+
+        public static void onUpgrade(SQLiteDatabase db) {
+            Log.w("AreaRankTable",
+                    "Upgrading the cache table, entries will be deleted.");
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        }
+    }
+
     public static class OnsCacheTable {
         public static final String TABLE_NAME = "onsCache";
 
@@ -65,7 +96,7 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-	private static final int VERSION = 3;
+	private static final int VERSION = 4;
 
 	public CacheDbOpenHelper(Context context) {
 		super(context, "CacheDb", null, VERSION);
@@ -76,6 +107,7 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
 		OnsCacheTable.onCreate(db);
         PoliceCacheTable.onCreate(db);
         MapitCacheTable.onCreate(db);
+        AreaRankTable.onCreate(db);
 	}
 
 	@Override
@@ -83,6 +115,7 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
 		OnsCacheTable.onUpgrade(db);
         PoliceCacheTable.onUpgrade(db);
         MapitCacheTable.onUpgrade(db);
+        AreaRankTable.onUpgrade(db);
 		onCreate(db);
 	}
 

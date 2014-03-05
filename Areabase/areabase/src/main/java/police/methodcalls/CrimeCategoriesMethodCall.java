@@ -7,7 +7,9 @@ import com.google.gson.JsonParser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class CrimeCategoriesMethodCall extends BaseMethodCall {
 	private final static String METHOD = "crime-categories";
@@ -18,11 +20,11 @@ public class CrimeCategoriesMethodCall extends BaseMethodCall {
 		return this;
 	}
 
-	public Hashtable<String, String> getCrimeCategories()
+	public Map<String, String> getCrimeCategories()
             throws Exception {
-		Hashtable<String, String> params = null;
+		HashMap<String, String> params = null;
 		if (!(date == null)) {
-			params = new Hashtable<String, String>();
+			params = new HashMap<String, String>();
 			params.put("date", new SimpleDateFormat("yyyy-MM").format(date));
 		}
 

@@ -7,4 +7,13 @@
 
     <color name="stroke">#FFCCCCCC</color>
 
+    <!-- Colour for areas whose score >= 80 -->
+    <color name="arearank80">@android:color/holo_blue_dark</color>
+    <!-- Colour for areas whose score >= 60 -->
+    <color name="arearank60">@android:color/holo_green_dark</color>
+    <!-- Colour for areas whose score >= 40 -->
+    <color name="arearank40">@android:color/holo_orange_dark</color>
+    <!-- Colour for areas whose score < 21 -->
+    <color name="arearank20">@android:color/holo_red_dark</color>
+
 </resources>

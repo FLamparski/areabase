@@ -11,6 +11,9 @@ import android.util.Log;
 import com.fima.cardsui.objects.CardModel;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +44,8 @@ import nde2.pull.types.Subject;
  */
 public class AreaDataService extends Service {
 
+
+
     public interface BasicAreaInfoIface extends OnError {
 		public void allDone(Float areaRank);
 
@@ -55,8 +60,11 @@ public class AreaDataService extends Service {
 
 	public interface AreaLookupCallbacks extends OnError {
 		public void areaReady(Area area);
-
 	}
+
+    public interface AreaListCallbacks extends OnError {
+        public void areasReady(List<Area> areas);
+    }
 
     public interface SubjectDumpIface extends OnError {
         public void subjectDumpReady(Map<DataSetFamily, Dataset> map);
@@ -212,6 +220,50 @@ public class AreaDataService extends Service {
 		}.execute(location);
 	}
 
+    /**
+     * Finds the area for the given postcode
+     * @param postcode postcode for the area
+     * @param callbacks callbacks for async call
+     */
+    public void areaForPostcode(final String postcode, final AreaLookupCallbacks callbacks) {
+        new AsyncTask<Void, Void, Area>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+            }
+
+            @Override
+            protected Area doInBackground(Void... params) {
+                Area theArea = null;
+                try {
+                    Set<Area> areaSet = new FindAreas()
+                            .ofLevelType(Area.LEVELTYPE_MSOA)
+                            .inHierarchy(
+                                    Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+                            .forPostcode(postcode).execute();
+
+                    for (Area a : areaSet) {
+                        if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA) {
+                            theArea = a;
+                        }
+                    }
+
+                } catch (Throwable tr) {
+                    callbacks.onError(tr);
+                }
+                return theArea;
+            }
+
+            @Override
+            protected void onPostExecute(Area result) {
+                super.onPostExecute(result);
+
+                callbacks.areaReady(result);
+            }
+        }.execute();
+    }
+
 	/**
 	 * Fetches an area whose name most closely matches the supplied string
 	 * (partials accepted)
@@ -259,6 +311,55 @@ public class AreaDataService extends Service {
 
 		}.execute(areaName);
 	}
+
+    public void areasForName(final String areaName,
+                            final AreaListCallbacks commlink) {
+        /**
+         * Compares the "distances" of given areas' names from the original query
+         */
+        final Comparator<Area> areaComparator = new Comparator<Area>() {
+            @Override
+            public int compare(Area lhs, Area rhs) {
+                int distanceLhs = Statistics.computeLevenshteinDistance(lhs.getName(), areaName);
+                int distanceRhs = Statistics.computeLevenshteinDistance(rhs.getName(), areaName);
+                if(distanceLhs == distanceRhs){
+                    return 0; // both areas' names are the same distance from the query
+                } else if(distanceLhs < distanceRhs) {
+                    return -1; // lhs area's name is closer to the query
+                } else {
+                    return 1; // rhs area's name is closer to the query
+                }
+            }
+        };
+
+        new AsyncTask<String, Void, List<Area>>() {
+
+            @Override
+            protected List<Area> doInBackground(String... params) {
+                try {
+                    Set<Area> areaSet = new FindAreas()
+                            .inHierarchy(
+                                    Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+                            .whoseNameContains(params[0]).execute();
+                    if(areaSet.size() == 0){
+                        commlink.onError(new FileNotFoundException("No areas returned for " +
+                                "query string \"" + params[0] + "\""));
+                    }
+                    List<Area> areas = new ArrayList<Area>(areaSet);
+                    Collections.sort(areas, areaComparator);
+                    return areas;
+                } catch (Throwable tr) {
+                    commlink.onError(tr);
+                }
+                return null;
+            }
+
+            protected void onPostExecute(List<Area> areas){
+                commlink.areasReady(areas);
+            }
+
+        }.execute(areaName);
+    }
 
     /**
      * Fetches all the datasets in the given subject. May be slow the first time.

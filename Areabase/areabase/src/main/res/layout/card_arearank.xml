@@ -13,11 +13,12 @@
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:paddingLeft="16dp"
-        android:password="false" />
+        android:fontFamily="sans-serif-thin"
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="56dp"
+        android:layout_height="64dp"
         android:text="100.0"
         android:id="@+id/card_arearank_score"
         android:layout_gravity="center_vertical|right"

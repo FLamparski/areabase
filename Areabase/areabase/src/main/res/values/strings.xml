@@ -13,6 +13,7 @@
     <string name="action_search_hint">Postcode or area name…</string>
     <string name="action_graph">Graph this data</string>
     <string name="action_graph_explanation">Open a new window to view a graph of this dataset.</string>
+    <string name="select_area_from_list">Select area name…</string>
 
     <!-- messages -->
     <string name="toast_mapview_not_loading">Could not load the map view.</string>

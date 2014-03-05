@@ -2,6 +2,8 @@ package lamparski.areabase;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -10,6 +12,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.ServiceConnection;
@@ -47,16 +50,11 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-import org.apache.commons.io.output.FileWriterWithEncoding;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -69,7 +67,9 @@ import lamparski.areabase.fragments.SubjectViewFragment;
 import lamparski.areabase.fragments.SummaryFragment;
 import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
+import lamparski.areabase.services.AreaDataService.AreaListCallbacks;
 import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
+import lamparski.areabase.utils.Postcode;
 import lamparski.areabase.widgets.CommonDialogs;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
@@ -92,7 +92,7 @@ import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
  */
 public class AreaActivity extends Activity implements LocationListener,
 		ConnectionCallbacks,
-		OnConnectionFailedListener, OnBackStackChangedListener, AreaLookupCallbacks {
+		OnConnectionFailedListener, OnBackStackChangedListener, AreaLookupCallbacks, AreaListCallbacks {
 
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -420,6 +420,8 @@ public class AreaActivity extends Activity implements LocationListener,
 		final EditText mSearchBox = (EditText) menu
 				.findItem(R.id.action_search).getActionView();
 		final MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        // pretty sure this has no real effect but it gets rid of the ugly yellow highlight
+        assert mSearchBox != null && searchMenuItem != null;
 		searchMenuItem
 				.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 
@@ -496,8 +498,8 @@ public class AreaActivity extends Activity implements LocationListener,
 			break;
 		case R.id.action_locate:
 			if (gServicesConnected()) {
-				mGeoPoint = mLocationClient.getLastLocation();
-				doRefreshFragment();
+				getLocation();
+                changeFragment(SUMMARY);
 			}
 			break;
 		case R.id.action_refresh:
@@ -566,7 +568,13 @@ public class AreaActivity extends Activity implements LocationListener,
     }
 
     private void beginAreaFetch (final String query){
-        areaDataService.areaForName(query, this);
+        if(Postcode.isValid(query)){
+            Log.d("AreaActivity", "Text query: " + query + " is a postcode, using Area For Postcode");
+            areaDataService.areaForPostcode(query, this);
+        } else {
+            Log.d("AreaActivity", "Text query: " + query + " is not a postcode, using Areas For Name");
+            areaDataService.areasForName(query, this);
+        }
     }
 
 	/**
@@ -763,31 +771,6 @@ public class AreaActivity extends Activity implements LocationListener,
 		}.execute();
 	}
 
-	/**
-	 * Writes a CSV file to the Downloads directory
-	 * 
-	 * @param fname
-	 *            file name, include the .csv!
-	 * @param map
-	 *            the map to dump into csv
-	 * @throws IOException
-	 */
-	public static <K, V> void writeCSV(String fname, Map<K, V> map)
-			throws IOException {
-		File csvfile = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-				fname);
-		FileWriterWithEncoding csvwriter = new FileWriterWithEncoding(csvfile,
-				Charset.forName("UTF-8"));
-		for (Entry<K, V> en : map.entrySet()) {
-			csvwriter
-					.write(String.format("%s,%s\n", en.getKey(), en.getValue()));
-		}
-		csvwriter.flush();
-		csvwriter.close();
-	}
-
     public void showSubjectView(Area area, String subjectName) {
         Bundle args = new Bundle();
         Fragment replacementFragment = new SubjectViewFragment();
@@ -808,17 +791,34 @@ public class AreaActivity extends Activity implements LocationListener,
 
     @Override
     public void areaReady(Area area) {
-        mArea = area;
         if(area == null){
             Crouton.makeText(this, R.string.error_cannot_fetch_area_data, Style.ALERT).show();
             return;
         }
+        mArea = area;
         setTitle(area.getName());
-        if(mContentFragment == null){
-            changeFragment(SUMMARY);
-        } else {
-            doRefreshFragment();
+        changeFragment(SUMMARY);
+    }
+
+    @Override
+    public void areasReady(final List<Area> areas) {
+        Log.d("AreaActivity", "Text query: " + areas.size() + " areas to choose from.");
+        String[] areaNames = new String[areas.size()];
+        for(int i = 0; i < areas.size(); i++){
+            areaNames[i] = areas.get(i).getName();
         }
+        AlertDialog.Builder bld = new Builder(this);
+        bld.setTitle(R.string.select_area_from_list);
+        bld.setItems(areaNames, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final Area area = areas.get(which);
+                Log.d("AreaActivity",
+                        String.format("Text query: choice %d (=> %s)", which, area.getName()));
+                areaReady(area);
+            }
+        });
+        bld.show();
     }
 
     @Override
