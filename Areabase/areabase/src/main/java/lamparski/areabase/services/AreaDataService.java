@@ -42,7 +42,7 @@ import nde2.pull.types.Subject;
 public class AreaDataService extends Service {
 
     public interface BasicAreaInfoIface extends OnError {
-		public void allDone(float areaRank);
+		public void allDone(Float areaRank);
 
 		public void cardReady(CardModel cm);
 
@@ -83,7 +83,7 @@ public class AreaDataService extends Service {
 		return mBinder;
 	}
 
-    public void generateCardsForArea(Area area, final BasicAreaInfoIface callbacks) {
+    public void generateCardsForArea(final Area area, final BasicAreaInfoIface callbacks) {
         new AsyncTask<Area, CardModel, Float>(){
             @Override
             protected void onProgressUpdate(CardModel... values) {
@@ -142,6 +142,11 @@ public class AreaDataService extends Service {
                     Log.e("AreaDataService",
                             "Error processing card for Environment: "
                                     + e.getClass().getSimpleName(), e);
+                    callbacks.onError(e);
+                }
+                try {
+                    return AreaRank.getScore(area);
+                } catch (Exception e) {
                     callbacks.onError(e);
                 }
                 return null;

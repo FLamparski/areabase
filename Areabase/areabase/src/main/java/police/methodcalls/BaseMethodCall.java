@@ -1,6 +1,7 @@
 package police.methodcalls;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.os.Environment;
 import android.util.Log;
@@ -23,6 +24,7 @@ import javax.annotation.Nullable;
 
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.CacheContentProvider;
+import lamparski.areabase.CacheDbOpenHelper;
 import police.errors.APIException;
 
 /**
@@ -96,6 +98,14 @@ public abstract class BaseMethodCall {
 		String responseStr = doCallToDB(paramString);
         if(responseStr == null){
             responseStr = doCallToAPI(paramString);
+
+            ContentResolver contentResolver = AreaActivity
+                    .getAreabaseApplicationContext().getContentResolver();
+            ContentValues cacheValues = new ContentValues();
+            cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_URL, paramString);
+            cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_RETRIEVED_ON, System.currentTimeMillis());
+            cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_CACHED_OBJECT, responseStr);
+            contentResolver.insert(CacheContentProvider.POLICE_CACHE_URI, cacheValues);
         }
 
 		return responseStr;
@@ -118,11 +128,10 @@ public abstract class BaseMethodCall {
                     "A cached instance of %s is available, returning.\n",
                     url));
             response = c.getString(c.getColumnIndex("cachedObject"));
-            c.close();
         } else {
-            return null;
+            response = null;
         }
-
+        c.close();
         Log.d("Mapper", "A cached instance of " + url + " is available, returning.");
 
         return response;

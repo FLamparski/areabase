@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -23,11 +24,14 @@ import com.fima.cardsui.objects.CardModel;
 import com.fima.cardsui.views.CardUI;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.R;
+import lamparski.areabase.cards.AreaRankCard;
 import lamparski.areabase.cards.ErrorCard;
 import lamparski.areabase.cards.EventfulArrayList;
 import lamparski.areabase.cards.EventfulArrayList.OnItemAddedListener;
@@ -38,7 +42,9 @@ import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
 import lamparski.areabase.services.AreaDataService.BasicAreaInfoIface;
 import lamparski.areabase.widgets.CommonDialogHandlers;
 import nde2.errors.NDE2Exception;
+import nde2.pull.methodcalls.discovery.GetAreaDetail;
 import nde2.pull.types.Area;
+import nde2.pull.types.DetailedArea;
 
 import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
@@ -150,9 +156,15 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
     }
 
     @Override
-    public void allDone(float areaRank) {
+    public void allDone(Float areaRank) {
         if(getActivity() != null) {
             getActivity().setProgressBarIndeterminateVisibility(false);
+            if(areaRank != null){
+                CardModel scoreCard = new CardModel(AreaRankCard.class);
+                scoreCard.setTitlePlay(getString(R.string.card_arearank_text, area.getName()));
+                scoreCard.setDescription(String.format("%.1f", areaRank));
+                cardModels.add(scoreCard);
+            }
         }
     }
 
@@ -451,13 +463,44 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                         "refreshContent(): AreaService is unbound :(");
             }
 
-            mOpenSpaceView.setCentre(mLocation);
-            mOpenSpaceView.setZoom(10);
+            setMapCentre(area);
             refreshContentTries = 0;
         }
     };
 
-	@Override
+    private void setMapCentre(final Area area) {
+        new AsyncTask<Void, Void, List<Double>>(){
+            @Override
+            protected List<Double> doInBackground(Void... params) {
+                List<Double> coords = new ArrayList<Double>();
+                try {
+                    DetailedArea detailedArea = new GetAreaDetail(area).execute();
+                    double minX, minY, maxX, maxY, midX, midY;
+                    String[] rawcoords = detailedArea.getEnvelope().split(":");
+                    minX = Double.parseDouble(rawcoords[0]);
+                    minY = Double.parseDouble(rawcoords[1]);
+                    maxX = Double.parseDouble(rawcoords[2]);
+                    maxY = Double.parseDouble(rawcoords[3]);
+                    midX = (minX + maxX) / 2;
+                    midY = (minY + maxY) / 2;
+                    coords.add(midX);
+                    coords.add(midY);
+                } catch (Exception ex) {
+                    onError(ex);
+                }
+                return coords;
+            }
+
+            @Override
+            protected void onPostExecute(List<Double> coords) {
+                if(!coords.isEmpty()){
+                    mOpenSpaceView.setCentre_byEastingNorthing(coords.get(0), coords.get(1));
+                }
+            }
+        }.execute();
+    }
+
+    @Override
 	public void searchByText(String query) {
 		Log.d("SummaryFragment", "search called with query: " + query);
 

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -195,7 +196,12 @@ public class CrimeCardProvider {
                 Map<String, Integer> crimeSlice = new HashMap<String, Integer>();
                 for (Topic t : d.getTopics().values()) {
                     String key = t.getTitle();
-                    int value = (int) d.getItems(t).iterator().next().getValue();
+                    int value;
+                    try{
+                        value = (int) d.getItems(t).iterator().next().getValue();
+                    } catch (NoSuchElementException nsee){
+                        continue;
+                    }
                     crimeSlice.put(key, value);
                 }
                 onsDatacube.put(date, crimeSlice);

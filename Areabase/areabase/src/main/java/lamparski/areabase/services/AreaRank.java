@@ -43,9 +43,9 @@ public class AreaRank {
     }
 
     private static float unemployment(Area area) throws XmlPullParserException, IOException, NDE2Exception {
-        Subject econSubject = findSubject(area, "Economic Deprivation");
+        Subject censusSubject = findSubject(area, "Census");
         List<DataSetFamily> families = findRequiredFamilies(area,
-                econSubject, EconomyCardProvider.CENSUS_KEYWORDS);
+                censusSubject, EconomyCardProvider.CENSUS_KEYWORDS);
         Set<Dataset> data = new GetTables().forArea(area).inFamilies(families).execute();
         float numUnemployed = 0;
         float numPeople = 0;
@@ -66,9 +66,17 @@ public class AreaRank {
 
         float unemplRatio = numUnemployed / numPeople;
 
-        // TODO: Return a value according to the specification.
-
-        return 0;
+        if(unemplRatio <= 0.02f){
+            return 6f;
+        } else if (unemplRatio <= 0.04f){
+            return 3f;
+        } else if (unemplRatio <= 0.08f) {
+            return 0f;
+        } else if (unemplRatio <= 0.1f){
+            return -3f;
+        } else {
+            return -6f;
+        }
     }
 
     private static float analyseIncomeTrend(TrendDescription incomeTrend) {

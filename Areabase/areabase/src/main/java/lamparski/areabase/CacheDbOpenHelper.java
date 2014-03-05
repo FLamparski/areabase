@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class CacheDbOpenHelper extends SQLiteOpenHelper {
 
-	protected static class BaseCacheTable {
+	public static class BaseCacheTable {
 		public static final String FIELD_ID = "_id";
 		public static final String FIELD_URL = "url";
 		public static final String FIELD_CACHED_OBJECT = "cachedObject";
@@ -65,7 +65,7 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
         }
     }
 
-	private static final int VERSION = 2;
+	private static final int VERSION = 3;
 
 	public CacheDbOpenHelper(Context context) {
 		super(context, "CacheDb", null, VERSION);
@@ -74,11 +74,15 @@ public class CacheDbOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		OnsCacheTable.onCreate(db);
+        PoliceCacheTable.onCreate(db);
+        MapitCacheTable.onCreate(db);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		OnsCacheTable.onUpgrade(db);
+        PoliceCacheTable.onUpgrade(db);
+        MapitCacheTable.onUpgrade(db);
 		onCreate(db);
 	}
 

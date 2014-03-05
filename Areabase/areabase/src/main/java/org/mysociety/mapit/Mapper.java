@@ -1,6 +1,7 @@
 package org.mysociety.mapit;
 
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.util.Log;
 
@@ -22,6 +23,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.CacheContentProvider;
+import lamparski.areabase.CacheDbOpenHelper;
 import nde2.errors.NDE2Exception;
 import nde2.pull.methodcalls.discovery.GetAreaDetail;
 
@@ -46,14 +48,13 @@ public class Mapper {
                     "A cached instance of %s is available, returning.\n",
                     url));
             response = c.getString(c.getColumnIndex("cachedObject"));
-            c.close();
         } else {
-            return null;
+            response = null;
         }
-
+        c.close();
         Log.d("Mapper", "A cached instance of " + url + " is available, returning.");
 
-        return new JsonParser().parse(response);
+        return response != null ? new JsonParser().parse(response) : null;
     }
 
     private static JsonElement getJsonFromMapit(String url) throws Exception {
@@ -76,6 +77,14 @@ public class Mapper {
         String responseStr;
         responseStr = IOUtils.toString(callConnection.getInputStream());
         callConnection.disconnect();
+
+        ContentResolver contentResolver = AreaActivity
+                .getAreabaseApplicationContext().getContentResolver();
+        ContentValues cacheValues = new ContentValues();
+        cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_URL, url);
+        cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_RETRIEVED_ON, System.currentTimeMillis());
+        cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_CACHED_OBJECT, responseStr);
+        contentResolver.insert(CacheContentProvider.MAPIT_CACHE_URI, cacheValues);
 
         JsonParser jp = new JsonParser();
         return jp.parse(responseStr);

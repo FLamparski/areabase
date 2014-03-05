@@ -516,7 +516,7 @@ public class AreaActivity extends Activity implements LocationListener,
 	}
 
 	private void searchAreasByText(String searchQuery) {
-		mContentFragment.searchByText(searchQuery);
+		beginAreaFetch(searchQuery);
 	}
 
 	int doRefreshFragment_retries = 0;
@@ -565,6 +565,10 @@ public class AreaActivity extends Activity implements LocationListener,
         areaDataService.areaForLocation(location, this);
     }
 
+    private void beginAreaFetch (final String query){
+        areaDataService.areaForName(query, this);
+    }
+
 	/**
 	 * Checks if the locator service has new location, then saves it and returns
 	 * it.
@@ -572,14 +576,10 @@ public class AreaActivity extends Activity implements LocationListener,
 	 * @return User's location.
 	 */
 	public Location getLocation() {
-		// if (is_locator_bound) {
-		// if (mLocatorService.hasBetterLocation())
-		// mGeoPoint = mLocatorService.getLocation();
-		// }
-
-		// return mGeoPoint;
-
-		return gServicesConnected() ? mLocationClient.getLastLocation() : null;
+		if(gServicesConnected()){
+            mGeoPoint = mLocationClient.getLastLocation();
+        }
+        return mGeoPoint;
 	}
 
     public Area getArea() {
