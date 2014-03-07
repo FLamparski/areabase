@@ -69,7 +69,6 @@ import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.AreaListCallbacks;
 import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
-import lamparski.areabase.utils.Postcode;
 import lamparski.areabase.widgets.CommonDialogs;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
@@ -568,7 +567,7 @@ public class AreaActivity extends Activity implements LocationListener,
     }
 
     private void beginAreaFetch (final String query){
-        if(Postcode.isValid(query)){
+        if(com.uk_postcodes.api.Postcode.isValid(query)){
             Log.d("AreaActivity", "Text query: " + query + " is a postcode, using Area For Postcode");
             areaDataService.areaForPostcode(query, this);
         } else {

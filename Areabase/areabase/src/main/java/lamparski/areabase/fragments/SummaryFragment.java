@@ -181,45 +181,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
         }
     }
 
-    /*@Override
-    public void onValueNotAvailable() {
-        SummaryFragment.this.getActivity().runOnUiThread(new Runnable() {
-            public void run() {
-                for (CardModel ecm : cardModels) {
-                    if (ecm.getTitlePlay()
-                            .equals(getResources()
-                                    .getString(
-                                            R.string.card_error_values_not_available_title))) {
-                        return;
-                    }
-                }
-                CardModel cm = new CardModel(
-                        getResources()
-                                .getString(
-                                        R.string.card_error_values_not_available_title),
-                        getResources()
-                                .getString(
-                                        R.string.card_error_values_not_available_body),
-                        HoloCSSColourValues.ORANGE.getCssValue(),
-                        HoloCSSColourValues.ORANGE.getCssValue(), false,
-                        true, PlayCard.class);
-                cardModels.addSilent(cm);
-                Card crd;
-                try {
-                    crd = (Card) CardFactory.createCard(cm);
-                } catch (java.lang.InstantiationException e) {
-                    e.printStackTrace();
-                    return;
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                crd.setOnClickListener(sExplainMissingData);
-                mCardUI.addCard(crd);
-            }
-        });
-    }*/
-
     @Override
     public void onAreaNameFound(final String name) {
         if(getActivity() != null) {
@@ -265,15 +226,6 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
 
 			Log.d("SummaryFragment", "    read current-coords -> mLocation; "
 					+ mLocation.toString());
-
-			/*new Handler().postDelayed(new Runnable() {
-
-				@Override
-				public void run() {
-					mOpenSpaceView.setCentre(mLocation);
-					mOpenSpaceView.setZoom(10);
-				}
-			}, 750); */
 
 			Object depickledCards = savedInstanceState
 					.getSerializable("card-models");
@@ -503,7 +455,7 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
             protected void onPostExecute(List<Double> coords) {
                 if(!coords.isEmpty()){
                     mOpenSpaceView.setCentre_byEastingNorthing(coords.get(0), coords.get(1));
-                    mOpenSpaceView.setZoom(10);
+                    mOpenSpaceView.setZoom(9);
                 }
             }
         }.execute();

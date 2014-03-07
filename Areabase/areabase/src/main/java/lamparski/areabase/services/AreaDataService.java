@@ -9,6 +9,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.fima.cardsui.objects.CardModel;
+import com.uk_postcodes.api.Postcode;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -153,7 +154,7 @@ public class AreaDataService extends Service {
                     callbacks.onError(e);
                 }
                 try {
-                    return AreaRank.getScore(area);
+                    return AreaRank.forArea(area);
                 } catch (Exception e) {
                     callbacks.onError(e);
                 }
@@ -191,16 +192,16 @@ public class AreaDataService extends Service {
 
 				Area theArea = null;
 				try {
-                    String postcode = com.uk_postcodes.api.Geocoder.postcodeForLocation(loc);
+                    String postcode = Postcode.forLocation(loc);
                     Log.i("AreaDataService", "Got postcode: " + postcode);
 					Set<Area> areaSet = new FindAreas()
-							.ofLevelType(Area.LEVELTYPE_MSOA)
+							.ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
 							.inHierarchy(
 									Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
 							.forPostcode(postcode).execute();
 
 					for (Area a : areaSet) {
-						if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA) {
+						if (a.getLevelTypeId() == Area.LEVELTYPE_LOCAL_AUTHORITY) {
                             theArea = a;
                         }
 					}
@@ -238,13 +239,13 @@ public class AreaDataService extends Service {
                 Area theArea = null;
                 try {
                     Set<Area> areaSet = new FindAreas()
-                            .ofLevelType(Area.LEVELTYPE_MSOA)
+                            .ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
                             .inHierarchy(
                                     Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
                             .forPostcode(postcode).execute();
 
                     for (Area a : areaSet) {
-                        if (a.getLevelTypeId() == Area.LEVELTYPE_MSOA) {
+                        if (a.getLevelTypeId() == Area.LEVELTYPE_LOCAL_AUTHORITY) {
                             theArea = a;
                         }
                     }
@@ -282,6 +283,7 @@ public class AreaDataService extends Service {
 					Set<Area> areaSet = new FindAreas()
 							.inHierarchy(
 									Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+                            .ofLevelType(Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
 							.whoseNameContains(params[0]).execute();
                     if(areaSet.size() == 0){
                         commlink.onError(new FileNotFoundException("No areas returned for " +
@@ -312,10 +314,17 @@ public class AreaDataService extends Service {
 		}.execute(areaName);
 	}
 
+    /**
+     * Gets a list of areas whose name contains the string areaName, ordered by the similarity
+     * to that string.
+     * @param areaName the name (partials accepted) for the area to find
+     * @param commlink callbacks for returning the value or reporting errors.
+     */
     public void areasForName(final String areaName,
                             final AreaListCallbacks commlink) {
         /**
-         * Compares the "distances" of given areas' names from the original query
+         * Compares the "distances" of given areas' names from the original query. This makes it
+         * possible to sort the area list without having to worry about sorting algorithms.
          */
         final Comparator<Area> areaComparator = new Comparator<Area>() {
             @Override
@@ -340,6 +349,7 @@ public class AreaDataService extends Service {
                     Set<Area> areaSet = new FindAreas()
                             .inHierarchy(
                                     Area.HIERARCHY_2011_STATISTICAL_GEOGRAPHY)
+                            .ofLevelType(Area.LEVELTYPE_LOCAL_AUTHORITY)
                             .whoseNameContains(params[0]).execute();
                     if(areaSet.size() == 0){
                         commlink.onError(new FileNotFoundException("No areas returned for " +

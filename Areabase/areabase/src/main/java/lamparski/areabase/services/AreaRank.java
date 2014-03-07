@@ -32,12 +32,12 @@ import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
 /**
- * Created by Minkovsky on 04/03/14.
+ * One public method
  */
 public class AreaRank {
     public static float MID_SCORE = 38.0f;
 
-    public static float getScore(Area area) throws Exception {
+    public static float forArea(Area area) throws Exception {
         try{
             return cachedScore(area);
         } catch (FileNotFoundException fnfe){
