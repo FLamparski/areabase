@@ -20,13 +20,11 @@ import lamparski.areabase.cardproviders.EconomyCardProvider;
 import lamparski.areabase.cardproviders.EnvironmentCardProvider;
 import lamparski.areabase.cardproviders.TrendDescription;
 import nde2.errors.NDE2Exception;
-import nde2.errors.ValueNotAvailable;
 import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
-import nde2.pull.types.Topic;
 
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
@@ -85,15 +83,12 @@ public class AreaRank {
         score += energyTrend(area);
         Log.v("AreaRank",
                 String.format("Computing a new score for %s... [Energy component done]", area.getName()));
-        TrendDescription incomeTrend = EconomyCardProvider.calculateIncomeTrend(area,
-                findRequiredFamilies(area, economySubject, EconomyCardProvider.ECONOMY_KEYWORDS));
-        score += analyseIncomeTrend(incomeTrend);
-        score += compareIncomeToNational(incomeTrend);
-        Log.v("AreaRank",
-                String.format("Computing a new score for %s... [Income component done]", area.getName()));
         score += unemployment(area);
         Log.v("AreaRank",
                 String.format("Computing a new score for %s... [Unemployment component done]", area.getName()));
+        score += education(area);
+        Log.v("AreaRank",
+                String.format("Computing a new score for %s... [Health component done]", area.getName()));
 
         return (score/(MID_SCORE*2))*100;
     }
@@ -110,75 +105,89 @@ public class AreaRank {
     }
 
     private static float unemployment(Area area) throws XmlPullParserException, IOException, NDE2Exception {
-        Subject censusSubject = findSubject(area, "Census");
-        List<DataSetFamily> families = findRequiredFamilies(area,
-                censusSubject, EconomyCardProvider.CENSUS_KEYWORDS);
-        Set<Dataset> data = new GetTables().forArea(area).inFamilies(families).execute();
-        float numUnemployed = 0;
-        float numPeople = 0;
-        for(Dataset ds : data){
-            for(Topic t : ds.getTopics().values()){
-                if(t.getTitle().equals("Economically Active; Unemployed")){
-                    numUnemployed = ds.getItems(t).iterator().next().getValue();
-                }
-                if(t.getTitle().startsWith("All Usual Residents")){
-                    numPeople = ds.getItems(t).iterator().next().getValue();
-                }
-            }
-        }
+        TrendDescription trenddesc = EconomyCardProvider.getUnemploymentRate(area);
 
-        if(numPeople == 0){
-            throw new ValueNotAvailable("Number of people in this area is 0. Abort before division.");
-        }
+        float scoreComponent = 0f;
 
-        float unemplRatio = numUnemployed / numPeople;
-
+        float unemplRatio = trenddesc.currentValue;
         if(unemplRatio <= 0.02f){
-            return 6f;
+            scoreComponent += 6f;
         } else if (unemplRatio <= 0.04f){
-            return 3f;
+            scoreComponent += 3f;
         } else if (unemplRatio <= 0.08f) {
-            return 0f;
+            scoreComponent += 0f;
         } else if (unemplRatio <= 0.1f){
-            return -3f;
+            scoreComponent += -3f;
         } else {
-            return -6f;
+            scoreComponent += -6f;
         }
+
+        switch (trenddesc.which){
+            case TrendDescription.FALLING_RAPIDLY:
+                scoreComponent += 8f;
+                break;
+            case TrendDescription.FALLING:
+                scoreComponent += 4f;
+                break;
+            case TrendDescription.STABLE:
+                scoreComponent += 0f;
+                break;
+            case TrendDescription.RISING:
+                scoreComponent += -4f;
+                break;
+            case TrendDescription.RISING_RAPIDLY:
+                scoreComponent += -8f;
+                break;
+            default:
+                break;
+        }
+
+        return scoreComponent;
     }
 
-    private static float analyseIncomeTrend(TrendDescription incomeTrend) {
-        switch(incomeTrend.which){
-            case TrendDescription.FALLING_RAPIDLY:
-                return -8f;
-            case TrendDescription.FALLING:
-                return -4f;
-            case TrendDescription.STABLE:
-                return 0f;
-            case TrendDescription.RISING:
-                return 4f;
-            case TrendDescription.RISING_RAPIDLY:
-                return 8f;
-            default:
-                return 0;
-        }
-    }
+    private static float education(Area area) throws XmlPullParserException, IOException, NDE2Exception {
+        float scoreComponent = 0f;
 
-    private static float compareIncomeToNational(TrendDescription incomeTrend) {
-        TrendDescription d = EconomyCardProvider.compareIncomeWithNational(incomeTrend.currentValue);
-        switch(d.which){
-            case TrendDescription.FALLING_RAPIDLY:
-                return -10f;
-            case TrendDescription.FALLING:
-                return -5f;
-            case TrendDescription.STABLE:
-                return 0f;
-            case TrendDescription.RISING:
-                return 5f;
-            case TrendDescription.RISING_RAPIDLY:
-                return 10f;
-            default:
-                return 0;
+        float allKS4Pupils = 0f;
+        float freeMealsKS4Pupils = 0f;
+        float aStarToCKS4Pupils = 0f;
+
+        Subject eduSubject = findSubject(area, "Education, Skills and Training");
+        String[] kw = new String[] { "GCSE and Equivalent Results for Young People by Free School Meal Eligibility, Referenced by Location of Pupil Residence" };
+        List<DataSetFamily> dataSetFamilies = findRequiredFamilies(area, eduSubject, kw);
+        Set<Dataset> datasets = new GetTables().inFamilies(dataSetFamilies).forArea(area).execute();
+
+        // TODO: Find the A*-C GCSE variable
+
+        // TODO: Find the All Pupils and All Free School Meals Pupils and calculate the ratio
+
+        float freeSchoolMealRatio = freeMealsKS4Pupils / allKS4Pupils;
+
+        if(freeSchoolMealRatio >= 0.3){
+            scoreComponent += -5f;
+        } else if(freeSchoolMealRatio >= 0.2){
+            scoreComponent += -2.5f;
+        } else if(freeSchoolMealRatio >= 0.15){
+            scoreComponent += 0f;
+        } else if(freeSchoolMealRatio >= 0.1){
+            scoreComponent += 2.5f;
+        } else {
+            scoreComponent += 5f;
         }
+
+        if(aStarToCKS4Pupils >= 95f){
+            scoreComponent += 5f;
+        } else if (aStarToCKS4Pupils >= 90f){
+            scoreComponent += 2.5f;
+        } else if (aStarToCKS4Pupils >= 85f){
+            scoreComponent += 0f;
+        } else if (aStarToCKS4Pupils >= 80f){
+            scoreComponent += -2.5f;
+        } else {
+            scoreComponent += -5f;
+        }
+
+        return scoreComponent;
     }
 
     private static float energyTrend(Area area) throws XmlPullParserException, IOException, NDE2Exception {

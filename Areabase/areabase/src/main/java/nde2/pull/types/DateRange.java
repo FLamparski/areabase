@@ -115,4 +115,18 @@ public class DateRange implements Serializable {
 		return true;
 	}
 
+    public static DateRange mostRecent(DateRange[] dateRanges){
+        DateRange ret = null;
+        long now = System.currentTimeMillis();
+        long smallestDifference = Long.MAX_VALUE;
+        for(DateRange r : dateRanges){
+            long diff = now - r.endDate.getTime();
+            if(diff < smallestDifference){
+                smallestDifference = diff;
+                ret = r;
+            }
+        }
+        return ret;
+    }
+
 }

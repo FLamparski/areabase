@@ -95,16 +95,9 @@
 
     <!-- cards -> economy -->
     <string name="card_economy_title">Economy of %1$s</string>
-    <string name="card_economy_body_base">Most of people in %1$s are %2$s. Most people here work in %3$s. The average income is %4$s national average and %5$s.</string>
+    <string name="card_economy_body_base">Most of people in %1$s are %2$s. Most people here work in %3$s. Unemployment is at %3$.1f%% and %4$s.</string>
 
-    <string-array name="card_economy_compare_income_with_national">
-        <item>much lower than</item>
-        <item>lower than</item>
-        <item>on par with</item>
-        <item>higher than</item>
-        <item>much higher than</item>
-    </string-array>
-    <string-array name="card_economy_income_trend">
+    <string-array name="card_economy_unemployment_trend">
         <item>sharply falling</item>
         <item>falling</item>
         <item>stable</item>

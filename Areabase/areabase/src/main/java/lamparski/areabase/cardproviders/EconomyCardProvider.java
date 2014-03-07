@@ -1,6 +1,5 @@
 package lamparski.areabase.cardproviders;
 
-import android.annotation.SuppressLint;
 import android.content.res.Resources;
 
 import com.fima.cardsui.objects.CardModel;
@@ -8,13 +7,11 @@ import com.fima.cardsui.objects.CardModel;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import lamparski.areabase.R;
@@ -23,6 +20,7 @@ import lamparski.areabase.map_support.HoloCSSColourValues;
 import nde2.errors.InvalidParameterException;
 import nde2.errors.NDE2Exception;
 import nde2.errors.ValueNotAvailable;
+import nde2.helpers.Statistics;
 import nde2.pull.methodcalls.delivery.GetTables;
 import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
@@ -34,23 +32,13 @@ import nde2.pull.types.Topic;
 
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
-import static nde2.helpers.DateFormat.getYear;
 
 public class EconomyCardProvider {
-	public static final String[] CENSUS_KEYWORDS = { "KS601EW", // Economic
-																// activity
-			"QS605EW" // Type of economic activity
-	};
-	public static final String[] ECONOMY_KEYWORDS = { "Income" // Finds the
-																// model median
-																// income
-	};
+	public static final String[] CENSUS_KEYWORDS = { "KS601EW", "QS605EW" };
+	public static final String[] ECONOMY_KEYWORDS = { "Worklessness: Economic Activity" };
 
-	private final static float INCOME_STABLE_LOWER_THRESHOLD = -0.01f;
-	private final static float INCOME_STABLE_UPPER_THRESHOLD = 0.01f;
-	private final static float INCOME_RAPID_UPPER_THRESHOLD = 0.2f;
-	private final static float INCOME_RAPID_LOWER_THRESHOLD = -0.2f;
-	public static final float NATIONAL_MEDIAN_WEEKLY_INCOME = 500f;
+	private static final int WORKLESSNESS_DATASET_ID = 2212;
+    private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 
 	/**
 	 * Generates a summary of economic data for the supplied area.
@@ -61,7 +49,6 @@ public class EconomyCardProvider {
 	 * @throws IOException
 	 * @throws XmlPullParserException
 	 * @throws NDE2Exception
-	 * @throws ClassNotFoundException
 	 */
 	public static CardModel economyCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
@@ -85,118 +72,74 @@ public class EconomyCardProvider {
 
 		String type_of_economic_activity = getTypeOfEconomicActivity(theDatasets);
 		String biggest_sector = getBiggestEconomySector(theDatasets);
-		TrendDescription income_trend_descriptor = calculateIncomeTrend(area,
-				findRequiredFamilies(area, economySubject, ECONOMY_KEYWORDS));
-		int income_descriptor = compareIncomeWithNational(income_trend_descriptor.currentValue).which;
-		String avg_income_v_national = res
-				.getStringArray(R.array.card_economy_compare_income_with_national)[income_descriptor + 2];
-		String avg_income_trend = res
-				.getStringArray(R.array.card_economy_income_trend)[income_trend_descriptor.which + 2];
+		TrendDescription unemploymentDescription = getUnemploymentRate(area);
+		float unempl_val = unemploymentDescription.currentValue;
+        String unempl_trend = res.getStringArray(R.array.card_economy_unemployment_trend)[unemploymentDescription.which + 2];
 
 		String card_title = res.getString(R.string.card_economy_title,
 				area.getName());
 		String card_body = res.getString(R.string.card_economy_body_base,
 				area.getName(), type_of_economic_activity, biggest_sector,
-				avg_income_v_national, avg_income_trend);
+				unempl_val, unempl_trend);
 		return makeCard(card_title, card_body);
 	}
 
-	public static TrendDescription compareIncomeWithNational(float meanIncome) {
-		TrendDescription td = new TrendDescription();
-		td.currentValue = meanIncome;
+    public static TrendDescription getUnemploymentRate(Area area) throws XmlPullParserException, IOException, NDE2Exception {
+        TrendDescription unemploymentTrendDescription = new TrendDescription();
 
-		if (meanIncome <= NATIONAL_MEDIAN_WEEKLY_INCOME * 0.75)
-			td.which = TrendDescription.FALLING_RAPIDLY;
-		else if (meanIncome > NATIONAL_MEDIAN_WEEKLY_INCOME * 0.75
-				&& meanIncome <= NATIONAL_MEDIAN_WEEKLY_INCOME * 0.99)
-			td.which = TrendDescription.FALLING;
-		else if (meanIncome > NATIONAL_MEDIAN_WEEKLY_INCOME * 0.99
-				&& meanIncome <= NATIONAL_MEDIAN_WEEKLY_INCOME * 1.01)
-			td.which = TrendDescription.STABLE;
-		else if (meanIncome > NATIONAL_MEDIAN_WEEKLY_INCOME * 1.01
-				&& meanIncome <= NATIONAL_MEDIAN_WEEKLY_INCOME * 1.25)
-			td.which = TrendDescription.RISING;
-		else
-			td.which = TrendDescription.RISING_RAPIDLY;
+        Subject econSubject = findSubject(area, "Economic Deprivation");
+        List<DataSetFamily> dataSetFamilies = findRequiredFamilies(area, econSubject, ECONOMY_KEYWORDS);
+        DataSetFamily worklessnessFamily = null;
+        for(DataSetFamily f : dataSetFamilies){
+            if(f.getFamilyId() == WORKLESSNESS_DATASET_ID){
+                worklessnessFamily = f;
+            }
+        }
 
-		return td;
-	}
+        DateRange[] periods = worklessnessFamily.getDateRanges();
+        DateRange mostRecent = DateRange.mostRecent(periods);
+        Map<DateRange, Dataset> datasets = new HashMap<DateRange, Dataset>();
+        for(DateRange p : periods){
+            Set<Dataset> ds = new GetTables().forArea(area).inFamily(worklessnessFamily).inDateRange(p).execute();
+            datasets.put(p, ds.iterator().next());
+        }
 
-	@SuppressLint("UseSparseArrays")
-	public static TrendDescription calculateIncomeTrend(Area area,
-			List<DataSetFamily> datasetFamilies)
-			throws InvalidParameterException, IOException,
-			XmlPullParserException, NDE2Exception {
-		TrendDescription td = new TrendDescription();
+        float currentLevel = 0f;
+        Map<Integer, Float> datapoints = new HashMap<Integer, Float>();
+        for(Entry<DateRange, Dataset> entry : datasets.entrySet()){
+            DateRange drkey = entry.getKey();
+            int intkey = (int) (drkey.getEndDate().getTime() / (UNIX_30_DAYS * 4l));
+            Dataset daval = entry.getValue();
+            float fval = 0f;
+            for(Topic t : daval.getTopics().values()){
+                if(t.getTitle().contains("Unemployment Rate; Aged 16-64")){
+                    DataSetItem item = daval.getItems(t).iterator().next();
+                    fval = item.getValue();
+                    if(mostRecent.equals(drkey)){
+                        currentLevel = fval;
+                    }
+                    datapoints.put(intkey, fval);
+                }
+            }
+        }
 
-		DataSetFamily dsFamily = datasetFamilies.get(0);
-		DateRange[] dateRages = dsFamily.getDateRanges();
-		Set<Dataset> theDatasets = new HashSet<Dataset>();
-		for (DateRange period : dateRages) {
-			Set<Dataset> currentDataset = new GetTables().forArea(area)
-					.inFamily(dsFamily).inDateRange(period).execute();
-			theDatasets.addAll(currentDataset);
-		}
+        double ols = Statistics.linearRegressionGradient(datapoints);
 
-		/* maps the year to the mean income */
-		Map<Integer, Float> yearToIncomeMap = new HashMap<Integer, Float>();
+        if(ols <= -0.75){
+            unemploymentTrendDescription.which = TrendDescription.FALLING_RAPIDLY;
+        } else if(ols <= -0.05){
+            unemploymentTrendDescription.which = TrendDescription.FALLING;
+        } else if(ols <= 0.05){
+            unemploymentTrendDescription.which = TrendDescription.STABLE;
+        } else if(ols <= 0.75){
+            unemploymentTrendDescription.which = TrendDescription.RISING;
+        } else {
+            unemploymentTrendDescription.which = TrendDescription.RISING_RAPIDLY;
+        }
+        unemploymentTrendDescription.currentValue = currentLevel;
 
-		for (Dataset ds : theDatasets) {
-			for (Topic t : ds.getTopics().values()) {
-				if (t.getTitle().equals(
-						"Average Weekly Household Net Income Estimate")) {
-					Set<DataSetItem> datapoints = ds.getItems(t);
-					if (datapoints.size() < 1)
-						continue; // skip this one
-					DataSetItem datapoint = datapoints.iterator().next();
-					int year = getYear(datapoint.getPeriod().getEndDate());
-					float value = datapoint.getValue();
-					yearToIncomeMap.put(year, value);
-				}
-			}
-		}
-
-		/* a sorted list is needed (well is it?) */
-		List<Integer> years = new ArrayList<Integer>(yearToIncomeMap.keySet());
-		Collections.sort(years);
-		float avgPercentageChange = 0f;
-		int previous_year = 0;
-		for (Integer current_year : years) {
-			if (previous_year == 0) {
-				previous_year = current_year;
-				continue;
-			}
-			Float oldVal = yearToIncomeMap.get(previous_year);
-			Float newVal = yearToIncomeMap.get(current_year);
-			float percentageChange = ((float) newVal - (float) oldVal)
-					/ (float) oldVal;
-
-			if (avgPercentageChange == 0f) {
-				avgPercentageChange = percentageChange;
-			} else {
-				avgPercentageChange = (avgPercentageChange + percentageChange) / 2;
-			}
-		}
-
-		if (avgPercentageChange > INCOME_STABLE_LOWER_THRESHOLD
-				&& avgPercentageChange < INCOME_STABLE_UPPER_THRESHOLD) {
-			td.which = TrendDescription.STABLE;
-		} else if (avgPercentageChange <= INCOME_STABLE_LOWER_THRESHOLD
-				&& avgPercentageChange > INCOME_RAPID_LOWER_THRESHOLD) {
-			td.which = TrendDescription.FALLING;
-		} else if (avgPercentageChange <= INCOME_RAPID_LOWER_THRESHOLD) {
-			td.which = TrendDescription.FALLING_RAPIDLY;
-		} else if (avgPercentageChange >= INCOME_STABLE_UPPER_THRESHOLD
-				&& avgPercentageChange < INCOME_RAPID_UPPER_THRESHOLD) {
-			td.which = TrendDescription.RISING;
-		} else {
-			td.which = TrendDescription.RISING_RAPIDLY;
-		}
-
-		td.currentValue = yearToIncomeMap.get(years.get(years.size() - 1));
-
-		return td;
-	}
+        return unemploymentTrendDescription;
+    }
 
 	private static String getBiggestEconomySector(Set<Dataset> theDatasets) {
 		String largestEconomySector = null;

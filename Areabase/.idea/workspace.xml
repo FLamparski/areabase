@@ -71,17 +71,14 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Much better navigation flow, addressed #15 too.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/Postcode.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/Wordplay.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/areabase/src/main/java/com/uk_postcodes/api/Geocoder.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/com/uk_postcodes/api/Postcode.java" />
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Minor refactoring">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaDataService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/com/google/android/gms/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/DateRange.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/DateRange.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/Statistics.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/Statistics.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -160,10 +157,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AreaRank.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AreaRank.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="31" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3582">
+            <state line="161" column="93" selection-start="6236" selection-end="6236" vertical-scroll-proportion="0.37543452" vertical-offset="2088" max-vertical-offset="3780">
               <folding />
             </state>
           </provider>
@@ -178,10 +175,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EconomyCardProvider.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="EconomyCardProvider.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="0" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.27114716" vertical-offset="0" max-vertical-offset="5058">
+            <state line="82" column="40" selection-start="3175" selection-end="3175" vertical-scroll-proportion="0.0" vertical-offset="648" max-vertical-offset="4140">
+              <folding>
+                <element signature="e#2952#3014#0" expanded="true" />
+                <element signature="e#4013#4033#0" expanded="true" />
+                <element signature="e#4335#4351#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Statistics.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/Statistics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="0" selection-start="1676" selection-end="1676" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="2052">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CrimeCardProvider.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="54" column="4" selection-start="1817" selection-end="1884" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="6156">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateRange.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/DateRange.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="130" column="0" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.0" vertical-offset="1405" max-vertical-offset="2286">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="99" column="40" selection-start="6688" selection-end="6688" vertical-scroll-proportion="0.0" vertical-offset="1463" max-vertical-offset="2790">
               <folding />
             </state>
           </provider>
@@ -194,33 +231,6 @@
               <folding>
                 <element signature="e#12230#12236#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CrimeCardProvider.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="0" selection-start="6750" selection-end="6750" vertical-scroll-proportion="0.0" vertical-offset="3186" max-vertical-offset="7002">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EnvironmentCardProvider.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EnvironmentCardProvider.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="170" column="0" selection-start="5642" selection-end="5642" vertical-scroll-proportion="0.0" vertical-offset="3060" max-vertical-offset="3636">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AreaActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="500" column="38" selection-start="16902" selection-end="16902" vertical-scroll-proportion="0.0" vertical-offset="9000" max-vertical-offset="15246">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -1747,10 +1757,7 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/Topic.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cards/PlayCard.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/DemographicsCardProvider.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/BaseMethodCall.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/dummy/mockup_classes/DemoObjectFragment.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/discovery/GetDatasetFamilies.java" />
@@ -1784,7 +1791,6 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/org/mysociety/mapit/Mapper.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/values/color.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/BaseMethodCall.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/police/methodcalls/CrimeCategoriesMethodCall.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/layout/card_arearank.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/PoliceDataFragment.java" />
@@ -1796,8 +1802,12 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/com/uk_postcodes/api/Geocoder.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/Postcode.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/com/uk_postcodes/api/Postcode.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SummaryFragment.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/DateRange.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/Statistics.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java" />
       </list>
     </option>
   </component>
@@ -2260,6 +2270,104 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="nde2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pull" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nde2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helpers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nde2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="areabase" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2363,6 +2471,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="fragments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="areabase" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cardproviders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2683,7 +2825,11 @@
       <created>1394050212080</created>
       <updated>1394050212080</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Minor refactoring">
+      <created>1394220320101</created>
+      <updated>1394220320101</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2791,30 +2937,14 @@
     <MESSAGE value="Some documentation edits." />
     <MESSAGE value="Subject Views now show charts for their data." />
     <MESSAGE value="Much better navigation flow, addressed #15 too." />
-    <option name="LAST_COMMIT_MESSAGE" value="Much better navigation flow, addressed #15 too." />
+    <MESSAGE value="Minor refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor refactoring" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/layout-land/police_data_fragment.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="0" selection-start="1573" selection-end="1573" vertical-scroll-proportion="0.9314079" vertical-offset="0" max-vertical-offset="882">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="67" selection-start="788" selection-end="788" vertical-scroll-proportion="0.0" vertical-offset="73" max-vertical-offset="936">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/fragments/SubjectListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="38" column="92" selection-start="1293" selection-end="1293" vertical-scroll-proportion="-1.8366164" vertical-offset="1837" max-vertical-offset="2700" />
@@ -2901,7 +3031,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/pull/methodcalls/delivery/GetTables.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="189" column="0" selection-start="5359" selection-end="5359" vertical-scroll-proportion="0.0" vertical-offset="2757" max-vertical-offset="8653" />
+        <state line="189" column="0" selection-start="5359" selection-end="5359" vertical-scroll-proportion="0.0" vertical-offset="2757" max-vertical-offset="8653">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/org/mysociety/mapit/Mapper.java">
@@ -2976,13 +3108,6 @@
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/1.3.9/40719ea6961c0cb6afaeb6a921eaa1f6afd4cfdf/jsr305-1.3.9.jar!/javax/annotation/RegEx.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="1" selection-start="750" selection-end="750" vertical-scroll-proportion="0.36515513" vertical-offset="0" max-vertical-offset="838" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="56" selection-start="510" selection-end="510" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2916">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/sdk/sources/android-19/android/os/AsyncTask.java">
@@ -3085,13 +3210,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="0" selection-start="6750" selection-end="6750" vertical-scroll-proportion="0.0" vertical-offset="2274" max-vertical-offset="6156">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EnvironmentCardProvider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="170" column="0" selection-start="5642" selection-end="5642" vertical-scroll-proportion="0.0" vertical-offset="2346" max-vertical-offset="3024">
@@ -3129,13 +3247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="31" selection-start="1252" selection-end="1252" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3582">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/com/uk_postcodes/api/Postcode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="26" selection-start="1125" selection-end="1125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1116">
@@ -3143,9 +3254,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/pull/types/DateRange.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="0" selection-start="2816" selection-end="2816" vertical-scroll-proportion="0.0" vertical-offset="1405" max-vertical-offset="2286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/CrimeCardProvider.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="4" selection-start="1817" selection-end="1884" vertical-scroll-proportion="0.0" vertical-offset="36" max-vertical-offset="6156">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/nde2/helpers/Statistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="0" selection-start="1676" selection-end="1676" vertical-scroll-proportion="0.0" vertical-offset="162" max-vertical-offset="2052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="99" column="40" selection-start="6688" selection-end="6688" vertical-scroll-proportion="0.0" vertical-offset="1463" max-vertical-offset="2790">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cardproviders/EconomyCardProvider.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.27114716" vertical-offset="0" max-vertical-offset="5058">
+        <state line="82" column="40" selection-start="3175" selection-end="3175" vertical-scroll-proportion="0.0" vertical-offset="648" max-vertical-offset="4140">
+          <folding>
+            <element signature="e#2952#3014#0" expanded="true" />
+            <element signature="e#4013#4033#0" expanded="true" />
+            <element signature="e#4335#4351#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/services/AreaRank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="161" column="93" selection-start="6236" selection-end="6236" vertical-scroll-proportion="0.37543452" vertical-offset="2088" max-vertical-offset="3780">
           <folding />
         </state>
       </provider>

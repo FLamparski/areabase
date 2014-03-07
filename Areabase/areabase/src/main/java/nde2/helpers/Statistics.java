@@ -76,7 +76,7 @@ public class Statistics {
 	/**
 	 * Calculates the "distance" (a measure of similarity) between two strings.
 	 * 
-	 * Stolen from
+	 * Sourced from
 	 * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings
 	 * /Levenshtein_distance#Java
 	 * 
