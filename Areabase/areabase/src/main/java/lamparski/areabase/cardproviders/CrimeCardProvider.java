@@ -44,14 +44,15 @@ import nde2.pull.types.Subject;
 import nde2.pull.types.Topic;
 import police.errors.APIException;
 import police.methodcalls.CrimeAvailabilityMethodCall;
+import police.methodcalls.CrimeCategoriesMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
 public class CrimeCardProvider {
-	public static final double TREND_STABLE_UPPER_THRESHOLD = 0.1;
-	public static final double TREND_STABLE_LOWER_THRESHOLD = -0.1;
-	public static final double TREND_RAPID_UPPER_THRESHOLD = 0.75;
-	public static final double TREND_RAPID_LOWER_THRESHOLD = -0.75;
+	public static final double TREND_STABLE_UPPER_THRESHOLD = 1;
+	public static final double TREND_STABLE_LOWER_THRESHOLD = -1;
+	public static final double TREND_RAPID_UPPER_THRESHOLD = 40;
+	public static final double TREND_RAPID_LOWER_THRESHOLD = -40;
 	private static final long UNIX_30_DAYS = 1000l * 60 * 60 * 24 * 30;
 
 	private static final int ONS_NOTIFIABLE_OFFENCES_RECORDED_BY_POLICE = 904;
@@ -221,10 +222,14 @@ public class CrimeCardProvider {
 	private static double calculateCrimeGradient(
 			Map<Long, Map<String, Integer>> dataCube) {
 		Map<Long, Integer> crimesForDate = new HashMap<Long, Integer>();
+        Log.d("calculateCrimeGradient", "Date;Total crimes");
 		for (Entry<Long, Map<String, Integer>> sliceWithDate : dataCube
 				.entrySet()) {
+            int totalForDate = totalCrimes(sliceWithDate.getValue());
 			crimesForDate.put(sliceWithDate.getKey(),
-					totalCrimes(sliceWithDate.getValue()));
+					totalForDate);
+            Log.d("calculateCrimeGradient",
+                    String.format("%d;%d", sliceWithDate.getKey(), totalForDate));
 		}
 
 		return Statistics.linearRegressionGradient(crimesForDate);
@@ -284,7 +289,6 @@ public class CrimeCardProvider {
 
 		String most_common_crime = ArrayHelpers.mostCommon(most_common_array);
 
-		/* TODO: Test needed! */
 		double dYdX = calculateCrimeGradient(onsDatacube);
 
 		Log.i("linear-regression",
@@ -316,30 +320,23 @@ public class CrimeCardProvider {
 		String body_s = res.getString(R.string.card_crime_real_body_base,
 				most_common_crime, trend_desc_s);
 		return new CardModel(res.getString(R.string.card_crime_real_title,
-				area.getName()), "[wip] " + body_s,
+				area.getName()), body_s,
 				HoloCSSColourValues.PINK.getCssValue(),
 				HoloCSSColourValues.PINK.getCssValue(), false, false,
 				PlayCard.class);
 	}
 
-	private static String mostCommonCrime_police(Map<String, Integer> slice) {
+	private static String mostCommonCrime_police(Map<String, Integer> slice) throws Exception {
 		int c = 0;
 		String rawname = null;
 		for (String category : slice.keySet()) {
 			if (c < slice.get(category)) {
 				rawname = category;
+                c = slice.get(category);
 			}
 		}
-		/*
-		 * To be more machine-readable, crime categories do not contain spaces.
-		 * Normally, a simple replace would do, but in the case of anti-social
-		 * behaviour, the first dash needs to be preserved.
-		 */
-		if (rawname.equals("anti-social-behaviour")) {
-            return "anti-social behaviour";
-        } else {
-            return rawname.replace('-', ' ');
-        }
+
+        return new CrimeCategoriesMethodCall().getCrimeCategories().get(rawname).toLowerCase();
 	}
 
 	private static String mostCommonCrime_ons(Map<String, Integer> slice) {

@@ -95,7 +95,7 @@
 
     <!-- cards -> economy -->
     <string name="card_economy_title">Economy of %1$s</string>
-    <string name="card_economy_body_base">Most of people in %1$s are %2$s. Most people here work in %3$s. Unemployment is at %3$.1f%% and %4$s.</string>
+    <string name="card_economy_body_base">Most of people in %1$s are %2$s. Most people here work in %3$s. Unemployment is at %4$.1f%% and %5$s.</string>
 
     <string-array name="card_economy_unemployment_trend">
         <item>sharply falling</item>

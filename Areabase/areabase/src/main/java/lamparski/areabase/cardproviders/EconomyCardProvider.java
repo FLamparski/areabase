@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import lamparski.areabase.R;
@@ -113,7 +114,16 @@ public class EconomyCardProvider {
             float fval = 0f;
             for(Topic t : daval.getTopics().values()){
                 if(t.getTitle().contains("Unemployment Rate; Aged 16-64")){
-                    DataSetItem item = daval.getItems(t).iterator().next();
+                    DataSetItem item = null;
+                    try{
+                        item = daval.getItems(t).iterator().next();
+                    } catch (NoSuchElementException e){
+                        /*
+                        This can occur when there is no data for the given point in time, in which
+                        case skip to next data point.
+                         */
+                        continue;
+                    }
                     fval = item.getValue();
                     if(mostRecent.equals(drkey)){
                         currentLevel = fval;

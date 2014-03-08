@@ -1,20 +1,16 @@
 package nde2.helpers;
 
+import android.util.Log;
+
 import com.google.common.collect.BiMap;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.HashBiMap;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import nde2.pull.types.DateRange;
-import police.types.KeyValuePair;
 
 public class ArrayHelpers {
 
@@ -55,7 +51,9 @@ public class ArrayHelpers {
 		Entry<T, Integer> max = null;
 		
 		for(Entry<T, Integer> e : map.entrySet()){
-			if (max == null || e.getValue() > max.getValue()) {
+            Log.v("mostCommon", "Entry [" + e.getKey().toString() + " => " + e.getValue().toString() + "]");
+            if (max == null || e.getValue() > max.getValue()) {
+                Log.v("mostCommon", "...is the new most common");
                 max = e;
             }
 		}

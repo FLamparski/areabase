@@ -25,6 +25,7 @@ import nde2.pull.types.Area;
 import nde2.pull.types.DataSetFamily;
 import nde2.pull.types.Dataset;
 import nde2.pull.types.Subject;
+import nde2.pull.types.Topic;
 
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
@@ -33,6 +34,9 @@ import static nde2.helpers.CensusHelpers.findSubject;
  * One public method
  */
 public class AreaRank {
+    public static final int KS4_ASTAR_TO_C_ALL_PUPILS = 7700;
+    public static final int ALL_PUPILS = 7705;
+    public static final int FREE_SCHOOL_MEAL_PUPILS = 7706;
     public static float MID_SCORE = 38.0f;
 
     public static float forArea(Area area) throws Exception {
@@ -157,9 +161,16 @@ public class AreaRank {
         List<DataSetFamily> dataSetFamilies = findRequiredFamilies(area, eduSubject, kw);
         Set<Dataset> datasets = new GetTables().inFamilies(dataSetFamilies).forArea(area).execute();
 
-        // TODO: Find the A*-C GCSE variable
-
-        // TODO: Find the All Pupils and All Free School Meals Pupils and calculate the ratio
+        Dataset dataset = datasets.iterator().next();
+        for(Topic t : dataset.getTopics().values()){
+            if(t.getTopicId() == KS4_ASTAR_TO_C_ALL_PUPILS){
+                aStarToCKS4Pupils = dataset.getItems(t).iterator().next().getValue();
+            } else if (t.getTopicId() == ALL_PUPILS){
+                allKS4Pupils = dataset.getItems(t).iterator().next().getValue();
+            } else if (t.getTopicId() == FREE_SCHOOL_MEAL_PUPILS){
+                freeMealsKS4Pupils = dataset.getItems(t).iterator().next().getValue();
+            }
+        }
 
         float freeSchoolMealRatio = freeMealsKS4Pupils / allKS4Pupils;
 
