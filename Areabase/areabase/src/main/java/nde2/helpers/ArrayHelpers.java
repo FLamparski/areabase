@@ -12,6 +12,11 @@ import java.util.Map.Entry;
 
 import nde2.pull.types.DateRange;
 
+/**
+ * A collection of functions that have to do with arrays and collections.
+ *
+ * @author filip
+ */
 public class ArrayHelpers {
 
 	/**
@@ -40,6 +45,12 @@ public class ArrayHelpers {
 		return destination;
 	}
 
+    /**
+     * Get the most common element in the given list
+     * @param list The list to search
+     * @param <T> Type of elements in the list
+     * @return The most common element in the list
+     */
 	public static <T> T mostCommon(List<T> list){
 		Map<T, Integer> map = new HashMap<T, Integer>();
 		
@@ -61,6 +72,12 @@ public class ArrayHelpers {
 		return max.getKey();
 	}
 
+    /**
+     * Needed for GraphActivity -- unpacks the dateRanges array and maps the date ranges
+     * to their textual representation.
+     * @param dateRanges the date ranges to unpack
+     * @return date ranges mapped to their text representations
+     */
     public static BiMap<String, DateRange> remapDateRanges(DateRange... dateRanges){
         BiMap<String, DateRange> newMap = HashBiMap.create();
         for(DateRange dr : dateRanges){

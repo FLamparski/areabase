@@ -38,7 +38,11 @@ import nde2.pull.types.DateRange;
 import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
 
 /**
- * Activity dedicated to viewing a single dataset as a graph.
+ * Activity dedicated to viewing a single dataset as a graph. Generally this is not very different
+ * from a Subject View, except that it shows a single dataset, enables the user to browse time
+ * periods for which the data is available, and displays a graph of the dataset.
+ *
+ * Some dataset items are excluded (namely the totals) from generating the graph.
  *
  * @author filip
  */
@@ -202,6 +206,11 @@ public class GraphActivity extends Activity
         return true;
     }
 
+    /**
+     * Gets called when the datasets from the current dataset family are ready for processing.
+     * @param datasets the datasets, referenced by date ranges
+     * @see lamparski.areabase.services.AreaDataService.DatasetDumpCallbacks#datasetsDownloaded(java.util.HashMap)
+     */
     @Override
     public void datasetsDownloaded(HashMap<DateRange, Dataset> datasets) {
         Log.i("GraphActivity",
@@ -213,12 +222,22 @@ public class GraphActivity extends Activity
         actionBar.setSelectedNavigationItem(0);
     }
 
+    /**
+     * Generic callback for when errors happen
+     * @param tr the throwable that caused the error
+     * @see lamparski.areabase.utils.OnError#onError(Throwable)
+     */
     @Override
     public void onError(Throwable tr) {
         Crouton.makeText(this, getString(R.string.error_cannot_fetch_area_data), Style.ALERT).show();
         Log.e("GraphActivity", "Error downloading datasets", tr);
     }
 
+    /**
+     * A SpinnerAdapter for the navigation between the time periods for which data is available.
+     *
+     * @see android.widget.SpinnerAdapter
+     */
     private class GraphActivityNavigationSpinnerAdapter implements SpinnerAdapter {
         private HashSet<DataSetObserver> observers;
 
@@ -298,6 +317,12 @@ public class GraphActivity extends Activity
             return datasets == null || datasets.isEmpty();
         }
 
+        /**
+         * This should get called when the underlying dataset for this adapter
+         * (note that this means the list of available time periods and NOT the actual dataesets)
+         * has changed (ie. the asynchronous fetch operation has finished). This will
+         * notify the action bar ListView spinner thingy
+         */
         public void notifyDatasetChanged(){
             if(datasets != null){
                 for(DataSetObserver observer : observers){

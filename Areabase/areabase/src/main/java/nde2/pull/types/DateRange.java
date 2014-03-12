@@ -115,6 +115,11 @@ public class DateRange implements Serializable {
 		return true;
 	}
 
+    /**
+     * Find the most recent date range in the array
+     * @param dateRanges the array to search
+     * @return the date range whose end date is closest to now
+     */
     public static DateRange mostRecent(DateRange[] dateRanges){
         DateRange ret = null;
         long now = System.currentTimeMillis();

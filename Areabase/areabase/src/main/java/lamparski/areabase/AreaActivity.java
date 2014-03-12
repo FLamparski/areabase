@@ -112,6 +112,9 @@ public class AreaActivity extends Activity implements LocationListener,
     private AreaDataService areaDataService;
     protected boolean isAreaDataServiceBound, is_live;
     private boolean restoring_from_savestate = false;
+    /**
+     * {@see ServiceConnection}
+     */
     protected ServiceConnection mAreaDataServiceConnection = new ServiceConnection() {
 
         @Override
@@ -378,6 +381,9 @@ public class AreaActivity extends Activity implements LocationListener,
 		}
 	}
 
+    /**
+     * @return True if it is possible to use Google Play Services
+     */
 	private boolean gServicesConnected() {
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(getApplicationContext());
@@ -389,6 +395,10 @@ public class AreaActivity extends Activity implements LocationListener,
 		}
 	}
 
+    /**
+     * Will show an error dialogue from Google Play Services library
+     * @param errorCode used by the library to look up error messages
+     */
 	private void showErrorDialog(int errorCode) {
 		Dialog dlg = GooglePlayServicesUtil.getErrorDialog(errorCode, this,
 				CONNECTION_FAILURE_RESOLUTION_REQUEST);
@@ -401,6 +411,9 @@ public class AreaActivity extends Activity implements LocationListener,
 		}
 	}
 
+    /**
+     * @param title New window title
+     */
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
@@ -516,12 +529,22 @@ public class AreaActivity extends Activity implements LocationListener,
 		return super.onOptionsItemSelected(item);
 	}
 
+    /**
+     * Text search
+     * @param searchQuery the query
+     */
 	private void searchAreasByText(String searchQuery) {
 		beginAreaFetch(searchQuery);
 	}
 
+    /**
+     * Used to keep track of retries
+     */
 	int doRefreshFragment_retries = 0;
 
+    /**
+     * Fault-tolerant way of refreshing the content fragment -- will just keep trying
+     */
 	private void doRefreshFragment() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -562,10 +585,22 @@ public class AreaActivity extends Activity implements LocationListener,
 		doRefreshFragment();
 	}
 
+    /**
+     * Will begin to find areas based on the location given
+     * @param location the user's location
+     */
     private void beginAreaFetch (final Location location){
         areaDataService.areaForLocation(location, this);
     }
 
+    /**
+     * Will begin to find areas based on the query string.
+     *
+     * If the query matches the postcode pattern, a postcode lookup
+     * will be performed. Otherwise, the string will be used to
+     * look up areas by name part.
+     * @param query The query string
+     */
     private void beginAreaFetch (final String query){
         if(com.uk_postcodes.api.Postcode.isValid(query)){
             Log.d("AreaActivity", "Text query: " + query + " is a postcode, using Area For Postcode");
@@ -589,22 +624,38 @@ public class AreaActivity extends Activity implements LocationListener,
         return mGeoPoint;
 	}
 
+    /**
+     * @return the currently loaded area
+     */
     public Area getArea() {
         return mArea;
     }
 
+    /**
+     * @return true if we are running on a tablet or other large-screen device
+     */
 	public boolean isTablet() {
 		return is_tablet;
 	}
 
+    /**
+     * @return true if we're running in landscape mode
+     */
 	public boolean isLandscape() {
 		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
 
+    /**
+     * @return the currently loaded fragment
+     */
 	private IAreabaseFragment getContentFragment() {
 		return mContentFragment;
 	}
 
+    /**
+     * Changes the current fragment.
+     * @param fragId determines which fragment to load
+     */
 	private void changeFragment(int fragId) {
 		Fragment replacementFragment;
 		Bundle args = new Bundle();
@@ -684,6 +735,11 @@ public class AreaActivity extends Activity implements LocationListener,
         outState.putSerializable(SIS_LOADED_AREA, mArea);
 	}
 
+    /**
+     * Handles the actual switching between fragments. Optionally set the back stack.
+     * @param frag the fragment to show in the main view.
+     * @param addToBackStack whether to add this transaction to the back stack (navigation)
+     */
 	private void performFragmentTransaction(Fragment frag, boolean addToBackStack) {
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction transaction = fragmentManager.beginTransaction()
@@ -704,7 +760,7 @@ public class AreaActivity extends Activity implements LocationListener,
 
 	/**
 	 * A helper method that dumps the database contents into a file on the sd
-	 * card
+	 * card (or the /sdcard folder in the internal storage filesystem)
 	 */
 	private void dump_db() {
 		new AsyncTask<Void, Integer, Void>() {
@@ -770,6 +826,11 @@ public class AreaActivity extends Activity implements LocationListener,
 		}.execute();
 	}
 
+    /**
+     * Proxy for SubjectViewFragment generation
+     * @param area the area to get the subject for
+     * @param subjectName the subject to get
+     */
     public void showSubjectView(Area area, String subjectName) {
         Bundle args = new Bundle();
         Fragment replacementFragment = new SubjectViewFragment();
@@ -788,6 +849,11 @@ public class AreaActivity extends Activity implements LocationListener,
         }
     }
 
+    /**
+     * This gets called when the area requested is ready.
+     * @param area the area that was retrieved by AreaDataService
+     * @see lamparski.areabase.services.AreaDataService.AreaLookupCallbacks#areaReady(nde2.pull.types.Area)
+     */
     @Override
     public void areaReady(Area area) {
         if(area == null){
@@ -799,6 +865,11 @@ public class AreaActivity extends Activity implements LocationListener,
         changeFragment(SUMMARY);
     }
 
+    /**
+     * This gets called when a list of areas is ready for processing
+     * @param areas the areas fetched
+     * @see lamparski.areabase.services.AreaDataService.AreaListCallbacks#areasReady(java.util.List)
+     */
     @Override
     public void areasReady(final List<Area> areas) {
         Log.d("AreaActivity", "Text query: " + areas.size() + " areas to choose from.");
@@ -820,6 +891,11 @@ public class AreaActivity extends Activity implements LocationListener,
         bld.show();
     }
 
+    /**
+     * Generic callback for when errors happen
+     * @param tr the throwable that caused the error
+     * @see lamparski.areabase.utils.OnError#onError(Throwable)
+     */
     @Override
     public void onError(final Throwable tr) {
         this.runOnUiThread(new Runnable() {
@@ -830,6 +906,13 @@ public class AreaActivity extends Activity implements LocationListener,
         });
     }
 
+    /**
+     * This gets called by chartlinks in SubjectViewFragment. It will launch a new Activity
+     * that shows a graph of the given dataset. Refer to {@link lamparski.areabase.GraphActivity}
+     * for more information.
+     * @param family the dataset family to generate a graph for
+     * @param area the area to generate a graph of family for
+     */
     public void startGraphActivity(DataSetFamily family, Area area){
         Intent intent = new Intent(this, GraphActivity.class);
         Bundle args = new Bundle();
