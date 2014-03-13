@@ -66,9 +66,7 @@ public class DateRange implements Serializable {
 		return new Date(endDate.getTime() - startDate.getTime());
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -81,9 +79,7 @@ public class DateRange implements Serializable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

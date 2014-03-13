@@ -34,6 +34,11 @@ import nde2.pull.types.Topic;
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
+/**
+ * Functions to find economic trends and variables for a given area.
+ *
+ * @author filip
+ */
 public class EconomyCardProvider {
 	public static final String[] CENSUS_KEYWORDS = { "KS601EW", "QS605EW" };
 	public static final String[] ECONOMY_KEYWORDS = { "Worklessness: Economic Activity" };
@@ -85,6 +90,15 @@ public class EconomyCardProvider {
 		return makeCard(card_title, card_body);
 	}
 
+    /**
+     * Gets the unemployment figure for the given area. While unemployment may not be the best
+     * indicator of the economic health of an area, it is the most up-to-date one on the system.
+     * @param area the area to find unemployment for.
+     * @return Trend Description of the unemployment rate.
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws NDE2Exception
+     */
     public static TrendDescription getUnemploymentRate(Area area) throws XmlPullParserException, IOException, NDE2Exception {
         TrendDescription unemploymentTrendDescription = new TrendDescription();
 
@@ -151,6 +165,11 @@ public class EconomyCardProvider {
         return unemploymentTrendDescription;
     }
 
+    /**
+     * Finds which economy sector employs the most people in this area.
+     * @param theDatasets prefetched datasets for the area
+     * @return appropriately processed sector name
+     */
 	private static String getBiggestEconomySector(Set<Dataset> theDatasets) {
 		String largestEconomySector = null;
 		int count_lES = 0;
@@ -174,6 +193,11 @@ public class EconomyCardProvider {
 		return largestEconomySector.toLowerCase(Locale.UK);
 	}
 
+    /**
+     * Finds the most dominant type of economic activity in the area.
+     * @param theDatasets prefetched datasets for the area
+     * @return the type of economic activity.
+     */
 	private static String getTypeOfEconomicActivity(Set<Dataset> theDatasets) {
 		// The answer variable
 		String answer = null;

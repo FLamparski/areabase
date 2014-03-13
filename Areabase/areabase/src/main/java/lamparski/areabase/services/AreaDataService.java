@@ -92,6 +92,11 @@ public class AreaDataService extends Service {
 		return mBinder;
 	}
 
+    /**
+     * Used by the Summary Fragment to generate the cards for the area
+     * @param area area to get a summary for
+     * @param callbacks callback interface for asynchronous return
+     */
     public void generateCardsForArea(final Area area, final BasicAreaInfoIface callbacks) {
         new AsyncTask<Area, CardModel, Float>(){
             @Override

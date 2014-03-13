@@ -48,6 +48,12 @@ import police.methodcalls.CrimeCategoriesMethodCall;
 import police.methodcalls.StreetLevelCrimeMethodCall;
 import police.types.Crime;
 
+/**
+ * Contains functions that perform crime data analysis, and provide
+ * a card model for the summary card.
+ *
+ * @author filip
+ */
 public class CrimeCardProvider {
 	public static final double TREND_STABLE_UPPER_THRESHOLD = 1;
 	public static final double TREND_STABLE_LOWER_THRESHOLD = -1;
@@ -135,6 +141,12 @@ public class CrimeCardProvider {
 		return makeCard(res, area, most_common_crime, gradient);
 	}
 
+    /**
+     * Calculates the crime trend. This is used by AreaRank.
+     * @param area the area to find the trend for.
+     * @return linear regression trend (the b in y = a + bx)
+     * @throws Exception
+     */
     public static double getCrimeTrend(Area area) throws Exception {
         double[][] areaPolygon = Mapper.getGeometryForArea(area);
         double[][] simplifiedPolygon = ArrayHelpers.every_nth_pair(areaPolygon,
@@ -213,8 +225,7 @@ public class CrimeCardProvider {
     }
 
 	/**
-	 * This method uses Ordinary Least Squares linear regression *** TESTS
-	 * NEEDED ***
+	 * This method uses Ordinary Least Squares linear regression
 	 * 
 	 * @param dataCube
 	 * @return b of the OLS for dataCube

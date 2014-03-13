@@ -35,6 +35,11 @@ import nde2.pull.types.Topic;
 import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
+/**
+ * Provides key demographic information, used by AreaRank and the Summary Fragment.
+ *
+ * @author filip
+ */
 public class DemographicsCardProvider {
 	public static final String[] DATASET_KEYWORDS = { "Population Density",
 			"Sex", "Age by Single Year" };
@@ -67,7 +72,6 @@ public class DemographicsCardProvider {
 	 * @throws IOException
 	 * @throws XmlPullParserException
 	 * @throws NDE2Exception
-	 * @throws ClassNotFoundException
 	 */
 	public static CardModel demographicsCardForArea(Area area, Resources res)
 			throws InvalidParameterException, IOException,
@@ -119,6 +123,12 @@ public class DemographicsCardProvider {
 				PlayCard.class);
 	}
 
+    /**
+     * Calculates the average age (from the 2011 dataset)
+     * @param theDatasets prefetched datasets for the area
+     * @return the average age
+     * @throws ValueNotAvailable
+     */
 	public static float calculateAverageAge(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		/*
@@ -175,6 +185,12 @@ public class DemographicsCardProvider {
 		}
 	}
 
+    /**
+     * Calculates the ratio of males to females in the area
+     * @param theDatasets prefetched datasets for the area
+     * @return gender ratio
+     * @throws ValueNotAvailable
+     */
 	private static float calculateGenderRatio(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		float ratio = 0f;
@@ -219,6 +235,12 @@ public class DemographicsCardProvider {
 		return 0; // very sparse
 	}
 
+    /**
+     * Finds the population density for the area
+     * @param theDatasets prefetched datasets for the area
+     * @return population density, in persons / km. sq.
+     * @throws ValueNotAvailable
+     */
 	public static float getPopulationDensity(Set<Dataset> theDatasets)
 			throws ValueNotAvailable {
 		int year = 0;
@@ -246,6 +268,12 @@ public class DemographicsCardProvider {
 		return personPerHectareToPersonPerSqKm(density);
 	}
 
+    /**
+     * Calculates the population trend for the area (between 2001 and 2011 datasets)
+     * @param theDatasets prefetched datasets for the area
+     * @return the trend description of the population
+     * @throws ValueNotAvailable
+     */
 	@SuppressLint("UseSparseArrays")
 	private static TrendDescription calculatePopulationTrend(
 			Set<Dataset> theDatasets) throws ValueNotAvailable {
