@@ -14,9 +14,9 @@ public class Outcome {
 	}
 
 	/**
-	 * @param category
-	 * @param date
-	 * @param crime
+	 * @param category outcome category
+	 * @param date unparsed date at which the crime occurred
+	 * @param crime the crime itself
 	 */
 	public Outcome(OutcomeCategory category, String date, Crime crime) {
 		this.category = category;

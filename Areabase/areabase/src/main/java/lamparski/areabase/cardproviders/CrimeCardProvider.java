@@ -227,7 +227,7 @@ public class CrimeCardProvider {
 	/**
 	 * This method uses Ordinary Least Squares linear regression
 	 * 
-	 * @param dataCube
+	 * @param dataCube datacube (a map of dates to the crimes that happened)
 	 * @return b of the OLS for dataCube
 	 */
 	private static double calculateCrimeGradient(

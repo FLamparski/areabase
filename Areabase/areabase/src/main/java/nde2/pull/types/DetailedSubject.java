@@ -22,10 +22,10 @@ public class DetailedSubject extends Subject {
 	private String moreDescription;
 
 	/**
-	 * @param name
-	 * @param id
-	 * @param description
-	 * @param moreDescription
+	 * @param name subject name
+	 * @param id subject id
+	 * @param description the description to set
+	 * @param moreDescription additional information
 	 */
 	public DetailedSubject(String name, int id, String description,
 			String moreDescription) {

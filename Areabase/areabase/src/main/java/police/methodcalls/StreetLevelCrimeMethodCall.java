@@ -93,8 +93,9 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 	 *             {@link BaseMethodCall#doCall(String, java.util.Map)}
 	 * @throws APIException
 	 *             When the API returned a non-200 code. Typically, there would
-	 *             be too many crimes to return (over 10000), or the area
-	 *             specified using addPoly() is too large (over 20 sq km).
+	 *             be too many crimes to return (over 10000), or the request URL
+     *             exceeds 4094 characters (upstream API supports POST parameters,
+     *             but the client code does not).
 	 * @see BaseMethodCall
 	 */
 	public Collection<Crime> getStreetLevelCrime(String category)
@@ -158,6 +159,11 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 		return resultValue;
 	}
 
+    /**
+     * Processes the response into a collection of Crime objects
+     * @param raw_json the JSON response
+     * @return a collection of crimes
+     */
 	protected Collection<Crime> processCrimes(String raw_json) {
 		Collection<Crime> crimes;
 
@@ -168,6 +174,19 @@ public class StreetLevelCrimeMethodCall extends BaseMethodCall {
 		return crimes;
 	}
 
+    /**
+     * Get all the crimes for the specified parameters
+     * @return a collection of crimes
+     * @throws IOException
+     *             When a connection could not be created -- see
+     *             {@link BaseMethodCall#doCall(String, java.util.Map)}
+     * @throws APIException
+     *             When the API returned a non-200 code. Typically, there would
+     *             be too many crimes to return (over 10000), or the request URL
+     *             exceeds 4094 characters (upstream API supports POST parameters,
+     *             but the client code does not).
+     * @see #getStreetLevelCrime(String)
+     */
 	public Collection<Crime> getStreetLevelCrime() throws IOException,
 			APIException {
 		return getStreetLevelCrime("all-crime");

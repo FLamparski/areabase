@@ -10,9 +10,9 @@ public class EngagementMethod {
 	}
 
 	/**
-	 * @param url
-	 * @param description
-	 * @param title
+	 * @param url url for this engagement method
+	 * @param description description of the engagement method
+	 * @param title the title
 	 */
 	public EngagementMethod(String url, String description, String title) {
 		this.url = url;

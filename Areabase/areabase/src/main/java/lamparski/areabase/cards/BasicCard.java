@@ -1,16 +1,17 @@
 package lamparski.areabase.cards;
 
-import lamparski.areabase.R;
 import android.view.View;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.RecyclableCard;
 
+import lamparski.areabase.R;
+
 public class BasicCard extends RecyclableCard {
 
 	/**
-	 * @param title
-	 * @param desc
+	 * @param title title of the card
+	 * @param desc text on the card
 	 */
 	public BasicCard(String title, String desc) {
 		super(title, desc);

@@ -31,7 +31,6 @@ public class CensusHelpers {
 	 * @throws XmlPullParserException
 	 * @throws IOException
 	 * @throws NDE2Exception
-	 * @throws ClassNotFoundException
 	 */
 	public static List<DataSetFamily> findRequiredFamilies(Area area,
 			Subject subject, String[] keywords) throws IOException,

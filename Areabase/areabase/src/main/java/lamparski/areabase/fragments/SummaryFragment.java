@@ -55,6 +55,8 @@ import static lamparski.areabase.widgets.CommonDialogs.serviceDisconnectAlert;
  * state-of-the-art adaptive Mad Libs generation technology to deliver human-readable descriptions
  * for even the most confusing statistical data... or, you know, might just crash horribly.
  *
+ * In this case, one should report bugs.
+ *
  * no but really this is what the user sees first so it should be good.
  *
  * @author filip

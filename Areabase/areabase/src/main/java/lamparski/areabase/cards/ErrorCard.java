@@ -1,12 +1,18 @@
 package lamparski.areabase.cards;
 
-import lamparski.areabase.R;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.RecyclableCard;
 
+import lamparski.areabase.R;
+
+/**
+ * An attempt at user-friendly error messages.
+ *
+ * Of course it doesn't work all the time, but hey.
+ */
 public class ErrorCard extends RecyclableCard {
 
 	@Override

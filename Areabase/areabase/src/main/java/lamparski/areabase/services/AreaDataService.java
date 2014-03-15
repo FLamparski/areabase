@@ -37,8 +37,9 @@ import nde2.pull.types.DateRange;
 import nde2.pull.types.Subject;
 
 /**
- * For now, this will simply fetch the {@link Area} data for whatever
- * {@link Location} is passed to the getArea method.
+ * A service for working with ONS data, asynchronously and all.
+ *
+ * Also defines a bunch of callback interfaces.
  * 
  * @author filip
  * 

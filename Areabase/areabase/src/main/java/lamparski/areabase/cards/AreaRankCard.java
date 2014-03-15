@@ -9,7 +9,8 @@ import com.fima.cardsui.objects.RecyclableCard;
 import lamparski.areabase.R;
 
 /**
- * Created by Minkovsky on 05/03/14.
+ * A Card that displays the AreaRank of an area. The area name should go into "titlePlay",
+ * and the score should go into "description".
  */
 public class AreaRankCard extends RecyclableCard {
     @Override

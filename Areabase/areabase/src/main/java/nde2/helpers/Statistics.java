@@ -80,8 +80,8 @@ public class Statistics {
 	 * https://en.wikibooks.org/wiki/Algorithm_Implementation/Strings
 	 * /Levenshtein_distance#Java
 	 * 
-	 * @param str1
-	 * @param str2
+	 * @param str1 one of the strings
+	 * @param str2 other string
 	 * @return The similarity score between two strings
 	 */
 	public static int computeLevenshteinDistance(String str1, String str2) {

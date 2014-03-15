@@ -13,8 +13,8 @@ public class CaseHistory {
 	}
 
 	/**
-	 * @param outcomes
-	 * @param crime
+	 * @param outcomes the crime outcomes to set for the crime
+	 * @param crime the crime to set
 	 */
 	public CaseHistory(Collection<Outcome> outcomes, Crime crime) {
 		this.outcomes = outcomes;

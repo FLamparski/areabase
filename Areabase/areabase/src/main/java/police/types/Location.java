@@ -1,5 +1,9 @@
 package police.types;
 
+/**
+ * Note that this is not the exact location of the crime, but rather
+ * an arbitrary grid point closest to the actual location
+ */
 public class Location {
 	private String latitude;
 	private String longitude;
@@ -10,9 +14,9 @@ public class Location {
 	}
 
 	/**
-	 * @param latitude
-	 * @param longitude
-	 * @param street
+	 * @param latitude latitude of the normalised crime location
+	 * @param longitude longitude of the normalised crime location
+	 * @param street street name
 	 */
 	public Location(String latitude, String longitude, Street street) {
 		this.latitude = latitude;

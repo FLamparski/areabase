@@ -9,8 +9,8 @@ public class Street {
 	}
 
 	/**
-	 * @param id
-	 * @param name
+	 * @param id url slug or id of the street
+	 * @param name human-readable street name
 	 */
 	public Street(int id, String name) {
 		this.id = id;

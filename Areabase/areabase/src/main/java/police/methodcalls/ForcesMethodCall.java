@@ -10,9 +10,21 @@ import java.util.Map;
 
 import police.types.ForceInformation;
 
+/**
+ * Acquire information about police forces
+ */
 public class ForcesMethodCall extends BaseMethodCall {
 	public static final String METHOD = "forces";
 
+    /**
+     * A list of all the police forces available via the API. Unique force identifiers obtained here
+     * are used in requests for force-specific data via other methods.
+     *
+     * <a href="http://data.police.uk/docs/method/forces/">See original docs</a>
+     *
+     * @return a list of forces available
+     * @throws Exception
+     */
 	public Map<String, String> listForces() throws Exception {
 		String raw_json = doCall(METHOD, null);
 		HashMap<String, String> forces = new HashMap<String, String>();
@@ -25,6 +37,15 @@ public class ForcesMethodCall extends BaseMethodCall {
 		return forces;
 	}
 
+    /**
+     * Detailed information about a specific force.
+     *
+     * <a href="http://data.police.uk/docs/method/force/">See original docs</a>
+     *
+     * @param id the force's id
+     * @return an info object containing information about the force
+     * @throws Exception
+     */
 	public ForceInformation getForceDetails(String id)
             throws Exception {
 		String raw_json = doCall(METHOD + "/" + id, null);

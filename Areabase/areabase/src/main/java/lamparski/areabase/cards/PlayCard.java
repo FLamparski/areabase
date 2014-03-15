@@ -13,12 +13,12 @@ import lamparski.areabase.R;
 public class PlayCard extends RecyclableCard {
 
 	/**
-	 * @param titlePlay
-	 * @param description
-	 * @param color
-	 * @param titleColor
-	 * @param hasOverflow
-	 * @param isClickable
+	 * @param titlePlay card title
+	 * @param description card body
+	 * @param color overall colour of the card
+	 * @param titleColor title colour
+	 * @param hasOverflow display the overflow icon?
+	 * @param isClickable is card clickable?
 	 */
 	public PlayCard(String titlePlay, String description, String color,
 			String titleColor, Boolean hasOverflow, Boolean isClickable) {
@@ -26,6 +26,7 @@ public class PlayCard extends RecyclableCard {
 				isClickable);
 	}
 
+    @SuppressWarnings("unused")
 	public PlayCard() {
 	}
 

@@ -20,14 +20,15 @@ public class Crime {
 	}
 
 	/**
-	 * @param category
-	 * @param persistent_id
-	 * @param location_type
-	 * @param location_subtype
-	 * @param id
-	 * @param location
-	 * @param context
-	 * @param outcome_status
+     * A full constructor for the crime object
+	 * @param category the category of the crime in url slug form
+	 * @param persistent_id the UUID for the crime which can be used for tracking
+	 * @param location_type the type of the location attached to the crime
+	 * @param location_subtype the subtype of the location attached to the crime
+	 * @param id an internal ID (PK?) of the crime, use persistent_id for tracking
+	 * @param location location attached to the crime
+	 * @param context extra information about the crime
+	 * @param outcome_status outcome status
 	 */
 	public Crime(String category, String persistent_id, String location_type,
 			String location_subtype, long id, Location location,
@@ -43,56 +44,56 @@ public class Crime {
 	}
 
 	/**
-	 * @return the category
+	 * @return the category of the crime in url slug form
 	 */
 	public String getCategory() {
 		return category;
 	}
 
 	/**
-	 * @return the persistent_id
+	 * @return the UUID for the crime which can be used for tracking
 	 */
 	public String getPersistent_id() {
 		return persistent_id;
 	}
 
 	/**
-	 * @return the location_type
+	 * @return the the type of the location attached to the crime
 	 */
 	public String getLocation_type() {
 		return location_type;
 	}
 
 	/**
-	 * @return the location_subtype
+	 * @return the the subtype of the location attached to the crime
 	 */
 	public String getLocation_subtype() {
 		return location_subtype;
 	}
 
 	/**
-	 * @return the id
+	 * @return an internal ID (PK?) of the crime, use persistent_id for tracking
 	 */
 	public long getId() {
 		return id;
 	}
 
 	/**
-	 * @return the location
+	 * @return the location attached to the crime
 	 */
 	public Location getLocation() {
 		return location;
 	}
 
 	/**
-	 * @return the context
+	 * @return extra information about the crime
 	 */
 	public String getContext() {
 		return context;
 	}
 
 	/**
-	 * @return the outcome_status
+	 * @return the outcome status
 	 */
 	public OutcomeStatus getOutcomeStatus() {
 		return outcome_status;
@@ -248,50 +249,68 @@ public class Crime {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Crime))
-			return false;
+		if (this == obj) {
+            return true;
+        }
+		if (obj == null) {
+            return false;
+        }
+		if (!(obj instanceof Crime)) {
+            return false;
+        }
 		Crime other = (Crime) obj;
 		if (category == null) {
-			if (other.category != null)
-				return false;
-		} else if (!category.equals(other.category))
-			return false;
+			if (other.category != null) {
+                return false;
+            }
+		} else if (!category.equals(other.category)) {
+            return false;
+        }
 		if (context == null) {
-			if (other.context != null)
-				return false;
-		} else if (!context.equals(other.context))
-			return false;
-		if (id != other.id)
-			return false;
+			if (other.context != null) {
+                return false;
+            }
+		} else if (!context.equals(other.context)) {
+            return false;
+        }
+		if (id != other.id) {
+            return false;
+        }
 		if (location == null) {
-			if (other.location != null)
-				return false;
-		} else if (!location.equals(other.location))
-			return false;
+			if (other.location != null) {
+                return false;
+            }
+		} else if (!location.equals(other.location)) {
+            return false;
+        }
 		if (location_subtype == null) {
-			if (other.location_subtype != null)
-				return false;
-		} else if (!location_subtype.equals(other.location_subtype))
-			return false;
+			if (other.location_subtype != null) {
+                return false;
+            }
+		} else if (!location_subtype.equals(other.location_subtype)) {
+            return false;
+        }
 		if (location_type == null) {
-			if (other.location_type != null)
-				return false;
-		} else if (!location_type.equals(other.location_type))
-			return false;
+			if (other.location_type != null) {
+                return false;
+            }
+		} else if (!location_type.equals(other.location_type)) {
+            return false;
+        }
 		if (outcome_status == null) {
-			if (other.outcome_status != null)
-				return false;
-		} else if (!outcome_status.equals(other.outcome_status))
-			return false;
+			if (other.outcome_status != null) {
+                return false;
+            }
+		} else if (!outcome_status.equals(other.outcome_status)) {
+            return false;
+        }
 		if (persistent_id == null) {
-			if (other.persistent_id != null)
-				return false;
-		} else if (!persistent_id.equals(other.persistent_id))
-			return false;
+			if (other.persistent_id != null) {
+                return false;
+            }
+		} else if (!persistent_id.equals(other.persistent_id)) {
+            return false;
+        }
 		return true;
 	}
 

@@ -22,7 +22,25 @@ import java.util.Set;
 import lamparski.areabase.AreaActivity;
 import lamparski.areabase.CacheContentProvider;
 
+/**
+ * Contains the most basic methods to fetch XML response documents from ONS and wrap them inside
+ * of a parser object. Also handles caching.
+ *
+ * <p>
+ *     Note that I said XML. It is actually a SOAP response document, but the way I'm using it
+ *     later in the data flow, it may as well be regular XML. SOAP doesn't make much sense.
+ * </p>
+ *
+ * @author filip
+ */
 public abstract class BaseMethodCall {
+    /**
+     * URL-encodes the parameters
+     * @param endpoint the endpoint to call
+     * @param method the method to call
+     * @param params a dictionary of parameter names and their values
+     * @return an URL string to call the given method on the given endpoint with the given parameters.
+     */
 	protected String buildURLString(String endpoint, String method,
 			Map<String, String> params) {
 		/* Build a URL which for the method call */
@@ -46,6 +64,12 @@ public abstract class BaseMethodCall {
 		return callUrlStr;
 	}
 
+    /**
+     * Performs a GET request on the given url and downloads the response into a String.
+     * @param callUrlStr the call url
+     * @return a String containing the response document.
+     * @throws IOException
+     */
 	private String sendRequest(String callUrlStr) throws IOException {
 		URL callUrl = new URL(callUrlStr);
 		HttpURLConnection callConnection = (HttpURLConnection) callUrl
@@ -57,15 +81,37 @@ public abstract class BaseMethodCall {
 		return IOUtils.toString(is);
 	}
 
+    /**
+     * Creates an {@link org.xmlpull.v1.XmlPullParser} for the instr.
+     * @param instr A String containing the XML document to parse.
+     * @return A streaming parser that works with the XML document.
+     * @throws XmlPullParserException
+     */
 	private XmlPullParser makeParser(String instr)
 			throws XmlPullParserException {
 		XmlPullParserFactory xfac = XmlPullParserFactory.newInstance();
-		xfac.setNamespaceAware(true); // FUCK SOAP
+		xfac.setNamespaceAware(true); // Because SOAP loves namespaces.
 		XmlPullParser xpp = xfac.newPullParser();
 		xpp.setInput(new StringReader(instr));
 		return xpp;
 	}
 
+    /**
+     * This method:
+     *
+     * <p>1. Takes the call url and sees if there is a cache entry for it</p>
+     *
+     * <p>2.1. If there is, load it</p>
+     *
+     * <p>2.2. If there isn't, fetch the data from ONS and save to cache</p>
+     *
+     * <p>3. Creates an {@link org.xmlpull.v1.XmlPullParser} for the result</p>
+     *
+     * @param callUrl the URL to get data from
+     * @return an {@link org.xmlpull.v1.XmlPullParser} for the data
+     * @throws IOException
+     * @throws XmlPullParserException
+     */
 	private XmlPullParser doCall(String callUrl) throws IOException,
 			XmlPullParserException {
 		// HACK
@@ -79,9 +125,10 @@ public abstract class BaseMethodCall {
 				new String[] { "*" }, "url = ? AND retrievedOn > ?",
 				selectionArgs, "retrievedOn DESC");
 		/*
-		 * Log.i("BaseMethodCall", String.format(
-		 * "SELECT %s FROM onsCache WHERE url = \"%s\" AND retrievedOn > %s",
-		 * "*", selectionArgs[0], selectionArgs[1]));
+		 Equivalent to the following SQL:
+		 SELECT * FROM onsCache
+		 WHERE url = @url AND retrievedOn > @30_days_ago
+		 ORDER BY retrievedOn DESC
 		 */
         if (c == null){
             Log.wtf("BaseMethodCall", "Cannot get a database cursor!");
@@ -108,6 +155,12 @@ public abstract class BaseMethodCall {
 		}
 	}
 
+    /**
+     * Saves the data to the database
+     * @param resolver the content resolver to use
+     * @param url request url to save
+     * @param response the response at the time
+     */
 	private void updateCacheDb(ContentResolver resolver, String url,
 			String response) {
 		ContentValues values = new ContentValues();
@@ -130,7 +183,7 @@ public abstract class BaseMethodCall {
 		return doCall(buildURLString(endpoint, method, params));
 	}
 
-	abstract protected XmlPullParser doCall(String methid,
+	abstract protected XmlPullParser doCall(String method,
 			Map<String, String> params) throws IOException,
 			XmlPullParserException;
 
@@ -141,7 +194,7 @@ public abstract class BaseMethodCall {
 	 * to use a different call altogether, because the other one is utterly
 	 * broken for given inputs. (Looking at you, FindAreas)
 	 * 
-	 * @param params
+	 * @param params a dictionary of parameter names and their values
 	 * @return An {@link XmlPullParser} primed with the response document.
 	 * @throws IOException
 	 * @throws XmlPullParserException
@@ -149,6 +202,11 @@ public abstract class BaseMethodCall {
 	abstract protected XmlPullParser execute(Map<String, String> params)
 			throws IOException, XmlPullParserException;
 
+    /**
+     * Children objects will use this method to collect their parameters
+     * for the call.
+     * @return A map of the parameters.
+     */
 	abstract protected Map<String, String> collectParams();
 
 	abstract public String toURLString();

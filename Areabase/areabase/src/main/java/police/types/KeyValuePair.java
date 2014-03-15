@@ -20,8 +20,8 @@ public class KeyValuePair<K, V> implements Entry<K, V> {
 	private V value;
 
 	/**
-	 * @param key
-	 * @param value
+	 * @param key the "key" part of this KV pair
+	 * @param value the "value" part of this KV pair
 	 */
 	public KeyValuePair(K key, V value) {
 		this.key = key;

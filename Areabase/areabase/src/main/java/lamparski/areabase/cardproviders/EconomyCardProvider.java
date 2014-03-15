@@ -65,9 +65,10 @@ public class EconomyCardProvider {
 		Subject economySubject = findSubject(area, "Economic Deprivation");
 		Subject censusSubject = findSubject(area, "Census");
 
-		if (economySubject == null || censusSubject == null)
-			throw new ValueNotAvailable(
-					"Cannot find the required subjects for the area");
+		if (economySubject == null || censusSubject == null) {
+            throw new ValueNotAvailable(
+                    "Cannot find the required subjects for the area");
+        }
 
 		// Coalesce the required families into a single list.
 		List<DataSetFamily> requiredFamilies = findRequiredFamilies(area,
@@ -246,35 +247,38 @@ public class EconomyCardProvider {
 		}
 
 		if (count_lEI > count_lEA) {
-			if (largestEconomicInactivity.equals("Retired"))
-				answer = "retired";
-			else if (largestEconomicInactivity
-					.equals("Student (Including Full-Time Students)"))
-				answer = "economically inactive full-time students";
-			else if (largestEconomicInactivity
-					.equals("Looking After Home or Family"))
-				answer = "homemakers";
-			else if (largestEconomicInactivity
-					.equals("Long-Term Sick or Disabled"))
-				answer = "disabled";
-			else
-				answer = "economically inactive*";
+			if (largestEconomicInactivity.equals("Retired")) {
+                answer = "retired";
+            } else if (largestEconomicInactivity
+					.equals("Student (Including Full-Time Students)")) {
+                answer = "economically inactive full-time students";
+            } else if (largestEconomicInactivity
+					.equals("Looking After Home or Family")) {
+                answer = "homemakers";
+            } else if (largestEconomicInactivity
+					.equals("Long-Term Sick or Disabled")) {
+                answer = "disabled";
+            } else {
+                answer = "economically inactive*";
+            }
 		} else {
 			if (largestEconomicActivity.startsWith("Employee; ")) {
 				String employeeType = largestEconomicActivity
 						.substring("Employee; ".length());
-				if (employeeType.equals("Part-Time"))
-					answer = "part-time employees";
-				else if (employeeType.equals("Full-Time"))
-					answer = "full-time employees";
-			} else if (largestEconomicActivity.equals("Self-Employed"))
-				answer = "self-employed";
-			else if (largestEconomicActivity.equals("Unemployed"))
-				answer = "unemployed";
-			else if (largestEconomicActivity.equals("Full-Time Student"))
-				answer = "full-time students";
-			else
-				answer = "economically active*";
+				if (employeeType.equals("Part-Time")) {
+                    answer = "part-time employees";
+                } else if (employeeType.equals("Full-Time")) {
+                    answer = "full-time employees";
+                }
+			} else if (largestEconomicActivity.equals("Self-Employed")) {
+                answer = "self-employed";
+            } else if (largestEconomicActivity.equals("Unemployed")) {
+                answer = "unemployed";
+            } else if (largestEconomicActivity.equals("Full-Time Student")) {
+                answer = "full-time students";
+            } else {
+                answer = "economically active*";
+            }
 		}
 
 		return answer;

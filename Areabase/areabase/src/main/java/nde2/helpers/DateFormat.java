@@ -18,7 +18,7 @@ public class DateFormat {
 	 * 
 	 * @param dateString
 	 *            Expected format: yyyy-MM-dd
-	 * @return
+	 * @return a date object from an NDE date string
 	 */
 	public static Date fromNDEDateOnly(String dateString) {
 		dateString = dateString.trim(); // If anything gets messed up.
@@ -35,7 +35,7 @@ public class DateFormat {
 	 * 
 	 * @param datetimeString
 	 *            Expected format: yyyy-MM-ddT~~~~~~
-	 * @return
+	 * @return a date object from an NDE date/time string
 	 */
 	public static Date fromNDEDateTime(String datetimeString) {
 		return fromNDEDateOnly(datetimeString.split("T")[0]);
@@ -55,7 +55,7 @@ public class DateFormat {
 
 	/**
 	 * 
-	 * @param date
+	 * @param date the date to get the year out of
 	 * @return The year of given date
 	 */
 	public static int getYear(Date date) {

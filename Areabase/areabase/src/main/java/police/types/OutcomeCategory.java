@@ -9,8 +9,8 @@ public class OutcomeCategory {
 	}
 
 	/**
-	 * @param code
-	 * @param name
+	 * @param code url slug for the category
+	 * @param name human-readable category name
 	 */
 	public OutcomeCategory(String code, String name) {
 		this.code = code;

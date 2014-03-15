@@ -31,6 +31,13 @@ public class Postcode {
      * Format: lat, lng
      */
     private final static String CALL = "http://uk-postcodes.com/latlng/%f,%f.json";
+
+    /**
+     * Get the postcode closest to the location.
+     * @param location The device's location
+     * @return the closest postcode
+     * @throws Exception
+     */
     public static String forLocation(Location location) throws Exception {
         String address = String.format(CALL, location.getLatitude(), location.getLongitude());
 

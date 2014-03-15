@@ -24,7 +24,7 @@ public interface IAreabaseFragment {
 	 * On fragments that support it, perform a text-based search. Called when
 	 * the user performs the "Search" action on the parent {@link AreaActivity}.
 	 * 
-	 * @param query
+	 * @param query the query string entered by the user
 	 */
 	public void searchByText(String query);
 }

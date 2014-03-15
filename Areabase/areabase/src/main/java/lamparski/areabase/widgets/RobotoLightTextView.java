@@ -6,18 +6,24 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+/**
+ * A special flavour of TextView which can load up a custom typeface.
+ */
 public class RobotoLightTextView extends TextView {
 
+    @SuppressWarnings("unused")
 	public RobotoLightTextView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		setupFont();
 	}
 
+    @SuppressWarnings("unused")
 	public RobotoLightTextView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setupFont();
 	}
 
+    @SuppressWarnings("unused")
 	public RobotoLightTextView(Context context) {
 		super(context);
 		setupFont();

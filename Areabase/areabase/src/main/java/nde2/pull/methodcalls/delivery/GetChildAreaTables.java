@@ -1,5 +1,8 @@
 package nde2.pull.methodcalls.delivery;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,19 +13,36 @@ import nde2.errors.NDE2Exception;
 import nde2.pull.types.Area;
 import nde2.pull.types.Dataset;
 
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
+/**
+ * Gets the child area tables.
+ *
+ * <p>
+ *     In the current form, it doesn't work as intended, and other forms
+ *     of supplying parameters may have to be used.
+ * </p>
+ *
+ * @author filip
+ */
 public class GetChildAreaTables extends GetTables {
 	private static final String METHOD_NAME = "getChildAreaTables";
 
 	private int levelTypeId;
 
+    /**
+     * Specify a parent area
+     * @param area the area to get child area tables for
+     * @return modified object for currying
+     */
 	public GetChildAreaTables forParentArea(Area area) {
 		areas.add(area);
 		return this;
 	}
 
+    /**
+     * Find children of this level type
+     * @param levelTypeId level type id
+     * @return modified object for currying
+     */
 	public GetChildAreaTables forChildrenOfLevelType(int levelTypeId) {
 		this.levelTypeId = levelTypeId;
 		return this;

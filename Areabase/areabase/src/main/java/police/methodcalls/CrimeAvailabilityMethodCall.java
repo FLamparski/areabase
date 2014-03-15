@@ -26,6 +26,10 @@ import java.util.Date;
  */
 public class CrimeAvailabilityMethodCall extends BaseMethodCall {
 
+    /**
+     * @return A list of dates for which crime data is available
+     * @throws Exception
+     */
 	public ArrayList<Date> getAvailableDates() throws Exception {
 		String raw_json = doCall("crimes-street-dates", null);
 		JsonArray idates = new JsonParser().parse(raw_json).getAsJsonArray();
@@ -39,6 +43,10 @@ public class CrimeAvailabilityMethodCall extends BaseMethodCall {
 		return dates;
 	}
 
+    /**
+     * @return The latest date for which crime data is available
+     * @throws Exception
+     */
 	public Date getLastUpdated() throws Exception {
 		String raw_json = doCall("crime-last-updated", null);
 

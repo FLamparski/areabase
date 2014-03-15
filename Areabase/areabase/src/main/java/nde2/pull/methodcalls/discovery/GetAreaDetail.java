@@ -53,7 +53,7 @@ public class GetAreaDetail extends DiscoveryMethodCall {
 	/**
 	 * A {@link DetailedArea} corresponding to the supplied Area.
 	 * 
-	 * @return
+	 * @return the detailed area
 	 * @throws IOException
 	 * @throws XmlPullParserException
 	 * @throws NDE2Exception

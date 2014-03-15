@@ -16,6 +16,8 @@ import java.io.StreamCorruptedException;
  * @author filip
  * 
  */
+@Deprecated
+@SuppressWarnings("unused")
 public class Pickle {
 	/**
 	 * Creates an object from the byte array <i>pickle</i>.

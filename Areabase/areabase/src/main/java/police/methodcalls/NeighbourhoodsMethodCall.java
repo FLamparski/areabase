@@ -7,6 +7,11 @@ import com.google.gson.JsonParser;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Gets neighbourhoods for a specific force.
+ *
+ * <a href="http://data.police.uk/docs/method/neighbourhoods/">See original docs</a>
+ */
 public class NeighbourhoodsMethodCall extends BaseMethodCall {
 	private static final String METHOD = "neighbourhoods";
 

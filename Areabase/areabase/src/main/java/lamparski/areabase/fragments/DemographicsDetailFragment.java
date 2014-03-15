@@ -25,6 +25,7 @@ import nde2.pull.types.Topic;
  *
  * @see lamparski.areabase.fragments.SummaryFragment
  */
+@Deprecated
 @SuppressWarnings("unused")
 public abstract class DemographicsDetailFragment extends DetailViewFragment {
 

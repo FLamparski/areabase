@@ -1,5 +1,6 @@
 package lamparski.areabase.map_support;
 
+@Deprecated
 public enum OSAdminUnits {
 	/*
 	 * @formatter:off

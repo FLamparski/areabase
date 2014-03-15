@@ -1,5 +1,8 @@
 package police.errors;
 
+/**
+ * An exception that can be thrown in case of a REST-ful service error
+ */
 public class APIException extends Exception {
 
 	private int httpCode = 0;
@@ -18,8 +21,8 @@ public class APIException extends Exception {
 	}
 
 	/**
-	 * @param message
-	 * @param cause
+	 * @param message the message attached to this exception
+	 * @param cause a throwable cause (usually another exception)
 	 */
 	public APIException(String message, Throwable cause) {
 		super(message, cause);
@@ -27,7 +30,7 @@ public class APIException extends Exception {
 	}
 
 	/**
-	 * @param message
+	 * @param message the message attached to this exception
 	 */
 	public APIException(String message) {
 		super(message);
@@ -40,7 +43,7 @@ public class APIException extends Exception {
 	}
 
 	/**
-	 * @param cause
+	 * @param cause a throwable cause (usually another exception)
 	 */
 	public APIException(Throwable cause) {
 		super(cause);
@@ -48,7 +51,7 @@ public class APIException extends Exception {
 	}
 
 	/**
-	 * @return the httpCode
+	 * @return the http code returned by the service
 	 */
 	public int getHttpCode() {
 		return httpCode;
@@ -56,7 +59,7 @@ public class APIException extends Exception {
 
 	/**
 	 * @param httpCode
-	 *            the httpCode to set
+	 *            the http code returned by the service
 	 */
 	public void setHttpCode(int httpCode) {
 		this.httpCode = httpCode;

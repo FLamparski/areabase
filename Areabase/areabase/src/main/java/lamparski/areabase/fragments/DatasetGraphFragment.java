@@ -167,6 +167,12 @@ public class DatasetGraphFragment extends Fragment
         return theView;
     }
 
+    /**
+     * Determines if this dataset item should go onto graph. Functions as a sort of blacklist,
+     * in that it tries its best to exclude totals from the graph.
+     * @param item the item
+     * @return whether it should be shown on graph.
+     */
     private boolean canGraph(DataSetItem item) {
         String title = item.getTopic().getTitle().toLowerCase();
         if(title.contains("all people")){
@@ -194,6 +200,11 @@ public class DatasetGraphFragment extends Fragment
         ((TextView) getView().findViewById(R.id.subject_view_header)).setText(dataset.getTitle());
     }
 
+    /**
+     * Create a new DatasetGraphFragment for the given Dataset.
+     * @param dataset The dataset to display
+     * @return the fragment
+     */
     public static DatasetGraphFragment newInstance(Dataset dataset) {
         Log.d("DatasetGraphFragment",
                 String.format("static newInstance called with %s", dataset.toString()));

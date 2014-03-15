@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
+/**
+ * Get a map of crime category slugs to their human-readable names.
+ *
+ * <a href="http://data.police.uk/docs/method/crime-categories/">See original docs</a>
+ */
 public class CrimeCategoriesMethodCall extends BaseMethodCall {
 	private final static String METHOD = "crime-categories";
 	private Date date = null;

@@ -11,6 +11,12 @@ import java.util.HashMap;
 import police.errors.APIException;
 import police.types.Outcome;
 
+/**
+ * <p>Outcomes at street-level; either at a specific location, within a 1 mile radius of a single point, or within a custom area.</p>
+ * <p><strong>Note:</strong> Outcomes are not available for the Police Service of Northern Ireland.</p>
+ *
+ * <p><a href="http://data.police.uk/docs/method/outcomes-at-location/">See original docs</a></p>
+ */
 public class StreetLevelOutcomesMethodCall extends StreetLevelCrimeMethodCall {
 	private static final String METHOD = "outcomes-at-location";
 

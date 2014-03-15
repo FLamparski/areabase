@@ -13,8 +13,8 @@ public class OutcomeStatus {
 	}
 
 	/**
-	 * @param category
-	 * @param date
+	 * @param category outcome status category
+	 * @param date date of this outcome status occurring.
 	 */
 	public OutcomeStatus(String category, String date) {
 		this.category = category;

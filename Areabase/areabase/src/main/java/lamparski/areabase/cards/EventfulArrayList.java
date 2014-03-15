@@ -2,6 +2,10 @@ package lamparski.areabase.cards;
 
 import java.util.ArrayList;
 
+/**
+ * An {@link java.util.ArrayList} that also emits an event when an item is added.
+ * @param <E> Element type.
+ */
 public class EventfulArrayList<E> extends ArrayList<E> {
 	private static final long serialVersionUID = 0xC0C4133L;
 	private OnItemAddedListener addCb = new OnItemAddedListener() {
@@ -11,6 +15,10 @@ public class EventfulArrayList<E> extends ArrayList<E> {
 		}
 	};
 
+    /**
+     * Gets activated when an item is added to the list. The handler
+     * can actually veto the add.
+     */
 	public interface OnItemAddedListener {
 		/**
 		 * Called when an item is added to the list
@@ -22,21 +30,19 @@ public class EventfulArrayList<E> extends ArrayList<E> {
 		public boolean onItemAdded(Object item);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.ArrayList#add(java.lang.Object)
+	/**
+     * In addition to adding an element, will also emit an event.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean add(E object) {
 		return addCb.onItemAdded(object) ? super.add(object) : false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.ArrayList#add(int, java.lang.Object)
-	 */
+    /**
+     * In addition to adding an element, will also emit an event.
+     * {@inheritDoc}
+     */
 	@Override
 	public void add(int index, E object) {
 		if (addCb.onItemAdded(object)) {

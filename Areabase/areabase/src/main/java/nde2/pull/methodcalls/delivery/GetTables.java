@@ -25,6 +25,16 @@ import nde2.pull.types.DateRange;
 import nde2.pull.types.Period;
 import nde2.pull.types.Topic;
 
+/**
+ * Fetches the dataset tables from ONS.
+ *
+ * <p>
+ *     Generally, you'll need to set dataset families and areas
+ *     to get the data for, and optionally a date range.
+ * </p>
+ *
+ * @author filip
+ */
 public class GetTables extends DeliveryMethodCall {
 	private final static String METHOD_NAME = "getTables";
 
@@ -128,12 +138,24 @@ public class GetTables extends DeliveryMethodCall {
 		return this;
 	}
 
+    /**
+     * Execute the method call, supplying the method name
+     * @param params a dictionary of parameter names and their values
+     * @return an {@link org.xmlpull.v1.XmlPullParser}.
+     * @throws IOException
+     * @throws XmlPullParserException
+     */
 	@Override
 	protected XmlPullParser execute(Map<String, String> params)
 			throws IOException, XmlPullParserException {
 		return doCall(METHOD_NAME, params);
 	}
 
+    /**
+     * Takes the parameters for the method call and puts them into a dictionary
+     * @return a dictionary of parameter names and their values
+     * @throws InvalidParameterException
+     */
 	@Override
 	protected Map<String, String> collectParams()
 			throws InvalidParameterException {
@@ -144,6 +166,10 @@ public class GetTables extends DeliveryMethodCall {
 		return params;
 	}
 
+    /**
+     * Collects areas into the parameter dictionary
+     * @param params a dictionary of parameter names and their values
+     */
 	protected void collectAreasToParams(Map<String, String> params) {
 		if (areas.size() > 0) {
 			StringBuilder commaSeparatedAreas = new StringBuilder();
@@ -159,6 +185,10 @@ public class GetTables extends DeliveryMethodCall {
 		}
 	}
 
+    /**
+     * Collects the date range into the parameter dictionary
+     * @param params a dictionary of parameter names and their values
+     */
 	protected void collectDateRangeToParams(Map<String, String> params) {
 		if (dateRange != null) {
 			StringBuilder p = new StringBuilder();
@@ -169,6 +199,10 @@ public class GetTables extends DeliveryMethodCall {
 		}
 	}
 
+    /**
+     * Collects the dataset families into the parameter dictionary
+     * @param params a dictionary of parameter names and their values
+     */
 	protected void collectDatasetFamiliesToParams(Map<String, String> params) {
 		if (datasetFamilies.size() > 0) {
 			StringBuilder commaSeparatedDatasets = new StringBuilder();
@@ -185,6 +219,14 @@ public class GetTables extends DeliveryMethodCall {
 		}
 	}
 
+    /**
+     * Pulls the datasets
+     * @return A set of datasets for the specified request.
+     * @throws InvalidParameterException
+     * @throws IOException
+     * @throws XmlPullParserException
+     * @throws NDE2Exception
+     */
 	public Set<Dataset> execute() throws InvalidParameterException,
 			IOException, XmlPullParserException, NDE2Exception {
 		XmlPullParser xpp = execute(collectParams());
@@ -196,8 +238,8 @@ public class GetTables extends DeliveryMethodCall {
 	 * Extracted to a separate method because {@link GetChildAreaTables} remote
 	 * operation returns the same response element.
 	 * 
-	 * @param xpp
-	 * @return
+	 * @param xpp the parser object responsible for the datacube element
+	 * @return a processed set of datasets in the datacube element
 	 * @throws XmlPullParserException
 	 * @throws IOException
 	 * @throws NDE2Exception
@@ -293,6 +335,13 @@ public class GetTables extends DeliveryMethodCall {
 		return datasets;
 	}
 
+    /**
+     * Processes dataset items based on the current call state
+     * @param xpp the parser object responsible for the datacube element
+     * @return A set of dataset items to attach to the dataset
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
 	protected Set<DataSetItem> processItems(XmlPullParser xpp)
 			throws XmlPullParserException, IOException {
 		Set<DataSetItem> items = new HashSet<DataSetItem>();
@@ -329,11 +378,11 @@ public class GetTables extends DeliveryMethodCall {
 				}
 				break;
 			case XmlPullParser.END_TAG:
-				// Done with ONE period
+				// Done with ONE item
 				if (xpp.getName().equals("DatasetItem")) {
                     items.add(i);
                 }
-				// Done with ALL of the periods
+				// Done with ALL of the items
 				if (xpp.getName().equals("DatasetItems")) {
                     in_items = false;
                 }
@@ -346,6 +395,13 @@ public class GetTables extends DeliveryMethodCall {
 		return items;
 	}
 
+    /**
+     * Processes the periods
+     * @param xpp the parser object responsible for the datacube element
+     * @return periods, referenced by their pointer value.
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
 	protected Map<Integer, Period> processPeriods(XmlPullParser xpp)
 			throws XmlPullParserException, IOException {
 		Map<Integer, Period> periods = new HashMap<Integer, Period>();
@@ -401,6 +457,13 @@ public class GetTables extends DeliveryMethodCall {
 		return periods;
 	}
 
+    /**
+     * Processes the boundaries
+     * @param xpp the parser object responsible for the datacube element
+     * @return boundaries, referenced by their pointer value
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
 	protected Map<Integer, Boundary> processBoundaries(XmlPullParser xpp)
 			throws XmlPullParserException, IOException {
 		Map<Integer, Boundary> boundaries = new HashMap<Integer, Boundary>();
@@ -455,6 +518,13 @@ public class GetTables extends DeliveryMethodCall {
 		return boundaries;
 	}
 
+    /**
+     * Processes the topics
+     * @param xpp the parser object responsible for the datacube element
+     * @return topics, referenced by their pointer value
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
 	protected Map<Integer, Topic> processTopics(XmlPullParser xpp)
 			throws XmlPullParserException, IOException {
 		Map<Integer, Topic> topics = new HashMap<Integer, Topic>();

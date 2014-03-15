@@ -40,7 +40,6 @@ import police.types.Crime;
 
 /**
  * Shows the breakdown of crimes for the past 12 months for this area.
- * TODO: make it also show a chart of these crimes in time, not just a pie.
  *
  * @author filip
  */
@@ -59,6 +58,13 @@ public class PoliceDataFragment extends DetailViewFragment {
         }
     }
 
+    /**
+     * This exists because I can only return one value from an AsyncTask,
+     * and did not feel like returning a Void or a Boolean and doing actual
+     * result return by the way of a callback.
+     *
+     * @author filip
+     */
     private final class CrimeDataTaskResult {
         Collection<Crime> theCrimes;
         Map<String, String> humanReadableCategoryNames;

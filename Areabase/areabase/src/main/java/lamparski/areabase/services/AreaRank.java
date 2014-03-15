@@ -31,7 +31,30 @@ import static nde2.helpers.CensusHelpers.findRequiredFamilies;
 import static nde2.helpers.CensusHelpers.findSubject;
 
 /**
- * One public method
+ * Generates AreaRank for the area based on certain parameters. This score takes into account
+ * key socio-economic variables.
+ *
+ * <p>
+ *     The formula for calculating an AreaRank is as follows:
+ * </p>
+ *
+ * <ol>
+ *     <li>Start with a mid-value of 38.</li>
+ *     <li>For the crime trend, change the value by -10, -5, 0, +5 or +10</li>
+ *     <li>For the energy trend, change the value by -4, -2, 0, +2 or +4</li>
+ *     <li>For the unemployment rate, change the value by -6, -3, 0, +3 or +6</li>
+ *     <li>For the unemployment trend, change the value by -8, -4, 0, +4 or +8</li>
+ *     <li>For the rate of free school meal pupils, change the value by -5, -2.5, 0, +2.5 or 5</li>
+ *     <li>For the rate of A*-C GCSE pupils, change the value by -5, -2.5, 0, +2.5 or 5</li>
+ *     <li>Take the value (as v) and return (v/76)*100</li>
+ * </ol>
+ *
+ * <p>
+ *     The changes are triggered by various thresholds that should be adjusted to national average
+ *     values or other magics, however at the moment they are quite arbitrary.
+ * </p>
+ *
+ * @author filip
  */
 public class AreaRank {
     public static final int KS4_ASTAR_TO_C_ALL_PUPILS = 7700;
@@ -39,6 +62,13 @@ public class AreaRank {
     public static final int FREE_SCHOOL_MEAL_PUPILS = 7706;
     public static float MID_SCORE = 38.0f;
 
+    /**
+     * Returns a score for the given area. Since computing an AreaRank score usually takes a while,
+     * the scores are cached.
+     * @param area The area to grade
+     * @return AreaRank for the area
+     * @throws Exception
+     */
     public static float forArea(Area area) throws Exception {
         try{
             return cachedScore(area);
@@ -49,6 +79,12 @@ public class AreaRank {
         }
     }
 
+    /**
+     * Tries to retrieve a cached score. If one is not available, returns NaN.
+     * @param area The area to grade
+     * @return Cached AreaRank or NaN.
+     * @throws FileNotFoundException
+     */
     private static float cachedScore(Area area) throws FileNotFoundException {
         ContentResolver resolver = AreaActivity.getAreabaseApplicationContext().getContentResolver();
         String[] selectionArgs = { Integer.toString(area.getAreaId()),
@@ -75,6 +111,12 @@ public class AreaRank {
         return score;
     }
 
+    /**
+     * Generate a new score.
+     * @param area The area to grade
+     * @return AreaRank
+     * @throws Exception
+     */
     private static float newScore(Area area) throws Exception {
         float score = MID_SCORE;
 
@@ -92,11 +134,16 @@ public class AreaRank {
                 String.format("Computing a new score for %s... [Unemployment component done]", area.getName()));
         score += education(area);
         Log.v("AreaRank",
-                String.format("Computing a new score for %s... [Health component done]", area.getName()));
+                String.format("Computing a new score for %s... [Education component done]", area.getName()));
 
         return (score/(MID_SCORE*2))*100;
     }
 
+    /**
+     * Save the given AreaRank to database.
+     * @param area The graded area
+     * @param score The score to save
+     */
     private static void saveScore(Area area, float score){
         ContentResolver resolver = AreaActivity.getAreabaseApplicationContext().getContentResolver();
         ContentValues values = new ContentValues();
@@ -108,6 +155,14 @@ public class AreaRank {
                 String.format("Saving score for %s: %.1f", area.getName(), score));
     }
 
+    /**
+     * Analyses the unemployment rate and trend
+     * @param area The area to grade
+     * @return a modifier for the AreaRank
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws NDE2Exception
+     */
     private static float unemployment(Area area) throws XmlPullParserException, IOException, NDE2Exception {
         TrendDescription trenddesc = EconomyCardProvider.getUnemploymentRate(area);
 
@@ -149,6 +204,14 @@ public class AreaRank {
         return scoreComponent;
     }
 
+    /**
+     * Analyses the rate of Free School Meals pupils and the A*-C GCSE rate.
+     * @param area The area to grade
+     * @return a modifier for the AreaRank
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws NDE2Exception
+     */
     private static float education(Area area) throws XmlPullParserException, IOException, NDE2Exception {
         float scoreComponent = 0f;
 
@@ -201,6 +264,14 @@ public class AreaRank {
         return scoreComponent;
     }
 
+    /**
+     * Analyses energy usage trend.
+     * @param area The area to grade
+     * @return a modifier for the AreaRank
+     * @throws XmlPullParserException
+     * @throws IOException
+     * @throws NDE2Exception
+     */
     private static float energyTrend(Area area) throws XmlPullParserException, IOException, NDE2Exception {
         TrendDescription trendDescription = EnvironmentCardProvider.getEnergyTrend(area,
                 findRequiredFamilies(area,
@@ -222,6 +293,12 @@ public class AreaRank {
         }
     }
 
+    /**
+     * Analyses crime trend.
+     * @param area The area to grade
+     * @return a modifier for the AreaRank
+     * @throws Exception
+     */
     private static float crimeTrend(Area area) throws Exception {
         double gradient = CrimeCardProvider.getCrimeTrend(area);
         if (gradient > CrimeCardProvider.TREND_RAPID_LOWER_THRESHOLD

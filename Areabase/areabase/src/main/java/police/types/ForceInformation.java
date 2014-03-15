@@ -15,12 +15,12 @@ public class ForceInformation {
 	}
 
 	/**
-	 * @param description
-	 * @param url
-	 * @param telephone
-	 * @param id
-	 * @param name
-	 * @param engagement_methods
+	 * @param description Force description
+	 * @param url Homepage url
+	 * @param telephone phone number (non-999)
+	 * @param id internal force id
+	 * @param name force name
+	 * @param engagement_methods available methods of interaction
 	 */
 	public ForceInformation(String description, String url, String telephone,
 			String id, String name,

@@ -8,7 +8,7 @@ import lamparski.areabase.R;
 
 public class CommonDialogs {
 	/**
-	 * Notifies the user about service cock-ups.
+	 * Notifies the user about service disconnect errors.
 	 * 
 	 * @param name
 	 *            The name of the incompetent service.

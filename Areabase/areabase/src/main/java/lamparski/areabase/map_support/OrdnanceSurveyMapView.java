@@ -143,8 +143,8 @@ public class OrdnanceSurveyMapView extends WebView {
 	 * Centre the map on a specific point given by its easting and northing, at
 	 * the same zoom level.
 	 * 
-	 * @param easting
-	 * @param northing
+	 * @param easting the "easting" coordinate
+	 * @param northing the "northing" coordinate
 	 */
 	public void setCentre_byEastingNorthing(Double easting, Double northing) {
 		loadUrl(String

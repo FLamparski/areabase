@@ -151,7 +151,7 @@ public class Dataset implements Serializable {
 
 	/**
 	 * 
-	 * @param t
+	 * @param t topic to filter the dataset by
 	 * @return the items with topic t
 	 */
 	public Set<DataSetItem> getItems(Topic t) {
@@ -166,7 +166,7 @@ public class Dataset implements Serializable {
 
 	/**
 	 * 
-	 * @param p
+	 * @param p period to filter the dataset by
 	 * @return the items with period p
 	 */
 	public Set<DataSetItem> getItems(Period p) {
@@ -181,7 +181,7 @@ public class Dataset implements Serializable {
 
 	/**
 	 * 
-	 * @param b
+	 * @param b boundary to filter the dataset by
 	 * @return the items with boundary b
 	 */
 	public Set<DataSetItem> getItems(Boundary b) {

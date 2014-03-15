@@ -5,7 +5,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 /**
- * Something the framework requires
+ * Something the framework requires, not even sure what it is...
  */
 public class ErrorDialogFragment extends DialogFragment {
 	private Dialog mDialog;

@@ -121,7 +121,7 @@ public class EnvironmentCardProvider {
 
 	/**
 	 * 
-	 * @param theDatasets
+	 * @param theDatasets datasets that has the actual data
 	 * @return the latest year at index 0, the actual energy use at index 1.
 	 */
 	private static float[] getLatestEnergyUse(Set<Dataset> theDatasets) {
