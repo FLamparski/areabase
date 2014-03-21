@@ -165,13 +165,13 @@ public class SummaryFragment extends Fragment implements IAreabaseFragment, Basi
                 CardModel scoreCard = new CardModel(AreaRankCard.class);
                 scoreCard.setTitlePlay(getString(R.string.card_arearank_text, area.getName()));
                 scoreCard.setDescription(String.format("%.1f", areaRank));
-                if(areaRank >= 80.0f){
+                if(areaRank >= 75.0f){
                     scoreCard.setColor(String.format("#%08X",
                             getResources().getColor(R.color.arearank80)));
-                } else if (areaRank >= 60.0f){
+                } else if (areaRank >= 50.0f){
                     scoreCard.setColor(String.format("#%08X",
                             getResources().getColor(R.color.arearank60)));
-                } else if (areaRank >= 40.0f){
+                } else if (areaRank >= 25.0f){
                     scoreCard.setColor(String.format("#%08X",
                             getResources().getColor(R.color.arearank40)));
                 } else {
