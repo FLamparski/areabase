@@ -15,6 +15,22 @@
             android:summaryOn="@string/pref_category_location_backgroundRefix_infoText_enabled"
             android:title="@string/pref_category_location_backgroundRefix_primaryText" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_category_storage"
+        android:title="Storage">
+
+        <Preference
+            android:key="pref_storage_remove_old_data"
+            android:title="Clear old data" />
+
+        <Preference
+            android:key="pref_storage_reset_scores"
+            android:title="Reset AreaRank scores"
+            android:summary="This will reset all scores. Computing them again may take time."/>
+
+        </PreferenceCategory>
+
     <PreferenceCategory
         android:key="pref_category_testing"
         android:title="@string/pref_category_testing_heading" >

@@ -87,6 +87,8 @@ public abstract class BaseMethodCall {
 			paramString = paramString.substring(0, paramString.length() - 1);
 		}
 
+        Log.d("BaseMethodCall", "Calling " + paramString);
+
 		String responseStr = doCallToDB(paramString);
         if(responseStr == null){
             responseStr = doCallToAPI(paramString);
@@ -94,10 +96,16 @@ public abstract class BaseMethodCall {
             ContentResolver contentResolver = AreaActivity
                     .getAreabaseApplicationContext().getContentResolver();
             ContentValues cacheValues = new ContentValues();
-            cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_URL, paramString);
+
             cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_RETRIEVED_ON, System.currentTimeMillis());
             cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_CACHED_OBJECT, responseStr);
-            contentResolver.insert(CacheContentProvider.POLICE_CACHE_URI, cacheValues);
+            // Update existing entry...
+            int rowsUpdated = contentResolver.update(CacheContentProvider.POLICE_CACHE_URI, cacheValues, "url = ?", new String[] {paramString});
+            // ...or create one.
+            if(rowsUpdated == 0){
+                cacheValues.put(CacheDbOpenHelper.BaseCacheTable.FIELD_URL, paramString);
+                contentResolver.insert(CacheContentProvider.POLICE_CACHE_URI, cacheValues);
+            }
         }
 
 		return responseStr;
@@ -135,7 +143,6 @@ public abstract class BaseMethodCall {
             response = null;
         }
         c.close();
-        Log.d("Mapper", "A cached instance of " + url + " is available, returning.");
 
         return response;
     }

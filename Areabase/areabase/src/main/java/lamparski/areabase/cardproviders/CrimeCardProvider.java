@@ -174,7 +174,7 @@ public class CrimeCardProvider {
             for (Date n : availableDates) {
                 if (!(n.equals(latestAvailable))) {
                     Collection<Crime> crimesForDate = new StreetLevelCrimeMethodCall()
-                            .addAreaPolygon(areaPolygon).addDate(n)
+                            .addAreaPolygon(simplifiedPolygon).addDate(n)
                             .getStreetLevelCrime();
                     Map<String, Integer> slice = crimeSlice(crimesForDate);
                     dataCube.put(n.getTime() / UNIX_30_DAYS, slice);

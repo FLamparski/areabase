@@ -516,8 +516,7 @@ public class AreaActivity extends Activity implements LocationListener,
 			break;
 		case R.id.action_locate:
 			if (gServicesConnected()) {
-				getLocation();
-                changeFragment(SUMMARY);
+				beginAreaFetch(getLocation());
 			}
 			break;
 		case R.id.action_refresh:
@@ -916,7 +915,7 @@ public class AreaActivity extends Activity implements LocationListener,
             @Override
             public void run() {
                 if(tr instanceof FileNotFoundException){
-                    Crouton.makeText(AreaActivity.this, R.string.file_not_found_msg, Style.INFO);
+                    Crouton.makeText(AreaActivity.this, R.string.file_not_found_msg, Style.INFO).show();
                 } else {
                     CommonDialogs.areaDataServiceError(tr, AreaActivity.this);
                 }
