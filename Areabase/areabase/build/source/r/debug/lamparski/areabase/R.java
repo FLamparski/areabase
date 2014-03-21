@@ -7,7 +7,6 @@
 
 package lamparski.areabase;
 
-@SuppressWarnings("ALL")
 public final class R {
     public static final class array {
         public static final int card_crime_real_trend=0x7f050000;

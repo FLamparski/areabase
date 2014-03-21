@@ -52,6 +52,7 @@ import com.google.android.gms.location.LocationRequest;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.List;
@@ -69,6 +70,7 @@ import lamparski.areabase.services.AreaDataService;
 import lamparski.areabase.services.AreaDataService.AreaDataBinder;
 import lamparski.areabase.services.AreaDataService.AreaListCallbacks;
 import lamparski.areabase.services.AreaDataService.AreaLookupCallbacks;
+import lamparski.areabase.widgets.CommonDialogHandlers;
 import lamparski.areabase.widgets.CommonDialogs;
 import lamparski.areabase.widgets.RobotoLightTextView;
 import nde2.pull.types.Area;
@@ -522,9 +524,6 @@ public class AreaActivity extends Activity implements LocationListener,
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
-		case R.id.action_dump_db:
-			dump_db();
-			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -762,6 +761,7 @@ public class AreaActivity extends Activity implements LocationListener,
 	 * A helper method that dumps the database contents into a file on the sd
 	 * card (or the /sdcard folder in the internal storage filesystem)
 	 */
+    @Deprecated
 	private void dump_db() {
 		new AsyncTask<Void, Integer, Void>() {
 
@@ -873,6 +873,13 @@ public class AreaActivity extends Activity implements LocationListener,
     @Override
     public void areasReady(final List<Area> areas) {
         Log.d("AreaActivity", "Text query: " + areas.size() + " areas to choose from.");
+        if(areas.size() == 0){
+            AlertDialog.Builder fnf_bld = new Builder(this);
+            fnf_bld.setMessage(R.string.areas_not_found);
+            fnf_bld.setNeutralButton(android.R.string.ok, CommonDialogHandlers.JUST_DISMISS);
+            fnf_bld.show();
+            return;
+        }
         String[] areaNames = new String[areas.size()];
         for(int i = 0; i < areas.size(); i++){
             areaNames[i] = areas.get(i).getName();
@@ -901,7 +908,11 @@ public class AreaActivity extends Activity implements LocationListener,
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CommonDialogs.areaDataServiceError(tr, AreaActivity.this);
+                if(tr instanceof FileNotFoundException){
+                    Crouton.makeText(AreaActivity.this, R.string.file_not_found_msg, Style.INFO);
+                } else {
+                    CommonDialogs.areaDataServiceError(tr, AreaActivity.this);
+                }
             }
         });
     }

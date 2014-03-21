@@ -34,6 +34,5 @@
         android:showAsAction="never"
         android:title="@string/action_help">
     </item>
-    <item android:id="@+id/action_dump_db" android:title="Dump Database" android:orderInCategory="102"></item>
 
 </menu>

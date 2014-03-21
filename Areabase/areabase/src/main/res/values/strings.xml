@@ -33,6 +33,8 @@
     <string name="summaryactivity_cardmaker_values_not_available">Areabase may not work correctly in certain areas, mostly Scotland and Northern Ireland. Office for National Statistics does not cover Scotland and NI, and Scottish National Statistics does not provide a way Areabase can access its data. Police data is not available for Northern Ireland. Lastly, datasets may not be complete in any of these databases.</string>
     <string name="error_cannot_resolve_postcode">Could not resolve the postcode.</string>
     <string name="error_cannot_resolve_postcode_body">The postcode for your location appears invalid. This could be because of how Google Geocoder returns postcodes. Try to walk to a different location and press the "Locate" button.</string>
+    <string name="file_not_found_msg">Some data could not be found.</string>
+    <string name="areas_not_found">There are no matching Local Authorities.</string>
 
     <!-- navigation -->
     <string name="navdrawer_secheader_basic_info">This area</string>
