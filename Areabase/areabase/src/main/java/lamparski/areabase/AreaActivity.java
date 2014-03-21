@@ -878,6 +878,10 @@ public class AreaActivity extends Activity implements LocationListener,
      */
     @Override
     public void areasReady(final List<Area> areas) {
+        if(areas == null){
+            Crouton.makeText(this, "Please type more than 2 characters", Style.INFO).show();
+            return;
+        }
         Log.d("AreaActivity", "Text query: " + areas.size() + " areas to choose from.");
         if(areas.size() == 0){
             AlertDialog.Builder fnf_bld = new Builder(this);

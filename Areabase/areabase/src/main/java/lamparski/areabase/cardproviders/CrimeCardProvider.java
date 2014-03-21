@@ -291,8 +291,12 @@ public class CrimeCardProvider {
 			Map<String, Integer> crimeSlice = new HashMap<String, Integer>();
 			for (Topic t : d.getTopics().values()) {
 				String key = t.getTitle();
-				int value = (int) d.getItems(t).iterator().next().getValue();
-				crimeSlice.put(key, value);
+                try{
+				    int value = (int) d.getItems(t).iterator().next().getValue();
+                    crimeSlice.put(key, value);
+                } catch (NoSuchElementException ex){
+                    continue;
+                }
 			}
 			most_common_array.add(mostCommonCrime_ons(crimeSlice));
 			onsDatacube.put(date, crimeSlice);

@@ -30,7 +30,7 @@ import police.errors.APIException;
  */
 public abstract class BaseMethodCall {
 	protected final static String ENDPOINT = "http://data.police.uk/api/";
-	protected final static int TIMEOUT = 5000;
+	protected final static int TIMEOUT = 10000;
 
     /**
      * This method will actually pull new data from the web service
