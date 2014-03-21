@@ -71,14 +71,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: lamparski.areabase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="Documenting code, minor stylistic changes, dropped some unused classes and depreceated others.">
+    <list default="true" id="3cc7ced3-6e7a-4caa-afac-992c9bb8a0b9" name="Default" comment="No user access to dump_db, better errors for 0-length area lists">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../cardsui-for-android" afterPath="$PROJECT_DIR$/../cardsui-for-android" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" afterPath="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" afterPath="$PROJECT_DIR$/areabase/build/source/r/debug/lamparski/areabase/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/menu/areabase_opts_menu.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/menu/areabase_opts_menu.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" afterPath="$PROJECT_DIR$/areabase/build/exploded-bundles/AreabaseCardsUILibUnspecified.aar/res/layout/footer_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Areabase.iws" />
@@ -157,25 +152,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AreaActivity.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AreaActivity.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="510" column="13" selection-start="17208" selection-end="17208" vertical-scroll-proportion="0.0" vertical-offset="7343" max-vertical-offset="14022">
+            <state line="537" column="7" selection-start="17824" selection-end="17824" vertical-scroll-proportion="4.727694" vertical-offset="4056" max-vertical-offset="14148">
               <folding>
-                <element signature="class#25339:26840" expanded="false" />
-                <element signature="e#28800#28824#0" expanded="true" />
-                <element signature="e#30135#30162#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="areabase_opts_menu.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/areabase/src/main/res/menu/areabase_opts_menu.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="35" selection-start="953" selection-end="953" vertical-scroll-proportion="0.52143687" vertical-offset="0" max-vertical-offset="863">
-              <folding>
-                <element signature="e#1242#1263#0" expanded="true" />
+                <element signature="class#25519:27020" expanded="false" />
+                <element signature="e#28980#29004#0" expanded="true" />
+                <element signature="e#30315#30342#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1791,8 +1775,8 @@
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/cards/EventfulArrayList.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/utils/VeryFlimsyDatabaseSecurity.java" />
-        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
         <option value="$PROJECT_DIR$/areabase/src/main/res/menu/areabase_opts_menu.xml" />
+        <option value="$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java" />
       </list>
     </option>
   </component>
@@ -2230,6 +2214,7 @@
     <property name="ExportedApkPath" value="$PROJECT_DIR$/areabase/areabase.apk" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
     <property name="SearchEverywhereHistory" value="menu&#10;Cri&#10;Str&#10;AA&#10;Javadoc&#10;AreaD&#10;Pol&#10;allD&#10;area&#10;compute&#10;AreaAc&#10;strings&#10;Sum&#10;AreaDa&#10;perform&#10;Subject&#10;Gradle" />
+    <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -2502,7 +2487,11 @@
       <created>1394896710936</created>
       <updated>1394896710936</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="No user access to dump_db, better errors for 0-length area lists">
+      <created>1395428954183</created>
+      <updated>1395428954183</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -2545,11 +2534,11 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.62053573" sideWeight="0.6181818" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32869694" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924107" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19839573" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19839573" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32994652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21550801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21550801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3783482" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -2614,7 +2603,8 @@
     <MESSAGE value="Locking the functionality to Local Authorities as per #22." />
     <MESSAGE value="#22 complete. Ish." />
     <MESSAGE value="Documenting code, minor stylistic changes, dropped some unused classes and depreceated others." />
-    <option name="LAST_COMMIT_MESSAGE" value="Documenting code, minor stylistic changes, dropped some unused classes and depreceated others." />
+    <MESSAGE value="No user access to dump_db, better errors for 0-length area lists" />
+    <option name="LAST_COMMIT_MESSAGE" value="No user access to dump_db, better errors for 0-length area lists" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -2898,22 +2888,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="510" column="13" selection-start="17208" selection-end="17208" vertical-scroll-proportion="0.0" vertical-offset="7343" max-vertical-offset="14022">
-          <folding>
-            <element signature="class#25339:26840" expanded="false" />
-            <element signature="e#28800#28824#0" expanded="true" />
-            <element signature="e#30135#30162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/areabase/src/main/res/menu/areabase_opts_menu.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="35" selection-start="953" selection-end="953" vertical-scroll-proportion="0.52143687" vertical-offset="0" max-vertical-offset="863">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/areabase/src/main/java/lamparski/areabase/AreaActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="537" column="7" selection-start="17824" selection-end="17824" vertical-scroll-proportion="4.727694" vertical-offset="4056" max-vertical-offset="14148">
           <folding>
-            <element signature="e#1242#1263#0" expanded="true" />
+            <element signature="class#25519:27020" expanded="false" />
+            <element signature="e#28980#29004#0" expanded="true" />
+            <element signature="e#30315#30342#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -171,17 +171,21 @@ public class AreaActivity extends Activity implements LocationListener,
 				changeFragment(v.getId());
 			}
 			if (v.getId() == GET_HELP) {
-				Log.i("AreaActivity navdrawer", "We are getting help!");
-				Intent helpIntent = new Intent(Intent.ACTION_VIEW);
-				helpIntent.setData(Uri
-						.parse("http://flamparski.github.io/areabase/"));
-				startActivity(helpIntent);
+                openHelpPage();
 			}
 			mDrawerLayout.closeDrawer(GravityCompat.START);
 		}
 	};
 
-	@Override
+    private void openHelpPage() {
+        Log.i("AreaActivity navdrawer", "We are getting help!");
+        Intent helpIntent = new Intent(Intent.ACTION_VIEW);
+        helpIntent.setData(Uri
+                .parse("http://flamparski.github.io/areabase/"));
+        startActivity(helpIntent);
+    }
+
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -524,6 +528,9 @@ public class AreaActivity extends Activity implements LocationListener,
 			Intent intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
+        case R.id.action_help:
+            openHelpPage();
+            break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
