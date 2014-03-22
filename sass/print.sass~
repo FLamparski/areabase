@@ -1,7 +1,7 @@
 /*
   Welcome to Compass. Use this file to define print styles.
   Import this file using the following HTML or equivalent:
-  <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+  <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
   
 @import compass/reset
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto:300,100)
