@@ -1,0 +1,69 @@
+/*
+  Welcome to Compass.
+  In this file you should write your main styles. (or centralize your imports)
+  Import this file using the following HTML or equivalent:
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  */
+
+@import compass/reset
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Roboto:300,100)
+
+@font-face
+  font-family: 'Glyphicons Halflings'
+  src: url('../../fonts/glyphicons-halflings-regular.eot')
+  src: url('../../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg')
+
+body
+  padding-top: 100px
+  padding-bottom: 50px
+
+#megaimage
+  img
+    width: 100%
+    height: auto
+  text-align: center
+
+img.autoscale
+  width: 100%
+  height: auto
+
+$brand-primary: #33B5E5
+$brand-success: #99CC00
+$brand-warning: #FFBB33
+$brand-danger: #FF4444
+
+$body-bg: #d4d4d4
+$font-family-sans-serif: "Source Sans Pro", "Ubuntu", "Calibri", "Helvetica Neue", sans-serif
+$headings-font-family: "Roboto"
+$headings-font-weight: 300
+$font-size-base: 18px
+$text-color: lighten(#000, 10%)
+$headings-color: darken($brand-primary, 40%)
+
+.jumbotron
+  h1
+    font-weight: 100
+
+.jumbotron-section
+  background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(159,159,159,0) 75%,rgba(202,202,202,1) 100%)
+  margin-top: 50px
+
+#carousel-subject-view
+  .carousel-inner
+    .item
+      img
+        max-height: 800px
+        margin:
+          left: auto
+          right: auto
+      .carousel-caption
+        background-color: rgba(0, 0, 0, 0.8)
+        left: 0px !important
+        right: 0px !important
+        bottom: 0px !important
+        padding:
+          bottom: 40px !important
+          left: 15px
+          right: 15px
+
+@import bootstrap
