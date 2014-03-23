@@ -69,8 +69,8 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 @font-face {
   font-family: "Glyphicons Halflings";
-  src: url("/fonts/glyphicons-halflings-regular.eot");
-  src: url("/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("/fonts/glyphicons-halflings-regular.woff") format("woff"), url("/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
+  src: url("/areabase/fonts/glyphicons-halflings-regular.eot");
+  src: url("/areabase/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("/areabase/fonts/glyphicons-halflings-regular.woff") format("woff"), url("/areabase/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("/areabase/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
 
 /* line 14, ../sass/print.sass */
