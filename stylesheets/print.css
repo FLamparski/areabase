@@ -106,13 +106,18 @@ img.autoscale {
   margin-top: 50px;
 }
 
-/* line 52, ../sass/print.sass */
+/* line 49, ../sass/print.sass */
+.center-text {
+  text-align: center;
+}
+
+/* line 55, ../sass/print.sass */
 #carousel-subject-view .carousel-inner .item img {
   max-height: 800px;
   margin-left: auto;
   margin-right: auto;
 }
-/* line 57, ../sass/print.sass */
+/* line 60, ../sass/print.sass */
 #carousel-subject-view .carousel-inner .item .carousel-caption {
   background-color: rgba(0, 0, 0, 0.8);
   left: 0px !important;

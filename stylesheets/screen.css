@@ -97,24 +97,29 @@ img.autoscale {
   height: auto;
 }
 
-/* line 44, ../sass/screen.sass */
+/* line 45, ../sass/screen.sass */
 .jumbotron h1 {
   font-weight: 100;
 }
 
-/* line 47, ../sass/screen.sass */
+/* line 48, ../sass/screen.sass */
 .jumbotron-section {
   background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(159, 159, 159, 0) 75%, #cacaca 100%);
   margin-top: 50px;
 }
 
-/* line 54, ../sass/screen.sass */
+/* line 52, ../sass/screen.sass */
+.center-text {
+  text-align: center;
+}
+
+/* line 58, ../sass/screen.sass */
 #carousel-subject-view .carousel-inner .item img {
   max-height: 800px;
   margin-left: auto;
   margin-right: auto;
 }
-/* line 59, ../sass/screen.sass */
+/* line 63, ../sass/screen.sass */
 #carousel-subject-view .carousel-inner .item .carousel-caption {
   background-color: rgba(0, 0, 0, 0.8);
   left: 0px !important;
@@ -927,7 +932,7 @@ dd {
   margin-left: 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 191, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_type.scss */
   .dl-horizontal dt {
     float: left;
@@ -4507,7 +4512,7 @@ input[type="button"].btn-block {
   margin-bottom: 1px;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 203, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_dropdowns.scss */
   .navbar-right .dropdown-menu {
     right: 0;
@@ -5110,7 +5115,7 @@ input[type="button"].btn-block {
 .navbar:after {
   clear: both;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 11, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar {
     border-radius: 4px;
@@ -5126,7 +5131,7 @@ input[type="button"].btn-block {
 .navbar-header:after {
   clear: both;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 31, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-header {
     float: left;
@@ -5156,7 +5161,7 @@ input[type="button"].btn-block {
 .navbar-collapse.in {
   overflow-y: auto;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 50, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-collapse {
     width: auto;
@@ -5189,7 +5194,7 @@ input[type="button"].btn-block {
   margin-right: -15px;
   margin-left: -15px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 99, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .container > .navbar-header,
   .container > .navbar-collapse,
@@ -5205,7 +5210,7 @@ input[type="button"].btn-block {
   z-index: 1000;
   border-width: 0 0 1px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 118, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-static-top {
     border-radius: 0;
@@ -5220,7 +5225,7 @@ input[type="button"].btn-block {
   left: 0;
   z-index: 1030;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 129, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-fixed-top,
   .navbar-fixed-bottom {
@@ -5253,7 +5258,7 @@ input[type="button"].btn-block {
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 167, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
     margin-left: -15px;
@@ -5288,7 +5293,7 @@ input[type="button"].btn-block {
 .navbar-toggle .icon-bar + .icon-bar {
   margin-top: 4px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 179, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-toggle {
     display: none;
@@ -5305,7 +5310,7 @@ input[type="button"].btn-block {
   padding-bottom: 10px;
   line-height: 25px;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   /* line 229, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-nav .open .dropdown-menu {
     position: static;
@@ -5330,7 +5335,7 @@ input[type="button"].btn-block {
     background-image: none;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 218, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-nav {
     float: left;
@@ -5351,7 +5356,7 @@ input[type="button"].btn-block {
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 278, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-left {
     float: left !important;
@@ -5374,13 +5379,13 @@ input[type="button"].btn-block {
   margin-top: 5.5px;
   margin-bottom: 5.5px;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   /* line 304, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-form .form-group {
     margin-bottom: 5px;
   }
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 292, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-form {
     width: auto;
@@ -5432,7 +5437,7 @@ input[type="button"].btn-block {
   margin-top: 12.5px;
   margin-bottom: 12.5px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   /* line 364, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-text {
     float: left;
@@ -5504,7 +5509,7 @@ input[type="button"].btn-block {
   background-color: #e7e7e7;
   color: #555555;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   /* line 459, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #777777;
@@ -5593,7 +5598,7 @@ input[type="button"].btn-block {
   background-color: #090909;
   color: white;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   /* line 579, ../../../../../../var/lib/gems/1.9.1/gems/bootstrap-sass-3.1.1.0/vendor/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
     border-color: #090909;
