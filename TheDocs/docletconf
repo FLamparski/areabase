@@ -1,0 +1,13 @@
+-d /home/filip/programsandprojects/Areabase-git/areabase/TheDocs
+-sourcepath /home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/java
+-breakiterator
+-generic
+-umlautogen
+-author
+-docletpath /home/filip/yworks-uml-doclet-3.0_02-jdk1.5/lib/ydoc.jar:/home/filip/yworks-uml-doclet-3.0_02-jdk1.5/resources:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/classes/debug
+-doclet ydoc.doclets.YStandard
+-tagletpath /home/filip/yworks-uml-doclet-3.0_02-jdk1.5/lib/ydoc.jar
+-tag param
+-tag return
+-tag see
+-subpackages police

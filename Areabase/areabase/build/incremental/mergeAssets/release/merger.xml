@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger>
+
+    <dataSet config="unspecified" >
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-aar/Areabase/HoloGraphLibrary/unspecified/assets" />
+    </dataSet>
+    <dataSet config="unspecified" >
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/build/exploded-aar/Areabase/cardsUILib/unspecified/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets" >
+            <file
+                name="os_openspace/slippymap.html"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/os_openspace/slippymap.html" />
+            <file
+                name="fonts/Roboto-Condensed.ttf"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/fonts/Roboto-Condensed.ttf" />
+            <file
+                name="fonts/Roboto-Thin.ttf"
+                path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/assets/fonts/Roboto-Thin.ttf" />
+        </source>
+    </dataSet>
+    <dataSet config="release" >
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/release/assets" />
+    </dataSet>
+
+</merger>

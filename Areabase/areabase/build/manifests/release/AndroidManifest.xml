@@ -1,0 +1,72 @@
+<!-- From: file:/home/filip/programsandprojects/Areabase-git/areabase/Areabase/areabase/src/main/AndroidManifest.xml --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" android:versionCode="3" android:versionName="0.2.beta-2" package="lamparski.areabase">
+
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.location" android:required="true"/>
+    <uses-feature android:name="android.hardware.location.gps" android:required="true"/>
+    <uses-feature android:name="android.hardware.touchscreen" android:required="true"/>
+
+    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:resizeable="true" android:smallScreens="true"/>
+
+    <compatible-screens>
+
+        <!-- small size screens -->
+        <screen android:screenDensity="ldpi" android:screenSize="small"/>
+        <screen android:screenDensity="mdpi" android:screenSize="small"/>
+        <screen android:screenDensity="hdpi" android:screenSize="small"/>
+        <screen android:screenDensity="xhdpi" android:screenSize="small"/>
+
+        <!--Only hdpi and xhdpi for normal size screens -->
+        <screen android:screenDensity="ldpi" android:screenSize="normal"/>
+        <screen android:screenDensity="mdpi" android:screenSize="normal"/>
+        <screen android:screenDensity="hdpi" android:screenSize="normal"/>
+        <screen android:screenDensity="xhdpi" android:screenSize="normal"/>
+
+        <!-- all large size screens -->
+        <screen android:screenDensity="ldpi" android:screenSize="large"/>
+        <screen android:screenDensity="mdpi" android:screenSize="large"/>
+        <screen android:screenDensity="hdpi" android:screenSize="large"/>
+        <screen android:screenDensity="xhdpi" android:screenSize="large"/>
+
+        <!-- all xlarge size screens -->
+        <screen android:screenDensity="ldpi" android:screenSize="xlarge"/>
+        <screen android:screenDensity="mdpi" android:screenSize="xlarge"/>
+        <screen android:screenDensity="hdpi" android:screenSize="xlarge"/>
+        <screen android:screenDensity="xhdpi" android:screenSize="xlarge"/>
+
+        <!-- Special case for Nexus 7 -->
+        <screen android:screenDensity="213" android:screenSize="large"/>
+
+    </compatible-screens>
+
+
+
+    <application android:allowBackup="true" android:icon="@drawable/ic_launcher" android:label="@string/app_name" android:theme="@style/AppTheme">
+        <activity android:label="@string/app_name" android:name="lamparski.areabase.AreaActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:label="@string/title_activity_settings" android:name="lamparski.areabase.SettingsActivity">
+        </activity>
+
+        <service android:name="lamparski.areabase.services.AreaDataService">
+        </service>
+
+        <provider android:authorities="lamparski.areabase.content" android:exported="false" android:name="lamparski.areabase.CacheContentProvider">
+        </provider>
+
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+
+        <activity android:label="@string/title_activity_graph" android:name="lamparski.areabase.GraphActivity" android:parentActivityName="lamparski.areabase.AreaActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="AreaActivity"/>
+        </activity>
+    </application>
+
+</manifest>

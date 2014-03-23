@@ -2,17 +2,33 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.1'
+    buildToolsVersion '19.0.2'
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 19
     }
 
+    signingConfigs {
+        release {
+            // sorry
+            storeFile file('')
+            storePassword ''
+            keyAlias 'Areabase'
+            keyPassword ''
+        }
+    }
+
     buildTypes {
         release {
-            runProguard true
+            runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt', 'proguard-google-api-client.txt'
+            debuggable false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            runProguard false
+            debuggable true
         }
     }
 
@@ -28,7 +44,7 @@ dependencies {
     compile 'com.android.support:support-v13:+'
     compile 'com.google.code.gson:gson:2.+'
     compile 'com.google.android.gms:play-services:+'
-    compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
+    compile 'commons-io:commons-io:2.4'
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.3'
     compile group: 'com.google.guava', name: 'guava', version: '12.0'
     compile files('libs/jackson-core-asl-1.9.11.jar')

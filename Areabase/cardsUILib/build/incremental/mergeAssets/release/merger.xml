@@ -2,10 +2,10 @@
 <merger>
 
     <dataSet config="main" >
-        <source path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\main\assets" />
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/main/assets" />
     </dataSet>
     <dataSet config="release" >
-        <source path="C:\Users\Minkovsky\areabase\Areabase\cardsUILib\src\release\assets" />
+        <source path="/home/filip/programsandprojects/Areabase-git/areabase/Areabase/cardsUILib/src/release/assets" />
     </dataSet>
 
 </merger>
