@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Areabase | User Manual | Filip Wieland (3026 @ 10743)</title>
+
+    <!-- Stylesheet (compiled from Sass) -->
+    <link href="./stylesheets/screen.css" rel="stylesheet" type="text/css" media="screen, projection" />
+    <link href="./stylesheets/print.css" rel="stylesheet" type="text/css" media="print"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body data-spy="scroll" data-target="#areabase-help-navbar" data-offset="100">
+  <a href="https://github.com/FLamparski/areabase" class="visible-lg visible-md"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 2000;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <!-- Navbar -->
+    <div class="navbar-wrapper">
+        <div class="container">
+            <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- The items: [NAME] home ingress communities -->
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="#">Areabase</a>
+                    </div>
+
+                    <div class="navbar-collapse collapse" id="areabase-help-navbar">
+                        <ul class="nav navbar-nav">
+                            <li><a href="#top">Home</a></li>
+                            <li><a href="#about">About Areabase</a></li>
+                            <li><a href="#summary">Summaries</a></li>
+                            <li><a href="#subject-views">Subject Views</a></li>
+                            <li><a href="#graph-activities">Graphing Datasets</a></li>
+                            <li><a href="#attrib">Credits</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row" id="top">
+            <div class="col-xs-12" id="megaimage">
+                <img src="./images/logo-lg.png" alt="Areabase"/>
+            </div>
+        </div>
+
+        <section class="row" id="about">
+            <div class="col-lg-9 col-sm-8">
+                <h2>Why Areabase <small>Easy data</small></h2>
+                <p>Everyone needs statistical geography for one reason or another. Moving houses? Check for crime data. Interested in demographics?
+                Quickly glance at Areabase to see a brief description of the area you're in. It's as easy as that.</p>
+                <p>The goals of Areabase are to create an easy to use way to query statistical data provided by the ONS and the Police Data service;
+                to provide a one-click overview of the current area expressed using simple, understandable terms. Areabase adheres to the Android
+                Design Guidelines, and is a fully-fledged Android application.</p>
+                <h3>AreaRank <small>The new way of defining an area</small></h3>
+                <p><img src="./images/arearank-card.png" class="img-thumbnail"/></p>
+                <p><strong>AreaRank</strong> is a completely new way of estimating how good an area is based on Areabase's revolutionary algorithm.</p>
+                <h3>Summary Generation <small>Read all about it</small></h3>
+                <p>Areabase will generate a narrative <strong>summary</strong> of the Local Authority selected to give you the information you need,
+                in a digestable format.</p>
+                <h3>ONS Data <small>Finally something that works on touchscreens</small></h3>
+                <p>Let's face it, the ONS web application sucks on PCs and sucks even more on mobiles. Areabase aims to fix the mobile bit.</p>
+            </div>
+            <div class="col-lg-3 col-sm-4">
+                <div class="thumbnail">
+                <img src="./images/areabase3-thumb.png" />
+                <div class="caption">
+                <h3>Getting Areabase</h3>
+                <p>Areabase can be installed via the Google Play Store. Simply click the link below, and press "Install", then accept the app permissions. If you are on
+                a non-Android device, you will be asked to send the app to a device you wish to install it on.</p>
+                <p>
+                    <a href="https://play.google.com/store/apps/details?id=lamparski.areabase">
+                        <img alt="Get it on Google Play"
+                            src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
+                    </a>
+                </p>
+                <p class="visible-lg visible-md">You can also scan this QR code with your Android device:</p>
+                <p class="center-text visible-lg visible-md">
+                    <img src="http://zxing.org/w/chart?cht=qr&chs=100x100&chld=L&choe=UTF-8&chl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dlamparski.areabase"/>
+                </p>
+                </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="summary">
+        <div class="row">
+            <div class="jumbotron jumbotron-section">
+                <h1>Summary Views</h1>
+                <p>A narrative description of your area of choice.</p>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <h2>This is the Summary View</h2>
+                <p>At the top, you can see the Action Bar: this will allow you to open up the Navigation Drawer by clicking on the application icon, load the 
+                area for the current location, search for areas (by name fragment or postcode), refresh the current view, and see other options.</p>
+                <p>You will be able to quickly read through an automatically generated summary of the statistical information of the open area. 
+                The following sections should be available for each area: </p>
+                <ul>
+                    <li><strong>People</strong>, for demographic data</li>
+                    <li><strong>Crime</strong>, for the crime rate and the most common type</li>
+                    <li><strong>Economy</strong>, for unemployment and biggest sector</li>
+                    <li><strong>Environment</strong>, for energy use and area type</li>
+                </ul>
+                <p>If all of these sections are present, <strong>AreaRank</strong> will also be generated and displayed on its own card.</p>
+                <p>Summaries tend to take a while to generate, especially if the area has not been visited before. The map will only zoom in after the process 
+                has completed, so you may see a zoomed-out map of the UK.</p>
+                <p>Due to the limitations of the UK's Office for National Statistics Neighbourhood Data Exchange datasets, the app can only show you data 
+                about Local Authorities &ndash; I tried to make it more detailed, however datasets are inconsistent across levels.</p>
+                <p>The summary is generated based on statistical information provided by the 
+                <a href="http://www.statistics.gov.uk/hub/index.html">UK National Statistics</a> and <a href="http://data.police.uk/">police data</a> services. 
+                While I tried to make sure Areabase uses most up-to-date information, the ONS rarely provides "fresh" data through their API.</p>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <img class="autoscale" src="./images/summary-view-framed.png"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <img src="./images/locatebtnimage.png" alt="The Locate button is located on the ActionBar, the at top of the application" class="autoscale"/>
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <h3>Loading areas</h3>
+                <p>The application will, by default, load the first area by itself, based on the device's location as given by the Google Play location services. 
+                While this is usually accurate and fast, sometimes the location given may not necessarily be what you are looking for.</p>
+                <p>In order to load an area based on the location, click the <strong>Locate</strong> button on the Action Bar. You can also look for areas 
+                by their name or part of their name, or by a known postcode &ndash; click the <strong>Search</strong> icon and enter your query into the 
+                text box, then press "Search" or "Enter" on your keyboard (screen or hardware).</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Using the Summary Cards</h3>
+                <p>To switch between various summary cards, just tap on the top of the card you want to view, and it will be brought to the front.</p>
+            </div>
+            <div class="col-sm-6">
+                <h3>Using the Map</h3>
+                <p>You can pinch-zoom with two fingers and pan around the map as you would in any other mapping application.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <img src="./images/appdraw-open.png" alt="The Navigation Drawer shows links to other parts of the application." class="autoscale" />
+            </div>
+            <div class="col-lg-6 col-sm-12">
+                <h3>Navigation</h3>
+                <p>To see other options, swipe from the left side of the screen, or click the application icon in the Action Bar. This will bring up the 
+                <strong>Navigation Drawer</strong>, from which you can access other areas of the application:</p>
+                <ul>
+                    <li><strong>Summary</strong>: will take you back to the Summary View from any other view.</li>
+                    <li><strong>Crime</strong>: a shortcut to the Crime and Safety Subject View.</li>
+                    <li><strong>Economy</strong>: a shortcut to the Economic Deprivation Subject View.</li>
+                    <li><strong>Environment</strong>: a shortcut to the Physical Environment Subject View.</li>
+                    <li><strong>Office for National Statistics</strong>: will take you to a list of Subjects available for the area.</li>
+                    <li><strong>Police.uk</strong>: will take you to a graph of the criminal incidents reported in the area within the last 12 months.</li>
+                </ul>
+                <p>You can also access this page by clicking the <strong>Help</strong> link.</p>
+            </div>
+        </div>
+        </section>
+        
+        <section id="subject-views">
+            <div class="jumbotron jumbotron-section">
+                <h1>Subject Views</h1>
+                <p>Browse ONS data easily.</p>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>This is the Subject View</h2>
+                    <p>Subject Views are Areabase's answer to the problem of viewing ONS data on phones and tablets. They allow you to quickly browse 
+                    through the available datasets, see into them to learn more, and graph the data (some datasets; graphing is wonky at the moment).</p>
+                </div>
+            </div>
+            <div class="row visible-sm visible-xs hidden-print">
+                <div id="carousel-subject-view" class="carousel slide col-xs-12">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-subject-view" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-subject-view" data-slide-to="1"></li>
+                        <li data-target="#carousel-subject-view" data-slide-to="2"></li>
+                    </ol>
+                    
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="./images/subjv-root.png" alt="All of the subjects available for the given area." class="img-responsive"/>
+                            <div class="carousel-caption">
+                                All of the subjects available for the given area.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="./images/subjv-subj_list.png" alt="Datasets available within a selected subject." class="img-responsive"/>
+                            <div class="carousel-caption">
+                                Datasets available within the selected subject. The chart icon means that it is possible to graph the dataset.
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img src="./images/subjv-subj_expand.png" alt="View a dataset." class="img-responsive"/>
+                            <div class="carousel-caption">
+                                Expand one of the datasets to view its actual contents. Some datasets also include a link that opens their graph.
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-subject-view" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-subject-view" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+            <div class="row visible-lg visible-md">
+                <div class="col-lg-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-root.png" alt="All of the subjects available for the given area." class="img-responsive"/>
+                        <div class="caption">
+                            <p>All of the subjects available for the given area.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-subj_list.png" alt="Datasets available within a selected subject." class="img-responsive"/>
+                        <div class="caption">
+                            <p>Datasets available within the selected subject. The chart icon means that it is possible to graph the dataset.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-subj_expand.png" alt="View a dataset." class="img-responsive"/>
+                        <div class="caption">
+                            <p>Expand one of the datasets to view its actual contents. Some datasets also include a link that opens their graph.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="graph-activities">
+            <div class="jumbotron jumbotron-section">
+                <h1>Graphing Datasets</h1>
+                <p>Visualise the area statistics.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12">
+                    <img src="./images/graphs-horiz_framed.png" class="autoscale" alt="A dataset being displayed as a graph horizontally." />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <h2>This is the Graph View</h2>
+                    <div class="alert alert-info">Graphing is still an experimental feature, and many datasets may produce wonky looking graphs.</div>
+                    <p>Statistical data is best viewed on a graph. This is what Areabase delivers with its Graph Views.</p>
+                    <p>To enter Graph View, you need to select a viable dataset in Subject View and click the blue "Graph this data" link. A new window will open, 
+                    where you can change the time period for which the graph is displayed &ndash; note that for many datasets, only one period is available.</p>
+                    <p>To return to Subject View, press the system <strong>Back button</strong>.</p>
+                    <h3>Action Bar in the graph window</h3>
+                    <p>Because the Graph View is displayed in another Activity (window), the action bar looks a bit different &ndash; for instance, you will not 
+                    be able to open the <strong>Navigation Drawer</strong> here, or change the area, or refresh the view. To do that, you will need to go back 
+                    to the main Activity.</p>
+                    <h3>Known issues with the Graph View</h3>
+                    <p>The main issue at the moment is that the labels on the graph do not display correctly. These screenshots show the ideal graph: 
+                    short labels, and the total column is omitted. In many cases, the ONS variable names are too long to properly display on the graph, and 
+                    totals cannot be easily excluded, as they do not have regular names (or, less commonly, variables that should go on the graph have 
+                    names that may make an algorithm exclude them).</p>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <img src="./images/graphs-vert_framed.png" class="autoscale img-thumbnail" alt="A dataset being displayed as a graph with legend vertically." />
+                </div>
+        </section>
+        
+        <section id="attrib">
+            <div class="jumbotron jumbotron-section">
+                <h1>Credits</h1>
+                <p>Thank you for those amazing open source libraries and services.</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://github.com/Androguide/cardsui-for-android">CardsUI</a></h3>
+                    <p>As seen in the Summary View</p>
+                    <p>An open source library offering the popular Google Now & Google Play cards views,
+                    additionnal features, view recycling and an optional Model-View-Controller structure.</p>
+                    <p>CardsUI is <a href="https://github.com/Androguide/cardsui-for-android/blob/master/LICENSE.txt">licensed under the Apache License 2.0</a></p>
+                    <p><small><a href="https://github.com/Androguide/cardsui-for-android/commit/1c484f0dd384d2d35e9428092a44b923a7b4de10">I helped!</a></small></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://bitbucket.org/danielnadeau/holographlibrary">HoloGraphLibrary</a></h3>
+                    <p>As seen in the Graph View</p>
+                    <p>This is a library written to allow beautiful graphs and charts to be easily incorporated into your Android application.</p>
+                    <p>HoloGraphLibrary is <a href="https://bitbucket.org/danielnadeau/holographlibrary/src/b1def52ac11cda6367eb2e7a6bb485d9867d7fa6/HoloGraphLibrary/LICENSE.txt?at=master">licensed under the Apache License 2.0</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://github.com/keyboardsurfer/Crouton">Crouton</a></h3>
+                    <p>As seen everywhere in the UI</p>
+                    <p>Crouton is a class that can be used by Android developers that feel the need for an alternative to the Context insensitive Toast.</p>
+                    <p>Crouton is <a href="https://github.com/keyboardsurfer/Crouton/blob/master/LICENSE">licensed under the Apache License 2.0</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://code.google.com/p/guava-libraries/">Guava Libraries</a></h3>
+                    <p>Powers some behind-the-scenes stuff.</p>
+                    <p>The Guava project contains several of Google's core libraries that we rely on in our Java-based projects: collections, caching, primitives support,
+                    concurrency libraries, common annotations, string processing, I/O, and so forth.</p>
+                    <p>Guava is <a href="https://code.google.com/p/guava-libraries/source/browse/COPYING">licensed under the Apache License 2.0</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://code.google.com/p/google-gson/">Gson</a></h3>
+                    <p>Understanding web services.</p>
+                    <p>Gson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON 
+                    string to an equivalent Java object. Gson can work with arbitrary Java objects including pre-existing objects that you do not have 
+                    source-code of.</p>
+                    <p>Gson is <a href="https://www.apache.org/licenses/LICENSE-2.0">licensed under the Apache License 2.0</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="https://commons.apache.org/proper/commons-io/">Commons IO</a></h3>
+                    <p>Stream decoding behind the scenes.</p>
+                    <p>Commons IO is a library of utilities to assist with developing IO functionality.</p>
+                    <p>Commons IO is <a href="https://www.apache.org/licenses/LICENSE-2.0">licensed under the Apache License 2.0</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="http://neighbourhood.statistics.gov.uk/dissemination/Info.do?page=nde.htm">Neighbourhood Data Exchange</a></h3>
+                    <p>Main data source for Areabase.</p>
+                    <p>The Neighbourhood Statistics (NeSS) Data Exchange (NDE) is the name given to the Application Programming Interface (API) designed for NeSS.
+                    An online service designed to make it easier to interrogate and engage with the NeSS Datastore. Using machine to machine technology,
+                    it will speed up and simplify data requests and still allow access to over 400 geographically referenced datasets, free of charge.</p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="http://data.police.uk/">Police data</a></h3>
+                    <p>Crime data source for Areabase.</p>
+                    <p>The API provides a rich data source for information, including neighbourhood team members, upcoming events, 
+                    street-level crime and outcome data, and nearest police stations.</p>
+                    <p>Data accessible through this service is <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/">licensed under the Open Government License.</a></p>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <h3><a href="http://uk-postcodes.com/">UK Postcodes</a></h3>
+                    <p>To resolve GPS coordinates into a postcode.</p>
+                    <p>UK Postcodes is a webservice for postcodes in Great Britain and Northern Ireland. As well as geographical information,
+                    it also returns information about council areas and constituencies.</p>
+                    <p>Data accessible through this service is <a href="http://www.ordnancesurvey.co.uk/docs/licences/os-opendata-licence.pdf">licensed under the Ordnance Survey OS OpenData License <span class="badge">pdf</span>.</a></p>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>The Areabase license</h2>
+                    <p>At the moment, I am licensing Areabase under <a href="https://www.gnu.org/licenses/gpl.html">GPL version 3</a>, however I reserve the right to change this
+                    at any time without notice. The Areabase code that I wrote (not the stuff copied from Wikibooks) remains my property unless <a href="http://www.aqa.org.uk/">AQA</a> 
+                    or <a href="http://www.ctksfc.ac.uk/">CTK</a> choose to be very annoying. To fulfil my end of the GPL v3, here is the source code link: 
+                    <a href="https://github.com/FLamparski/areabase">Areabase on GitHub</a>.</p>
+                    <p>Areabase &copy; 2013-2014 Filip Wieland "<a href="https://github.com/FLamparski/">@FLamparski</a>"</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+  </body>
+</html>
+
