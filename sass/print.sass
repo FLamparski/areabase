@@ -106,3 +106,12 @@ h1, h2, h3, h4, h5, h6
     @include clearfix()
     display: block
     page-break-before: always
+  @page
+    size: 210mm 297mm
+    orphans: 4
+    widows: 2
+  @top-left
+    content: "Areabase | User Manual | Filip Wieland (3026 @ 10743)"
+
+a[href^='#']::after
+  content: " (page " target-counter(attr(href), page) ")" !important

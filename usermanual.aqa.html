@@ -57,8 +57,20 @@
             </div>
         </div>
 
+        <div class="visible-print">
+            <ul class="nav nav-print-toc">
+                <li><a href="#top">Home</a></li>
+                <li><a href="#about">About Areabase</a></li>
+                <li><a href="#summary">Summaries</a></li>
+                <li><a href="#subject-views">Subject Views</a></li>
+                <li><a href="#graph-activities">Graphing Datasets</a></li>
+                <li><a href="#attrib">Credits</a></li>
+            </ul>
+        </div>
+
         <section class="row" id="about">
-            <div class="col-lg-9 col-sm-8">
+
+            <div class="areabase-intro">
                 <h2>Why Areabase <small>Easy data</small></h2>
                 <p>Everyone needs statistical geography for one reason or another. Moving houses? Check for crime data. Interested in demographics?
                 Quickly glance at Areabase to see a brief description of the area you're in. It's as easy as that.</p>
@@ -74,21 +86,24 @@
                 <h3>ONS Data <small>Finally something that works on touchscreens</small></h3>
                 <p>Let's face it, the ONS web application sucks on PCs and sucks even more on mobiles. Areabase aims to fix the mobile bit.</p>
             </div>
-            <div class="col-lg-3 col-sm-4">
+            <div class="areabase-dl">
                 <div class="thumbnail">
                 <img src="./images/areabase3-thumb.png" />
                 <div class="caption">
                 <h3>Getting Areabase</h3>
                 <p>Areabase can be installed via the Google Play Store. Simply click the link below, and press "Install", then accept the app permissions. If you are on
                 a non-Android device, you will be asked to send the app to a device you wish to install it on.</p>
-                <p>
+                <p class="hidden-print">
                     <a href="https://play.google.com/store/apps/details?id=lamparski.areabase">
                         <img alt="Get it on Google Play"
                             src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" />
                     </a>
                 </p>
-                <p class="visible-lg visible-md">You can also scan this QR code with your Android device:</p>
-                <p class="center-text visible-lg visible-md">
+                <p class="visible-print">
+                    https://play.google.com/store/apps/details?id=lamparski.areabase
+                </p>
+                <p class="visible-lg visible-md mprintlink">You can also scan this QR code with your Android device:</p>
+                <p class="center-text visible-lg visible-md mprintlink">
                     <img src="http://zxing.org/w/chart?cht=qr&chs=100x100&chld=L&choe=UTF-8&chl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dlamparski.areabase"/>
                 </p>
                 </div>
@@ -102,7 +117,8 @@
                 <h1>Summary Views</h1>
                 <p>A narrative description of your area of choice.</p>
             </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-xs-12">
+                <img class="img-responsive pull-right col-xs-6" src="./images/summary-view-framed.png"/>
                 <h2>This is the Summary View</h2>
                 <p>At the top, you can see the Action Bar: this will allow you to open up the Navigation Drawer by clicking on the application icon, load the 
                 area for the current location, search for areas (by name fragment or postcode), refresh the current view, and see other options.</p>
@@ -123,15 +139,10 @@
                 <a href="http://www.statistics.gov.uk/hub/index.html">UK National Statistics</a> and <a href="http://data.police.uk/">police data</a> services. 
                 While I tried to make sure Areabase uses most up-to-date information, the ONS rarely provides "fresh" data through their API.</p>
             </div>
-            <div class="col-lg-6 col-sm-12">
-                <img class="autoscale" src="./images/summary-view-framed.png"/>
-            </div>
         </div>
         <div class="row">
-            <div class="col-lg-6 col-sm-12">
-                <img src="./images/locatebtnimage.png" alt="The Locate button is located on the ActionBar, the at top of the application" class="autoscale"/>
-            </div>
-            <div class="col-lg-6 col-sm-12">
+            <div class="col-xs-12">
+                <img src="./images/locatebtnimage.png" alt="The Locate button is located on the ActionBar, the at top of the application" class="img-responsive col-xs-6 pull-left"/>
                 <h3>Loading areas</h3>
                 <p>The application will, by default, load the first area by itself, based on the device's location as given by the Google Play location services. 
                 While this is usually accurate and fast, sometimes the location given may not necessarily be what you are looking for.</p>
@@ -139,22 +150,18 @@
                 by their name or part of their name, or by a known postcode &ndash; click the <strong>Search</strong> icon and enter your query into the 
                 text box, then press "Search" or "Enter" on your keyboard (screen or hardware).</p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
+        
+            <div class="half-page-column">
                 <h3>Using the Summary Cards</h3>
                 <p>To switch between various summary cards, just tap on the top of the card you want to view, and it will be brought to the front.</p>
             </div>
-            <div class="col-sm-6">
+            <div class="half-page-column">
                 <h3>Using the Map</h3>
                 <p>You can pinch-zoom with two fingers and pan around the map as you would in any other mapping application.</p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-sm-12">
-                <img src="./images/appdraw-open.png" alt="The Navigation Drawer shows links to other parts of the application." class="autoscale" />
-            </div>
-            <div class="col-lg-6 col-sm-12">
+        
+            <div class="col-xs-12">
+                <img src="./images/appdraw-open.png" alt="The Navigation Drawer shows links to other parts of the application." class="img-responsive col-xs-6 pull-left" />
                 <h3>Navigation</h3>
                 <p>To see other options, swipe from the left side of the screen, or click the application icon in the Action Bar. This will bring up the 
                 <strong>Navigation Drawer</strong>, from which you can access other areas of the application:</p>
@@ -245,6 +252,32 @@
                     </div>
                 </div>
             </div>
+            <div class="row visible-print">
+                <div class="col-xs-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-root.png" alt="All of the subjects available for the given area." class="img-responsive"/>
+                        <div class="caption">
+                            <p>All of the subjects available for the given area.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-subj_list.png" alt="Datasets available within a selected subject." class="img-responsive"/>
+                        <div class="caption">
+                            <p>Datasets available within the selected subject. The chart icon means that it is possible to graph the dataset.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <div class="thumbnail">
+                        <img src="./images/subjv-subj_expand.png" alt="View a dataset." class="img-responsive"/>
+                        <div class="caption">
+                            <p>Expand one of the datasets to view its actual contents. Some datasets also include a link that opens their graph.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         
         <section id="graph-activities">
@@ -253,14 +286,18 @@
                 <p>Visualise the area statistics.</p>
             </div>
             
-            <div class="row">
+            <div class="row hidden-print">
                 <div class="col-xs-12">
-                    <img src="./images/graphs-horiz_framed.png" class="autoscale" alt="A dataset being displayed as a graph horizontally." />
+                    <img src="./images/graphs-horiz_framed.png" class="img-responsive" alt="A dataset being displayed as a graph horizontally." />
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 col-xs-12">
+                <div class="col-xs-12">
                     <h2>This is the Graph View</h2>
+                    <div class="half-page-column pull-right">
+                        <img src="./images/graphs-horiz_framed.png" class="img-responsive visible-print" />
+                        <img src="./images/graphs-vert_framed.png" class="img-responsive" alt="A dataset being displayed as a graph with legend vertically." />
+                    </div>
                     <div class="alert alert-info">Graphing is still an experimental feature, and many datasets may produce wonky looking graphs.</div>
                     <p>Statistical data is best viewed on a graph. This is what Areabase delivers with its Graph Views.</p>
                     <p>To enter Graph View, you need to select a viable dataset in Subject View and click the blue "Graph this data" link. A new window will open, 
@@ -276,9 +313,7 @@
                     totals cannot be easily excluded, as they do not have regular names (or, less commonly, variables that should go on the graph have 
                     names that may make an algorithm exclude them).</p>
                 </div>
-                <div class="col-md-6 col-xs-12">
-                    <img src="./images/graphs-vert_framed.png" class="autoscale img-thumbnail" alt="A dataset being displayed as a graph with legend vertically." />
-                </div>
+
         </section>
         
         <section id="attrib">
@@ -293,20 +328,20 @@
                     <p>As seen in the Summary View</p>
                     <p>An open source library offering the popular Google Now & Google Play cards views,
                     additionnal features, view recycling and an optional Model-View-Controller structure.</p>
-                    <p>CardsUI is <a href="https://github.com/Androguide/cardsui-for-android/blob/master/LICENSE.txt">licensed under the Apache License 2.0</a></p>
-                    <p><small><a href="https://github.com/Androguide/cardsui-for-android/commit/1c484f0dd384d2d35e9428092a44b923a7b4de10">I helped!</a></small></p>
+                    <p>CardsUI is <a href="https://www.apache.org/licenses/LICENSE-2.0">licensed under the Apache License 2.0</a></p>
+                    <p class="hidden-print"><small><a href="https://github.com/Androguide/cardsui-for-android/commit/1c484f0dd384d2d35e9428092a44b923a7b4de10">I helped!</a></small></p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <h3><a href="https://bitbucket.org/danielnadeau/holographlibrary">HoloGraphLibrary</a></h3>
                     <p>As seen in the Graph View</p>
                     <p>This is a library written to allow beautiful graphs and charts to be easily incorporated into your Android application.</p>
-                    <p>HoloGraphLibrary is <a href="https://bitbucket.org/danielnadeau/holographlibrary/src/b1def52ac11cda6367eb2e7a6bb485d9867d7fa6/HoloGraphLibrary/LICENSE.txt?at=master">licensed under the Apache License 2.0</a></p>
+                    <p>HoloGraphLibrary is <a href="https://www.apache.org/licenses/LICENSE-2.0">licensed under the Apache License 2.0</a></p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <h3><a href="https://github.com/keyboardsurfer/Crouton">Crouton</a></h3>
                     <p>As seen everywhere in the UI</p>
                     <p>Crouton is a class that can be used by Android developers that feel the need for an alternative to the Context insensitive Toast.</p>
-                    <p>Crouton is <a href="https://github.com/keyboardsurfer/Crouton/blob/master/LICENSE">licensed under the Apache License 2.0</a></p>
+                    <p>Crouton is <a href="https://www.apache.org/licenses/LICENSE-2.0">licensed under the Apache License 2.0</a></p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                     <h3><a href="https://code.google.com/p/guava-libraries/">Guava Libraries</a></h3>
