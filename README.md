@@ -43,3 +43,7 @@ This repository also contains a source copy of [Action Bar Sherlock](http://acti
 The Areabase uses the [RoboGuice](https://github.com/roboguice/roboguice) library licensed under Apache 2.0 license.
 
 The NeSSTest program uses SWT. _Note:_ you may need to supply your own version of SWT as it is a native library. This one will work on 64-bit Linux environments with GTK+ 2 installed.
+
+### Other stuff
+
+Why not visit [my blog](http://www.filipwieland.com/blog)? Also try [Ipsum](https://ipsum.filipwieland.com).
